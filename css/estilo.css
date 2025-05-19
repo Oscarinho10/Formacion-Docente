@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+}
+
+.sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background-color: #1B1D50;
+    color: white;
+    padding-top: 20px;
+    z-index: 1100; /* más alto que main-content */
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 12px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #004080;
+}
+
+.main-content h1,
+.main-content h3,
+.main-content h4 {
+    margin: 2px 0;
+    /* reduce el espacio vertical entre los textos */
+    padding: 0;
+}
+
+.main-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Toda la parte superior */
+    height: 150px;
+    /* Ajusta el alto según necesites */
+    background-color: #1B1D50;
+    color: white;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 1000; /* esto está bien */
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    width: 150px;
+    height: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
