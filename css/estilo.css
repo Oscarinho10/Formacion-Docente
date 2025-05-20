@@ -4,26 +4,129 @@ body {
     background: #f9f9f9;
 }
 
-.sidebar {
+.titulo {
+    font-family: 'Open Sans', 'Raleway', sans-serif;
+    background-color: #001660;
+}
+
+.menu-font {
+    font-size: 1.2rem;
+}
+
+.menu-font:hover {
+    color: #001660 !important;
+}
+
+.menu-borde {
+    background: linear-gradient(to right,
+            rgba(42, 155, 161, 1) 0%,
+            rgba(10, 65, 152, 100) 100%) left bottom transparent no-repeat;
+    background-size: 100% 3px;
+}
+
+.texto-mayus {
+    text-transform: uppercase;
+}
+
+.letra-negro {
+    color: black;
+}
+
+.sin-bgcolor {
+    background-color: unset;
+}
+
+.sombra {
+    transition: box-shadow 0.5s;
+}
+
+.sombra:hover {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+}
+
+/* Colores de fondo */
+.fondo-footer-escritorio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.fondo-figura {
+  fill: #000; /* negro a la izquierda */
+}
+
+/* Fondo azul para info de contacto */
+#miFooter {
+  position: relative;
+  background-color: #2f4f96; /* Azul UAEM */
+  color: white;
+  overflow: hidden;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Íconos redondos */
+.icon-button {
+  display: inline-block;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  text-align: center;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  color: black;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+/* Colores personalizados para redes */
+.rs-correo i { color: #007bff; }
+.rs-facebook i { color: #3b5998; }
+.rs-youtube i { color: red; }
+
+/* Centrado vertical */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+  .fondo-footer-escritorio {
+    display: none !important;
+  }
+
+  .fondo-footer-movil,
+  .fondo-footer-movil2 {
+    background-color: #2f4f96;
+    text-align: center;
+  }
+
+  .icon-button {
+    margin: 10px 5px;
+  }
+}
+
+/* .sidebar {
     position: fixed;
     width: 200px;
     height: 100%;
-    background-color: #1B1D50;
+    background-color: #003B6A;
     color: white;
     padding-top: 20px;
-    z-index: 1100; /* más alto que main-content */
-}
+    z-index: 1100; /* más alto que main-content 
+} */
 
-.logo {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.logo img {
-    width: 150px;
-    height: auto;
-}
-
-.sidebar ul {
+/* .sidebar ul {
     list-style-type: none;
     padding: 0;
 }
@@ -36,34 +139,58 @@ body {
     color: white;
     text-decoration: none;
     display: block;
-}
+} */
 
-.sidebar ul li a:hover {
+/* .sidebar ul li a:hover {
     background-color: #004080;
-}
-
-.main-content h1,
-.main-content h3,
-.main-content h4 {
-    margin: 2px 0;
-    /* reduce el espacio vertical entre los textos */
-    padding: 0;
-}
+} */
 
 .main-content {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    /* Toda la parte superior */
-    height: 150px;
-    /* Ajusta el alto según necesites */
-    background-color: #1B1D50;
+    height: 208px;
+    background-color: #003B7A;
     color: white;
-    padding: 5px;
+    padding: 10px 20px;
     box-sizing: border-box;
-    z-index: 1000; /* esto está bien */
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente el logo y los textos */
+    height: 100%;
+}
+
+.logo img {
+    width: 160px;
+    height: auto;
+    margin-right: 150px;
+    /* Espacio entre el logo y los textos */
+    margin-left: 70px;
+    /* Espacio entre el logo y los textos */
+
+}
+
+.titles {
     text-align: center;
+}
+
+.titles h2,
+.titles h3,
+.titles h4 {
+    margin: 2px 0;
+}
+
+.logo2 img {
+    width: 300px;
+    height: auto;
+    margin-left: 150px;
+    margin-right: 70px;
+    /* Espacio entre el logo y los textos */
 }
 
 .cards {
@@ -83,4 +210,86 @@ body {
     padding: 10px;
     font-size: 14px;
     line-height: 1.6;
+}
+
+/* LOGIN personalizado basado en la imagen */
+.login-container {
+    display: flex;
+    max-width: 900px;
+    margin: 50px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.login-form {
+    flex: 1;
+    padding: 40px 30px;
+    background-color: #ffffff;
+}
+
+.login-info {
+    flex: 1;
+    background-color: #001660;
+    color: white;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Cambiado de space-between */
+    text-align: left;
+    position: relative;
+}
+
+.text-container {
+    /* Opcional: para controlar el espacio entre h4 y p */
+    margin-bottom: 20px;
+}
+
+.login-info h4 {
+    font-weight: bold;
+    margin-bottom: 8px; /* espacio debajo del h4 */
+}
+
+.login-info p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.login-info img {
+    width: 80px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    margin: 0;
+}
+
+.login-form .form-control {
+    margin-bottom: 15px;
+}
+
+.login-form .btn-primary {
+    background-color: #001660;
+    border: none;
+}
+
+.login-form .btn-primary:hover {
+    background-color: #002288;
+}
+
+.login-form .btn-success {
+    margin-top: 15px;
+    background-color: #28a745;
+    border: none;
+}
+
+.login-form .btn-success:hover {
+    background-color: #218838;
+}
+
+.login-form .small-link {
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 10px;
+    color: #001660;
+    text-decoration: none;
 }
