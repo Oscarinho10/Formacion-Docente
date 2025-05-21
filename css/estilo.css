@@ -1,11 +1,23 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
+    font-family:'Raleway',sans-serif;
+    background-color: #d3d3d329;
+    margin-bottom: 190px;
 }
 
 .titulo {
-    font-family: 'Open Sans', 'Raleway', sans-serif;
+    /*background: -moz-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* ff3.6+ */
+     /*background: -webkit-gradient(linear, left top, right top, color-stop(0%, #7ec1c8), color-stop(15%, #169fac), color-stop(30%, #00898c), color-stop(65%, #005f70), color-stop(100%, #005f70)); /* safari4+,chrome */
+     /*background: -webkit-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* safari5.1+,chrome10+ */
+     /*background: -o-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* opera 11.10+ */
+     /*background: -ms-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* ie10+ */
+     /*background: linear-gradient(90deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* w3c */
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ec1c8', endColorstr='#005f70',GradientType=1 ); /* ie6-9 */
+    font-family: 'Open Sans','Raleway',sans-serif;
     background-color: #001660;
 }
 
@@ -18,22 +30,58 @@ body {
 }
 
 .menu-borde {
-    background: linear-gradient(to right,
-            rgba(42, 155, 161, 1) 0%,
-            rgba(10, 65, 152, 100) 100%) left bottom transparent no-repeat;
-    background-size: 100% 3px;
+    /*padding-bottom: 2px;*/
+    background:
+        linear-gradient(
+        to right, 
+          rgba(42,155,161,1) 0%,
+          rgba(10,65,152,100) 100%
+        )
+        left 
+        bottom
+        transparent
+        no-repeat; 
+      background-size: 100% 3px ;
 }
 
-.texto-mayus {
-    text-transform: uppercase;
+/* Evita que el contenido se salga del submenu */
+.salto-linea {
+    white-space: unset;
+}
+
+/* Elimina el color del fondo */
+.sin-bgcolor {
+    background-color: unset;
 }
 
 .letra-negro {
     color: black;
 }
 
-.sin-bgcolor {
-    background-color: unset;
+#miFooter {
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.fondo-footer-escritorio {
+    background-color: #3a5a96;
+    position: absolute;
+    z-index: -1;
+    background-image: imagenes/logos
+}
+
+.fondo-figura {
+    fill: black;
+}
+
+.fondo-footer-movil {
+    background-color: #003b6a;
+}
+
+.fondo-footer-movil2 {
+    background-color: black;
 }
 
 .sombra {
@@ -41,79 +89,181 @@ body {
 }
 
 .sombra:hover {
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
 }
 
-/* Colores de fondo */
-.fondo-footer-escritorio {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
+.texto-mayus {
+    text-transform: uppercase;
 }
 
-.fondo-figura {
-  fill: #000; /* negro a la izquierda */
-}
-
-/* Fondo azul para info de contacto */
-#miFooter {
-  position: relative;
-  background-color: #2f4f96; /* Azul UAEM */
-  color: white;
-  overflow: hidden;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-/* Íconos redondos */
+/* Envoltura */
 .icon-button {
-  display: inline-block;
-  margin: 10px;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 50%;
-  background-color: white;
-  text-align: center;
-  font-size: 24px;
-  transition: all 0.3s ease;
-  color: black;
-}
-
-.icon-button:hover {
-  transform: scale(1.1);
-}
-
-/* Colores personalizados para redes */
-.rs-correo i { color: #007bff; }
-.rs-facebook i { color: #3b5998; }
-.rs-youtube i { color: red; }
-
-/* Centrado vertical */
-.flex-center {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-/* Responsive ajustes */
-@media (max-width: 768px) {
-  .fondo-footer-escritorio {
-    display: none !important;
-  }
-
-  .fondo-footer-movil,
-  .fondo-footer-movil2 {
-    background-color: #2f4f96;
+    background-color: white;
+    border-radius: 3.6rem;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 2.0rem;
+    height: 3.6rem;
+    line-height: 3.6rem;
+    margin: 0 5px;
+    position: relative;
     text-align: center;
-  }
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    width: 3.6rem;
+    text-decoration: none !important;
+}
 
-  .icon-button {
-    margin: 10px 5px;
-  }
+/* Circulo */
+.icon-button span {
+    border-radius: 0;
+    display: block;
+    height: 0;
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: all 0.3s;
+       -moz-transition: all 0.3s;
+         -o-transition: all 0.3s;
+            transition: all 0.3s;
+    width: 0;
+}
+
+.icon-button:hover span {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 3.6rem;
+    margin: -1.8rem;
+}
+
+/* Iconos */
+.icon-button i {
+    background: none;
+    color: white;
+    height: 3.6rem;
+    left: 0;
+    line-height: 3.6rem;
+    position: absolute;
+    top: 0;
+    -webkit-transition: all 0.3s;
+       -moz-transition: all 0.3s;
+         -o-transition: all 0.3s;
+            transition: all 0.3s;
+    width: 3.6rem;
+    z-index: 10;
+}
+
+.rs-correo span {
+    background-color: #0074cf;
+}
+
+.rs-facebook span {
+    background-color: #3f5c99;
+}
+
+.rs-youtube span {
+    background-color: #ff0b00;
+}
+
+.icon-button .fa-envelope {
+    color: #0074cf;
+}
+
+.icon-button .fa-facebook-f {
+    color: #3f5c99;
+}
+
+.icon-button .fa-youtube {
+    color: #ff0b00;
+}
+
+.icon-button:hover .fa-envelope,
+.icon-button:hover .fa-facebook-f,
+.icon-button:hover .fa-youtube {
+    color: white;
+}
+
+/* MediaQuery para dispositivos de alta resolucion (resolucion > 768px) */
+@media only screen and (min-width: 768px) {
+    .fondo-alumnos {
+        background: url("../imagenes/fondos/estudiantes.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .fondo-docentes {
+        background: url("../imagenes/fondos/docente.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .fondo-workspace {
+        background: url("../imagenes/fondos/workspace.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .fondo-presencial {
+        background: url("../imagenes/fondos/instrumento.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    /* Submenu de formacion mas ancho para que quepan ambas columnas en dispositivos con alta resolucion */
+    #submenufor {
+        width: 620px;
+        left: -35vh;
+    }
+
+    /* Submenu */
+    .dropdown-menu {
+        box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.6);
+        opacity: 0;
+        display: unset;
+        visibility: hidden;
+        transition: visibility 0s, opacity 0.2s linear;
+        top: 42px;
+    }
+
+    .submenu > a:hover {
+        background-color:#acd0fc4a;
+    }
+
+    /* Muestra el submenu cuando se pasa el cursor encima de un elemento del menu */
+    .dropdown:hover > .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Sin esto cuando se da clic se muestra permanentemente */
+    .dropdown > .dropdown-toggle:active {
+        /*pointer-events: none;*/
+    }
+}
+
+/* MediaQuery para corregir submenu formacion */
+@media only screen and (min-width: 768px) and (max-width: 883px) {
+    /* Submenu */
+    .dropdown-menu {
+        top: 70px;
+    }
+}
+
+/* MediaQuery para corregir submenu formacion */
+@media only screen and (min-width: 840px) {
+    #submenufor {
+        width: 620px;
+        left: -20vh;
+    }
+}
+
+/* MediaQuery para corregir submenu formacion */
+@media only screen and (min-width: 960px) {
+    #submenufor {
+        width: 620px;
+        left: unset;
+    }
 }
 
 /* .sidebar {
