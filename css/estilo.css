@@ -4,20 +4,20 @@ html {
 }
 
 body {
-    font-family:'Raleway',sans-serif;
+    font-family: 'Raleway', sans-serif;
     background-color: #d3d3d329;
     margin-bottom: 190px;
 }
 
 .titulo {
     /*background: -moz-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* ff3.6+ */
-     /*background: -webkit-gradient(linear, left top, right top, color-stop(0%, #7ec1c8), color-stop(15%, #169fac), color-stop(30%, #00898c), color-stop(65%, #005f70), color-stop(100%, #005f70)); /* safari4+,chrome */
-     /*background: -webkit-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* safari5.1+,chrome10+ */
-     /*background: -o-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* opera 11.10+ */
-     /*background: -ms-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* ie10+ */
-     /*background: linear-gradient(90deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* w3c */
+    /*background: -webkit-gradient(linear, left top, right top, color-stop(0%, #7ec1c8), color-stop(15%, #169fac), color-stop(30%, #00898c), color-stop(65%, #005f70), color-stop(100%, #005f70)); /* safari4+,chrome */
+    /*background: -webkit-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* safari5.1+,chrome10+ */
+    /*background: -o-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* opera 11.10+ */
+    /*background: -ms-linear-gradient(0deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* ie10+ */
+    /*background: linear-gradient(90deg, #7ec1c8 0%, #169fac 15%, #00898c 30%, #005f70 65%, #005f70 100%); /* w3c */
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ec1c8', endColorstr='#005f70',GradientType=1 ); /* ie6-9 */
-    font-family: 'Open Sans','Raleway',sans-serif;
+    font-family: 'Open Sans', 'Raleway', sans-serif;
     background-color: #001660;
 }
 
@@ -32,16 +32,10 @@ body {
 .menu-borde {
     /*padding-bottom: 2px;*/
     background:
-        linear-gradient(
-        to right, 
-          rgba(42,155,161,1) 0%,
-          rgba(10,65,152,100) 100%
-        )
-        left 
-        bottom
-        transparent
-        no-repeat; 
-      background-size: 100% 3px ;
+        linear-gradient(to right,
+            rgba(42, 155, 161, 1) 0%,
+            rgba(10, 65, 152, 100) 100%) left bottom transparent no-repeat;
+    background-size: 100% 3px;
 }
 
 /* Evita que el contenido se salga del submenu */
@@ -89,9 +83,9 @@ body {
 }
 
 .sombra:hover {
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.6);
 }
 
 .texto-mayus {
@@ -111,9 +105,9 @@ body {
     position: relative;
     text-align: center;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 3.6rem;
     text-decoration: none !important;
 }
@@ -128,9 +122,9 @@ body {
     position: absolute;
     top: 50%;
     -webkit-transition: all 0.3s;
-       -moz-transition: all 0.3s;
-         -o-transition: all 0.3s;
-            transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
     width: 0;
 }
 
@@ -151,9 +145,9 @@ body {
     position: absolute;
     top: 0;
     -webkit-transition: all 0.3s;
-       -moz-transition: all 0.3s;
-         -o-transition: all 0.3s;
-            transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
     width: 3.6rem;
     z-index: 10;
 }
@@ -218,7 +212,7 @@ body {
 
     /* Submenu */
     .dropdown-menu {
-        box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.6);
+        box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.6);
         opacity: 0;
         display: unset;
         visibility: hidden;
@@ -226,24 +220,25 @@ body {
         top: 42px;
     }
 
-    .submenu > a:hover {
-        background-color:#acd0fc4a;
+    .submenu>a:hover {
+        background-color: #acd0fc4a;
     }
 
     /* Muestra el submenu cuando se pasa el cursor encima de un elemento del menu */
-    .dropdown:hover > .dropdown-menu {
+    .dropdown:hover>.dropdown-menu {
         visibility: visible;
         opacity: 1;
     }
 
     /* Sin esto cuando se da clic se muestra permanentemente */
-    .dropdown > .dropdown-toggle:active {
+    .dropdown>.dropdown-toggle:active {
         /*pointer-events: none;*/
     }
 }
 
 /* MediaQuery para corregir submenu formacion */
 @media only screen and (min-width: 768px) and (max-width: 883px) {
+
     /* Submenu */
     .dropdown-menu {
         top: 70px;
@@ -343,23 +338,25 @@ body {
     /* Espacio entre el logo y los textos */
 }
 
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
 
-.card {
-    background-color: white;
-    border-radius: 10px;
-    width: 150px;
-    height: 100px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
-    line-height: 1.6;
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-text {
+    font-size: 0.9rem;
 }
 
 /* LOGIN personalizado basado en la imagen */
@@ -385,7 +382,8 @@ body {
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Cambiado de space-between */
+    justify-content: flex-start;
+    /* Cambiado de space-between */
     text-align: left;
     position: relative;
 }
@@ -397,7 +395,8 @@ body {
 
 .login-info h4 {
     font-weight: bold;
-    margin-bottom: 8px; /* espacio debajo del h4 */
+    margin-bottom: 8px;
+    /* espacio debajo del h4 */
 }
 
 .login-info p {
