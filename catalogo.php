@@ -2,10 +2,13 @@
 // catalogo.php
 ?>
 
+
 <?php
-include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
+
+// (conexión comentada)include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
 // Ya puedes usar $conn aquí para hacer consultas
 ?>
+
 
 <?php include './HeadAndFoot/header.php'; ?>
 
