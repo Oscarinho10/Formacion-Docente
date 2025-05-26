@@ -3,8 +3,6 @@
 include './HeadAndFoot/header.php';
 ?>
 
-
-
 <!-- Formulario de pre-registro -->
 <div style="width: 600px; margin: 40px auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; font-family: Arial;">
     <h3>Formulario de pre-resgistro</h3>
