@@ -54,8 +54,8 @@ include './components/sideBar.php'
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right; padding: 10px;">
-                    <a href="./login.php" type="reset" style="background-color: #ccc; color: black; padding: 10px 20px; border: none;">Cancelar</a>
-                    <button type="submit" style="background-color: #00aa00; color: white; padding: 10px 20px; border: none;">Enviar</button>
+                    <a href="./login.php" type="button" class="btn btn-outline-danger">Cancelar</a>
+                    <a href="./" type="button" class="btn btn-outline-success">Enviar</a>
                 </td>
             </tr>
 
