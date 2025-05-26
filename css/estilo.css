@@ -416,7 +416,7 @@ body {
     margin-bottom: 15px;
 }
 
-.login-form .btn-primary {
+.login-form .btn-outline-primary {
     background-color: #001660;
     border: none;
 }
@@ -425,7 +425,7 @@ body {
     background-color: #002288;
 }
 
-.login-form .btn-success {
+.login-form .btn-outline-success {
     margin-top: 15px;
     background-color: #28a745;
     border: none;
