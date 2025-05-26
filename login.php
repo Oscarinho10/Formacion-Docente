@@ -3,9 +3,9 @@
 ?>
 
 <?php
-include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
+//include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
 // Ya puedes usar $conn aquí para hacer consultas
-?>
+?> 
 
 <?php include './HeadAndFoot/header.php'; ?>
 
@@ -22,7 +22,7 @@ include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una
         <button class="btn btn-primary w-100">Iniciar sesión</button>
         <a href="#" class="small-link">¿Olvidaste tu contraseña?</a>
 
-        <button class="btn btn-success w-100">Registrarse</button>
+        <a href="./preRegister.php" class="btn btn-success w-100">Registrarse</a>
     </div>
 
     <!-- Columna de información -->
