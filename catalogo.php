@@ -10,7 +10,7 @@
 ?>
 
 
-<?php include './HeadAndFoot/header.php'; ?>
+<?php include ('HeadAndFoot/header.php'); ?>
 
 <div class="container py-4">
     <div class="row">
@@ -33,4 +33,4 @@
     </div>
 </div>
 
-<?php include './HeadAndFoot/footer.php'; ?>
+<?php include ('HeadAndFoot/footer.php'); ?>
