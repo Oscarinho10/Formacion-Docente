@@ -15,16 +15,18 @@
 <div class="login-container">
     <!-- Columna del formulario -->
     <div class="login-form">
-        <h5 class="mb-4">Correo electrónico*</h5>
+        <h5 class="mt-3 mb-2">Correo electrónico*</h5>
         <input type="email" class="form-control" placeholder="Ingresa tu correo">
 
         <h5 class="mt-3 mb-2">Contraseña*</h5>
         <input type="password" class="form-control" placeholder="Ingresa tu contraseña">
 
         <button class="btn btn-primary w-100">Iniciar sesión</button>
+
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/preRegister.php'" class="btn btn-success w-100">Registrarse</button>
+
         <a href="#" class="small-link">¿Olvidaste tu contraseña?</a>
 
-        <a href="<?php echo BASE_URL;?>/preRegister.php" class="btn btn-success w-100">Registrarse</a>
     </div>
 
     <!-- Columna de información -->
@@ -33,10 +35,10 @@
             <h4>Sistema de formación docente</h4>
             <p>Capacitación para renovar la práctica docente, impulsar la innovación educativa y favorecer el desarrollo integral del estudiantado.</p>
         </div>
-        <img src="<?php echo BASE_URL;?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
-        <!--<img src="<?php echo BASE_URL;?>/Formacion-Docente/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid"> -->
+        <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
+        <!--<img src="<?php echo BASE_URL; ?>/Formacion-Docente/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid"> -->
     </div>
 
 </div>
 
-<?php include ('HeadAndFoot/footer.php'); ?>
+<?php include('HeadAndFoot/footer.php'); ?>

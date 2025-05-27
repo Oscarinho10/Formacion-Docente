@@ -416,7 +416,7 @@ body {
     margin-bottom: 15px;
 }
 
-.login-form .btn-outline-primary {
+.login-form .btn-primary {
     background-color: #001660;
     border: none;
 }
@@ -425,7 +425,7 @@ body {
     background-color: #002288;
 }
 
-.login-form .btn-outline-success {
+.login-form .btn-success {
     margin-top: 15px;
     background-color: #28a745;
     border: none;
@@ -441,6 +441,7 @@ body {
     margin-top: 10px;
     color: #001660;
     text-decoration: none;
+    text-align: center;
 }
 
 .card-container2 {
@@ -463,20 +464,23 @@ body {
     color: black;
 
     flex: 1 1 100%;
-    max-width: 300px; /* Limita el ancho máximo */
+    max-width: 300px;
+    /* Limita el ancho máximo */
 }
 
 
 @media (min-width: 768px) {
     .card2 {
         flex: 1 1 calc(50% - 30px);
-        max-width: 300px; /* Mantiene tamaño compacto */
+        max-width: 300px;
+        /* Mantiene tamaño compacto */
     }
 }
 
 .card2:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
 }
 
 .card2 img {
@@ -493,5 +497,3 @@ body {
     font-weight: bold;
     text-align: center;
 }
-
-
