@@ -3,11 +3,13 @@
 ?>
 
 <?php
-include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
+//include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una carpeta
 // Ya puedes usar $conn aquí para hacer consultas
 ?>
 
-<?php include './HeadAndFoot/header.php'; ?>
+<?php include('HeadAndFoot/header.php'); ?>
+
+
 
 <!-- LOGIN -->
 <div class="login-container">
@@ -31,9 +33,9 @@ include './config/conexion.php'; // o 'config/conexion.php' si lo pusiste en una
             <h4>Sistema de formación docente</h4>
             <p>Capacitación para renovar la práctica docente, impulsar la innovación educativa y favorecer el desarrollo integral del estudiantado.</p>
         </div>
-        <img src="./img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
+        <img src="<?php echo BASE_URL;?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
     </div>
 
 </div>
 
-<?php include './HeadAndFoot/footer.php'; ?>
+<?php include ('HeadAndFoot/footer.php'); ?>

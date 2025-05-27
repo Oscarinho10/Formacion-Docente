@@ -1,6 +1,6 @@
+<?php include_once(dirname(__FILE__) . '/../config/config.php'); ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="index" />
@@ -10,31 +10,29 @@
 
     <title>Formación Docente</title>
 
-    <!-- Estilos css-->
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="./css/estilo.css">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
 
-    <!-- Estilos FontAwesome -->
-    <link rel="stylesheet" href="./fontawesome/brands.min.css">
-    <link rel="stylesheet" href="./fontawesome/solid.min.css">
-    <link rel="stylesheet" href="./fontawesome/all.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
 
-    <!-- Estilos Google Fonts -->
-    <link rel="stylesheet" href="./fonts/openSans.css">
-    <link rel="stylesheet" href="./fonts/raleway.css">
+    <!-- Google Fonts (local) -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fonts/openSans.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fonts/raleway.css">
 
-    <script src="./js/scrollreveal.js"></script>
-
+    <!-- JS -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/scrollreveal.js"></script>
 </head>
-
 <body>
-
     <!-- CABECERA -->
     <div class="container-fluid pt-3 pb-3 titulo">
         <div class="row">
             <!-- Logo UAEM -->
             <div class="col-3 p-0 text-center align-self-center">
-                <img src="./img/logo_blanco2.png" class="img-fluid">
+                <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" class="img-fluid"> 
             </div>
 
             <!-- Título versión escritorio -->
@@ -54,7 +52,7 @@
 
             <!-- Logo 'Por una humanidad culta' -->
             <div class="col-3 p-0 text-center align-self-center d-none d-md-block">
-                <img src="./img/uaem_logo2.png" class="img-fluid">
+                <img src="<?php echo BASE_URL; ?>/assets/img/uaem_logo2.png" class="img-fluid">
             </div>
         </div>
     </div>
