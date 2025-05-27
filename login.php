@@ -33,7 +33,7 @@
             <h4>Sistema de formación docente</h4>
             <p>Capacitación para renovar la práctica docente, impulsar la innovación educativa y favorecer el desarrollo integral del estudiantado.</p>
         </div>
-        <img src="<?php echo BASE_URL;?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
+        <img src="<?php echo BASE_URL;?>/Formacion-Docente/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
     </div>
 
 </div>
