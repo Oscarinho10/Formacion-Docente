@@ -442,3 +442,56 @@ body {
     color: #001660;
     text-decoration: none;
 }
+
+.card-container2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.card2 {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+
+    flex: 1 1 100%;
+    max-width: 300px; /* Limita el ancho máximo */
+}
+
+
+@media (min-width: 768px) {
+    .card2 {
+        flex: 1 1 calc(50% - 30px);
+        max-width: 300px; /* Mantiene tamaño compacto */
+    }
+}
+
+.card2:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card2 img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.card-title2 {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+

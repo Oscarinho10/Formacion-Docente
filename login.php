@@ -24,7 +24,7 @@
         <button class="btn btn-primary w-100">Iniciar sesión</button>
         <a href="#" class="small-link">¿Olvidaste tu contraseña?</a>
 
-        <a href="./preRegister.php" class="btn btn-success w-100">Registrarse</a>
+        <a href="<?php echo BASE_URL;?>/preRegister.php" class="btn btn-success w-100">Registrarse</a>
     </div>
 
     <!-- Columna de información -->

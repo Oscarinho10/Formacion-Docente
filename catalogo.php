@@ -24,7 +24,7 @@
                     <p class="card-text">Descubre el poder de la Inteligencia Artificial y cómo está transformando el mundo. ¡El futuro es ahora!</p>
                     <div class="d-flex justify-content-between">
                         <a href="#" class="btn btn-outline-secondary btn-sm">Detalles</a>
-                        <a href="./login.php" class="btn btn-primary btn-sm">Pre-registrarse</a>
+                        <a href="<?php echo BASE_URL;?>/login.php" class="btn btn-primary btn-sm">Pre-registrarse</a>
                     </div>
                 </div>
             </div>

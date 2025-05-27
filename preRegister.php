@@ -54,7 +54,7 @@ include './components/sideBar.php'
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right; padding: 10px;">
-                    <a href="./login.php" type="button" class="btn btn-danger">Cancelar</a>
+                    <a href="<?php echo BASE_URL;?>/login.php" type="button" class="btn btn-danger">Cancelar</a>
                     <a href="./" type="button" class="btn btn-success">Enviar</a>
                 </td>
             </tr>
