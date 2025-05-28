@@ -25,7 +25,7 @@ $hayActividades = pg_num_rows($resultado) > 0;
                             <p class="card-text"><?php echo htmlspecialchars($fila['descripcion']); ?></p>
                             <div class="d-flex justify-content-between">
                                 <a href="#" class="btn btn-outline-secondary btn-sm">Detalles</a>
-                                <a href="<?php echo BASE_URL; ?>/login.php" class="btn btn-primary btn-sm">Pre-registrarse</a>
+                                <button onclick="window.location.href='<?php echo BASE_URL; ?>/login.php'" class="btn btn-primary btn-sm">Pre-registrarse</button>
                             </div>
                         </div>
                     </div>

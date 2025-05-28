@@ -497,3 +497,12 @@ body {
     font-weight: bold;
     text-align: center;
 }
+
+.btn-primary {
+    background-color: #001660 !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: #002288 !important;
+}
