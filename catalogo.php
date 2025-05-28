@@ -1,12 +1,12 @@
 <?php
- // include('config/conexion.php');
+ include('config/conexion.php');
 
 // Consulta solo las actividades activas
-// $query = "SELECT * FROM actividades WHERE estado = 'activa'";
-// $resultado = pg_query($conn, $query);
+$query = "SELECT * FROM actividades WHERE estado = 'activa'";
+$resultado = pg_query($conn, $query);
 
 // Verificamos si hay resultados
-// $hayActividades = pg_num_rows($resultado) > 0;
+$hayActividades = pg_num_rows($resultado) > 0;
 ?>
 
 <?php include('HeadAndFoot/header.php'); 
