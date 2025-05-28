@@ -41,7 +41,7 @@
             </div>
 
             <div class="nav__list">
-                <a href="#" class="nav__link active-link">
+                <a href="../User/User.php" class="nav__link active-link">
 
                     <span class="nav__name">Menu principal</span>
                 </a>
