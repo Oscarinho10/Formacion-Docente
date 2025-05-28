@@ -4,8 +4,8 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 72px;
-    background-color: #092e53;
+    width: 42px;
+    background-color:  #001660;
     transition: 0.3s;
     z-index: 1000;
 }
@@ -39,7 +39,9 @@
 }
 
 .nav__list {
-    width: 100%;
+      display: flex;
+  flex-direction: column;
+    height  : 100%;
 }
 
 .nav__link {
@@ -52,7 +54,7 @@
 }
 
 .nav__link:hover {
-    background-color: #032a52;
+    background-color:  #003B7A;
     text-decoration: none;
 }
 
@@ -65,9 +67,13 @@
     display: none;
 }
 
+.nav__bottom {
+  margin-top: auto; /* Esto empuja el Cerrar sesión hacia abajo */
+}
+
 /* Active link */
 .active-link {
-    background-color: #072b50;
+    background-color: #001660;
 }
 
 /* Expanded sidebar */
