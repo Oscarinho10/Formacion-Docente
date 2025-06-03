@@ -8,12 +8,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
-        <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
-        <p><strong>Duración:</strong> <span id="modalHoras"></span></p>
-        <p><strong>Modalidad:</strong> <span id="modalModalidad"></span></p>
-        <p><strong>Cupo:</strong> <span id="modalCupo"></span></p>
+
+        <!-- Nuevos campos -->
+        <hr>
+        <p><strong>Lugar:</strong> <span id="modalLugar"></span></p>
+        <p><strong>Tipo:</strong> <span id="modalTipo"></span></p>
+        <p><strong>Fecha de inicio:</strong> <span id="modalInicio"></span></p>
+        <p><strong>Fecha de fin:</strong> <span id="modalFin"></span></p>
+        <p><strong>Dirigido a:</strong> <span id="modalDirigido"></span></p>
+        <p><strong>Horario:</strong> <span id="modalHorario"></span></p>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>

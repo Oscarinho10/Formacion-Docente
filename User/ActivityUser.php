@@ -1,21 +1,10 @@
 <?php
 include('../components/layout.php');
-
-// Conexión a PostgreSQL
-$host = "localhost";
-$port = "5432";
-$dbname = "formacion_docente";
-$user = "jerss";
-$password = "admin";
-
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
-
-if (!$conn) {
-    die("❌ Error al conectar con PostgreSQL.");
-}
+include('../config/conexion.php');
 
 // Consulta para obtener las actividades
-$query = "SELECT nombre, duracion, modalidad, cupo FROM actividades";
+$query = "SELECT nombre, duracion, modalidad, cupo, lugar, tipo, fecha_inicio, fecha_fin, dirigido_a, horario FROM actividades";
+
 $result = pg_query($conn, $query);
 
 $actividades = array();
@@ -24,7 +13,13 @@ while ($row = pg_fetch_assoc($result)) {
         "nombre" => $row["nombre"],
         "horas" => $row["duracion"] . " horas",
         "modalidad" => $row["modalidad"],
-        "cupo" => $row["cupo"] . " participantes"
+        "cupo" => $row["cupo"] . " participantes",
+        "lugar" => $row["lugar"],
+        "tipo" => $row["tipo"],
+        "fecha_inicio" => $row["fecha_inicio"],
+        "fecha_fin" => $row["fecha_fin"],
+        "dirigido_a" => $row["dirigido_a"],
+        "horario" => $row["horario"]
     );
 }
 
@@ -147,10 +142,12 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
                     '<td>' + item.cupo + '</td>' +
                     '<td class="table-actions">' +
                     '<button class="btn btn-sm btn-secondary btn-vermas" ' +
-                    'data-nombre="' + item.nombre + '" ' +
-                    'data-horas="' + item.horas + '" ' +
-                    'data-modalidad="' + item.modalidad + '" ' +
-                    'data-cupo="' + item.cupo + '">Ver más</button>' +
+                    'data-lugar="' + item.lugar + '" ' +
+                    'data-tipo="' + item.tipo + '" ' +
+                    'data-inicio="' + item.fecha_inicio + '" ' +
+                    'data-fin="' + item.fecha_fin + '" ' +
+                    'data-dirigido="' + item.dirigido_a + '" ' +
+                    'data-horario="' + item.horario + '">Ver más</button>' +
                     '<a href="registerActivity.php?curso=' + encodeURIComponent(item.nombre) + '" class="btn btn-sm btn-success">Inscribirme</a>' +
                     '</td>' +
                     '</tr>'
@@ -173,10 +170,13 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             });
 
             $('.btn-vermas').click(function() {
-                $('#modalNombre').text($(this).data('nombre'));
-                $('#modalHoras').text($(this).data('horas'));
-                $('#modalModalidad').text($(this).data('modalidad'));
-                $('#modalCupo').text($(this).data('cupo'));
+                $('#modalLugar').text($(this).data('lugar'));
+                $('#modalTipo').text($(this).data('tipo'));
+                $('#modalInicio').text($(this).data('inicio'));
+                $('#modalFin').text($(this).data('fin'));
+                $('#modalDirigido').text($(this).data('dirigido'));
+                $('#modalHorario').text($(this).data('horario'));
+
                 $('#detalleModal').modal('show');
             });
         }

@@ -10,7 +10,7 @@ include('../components/layout.php');
         <img src="<?php echo BASE_URL; ?>/assets/img/actividad_formativa.png" alt="Actividad Formativa">
         <div class="card-title2">Actividad formativa</div>
     </a>
-    <a href="solicitudes.php" class="card2">
+    <a href="./instructorCertificate.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/instructor.png" alt="Solicitudes">
         <div class="card-title2">Constancia Instructor</div>
     </a>
