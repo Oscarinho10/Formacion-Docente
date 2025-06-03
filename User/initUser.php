@@ -15,7 +15,7 @@ include('../components/layout.php');
         <div class="card-title2">Constancia Instructor</div>
     </a>
 
-    <a href="asistencia.php" class="card2">
+    <a href="./participantCertificate.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/participantes.png" alt="Asistencia">
         <div class="card-title2">Constancia participantes</div>
     </a>
