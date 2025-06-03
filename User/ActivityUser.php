@@ -1,6 +1,5 @@
 <?php
-include('../components/sideBar.php');
-include('../HeadAndFoot/header.php');
+include('../components/layout.php');
 
 // Conexión a PostgreSQL
 $host = "localhost";
@@ -45,11 +44,16 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
 <head>
     <meta charset="UTF-8">
     <title>Tabla con filtros</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .table-actions button {
             margin-right: 5px;
+        }
+
+        .table-container {
+            margin: 20px auto;
+            width: fit-content;
         }
     </style>
 </head>
@@ -83,27 +87,29 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             </div>
         </div>
 
-        <!-- Tabla -->
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="coursesTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Nombre del curso</th>
-                        <th>Total de horas</th>
-                        <th>Modalidad</th>
-                        <th>Cupo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Filas dinámicas -->
-                </tbody>
-            </table>
+        <!-- Contenedor para centrar la tabla -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="coursesTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Nombre del curso</th>
+                            <th>Total de horas</th>
+                            <th>Modalidad</th>
+                            <th>Cupo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Filas dinámicas -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Paginador -->
         <nav>
-            <ul class="pagination justify-content-end" id="pagination">
+            <ul class="pagination justify-content-center" id="pagination">
                 <!-- Botones de página dinámicos -->
             </ul>
         </nav>
@@ -111,7 +117,9 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <script>
         const data = <?php echo json_encode($actividades); ?>;
         const rowsPerPage = 5;
@@ -130,7 +138,7 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             const visibleData = filtered.slice(start, start + rowsPerPage);
 
             $('#tableBody').html('');
-            visibleData.forEach(function(item) {
+            visibleData.forEach(function(item, index) {
                 $('#tableBody').append(
                     '<tr>' +
                     '<td>' + item.nombre + '</td>' +
@@ -138,8 +146,12 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
                     '<td>' + item.modalidad + '</td>' +
                     '<td>' + item.cupo + '</td>' +
                     '<td class="table-actions">' +
-                    '<button class="btn btn-sm btn-secondary">Ver más</button>' +
-                    '<button class="btn btn-sm btn-success">Inscribirme</button>' +
+                    '<button class="btn btn-sm btn-secondary btn-vermas" ' +
+                    'data-nombre="' + item.nombre + '" ' +
+                    'data-horas="' + item.horas + '" ' +
+                    'data-modalidad="' + item.modalidad + '" ' +
+                    'data-cupo="' + item.cupo + '">Ver más</button>' +
+                    '<a href="registerActivity.php?curso=' + encodeURIComponent(item.nombre) + '" class="btn btn-sm btn-success">Inscribirme</a>' +
                     '</td>' +
                     '</tr>'
                 );
@@ -159,6 +171,14 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
                 currentPage = parseInt($(this).text());
                 renderTable();
             });
+
+            $('.btn-vermas').click(function() {
+                $('#modalNombre').text($(this).data('nombre'));
+                $('#modalHoras').text($(this).data('horas'));
+                $('#modalModalidad').text($(this).data('modalidad'));
+                $('#modalCupo').text($(this).data('cupo'));
+                $('#detalleModal').modal('show');
+            });
         }
 
         $('#searchInput, #filterModality').on('input change', function() {
@@ -177,6 +197,8 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             renderTable();
         });
     </script>
+
+    <?php include('./modals/modalDetalles.php'); ?>
 
 </body>
 
