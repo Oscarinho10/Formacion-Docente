@@ -1,7 +1,6 @@
-<?php include('../HeadAndFoot/header.php'); ?>
-
 <?php
-include ('../components/sideBar.php');
+include('../components/layout.php');
+
 ?>
 
 <div class="card-container2">
