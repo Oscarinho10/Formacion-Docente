@@ -6,8 +6,6 @@ include('../components/layout.php');
 
 <div class="card-container2">
 
-
-
     <a href="./ActivityUser.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/actividad_formativa.png" alt="Actividad Formativa">
         <div class="card-title2">Actividad formativa</div>

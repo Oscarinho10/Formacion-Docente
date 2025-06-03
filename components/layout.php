@@ -44,7 +44,7 @@
 
 
             <div class="nav__list">
-                <a href="../User/User.php" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
+                <a href="../User/initUser.php" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
                 <a href="#" class="nav__link"><span class="nav__name">Perfil</span></a>
                 <a href="../User/ActivityUser.php" class="nav__link"><span class="nav__name">Actividad Formativa</span></a>
                 <a href="#" class="nav__link"><span class="nav__name">Constancia instructor</span></a>
@@ -79,11 +79,6 @@
                 <img src="<?php echo BASE_URL; ?>/assets/img/uaem_logo2.png" class="img-fluid" alt="UAEM slogan logo">
             </div>
         </div>
-    </div>
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="container mt-4">
-        <!-- Aquí va el contenido dinámico -->
     </div>
 
     <!-- SCRIPTS -->

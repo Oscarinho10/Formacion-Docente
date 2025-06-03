@@ -5,58 +5,67 @@ $id_actividad = isset($_GET['id']) ? $_GET['id'] : '';
 $nombre_curso = isset($_GET['curso']) ? urldecode($_GET['curso']) : '';
 ?>
 
-<div class="container mt-5">
-  <h3>Formulario de inscripción al curso: <strong><?php echo htmlspecialchars($nombre_curso); ?></strong></h3>
-  
-  <form action="procesar_inscripcion.php" method="post">
+<div style="width: 90%; max-width: 600px; margin: 20px auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; font-family: Arial; box-sizing: border-box;">
+  <h3 style="text-align: center;">Formulario de inscripción al curso:<br><strong><?php echo htmlspecialchars($nombre_curso); ?></strong></h3>
 
+  <form action="procesar_inscripcion.php" method="post">
     <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
 
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" name="nombre" required>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="nombre">Nombre</label><br />
+        <input type="text" class="form-control" name="nombre" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
+
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="apellido_paterno">Apellido Paterno</label><br />
+        <input type="text" class="form-control" name="apellido_paterno" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="apellido_paterno">Apellido Paterno</label>
-      <input type="text" class="form-control" name="apellido_paterno" required>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="apellido_materno">Apellido Materno</label><br />
+        <input type="text" class="form-control" name="apellido_materno" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
+
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="sexo">Sexo</label><br />
+        <select class="form-control" name="sexo" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+          <option value="">Seleccione</option>
+          <option value="H">Hombre</option>
+          <option value="M">Mujer</option>
+        </select>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="apellido_materno">Apellido Materno</label>
-      <input type="text" class="form-control" name="apellido_materno" required>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="edad">Edad</label><br />
+        <input type="number" class="form-control" name="edad" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
+
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="perfil">Perfil</label><br />
+        <input type="text" class="form-control" name="perfil" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="sexo">Sexo</label>
-      <select class="form-control" name="sexo" required>
-        <option value="">Seleccione</option>
-        <option value="H">Hombre</option>
-        <option value="M">Mujer</option>
-      </select>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="control_rfc">Número de control / RFC</label><br />
+        <input type="text" class="form-control" name="control_rfc" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+      </div>
+
+      <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
+        <label for="grado">Grado académico</label><br />
+        <input type="text" class="form-control" value="Licenciatura" disabled style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="edad">Edad</label>
-      <input type="number" class="form-control" name="edad" required>
+    <div style="text-align: right; padding: 10px;">
+      <a href="./ActivityUser.php" type="button" class="btn btn-danger" style="padding: 8px 16px; margin-right: 10px;">Cancelar</a>
+      <button type="submit" class="btn btn-success" style="padding: 8px 16px;">Enviar inscripción</button>
     </div>
-
-    <div class="form-group">
-      <label for="perfil">Perfil</label>
-      <input type="text" class="form-control" name="perfil" required>
-    </div>
-
-    <div class="form-group">
-      <label for="control_rfc">Número de control / RFC</label>
-      <input type="text" class="form-control" name="control_rfc" required>
-    </div>
-
-    <div class="form-group">
-      <label for="grado">Grado académico</label>
-      <input type="text" class="form-control" value="Licenciatura" disabled>
-    </div>
-
-    <button type="submit" class="btn btn-success">Enviar inscripción</button>
-    <a href="tabla_actividades.php" class="btn btn-secondary">Cancelar</a>
   </form>
 </div>
