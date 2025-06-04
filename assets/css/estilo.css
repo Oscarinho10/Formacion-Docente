@@ -441,27 +441,27 @@ body {
     text-align: center;
 }
 
+/* Contenedor de tarjetas (2 columnas en desktop, 1 en móvil) */
 .card-container2 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en desktop */
     gap: 20px;
     max-width: 800px;
-    margin: 40px auto 0;
-    /* Más margen superior (40px) */
+    margin: 40px auto;
     padding: 20px;
 }
 
+/* Contenedor de tarjetas (3 columnas en desktop, 1 en móvil) */
 .card-container1 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-    max-width: 1000px;
-    margin: 40px auto 0;
-    /* Más margen superior (40px) */
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en desktop */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
     padding: 20px;
 }
 
+/* Estilos base de las tarjetas (se mantienen igual) */
 .card2 {
     display: flex;
     flex-direction: column;
@@ -471,12 +471,8 @@ body {
     color: inherit;
     padding: 25px;
     background: #fff;
-    /* Fondo blanco (opcional) */
-    border: none;
-    /* Quitamos el borde */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Sombra suave (opcional) */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -496,16 +492,22 @@ body {
 }
 
 .card2 img {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     margin-bottom: 15px;
     object-fit: contain;
 }
 
 .card-title2 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .card-container1, .card-container2 {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+    }
 }
 
 .btn-primary {
