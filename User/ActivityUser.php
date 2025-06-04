@@ -39,18 +39,14 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
 <head>
     <meta charset="UTF-8">
     <title>Tabla con filtros</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        .table-actions button {
-            margin-right: 5px;
-        }
+    <!-- CSS -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
 
-        .table-container {
-            margin: 20px auto;
-            width: fit-content;
-        }
-    </style>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
 </head>
 
 <body class="bg-light">
@@ -102,38 +98,57 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             </div>
         </div>
 
-        <!-- Paginador -->
-        <nav>
-            <ul class="pagination justify-content-center" id="pagination">
-                <!-- Botones de página dinámicos -->
-            </ul>
-        </nav>
+        <!-- Paginador y contador -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="pagination-info" id="paginationInfo">
+                Mostrando 1-5 de <?php echo count($actividades); ?> registros
+            </div>
+            <nav>
+                <ul class="pagination" id="pagination">
+                    <!-- Botones de página dinámicos -->
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
 
     <script>
         const data = <?php echo json_encode($actividades); ?>;
         const rowsPerPage = 5;
         let currentPage = 1;
+        let filtered = [...data];
 
         function renderTable() {
             const search = $('#searchInput').val().toLowerCase();
-            const modality = $('#filterModality').val();
-            const filtered = data.filter(function(item) {
-                return item.nombre.toLowerCase().includes(search) &&
-                    (modality === '' || item.modalidad === modality);
+            const modalityFilter = $('#filterModality').val();
+
+            // Filtrar datos
+            filtered = data.filter(function(item) {
+                var matchesSearch =
+                    item.nombre.toLowerCase().indexOf(search) !== -1 ||
+                    item.horas.toLowerCase().indexOf(search) !== -1 ||
+                    item.modalidad.toLowerCase().indexOf(search) !== -1 ||
+                    item.cupo.toLowerCase().indexOf(search) !== -1;
+
+                var matchesModality = !modalityFilter || item.modalidad === modalityFilter;
+
+                return matchesSearch && matchesModality;
             });
 
-            const totalPages = Math.ceil(filtered.length / rowsPerPage);
-            const start = (currentPage - 1) * rowsPerPage;
-            const visibleData = filtered.slice(start, start + rowsPerPage);
+            var totalPages = Math.ceil(filtered.length / rowsPerPage);
+            var start = (currentPage - 1) * rowsPerPage;
+            var end = Math.min(start + rowsPerPage, filtered.length);
+            var visibleData = filtered.slice(start, end);
+
+            // Actualizar información de paginación
+            $('#paginationInfo').html('Mostrando ' + (start + 1) + '-' + end + ' de ' + filtered.length + ' registros');
 
             $('#tableBody').html('');
-            visibleData.forEach(function(item, index) {
+            $.each(visibleData, function(index, item) {
                 $('#tableBody').append(
                     '<tr>' +
                     '<td>' + item.nombre + '</td>' +
@@ -155,33 +170,66 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
             });
 
             $('#pagination').html('');
-            for (let i = 1; i <= totalPages; i++) {
+            if (totalPages > 1) {
+                // Botón Anterior
                 $('#pagination').append(
-                    '<li class="page-item ' + (i === currentPage ? 'active' : '') + '">' +
-                    '<a class="page-link" href="#">' + i + '</a>' +
+                    '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '">' +
+                    '<a class="page-link" href="#" aria-label="Previous" id="prevPage">' +
+                    '<span aria-hidden="true">&laquo;</span>' +
+                    '</a>' +
+                    '</li>'
+                );
+
+                // Botones de página
+                for (var i = 1; i <= totalPages; i++) {
+                    $('#pagination').append(
+                        '<li class="page-item ' + (i === currentPage ? 'active' : '') + '">' +
+                        '<a class="page-link" href="#">' + i + '</a>' +
+                        '</li>'
+                    );
+                }
+
+                // Botón Siguiente
+                $('#pagination').append(
+                    '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '">' +
+                    '<a class="page-link" href="#" aria-label="Next" id="nextPage">' +
+                    '<span aria-hidden="true">&raquo;</span>' +
+                    '</a>' +
                     '</li>'
                 );
             }
 
-            $('#pagination a').click(function(e) {
+            // Eventos de paginación
+            $('#pagination a').not('#prevPage, #nextPage').click(function(e) {
                 e.preventDefault();
                 currentPage = parseInt($(this).text());
                 renderTable();
             });
 
-            $('.btn-vermas').click(function() {
-                $('#modalLugar').text($(this).data('lugar'));
-                $('#modalTipo').text($(this).data('tipo'));
-                $('#modalInicio').text($(this).data('inicio'));
-                $('#modalFin').text($(this).data('fin'));
-                $('#modalDirigido').text($(this).data('dirigido'));
-                $('#modalHorario').text($(this).data('horario'));
+            $('#prevPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
 
-                $('#detalleModal').modal('show');
+            $('#nextPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
             });
         }
 
-        $('#searchInput, #filterModality').on('input change', function() {
+        // Eventos para filtros
+        $('#searchInput').on('input', function() {
+            currentPage = 1;
+            renderTable();
+        });
+
+        $('#filterModality').change(function() {
             currentPage = 1;
             renderTable();
         });
@@ -195,6 +243,17 @@ while ($row = pg_fetch_assoc($modalidad_result)) {
 
         $(document).ready(function() {
             renderTable();
+        });
+
+        $('.btn-vermas').click(function() {
+            $('#modalLugar').text($(this).data('lugar'));
+            $('#modalTipo').text($(this).data('tipo'));
+            $('#modalInicio').text($(this).data('inicio'));
+            $('#modalFin').text($(this).data('fin'));
+            $('#modalDirigido').text($(this).data('dirigido'));
+            $('#modalHorario').text($(this).data('horario'));
+
+            $('#detalleModal').modal('show');
         });
     </script>
 

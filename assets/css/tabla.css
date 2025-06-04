@@ -1,0 +1,56 @@
+.table-container {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            margin: 0 3px;
+            font-size: 14px;
+        }
+
+        .pagination-info {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Estilos para los select */
+        .form-control {
+            height: calc(1.5em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+        }
+
+        /* Asegurar que los filtros se vean bien en móviles */
+        @media (max-width: 768px) {
+            .form-row > div {
+                margin-bottom: 10px;
+            }
+        }
