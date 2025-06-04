@@ -84,7 +84,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.4/dist/umd/popper.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/sidebar.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/sideBar.js"></script>
 
 </body>
 
