@@ -19,7 +19,7 @@ if (!is_numeric($id)) {
 $id_escapado = pg_escape_string($conn, $id);
 
 $query = "SELECT nombre, apellido_paterno, apellido_materno, correo, numero_control_rfc 
-          FROM usuarios
+          FROM administradores
           WHERE id = $id_escapado";
 
 $result = pg_query($conn, $query);

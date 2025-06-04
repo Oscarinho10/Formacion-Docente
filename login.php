@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
     $contrasena = $_POST['contrasena'];
 
     // Consulta el usuario en base al correo
-    $query = "SELECT * FROM usuarios WHERE correo = '$correo'";
+    $query = "SELECT * FROM administradores WHERE correo = '$correo'";
     $resultado = pg_query($conn, $query);
 
     if ($resultado && pg_num_rows($resultado) == 1) {

@@ -62,12 +62,11 @@
     <div class="container-fluid pt-3 pb-3 titulo">
         <div class="row">
             <div class="col-3 p-0 text-center align-self-center">
-                <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" class="img-fluid" alt="UAEM logo">
+                <img src="<?php echo BASE_URL; ?>/assets/img/SIGEM.png" class="logo2" alt="SIGEM-FD logo">
+
             </div>
             <div class="col-9 col-md-6 p-0 text-white text-center align-self-center d-none d-md-block">
                 <h4 class="font-weight-bold">Universidad Autónoma del Estado de Morelos</h4>
-                <h4>Secretaría Académica</h4>
-                 <h4>Dirección General de Educación Superior</h4>
                 <h4>Departamento de Evaluación y Profesionalización de la Docencia</h4>
             </div>
             <div class="col-9 p-0 text-white text-center align-self-center d-md-none">
@@ -76,7 +75,7 @@
                 <h6>Dirección General de Educación Superior</h6>
             </div>
             <div class="col-3 p-0 text-center align-self-center d-none d-md-block">
-                <img src="<?php echo BASE_URL; ?>/assets/img/uaem_logo2.png" class="img-fluid" alt="UAEM slogan logo">
+                <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" class="img-fluid" alt="UAEM logo">
             </div>
         </div>
     </div>
