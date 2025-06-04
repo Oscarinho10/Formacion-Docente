@@ -10,6 +10,6 @@ $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$pa
 if (!$conn) {
     die("❌ Error al conectar con PostgreSQL.");
 } else {
-    echo "✅ Conexión exitosa a PostgreSQL.";
+   
 }
 ?>
