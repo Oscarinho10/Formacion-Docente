@@ -4,7 +4,7 @@ include('../components/layout.php');
 ?>
 
 <div class="card-container2">
-    <a href="solicitudes.php" class="card2">
+    <a href="listParticipants.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/solicitud.png" alt="Solicitudes">
         <div class="card-title2">Solicitudes</div>
     </a>
