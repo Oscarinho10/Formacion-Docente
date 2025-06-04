@@ -60,7 +60,7 @@ sort($perfiles);
 
     <div class="container mt-4">
 
-        <!-- Filtros mejorados -->
+        <!-- Filtros  -->
         <div class="form-row mb-3">
             <div class="col-md-4">
                 <div class="input-group">
