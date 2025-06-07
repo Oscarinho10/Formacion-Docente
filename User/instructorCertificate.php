@@ -8,7 +8,7 @@ include('../components/layout.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Constancias</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
 </head>
 <body>
     <div class="card-header">
@@ -24,9 +24,9 @@ include('../components/layout.php');
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.11.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/scrollreveal.js"></script>
 
     <script>
     $(document).ready(function() {

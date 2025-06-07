@@ -1,5 +1,5 @@
 <?php
-include('../components/layout.php');
+include('../components/layoutAdmin.php');
 
 ?>
 

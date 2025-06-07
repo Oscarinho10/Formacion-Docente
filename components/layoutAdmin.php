@@ -44,11 +44,12 @@
 
 
             <div class="nav__list">
-                <a href="../User/initUser.php" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
-                <a href="../User/profilelUser.php" class="nav__link"><span class="nav__name">Perfil</span></a>
-                <a href="../User/ActivityUser.php" class="nav__link"><span class="nav__name">Actividad Formativa</span></a>
-                <a href="../User/instructorCertificate.php" class="nav__link"><span class="nav__name">Constancia instructor</span></a>
-                <a href="../User/participantCertificate.php" class="nav__link"><span class="nav__name">Constancia participantes</span></a>
+                <a href="#" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
+                <a href="#" class="nav__link"><span class="nav__name">Perfil</span></a>
+                <a href="#" class="nav__link"><span class="nav__name">Solicitudes</span></a>
+                <a href="#" class="nav__link"><span class="nav__name">Instructores</span></a>
+                <a href="#" class="nav__link"><span class="nav__name">Actividad Formativa</span></a>
+                <a href="../Administrador/listParticipants.php" class="nav__link"><span class="nav__name">Asistencias</span></a>
                 <div class="nav_bottom">
                     <a href="../login.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>

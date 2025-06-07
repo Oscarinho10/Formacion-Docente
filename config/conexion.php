@@ -1,5 +1,5 @@
 <?php
-$host = "172.21.37.83"; // IP del servidor donde está PostgreSQL
+$host = "187.191.42.170"; // IP del servidor donde está PostgreSQL $host = "172.21.37.83";
 $port = "5432";
 $dbname = "formacion_docente";
 $user = "jerss";

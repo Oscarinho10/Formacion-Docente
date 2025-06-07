@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('./config/conexion.php');
+// include('./config/conexion.php');
 
 if (isset($_POST['login'])) {
     $correo = $_POST['correo'];
