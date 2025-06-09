@@ -9,12 +9,12 @@ include('../components/layoutSuper.php');
         <div class="card-title2">Solicitudes</div>
     </a>
 
-    <a href="instructores.php" class="card2">
+    <a href="instructorSuper.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/instructor.png" alt="Instructores">
         <div class="card-title2">Instructores</div>
     </a>
 
-    <a href="actividad_formativa.php" class="card2">
+    <a href="trainingActivity.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/actividad_formativa.png" alt="Actividad Formativa">
         <div class="card-title2">Actividad formativa</div>
     </a>
