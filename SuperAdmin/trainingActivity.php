@@ -1,4 +1,4 @@
-<?php include('../components/layout.php'); ?>
+<?php include('../components/layoutSuper.php'); ?>
 
 <style>
 /* Estilo de switch personalizado */
@@ -70,7 +70,7 @@ input:checked + .slider:before {
         </td>
         <td>
           <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalVerMas1">Ver más</button>
-          <a href="editarActividad.php?id=1" class="btn btn-primary btn-sm">Editar</a>
+          <a href="editTrainingActivity.php" class="btn btn-primary btn-sm">Editar</a>
         </td>
       </tr>
       <tr>
@@ -84,7 +84,7 @@ input:checked + .slider:before {
         </td>
         <td>
           <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalVerMas2">Ver más</button>
-          <a href="editarActividad.php?id=2" class="btn btn-primary btn-sm">Editar</a>
+          <a href="editTrainingActivity.php" class="btn btn-primary btn-sm">Editar</a>
         </td>
       </tr>
     </tbody>

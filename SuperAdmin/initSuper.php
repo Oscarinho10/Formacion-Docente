@@ -19,7 +19,7 @@ include('../components/layoutSuper.php');
         <div class="card-title2">Actividad formativa</div>
     </a>
 
-    <a href="asistencia.php" class="card2">
+    <a href="checkList.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/asistencia.png" alt="Asistencia">
         <div class="card-title2">Asistencia</div>
     </a>
