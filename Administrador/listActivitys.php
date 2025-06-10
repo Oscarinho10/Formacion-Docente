@@ -24,12 +24,12 @@ include('../components/layoutAdmin.php');
 //     );
 //     $usuarios[] = $usuario;
 
-    // Recolectar unidades académicas únicas -->
-    // if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
-    //     $unidades[] = $row["unidad_academica"];
-    // }
+// Recolectar unidades académicas únicas -->
+// if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
+//     $unidades[] = $row["unidad_academica"];
+// }
 
-    // Recolectar perfiles académicos únicos -->
+// Recolectar perfiles académicos únicos -->
 //     if (!empty($row["perfil_academico"]) && !in_array($row["perfil_academico"], $perfiles)) {
 //         $perfiles[] = $row["perfil_academico"];
 //     }
@@ -60,7 +60,7 @@ include('../components/layoutAdmin.php');
 
     <div class="container mt-4">
 
-        <h4 class="mb-3">Solicitudes de Partcipantes</h4>
+        <h4 class="mb-3">Actividades formativas</h4>
 
         <!-- Filtros  -->
         <div class="form-row mb-3">
@@ -105,15 +105,21 @@ include('../components/layoutAdmin.php');
                     <thead class="thead-light">
                         <tr>
                             <th>Nombre</th>
-                            <th>Número de control / RFC</th>
-                            <th>Correo electrónico</th>
                             <th>Perfil Académico</th>
                             <th>Unidad Académica</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <!-- Filas dinámicas -->
+                        <tr>
+                            <td>Alejandro Morales</td>
+                            <td><strong>89567</strong></td>
+                            <td>AlejandroMorales@example.com</td>
+                            <td class="text-center acciones">
+                                <button class="btn btn-sm btn-light">Ver más</button>
+                                <button class="btn btn-sm btn-success">+ Asistencia</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -148,12 +154,11 @@ include('../components/layoutAdmin.php');
             const unidadFilter = $('#filterUnidad').val();
             const perfilFilter = $('#filterPerfil').val();
 
-            // Filtrar datos
             filtered = data.filter(function(item) {
                 var matchesSearch =
-                    item.nombre.toLowerCase().indexOf(search) !== -1 ||
-                    item.numero_control_rfc.toLowerCase().indexOf(search) !== -1 ||
-                    item.correo.toLowerCase().indexOf(search) !== -1;
+                    item.nombre.toLowerCase().includes(search) ||
+                    item.numero_control_rfc.toLowerCase().includes(search) ||
+                    item.correo.toLowerCase().includes(search);
 
                 var matchesUnidad = !unidadFilter || item.unidad_academica === unidadFilter;
                 var matchesPerfil = !perfilFilter || item.perfil_academico === perfilFilter;
@@ -166,57 +171,44 @@ include('../components/layoutAdmin.php');
             var end = Math.min(start + rowsPerPage, filtered.length);
             var visibleData = filtered.slice(start, end);
 
-            // Actualizar información de paginación
-            $('#paginationInfo').html('Mostrando ' + (start + 1) + '-' + end + ' de ' + filtered.length + ' registros');
-
+            $('#paginationInfo').html(`Mostrando ${start + 1}-${end} de ${filtered.length} registros`);
             $('#tableBody').html('');
+
             $.each(visibleData, function(index, item) {
                 $('#tableBody').append(
                     '<tr>' +
                     '<td>' + item.nombre + '</td>' +
-                    '<td>' + item.numero_control_rfc + '</td>' +
-                    '<td>' + item.correo + '</td>' +
                     '<td>' + (item.perfil_academico || 'N/A') + '</td>' +
                     '<td>' + (item.unidad_academica || 'N/A') + '</td>' +
-                    '<td>' +
-                    '<button class="btn btn-success btn-action btn-accept">Aceptar</button>' +
-                    '<button class="btn btn-danger btn-action btn-deny">Denegar</button>' +
-                    '</td>' +
+                    '<td><button class="btn btn-success btn-action btn-edit">Editar</button></td>' +
                     '</tr>'
                 );
             });
 
+            // Paginar...
             $('#pagination').html('');
             if (totalPages > 1) {
-                // Botón Anterior
                 $('#pagination').append(
                     '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '">' +
                     '<a class="page-link" href="#" aria-label="Previous" id="prevPage">' +
-                    '<span aria-hidden="true">&laquo;</span>' +
-                    '</a>' +
-                    '</li>'
+                    '<span aria-hidden="true">&laquo;</span></a></li>'
                 );
 
-                // Botones de página
-                for (var i = 1; i <= totalPages; i++) {
+                for (let i = 1; i <= totalPages; i++) {
                     $('#pagination').append(
                         '<li class="page-item ' + (i === currentPage ? 'active' : '') + '">' +
-                        '<a class="page-link" href="#">' + i + '</a>' +
-                        '</li>'
+                        '<a class="page-link" href="#">' + i + '</a></li>'
                     );
                 }
 
-                // Botón Siguiente
                 $('#pagination').append(
                     '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '">' +
                     '<a class="page-link" href="#" aria-label="Next" id="nextPage">' +
-                    '<span aria-hidden="true">&raquo;</span>' +
-                    '</a>' +
-                    '</li>'
+                    '<span aria-hidden="true">&raquo;</span></a></li>'
                 );
             }
 
-            // Eventos de paginación
+            // Eventos
             $('#pagination a').not('#prevPage, #nextPage').click(function(e) {
                 e.preventDefault();
                 currentPage = parseInt($(this).text());
@@ -239,23 +231,13 @@ include('../components/layoutAdmin.php');
                 }
             });
 
-            // Eventos para botones de acción
-            $('.btn-accept').click(function() {
-                var row = $(this).closest('tr');
-                var controlNumber = row.find('td:eq(1)').text();
-                // Aquí iría la lógica para aceptar al usuario
-                console.log('Aceptar usuario con número de control:', controlNumber);
-                // row.fadeOut();
-            });
-
-            $('.btn-deny').click(function() {
-                var row = $(this).closest('tr');
-                var controlNumber = row.find('td:eq(1)').text();
-                // Aquí iría la lógica para denegar al usuario
-                console.log('Denegar usuario con número de control:', controlNumber);
-                // row.fadeOut();
+            $('.btn-edit').click(function() {
+                const nombre = $(this).closest('tr').find('td:eq(0)').text();
+                console.log('Editar usuario:', nombre);
+                // Aquí puedes llamar a tu modal o redirección
             });
         }
+
 
         // Eventos para filtros
         $('#searchInput').on('input', function() {
