@@ -558,6 +558,17 @@ body {
     background-color: #218838;
 }
 
+
+.btn.btn-sm.btn-general {
+  background-color: #006C67 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn.btn-sm.btn-general:hover {
+    background-color: #013b38 !important;
+}
+
 .form-title {
     text-align: center;
     margin-bottom: 20px;

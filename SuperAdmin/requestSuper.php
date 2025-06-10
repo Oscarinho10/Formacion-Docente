@@ -10,6 +10,7 @@ include('../components/layoutSuper.php')
     <title>Tabla de Estudiantes</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" type="text/css">
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
@@ -20,7 +21,7 @@ include('../components/layoutSuper.php')
 <body class="bg-light">
 
     <div class="container mt-4">
-
+        <h4 class="mb-3">Solicitudes de participantes </h4>
         <!-- Filtros y Botón Agregar -->
         <div class="form-row mb-3">
             <div class="col-md-6">
@@ -32,13 +33,13 @@ include('../components/layoutSuper.php')
                 </div>
             </div>
             <div class="col-md-6 text-right">
-                <a  class="btn btn-primary" id="addButton" href="addUser.php">Agregar</a>
+                <a class="btn btn-primary" id="addButton" href="addUser.php"> + Agregar</a>
             </div>
         </div>
 
         <!-- Tabla -->
         <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="studentsTable">
+            <table class="table table-bordered" id="studentsTable">
                 <thead class="thead-light">
                     <tr>
                         <th>Nombre</th>
@@ -141,7 +142,7 @@ include('../components/layoutSuper.php')
                     <td>${item.correo}</td>
                     <td>${item.perfil}</td>
                     <td>
-                        <button class="btn btn-sm btn-info">Aceptar</button>
+                        <button class="btn btn-sm btn-general">Aceptar</button>
                         <button class="btn btn-sm btn-danger">Denegar</button>
                     </td>
                 </tr>
