@@ -160,9 +160,8 @@ function renderTable() {
         </label>
       </td>
       <td>
-        <button class="btn btn-info btn-sm">Ver más</button>
         <a href="listActivity.php" class="btn btn-warning btn-sm">Ver lista</a>
-        <a href="#" class="btn btn-secondary btn-sm">Participantes</a>
+        <a href="participantsList.php" class="btn btn-secondary btn-sm">Participantes</a>
       </td>
     </tr>
   `).join('');
