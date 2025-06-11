@@ -1,7 +1,6 @@
 <?php
 include('../components/layoutAdmin.php');
-
-// include('./controller/listIntructorsController.php');
+// include('./controller/listActivitysController.php');
 
 ?>
 
@@ -24,7 +23,8 @@ include('../components/layoutAdmin.php');
 <body class="bg-light">
 
     <div class="container mt-4">
-        <h4 class="mb-3">Instructores</h4>
+
+        <h4 class="mb-3">Asistencias</h4>
 
         <!-- Filtros  -->
         <div class="form-row mb-3">
@@ -40,6 +40,7 @@ include('../components/layoutAdmin.php');
             <div class="col-md-3">
                 <select class="form-control" id="filterUnidad">
                     <option value="">Todas las unidades</option>
+                    <option value="">Derecho</option>
                     <?php foreach ($unidades as $unidad): ?>
                         <option value="<?php echo htmlspecialchars($unidad); ?>"><?php echo htmlspecialchars($unidad); ?></option>
                     <?php endforeach; ?>
@@ -49,6 +50,7 @@ include('../components/layoutAdmin.php');
             <div class="col-md-3">
                 <select class="form-control" id="filterPerfil">
                     <option value="">Todos los perfiles</option>
+                    <option value="">Perfil de facebook</option>
                     <?php foreach ($perfiles as $perfil): ?>
                         <option value="<?php echo htmlspecialchars($perfil); ?>"><?php echo htmlspecialchars($perfil); ?></option>
                     <?php endforeach; ?>
@@ -66,9 +68,10 @@ include('../components/layoutAdmin.php');
                 <table class="table table-bordered" id="usersTable">
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Perfil Académico</th>
-                            <th class="text-center">Unidad Académica</th>
+                            <th class="text-center">Nombre de la Actividad</th>
+                            <th class="text-center">Fecha de Inicio</th>
+                            <th class="text-center">Fecha de Fin</th>
+                            <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -81,8 +84,14 @@ include('../components/layoutAdmin.php');
 
         <!-- Paginador y contador -->
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <div id="paginationInfo"></div>
-            <ul class="pagination" id="pagination"></ul>
+            <div class="pagination-info" id="paginationInfo">
+                Mostrando 1-5 de <?php echo count($usuarios); ?> registros
+            </div>
+            <nav>
+                <ul class="pagination" id="pagination">
+                    <!-- Botones de página dinámicos -->
+                </ul>
+            </nav>
         </div>
 
     </div>
@@ -90,8 +99,9 @@ include('../components/layoutAdmin.php');
     <!-- Scripts -->
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listAssistsScript.js"></script>
 
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listInstructorsScript.js"></script>
+
 </body>
 
 </html>

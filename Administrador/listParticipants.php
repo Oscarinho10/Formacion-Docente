@@ -101,7 +101,7 @@ include('../components/layoutAdmin.php');
     <!-- Scripts -->
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>./Administrador/js/listParticipantsScript.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listParticipantsScript.js"></script>
 
 </body>
 
