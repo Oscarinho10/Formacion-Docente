@@ -1,7 +1,7 @@
-
-
 <?php include('../components/layoutSuper.php') ?>
 
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Asistencias</title>
@@ -9,12 +9,12 @@
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
-
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
 </head>
+
+<body>
 
 <div class="container mt-4" style="max-width: 1000px;">
   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -24,7 +24,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text bg-primary text-white"><i class="fas fa-search"></i></span>
       </div>
-      <input type="text" class="form-control" placeholder="Buscar...">
+      <input type="text" id="searchInput" class="form-control" placeholder="Buscar...">
     </div>
   </div>
 
@@ -40,39 +40,8 @@
           <th>Constancia</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Juan Perez</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Sí</td>
-        </tr>
-        <tr>
-          <td>Oscar Maydon</td>
-          <td>Asistió</td>
-          <td>No asistió</td>
-          <td>No asistió</td>
-          <td>No asistió</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>Giovanni Pedraza</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>Alejandro Morales</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Asistió</td>
-          <td>Sí</td>
-        </tr>
+      <tbody id="asistenciaBody">
+        <!-- Filas dinámicas -->
       </tbody>
     </table>
   </div>
@@ -82,3 +51,8 @@
     <button class="btn btn-secondary">Volver</button>
   </div>
 </div>
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/participantsList.js"></script>
+
+</body>
+</html>
