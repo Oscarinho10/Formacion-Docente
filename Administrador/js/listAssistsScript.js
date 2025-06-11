@@ -1,38 +1,39 @@
 const data = [
     {
         nombre: "Taller de Liderazgo",
-        horas: 10,
-        estado: "Aprobada"
+        inicio: "2024-06-01",
+        fin: "2024-06-03",
+        estado: "Activa"
     },
     {
         nombre: "Curso de Oratoria",
-        horas: 8,
-        estado: "Pendiente"
+        inicio: "2024-06-10",
+        fin: "2024-06-12",
+        estado: "Activa"
     },
     {
         nombre: "Seminario de Innovación",
-        horas: 15,
-        estado: "Rechazada"
+        inicio: "2024-06-15",
+        fin: "2024-06-16",
+        estado: "Inactiva"
     },
     {
         nombre: "Voluntariado Ambiental",
-        horas: 12,
-        estado: "Aprobada"
+        inicio: "2024-07-01",
+        fin: "2024-07-10",
+        estado: "Activa"
     },
     {
         nombre: "Proyecto Social",
-        horas: 20,
-        estado: "Pendiente"
+        inicio: "2024-07-15",
+        fin: "2024-07-18",
+        estado: "Inactiva"
     },
     {
         nombre: "Conferencia de Ética",
-        horas: 5,
-        estado: "Aprobada"
-    },
-    {
-        nombre: "Hackathon Interuniversitario",
-        horas: 18,
-        estado: "Pendiente"
+        inicio: "2024-07-25",
+        fin: "2024-07-25",
+        estado: "Inactiva"
     }
 ];
 
@@ -45,7 +46,9 @@ function renderTable() {
 
     filtered = data.filter(item =>
         item.nombre.toLowerCase().includes(search) ||
-        item.estado.toLowerCase().includes(search)
+        item.estado.toLowerCase().includes(search) ||
+        item.inicio.toLowerCase().includes(search) ||
+        item.fin.toLowerCase().includes(search)
     );
 
     const totalPages = Math.ceil(filtered.length / rowsPerPage);
@@ -60,15 +63,12 @@ function renderTable() {
         $('#tableBody').append(`
             <tr>
                 <td class="text-center">${item.nombre}</td>
-                <td class="text-center">${item.horas}</td>
-                <td class="text-center"><label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label></td>
+                <td class="text-center">${item.inicio}</td>
+                <td class="text-center">${item.fin}</td>
+                <td class="text-center">${item.estado}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-secondary">Ver más</button>
-                    <button class="btn btn-primary btn-sm btn-edit">Editar</button>
-                    <button class="btn btn-sm btn-general">Subir Evidencia</button>
+                    <button href="#" class="btn btn-sm btn-primary">Ver Lista</button>
+                    <button href="#" class="btn btn-sm btn-general">Ver Participantes</button>
                 </td>
             </tr>
         `);
@@ -119,7 +119,7 @@ function renderTable() {
     $('.btn-edit').click(function () {
         const nombre = $(this).closest('tr').find('td:eq(0)').text();
         console.log('Editar actividad:', nombre);
-        // Aquí puedes mostrar un modal o redirigir a otra vista
+        // Aquí puedes llamar a tu modal o redirigir a otra página
     });
 }
 
@@ -130,6 +130,7 @@ $('#searchInput').on('input', function () {
 
 $('#clearFilters').click(function () {
     $('#searchInput').val('');
+    $('#filterUnidad, #filterPerfil').val('');
     currentPage = 1;
     renderTable();
 });

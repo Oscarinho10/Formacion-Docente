@@ -68,7 +68,7 @@ function renderTable() {
                     <td class="text-center">${item.perfil}</td>
                     <td class="text-center">${item.unidad}</td>
                     <td class="acciones">
-                        <a href="editInstructor.php" class="btn btn-sm btn-general">Editar</a>
+                        <button href="editInstructor.php" class="btn btn-sm btn-general">Editar</button>
                     </td>
                 </tr>
             `);
