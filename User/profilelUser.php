@@ -42,8 +42,6 @@ include('../components/layout.php');
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-    
-    </script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/User/js/profileUser.js"></script>
 </body>
 </html>
