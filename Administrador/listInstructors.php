@@ -85,6 +85,13 @@ include('../components/layoutAdmin.php');
             <ul class="pagination" id="pagination"></ul>
         </div>
 
+        <!-- Botón totalmente a la derecha -->
+        <div class="d-flex justify-content-end mt-3 mb-4">
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
+        </div>
+
     </div>
 
     <!-- Scripts -->

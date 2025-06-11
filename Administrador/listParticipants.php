@@ -86,14 +86,15 @@ include('../components/layoutAdmin.php');
 
         <!-- Paginador y contador -->
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <div class="pagination-info" id="paginationInfo">
-                Mostrando 1-5 de <?php echo count($usuarios); ?> registros
-            </div>
-            <nav>
-                <ul class="pagination" id="pagination">
-                    <!-- Botones de página dinámicos -->
-                </ul>
-            </nav>
+            <div id="paginationInfo"></div>
+            <ul class="pagination" id="pagination"></ul>
+        </div>
+
+        <!-- Botón totalmente a la derecha -->
+        <div class="d-flex justify-content-end mt-3 mb-4">
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
         </div>
 
     </div>
