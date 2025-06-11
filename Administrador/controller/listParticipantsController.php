@@ -1,5 +1,4 @@
 <?php
-
 include('../../config/conexion.php');
 
 // Consulta modificada para incluir los nuevos campos -->
@@ -38,5 +37,4 @@ if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $uni
 // Ordenar las listas --> 
 sort($unidades);
 sort($perfiles);
-
 ?>

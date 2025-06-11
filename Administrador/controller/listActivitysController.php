@@ -1,5 +1,4 @@
 <?php
-
 include('../../config/conexion.php');
 
 // Consulta modificada para incluir los nuevos campos -->
@@ -24,12 +23,12 @@ while ($row = pg_fetch_assoc($result)) {
     );
     $usuarios[] = $usuario;
 
-// Recolectar unidades académicas únicas -->
-if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
-    $unidades[] = $row["unidad_academica"];
-}
+    // Recolectar unidades académicas únicas -->
+    if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
+        $unidades[] = $row["unidad_academica"];
+    }
 
-// Recolectar perfiles académicos únicos -->
+    // Recolectar perfiles académicos únicos -->
     if (!empty($row["perfil_academico"]) && !in_array($row["perfil_academico"], $perfiles)) {
         $perfiles[] = $row["perfil_academico"];
     }

@@ -66,10 +66,10 @@ include('../components/layoutAdmin.php');
                 <table class="table table-bordered" id="usersTable">
                     <thead class="thead-light">
                         <tr>
-                            <th>Nombre</th>
-                            <th>Perfil Académico</th>
-                            <th>Unidad Académica</th>
-                            <th>Acciones</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Perfil Académico</th>
+                            <th class="text-center">Unidad Académica</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">

@@ -64,9 +64,9 @@ function renderTable() {
     visibleData.forEach(item => {
         $('#tableBody').append(`
                 <tr>
-                    <td>${item.nombre}</td>
-                    <td>${item.perfil}</td>
-                    <td>${item.unidad}</td>
+                    <td class="text-center">${item.nombre}</td>
+                    <td class="text-center">${item.perfil}</td>
+                    <td class="text-center">${item.unidad}</td>
                     <td class="acciones">
                         <a href="editInstructor.php" class="btn btn-sm btn-general">Editar</a>
                     </td>
