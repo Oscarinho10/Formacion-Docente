@@ -1,132 +1,110 @@
-<?php include('../components/layoutSuper.php') ?>
+<?php include('../components/layoutSuper.php'); ?>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
-  <title>Tabla con filtros</title>
+  <title>Asistencias de taller IA</title>
 
-  <!-- CSS Bootstrap y tabla -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
 
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
-
-  <!-- Litepicker -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
+   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
 </head>
 
-<div class="container mt-4" style="max-width: 1000px;">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Asistencias de taller IA</h4>
-    <div class="input-group" style="max-width: 250px;">
-      <div class="input-group-prepend">
-        <span class="input-group-text bg-primary text-white"><i class="fas fa-search"></i></span>
+<body class="bg-light">
+  <div class="container mt-4 d-flex justify-content-center">
+    <div style="width: 100%; max-width: 1000px;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Lista de Asistencia</h3>
       </div>
-      <input type="text" id="searchInput" class="form-control" placeholder="Buscar...">
-    </div>
-  </div>
 
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nombre instructor</th>
-          <th>No. control</th>
-          <th>Correo electrónico</th>
-          <th class="text-center">Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <tr data-nombre="Juan Perez" data-control="45612">
-          <td>Juan Perez</td>
-          <td><strong>45612</strong></td>
-          <td>Juanperez@example.com</td>
-          <td class="text-center acciones">
-            <button class="btn btn-sm btn-light">Ver más</button>
-            <button class="btn btn-sm btn-success btn-asistencia">+ Asistencia</button>
-          </td>
-        </tr>
-        <tr data-nombre="Oscar Maydon" data-control="5623">
-          <td>Oscar Maydon</td>
-          <td><strong>5623</strong></td>
-          <td>OscarMaydon@example.com</td>
-          <td class="text-center acciones">
-            <button class="btn btn-sm btn-light">Ver más</button>
-            <button class="btn btn-sm btn-success btn-asistencia">+ Asistencia</button>
-          </td>
-        </tr>
-        <tr data-nombre="Giovanni Pedraza" data-control="568952">
-          <td>Giovanni Pedraza</td>
-          <td><strong>568952</strong></td>
-          <td>GiovanniPedraza@example.com</td>
-          <td class="text-center acciones">
-            <button class="btn btn-sm btn-light">Ver más</button>
-            <button class="btn btn-sm btn-success btn-asistencia">+ Asistencia</button>
-          </td>
-        </tr>
-        <tr data-nombre="Alejandro Morales" data-control="89567">
-          <td>Alejandro Morales</td>
-          <td><strong>89567</strong></td>
-          <td>AlejandroMorales@example.com</td>
-          <td class="text-center acciones">
-            <button class="btn btn-sm btn-light">Ver más</button>
-            <button class="btn btn-sm btn-success btn-asistencia">+ Asistencia</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+      <!-- Filtros -->
+      <div class="form-row mb-4">
+        <div class="col-md-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre...">
+          </div>
+        </div>
+      </div>
 
-<!-- Modal -->
-<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="calendarModalLabel">Registrar asistencia</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table class="table table-bordered" id="tablaAsistencias">
+          <thead class="thead-light">
+            <tr>
+              <th>Nombre Instructor</th>
+              <th>No. Control</th>
+              <th>Correo Electrónico</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
       </div>
-      <div class="modal-body text-center">
-        <p id="nombreParticipante" class="font-weight-bold mb-2 text-primary"></p>
-        <label for="fechaAsistencia">Selecciona los días de asistencia:</label>
-        <input type="text" id="fechaAsistencia" class="form-control mt-2 mb-3" placeholder="Haz clic para elegir fechas" readonly />
-        <div id="listaFechasSeleccionadas" class="text-left small text-dark font-weight-bold"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" id="guardarAsistencia">Guardar (futuro)</button>
+
+      <!-- Paginador -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div id="paginationInfo" class="text-muted"></div>
+        <ul class="pagination" id="pagination"></ul>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Registrar asistencia</h5>
+          <button type="button" class="close text-white" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p id="nombreParticipante" class="font-weight-bold text-primary"></p>
+          <input type="text" id="fechaAsistencia" class="form-control mt-2 mb-3" placeholder="Haz clic para elegir fechas" readonly />
+          <div id="listaFechasSeleccionadas" class="text-left small text-dark font-weight-bold"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-success" id="guardarAsistencia">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('searchInput');
-    const tableBody = document.getElementById('tableBody');
-    const rows = Array.from(tableBody.querySelectorAll('tr'));
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+
+  <script>
+    const data = [
+      { nombre: "Juan Perez", control: "45612", correo: "Juanperez@example.com" },
+      { nombre: "Oscar Maydon", control: "5623", correo: "OscarMaydon@example.com" },
+      { nombre: "Giovanni Pedraza", control: "568952", correo: "GiovanniPedraza@example.com" },
+      { nombre: "Alejandro Morales", control: "89567", correo: "AlejandroMorales@example.com" },
+      { nombre: "Diana Ruiz", control: "98712", correo: "DianaRuiz@example.com" },
+      { nombre: "Ernesto Torres", control: "65234", correo: "ErnestoTorres@example.com" },
+      { nombre: "Carla Romero", control: "47852", correo: "CarlaRomero@example.com" }
+    ];
+
+    const rowsPerPage = 5;
+    let currentPage = 1;
+    let filtered = [...data];
     let nombreActual = '';
     let controlActual = '';
 
-    // Búsqueda
-    searchInput.addEventListener('input', function () {
-      const search = this.value.toLowerCase();
-      rows.forEach(row => {
-        const match = row.innerText.toLowerCase().includes(search);
-        row.style.display = match ? '' : 'none';
-      });
-    });
-
-    // Inicializa Litepicker
     const picker = new Litepicker({
       element: document.getElementById('fechaAsistencia'),
       format: 'YYYY-MM-DD',
@@ -136,59 +114,97 @@
       mode: 'multiple'
     });
 
-    // Mostrar fechas separadas por comas
     picker.on('selected', () => {
       const fechas = picker.selectedDates;
-      const contenedor = document.getElementById('listaFechasSeleccionadas');
-      contenedor.innerHTML = '';
+      const lista = document.getElementById('listaFechasSeleccionadas');
+      lista.innerHTML = fechas.length
+        ? fechas.map(f => new Date(f).toISOString().split('T')[0]).join(', ')
+        : '<p>No se ha seleccionado ninguna fecha.</p>';
+    });
 
-      if (!fechas || fechas.length === 0) {
-        contenedor.innerHTML = '<p>No se ha seleccionado ninguna fecha.</p>';
-        return;
+    function renderTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      filtered = data.filter(item => item.nombre.toLowerCase().includes(search));
+      const totalPages = Math.ceil(filtered.length / rowsPerPage);
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = Math.min(start + rowsPerPage, filtered.length);
+      const visibleData = filtered.slice(start, end);
+
+      document.getElementById('tableBody').innerHTML = visibleData.map(item => `
+        <tr>
+          <td>${item.nombre}</td>
+          <td><strong>${item.control}</strong></td>
+          <td>${item.correo}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-secondary" onclick="alert('Ver más de ${item.nombre}')">Ver más</button>
+            <button class="btn btn-sm btn-success" onclick="abrirModal('${item.nombre}', '${item.control}')">+ Asistencia</button>
+          </td>
+        </tr>
+      `).join('');
+
+      document.getElementById('paginationInfo').textContent =
+        `Mostrando ${start + 1}-${end} de ${filtered.length} registros`;
+
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      if (totalPages > 1) {
+        pagination.innerHTML += `
+          <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(currentPage - 1)">&laquo;</a>
+          </li>`;
+
+        for (let i = 1; i <= totalPages; i++) {
+          pagination.innerHTML += `
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+              <a class="page-link" href="#" onclick="cambiarPagina(${i})">${i}</a>
+            </li>`;
+        }
+
+        pagination.innerHTML += `
+          <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(currentPage + 1)">&raquo;</a>
+          </li>`;
       }
+    }
 
-      const fechasTexto = fechas.map(d => {
-        return new Date(d).toISOString().split('T')[0];
-      }).join(', ');
+    function cambiarPagina(pag) {
+      if (pag >= 1 && pag <= Math.ceil(filtered.length / rowsPerPage)) {
+        currentPage = pag;
+        renderTable();
+      }
+    }
 
-      contenedor.textContent = fechasTexto;
-    });
+    function abrirModal(nombre, control) {
+      nombreActual = nombre;
+      controlActual = control;
+      document.getElementById('nombreParticipante').textContent = `${nombre} (No. Control: ${control})`;
+      picker.clearSelection();
+      document.getElementById('fechaAsistencia').value = '';
+      document.getElementById('listaFechasSeleccionadas').innerHTML = '';
+      $('#calendarModal').modal('show');
+    }
 
-    // Al hacer clic en "+ Asistencia"
-    document.querySelectorAll('.btn-asistencia').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const row = this.closest('tr');
-        nombreActual = row.getAttribute('data-nombre');
-        controlActual = row.getAttribute('data-control');
-
-        document.getElementById('nombreParticipante').textContent = `${nombreActual} (No. Control: ${controlActual})`;
-        picker.clearSelection();
-        document.getElementById('fechaAsistencia').value = '';
-        document.getElementById('listaFechasSeleccionadas').innerHTML = '';
-
-        $('#calendarModal').modal('show');
-      });
-    });
-
-    // Guardar (por ahora en consola)
-    document.getElementById('guardarAsistencia').addEventListener('click', function () {
+    document.getElementById('guardarAsistencia').addEventListener('click', () => {
       const fechas = picker.selectedDates;
-
       if (!fechas || fechas.length === 0) {
         alert("Debes seleccionar al menos una fecha.");
         return;
       }
-
-      const fechasTexto = fechas.map(d => {
-        return new Date(d).toISOString().split('T')[0];
-      }).join(', ');
-
+      const fechasTexto = fechas.map(f => new Date(f).toISOString().split('T')[0]).join(', ');
       console.log("Participante:", nombreActual);
-      console.log("No. Control:", controlActual);
-      console.log("Fechas seleccionadas:", fechasTexto);
-
+      console.log("Control:", controlActual);
+      console.log("Fechas:", fechasTexto);
       alert("Fechas guardadas en consola.");
       $('#calendarModal').modal('hide');
     });
-  });
-</script>
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+      currentPage = 1;
+      renderTable();
+    });
+
+    document.addEventListener('DOMContentLoaded', renderTable);
+  </script>
+</body>
+</html>

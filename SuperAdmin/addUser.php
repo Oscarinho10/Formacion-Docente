@@ -1,88 +1,98 @@
-<?php
-include('../components/layoutSuper.php')
-?>
+<?php include('../components/layoutSuper.php'); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar participantes</title>
+
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
 </head>
 
 <body>
-  <div style="width: 90%; max-width: 600px; margin: 20px auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; font-family: Arial; box-sizing: border-box;">
-    <h3 style="text-align: center;">Formulario de registro de participantes<br><strong><?php echo htmlspecialchars($nombre_curso); ?></strong></h3>
+  <div class="container my-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 800px;">
+      <div class="card-body">
+        <h4 class="text-center mb-3">
+          Formulario de registro de participantes<br>
+          <strong><?php echo htmlspecialchars($nombre_curso); ?></strong>
+        </h4>
 
-    <form action="procesar_inscripcion.php" method="post">
-      <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
+        <form action="procesar_inscripcion.php" method="post">
+          <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
 
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="nombre">Nombre</label><br />
-          <input type="text" class="form-control" name="nombre" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="nombre">Nombre</label>
+              <input type="text" class="form-control" name="nombre" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="apellido_paterno">Apellido Paterno</label>
+              <input type="text" class="form-control" name="apellido_paterno" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="apellido_materno">Apellido Materno</label>
+              <input type="text" class="form-control" name="apellido_materno" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="sexo">Sexo</label>
+              <select class="form-control" name="sexo" required>
+                <option value="">Seleccione</option>
+                <option value="H">Hombre</option>
+                <option value="M">Mujer</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="edad">Edad</label>
+              <input type="number" class="form-control" name="edad" required>
+            </div>
 
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="apellido_paterno">Apellido Paterno</label><br />
-          <input type="text" class="form-control" name="apellido_paterno" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
-      </div>
+              <div class="col-md-4 mb-3">
+              <label for="control_rfc">Número de control o RFC</label>
+              <input type="text" class="form-control" name="control_rfc" required>
+            </div>
 
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="apellido_materno">Apellido Materno</label><br />
-          <input type="text" class="form-control" name="apellido_materno" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
-
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="sexo">Sexo</label><br />
-          <select class="form-control" name="sexo" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-            <option value="">Seleccione</option>
-            <option value="H">Hombre</option>
-            <option value="M">Mujer</option>
-          </select>
-        </div>
-      </div>
-
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="edad">Edad</label><br />
-          <input type="number" class="form-control" name="edad" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
-
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="perfil">Perfil Academico</label><br />
-          <input type="text" class="form-control" name="perfil" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
-      </div>
-
-
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-        <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-          <label for="control_rfc">Unidad academica</label><br />
-          <input type="text" class="form-control" name="control_rfc" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
-        </div>
-
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-          <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-            <label for="control_rfc">Correo electronico</label><br />
-            <input type="text" class="form-control" name="control_rfc" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+             <div class="col-md-6 mb-3">
+              <label for="correo">Correo electrónico</label>
+              <input type="email" class="form-control" name="correo" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="perfil">Perfil Académico</label>
+              <select class="form-control" name="unidadAcaddemica" required>
+                <option value="">Seleccione</option>
+                <option value="M">Docente</option>
+                <option value="D">Doctorado</option>
+              </select>
+            </div>
+            
+            <div class="col-md-12 mb-3">
+              <label for="unidad_academica">Unidad Académica</label>
+               <select class="form-control" name="unidadAcaddemica" required>
+                <option value="">Seleccione</option>
+                <option value="M">Medicina</option>
+                <option value="D">Derecho</option>
+              </select>
+            </div>
+           
+          
           </div>
 
-
-          <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-            <label for="control_rfc">Numero de control o RFC </label><br />
-            <input type="text" class="form-control" name="control_rfc" style="width: 100%; padding: 8px; box-sizing: border-box;" required>
+          <div class="d-flex justify-content-end mt-3">
+            <a href="./requestSuper.php" class="btn btn-danger mr-2">Cancelar</a>
+            <button type="submit" class="btn btn-general btn-sm">Registrar</button>
           </div>
+        </form>
 
-          <br>
-
-          <div style="text-align: right; padding: 10px;">
-            <a href="./requestSuper.php" type="button" class="btn btn-danger" style="padding: 8px 16px; margin-right: 10px;">Cancelar</a>
-            <button type="submit" class="btn btn-success" style="padding: 8px 16px;">Enviar inscripción</button>
-          </div>
-    </form>
+      </div>
+    </div>
   </div>
 </body>
 

@@ -17,6 +17,7 @@
 <body class="bg-light">
 
 <div class="container mt-4">
+    <h4 class="mb-3">Instructores </h4>
 
     <!-- Filtro -->
     <div class="form-row mb-3">
@@ -28,11 +29,14 @@
                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
             </div>
         </div>
+         <div class="col-md-6 text-right">
+                <a class="btn btn-primary" id="addButton" href="addInstructor.php"> + Agregar</a>
+            </div>
     </div>
 
     <!-- Tabla -->
     <div class="table-responsive">
-        <table class="table table-bordered table-striped" id="professorsTable">
+        <table class="table table-bordered" id="professorsTable">
             <thead class="thead-light">
                 <tr>
                     <th>Nombre</th>
@@ -99,9 +103,8 @@
                     <td>${item.perfil}</td>
                     <td>${item.unidad}</td>
                     <td>${item.cupo}</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning" href="editInstructor.php">Editar</a>
-                        <a class="btn btn-sm btn-success" href="addInstructor.php" >Agregar</a>
+                    <td class="text-center acciones">
+                        <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'">Editar</button>
                     </td>
                 </tr>
             `);
