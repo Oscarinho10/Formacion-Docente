@@ -24,12 +24,12 @@ include('../components/layoutAdmin.php');
 //     );
 //     $usuarios[] = $usuario;
 
-    // Recolectar unidades académicas únicas -->
-    // if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
-    //     $unidades[] = $row["unidad_academica"];
-    // }
+// Recolectar unidades académicas únicas -->
+// if (!empty($row["unidad_academica"]) && !in_array($row["unidad_academica"], $unidades)) {
+//     $unidades[] = $row["unidad_academica"];
+// }
 
-    // Recolectar perfiles académicos únicos -->
+// Recolectar perfiles académicos únicos -->
 //     if (!empty($row["perfil_academico"]) && !in_array($row["perfil_academico"], $perfiles)) {
 //         $perfiles[] = $row["perfil_academico"];
 //     }
@@ -49,6 +49,7 @@ include('../components/layoutAdmin.php');
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" type="text/css">
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
@@ -58,7 +59,7 @@ include('../components/layoutAdmin.php');
 
 <body class="bg-light">
 
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
 
         <h4 class="mb-3">Solicitudes de Partcipantes</h4>
 
@@ -114,6 +115,19 @@ include('../components/layoutAdmin.php');
                     </thead>
                     <tbody id="tableBody">
                         <!-- Filas dinámicas -->
+                        <tr>
+                            <td>Pedro Mejía Juárez</td>
+                            <td>PEMJ850614HDFRRN09</td>
+                            <td>pedromejia@uaem.com</td>
+                            <td>Tiempo completo</td>
+                            <td>Universidad agropecuária de Temimilcingo</td>
+                            <td class="text-center">
+                                <div class="acciones">
+                                    <button class="btn btn-sm btn-general">Editar</button>
+                                    <button class="btn btn-sm btn-danger">Denegar</button>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

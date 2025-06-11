@@ -1,24 +1,33 @@
 .table-container {
     margin: 20px auto;
+    padding: 0 20px;
+    /* Espacio lateral interno */
     width: 100%;
-    max-width: 1200px;
-}
-
-.table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-.table th,
-.table td {
-    vertical-align: middle;
-    white-space: nowrap;
+    max-width: 100%;
+    /* Usar el 100% del contenedor padre */
+    box-sizing: border-box;
 }
 
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
 }
+
+.table {
+    width: 100%;
+    table-layout: auto;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    white-space: normal;
+    /* Permitir saltos de línea */
+    word-break: break-word;
+}
+
 
 .btn-action {
     padding: 5px 10px;
@@ -57,3 +66,24 @@
 
 }
 
+.acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.acciones > button {
+    margin-right: 8px;
+    white-space: nowrap;
+    padding: 6px 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    width: auto;
+    height: auto;
+    min-width: 70px; /* Puedes ajustar esto */
+    text-align: center;
+}
+
+.acciones > button:last-child {
+    margin-right: 0;
+}
