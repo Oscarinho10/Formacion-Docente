@@ -231,9 +231,9 @@ body {
     }
 
     /* Sin esto cuando se da clic se muestra permanentemente */
-    .dropdown>.dropdown-toggle:active {
+    /* .dropdown>.dropdown-toggle:active {
         /*pointer-events: none;*/
-    }
+    /* } */
 }
 
 /* MediaQuery para corregir submenu formacion */

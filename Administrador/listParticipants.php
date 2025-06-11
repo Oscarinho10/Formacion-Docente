@@ -92,7 +92,7 @@ include('../components/layoutAdmin.php');
 
         <!-- Botón totalmente a la derecha -->
         <div class="d-flex justify-content-end mt-3 mb-4">
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-secondary">
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark">
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
         </div>

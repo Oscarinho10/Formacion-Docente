@@ -1,4 +1,7 @@
 <?php include_once(dirname(__FILE__) . '/../config/config.php'); ?>
+
+<?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -44,15 +47,15 @@
 
 
             <div class="nav__list">
-                <a href="../SuperAdmin/initSuper.php" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
-                <a href="../SuperAdmin/profileSuper.php" class="nav__link"><span class="nav__name">Perfil</span></a>
-                <a href="../SuperAdmin/requestSuper.php" class="nav__link"><span class="nav__name">Solicitudes</span></a>
-                <a href="../SuperAdmin/instructorSuper.php" class="nav__link"><span class="nav__name">Instructores</span></a>
-                <a href="../SuperAdmin/trainingActivity.php" class="nav__link"><span class="nav__name">Actividad formativa</span></a>
-                <a href="../SuperAdmin/checkList.php" class="nav__link"><span class="nav__name">Asistencias</span></a>
-                <a href="../User/participantCertificate.php" class="nav__link"><span class="nav__name">Constancias</span></a>
-                <a href="../User/participantCertificate.php" class="nav__link"><span class="nav__name">Reportes</span></a>
-                <a href="../User/participantCertificate.php" class="nav__link"><span class="nav__name">Movimientos  n   </span></a>
+                <a href="../SuperAdmin/initSuper.php" class="nav__link <?php echo ($currentPage == 'initSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Menú principal</span></a>
+                <a href="../SuperAdmin/profileSuper.php" class="nav__link <?php echo ($currentPage == 'profileSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
+                <a href="../SuperAdmin/requestSuper.php" class="nav__link <?php echo ($currentPage == 'requestSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Solicitudes</span></a>
+                <a href="../SuperAdmin/instructorSuper.php" class="nav__link <?php echo ($currentPage == 'instructorSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Instructores</span></a>
+                <a href="../SuperAdmin/trainingActivity.php" class="nav__link <?php echo ($currentPage == 'trainingActivity.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad formativa</span></a>
+                <a href="../SuperAdmin/checkList.php" class="nav__link <?php echo ($currentPage == 'checkList.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
+                <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancias</span></a>
+                <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Reportes</span></a>
+                <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Movimientos  n   </span></a>
                 <div class="nav_bottom">
                     <a href="../login.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>

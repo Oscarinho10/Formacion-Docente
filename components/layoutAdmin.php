@@ -1,4 +1,7 @@
 <?php include_once(dirname(__FILE__) . '/../config/config.php'); ?>
+
+<?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -53,12 +56,12 @@
 
 
             <div class="nav__list">
-                <a href="../Administrador/initAdmin.php" class="nav__link active-link"><span class="nav__name">Menú principal</span></a>
-                <a href="#" class="nav__link"><span class="nav__name">Perfil</span></a>
-                <a href="../Administrador/listParticipants.php" class="nav__link"><span class="nav__name">Solicitudes</span></a>
-                <a href="../Administrador/listInstructors.php" class="nav__link"><span class="nav__name">Instructores</span></a>
-                <a href="../Administrador/listActivitys.php" class="nav__link"><span class="nav__name">Actividad Formativa</span></a>
-                <a href="../Administrador/listParticipants.php" class="nav__link"><span class="nav__name">Asistencias</span></a>
+                <a href="../Administrador/initAdmin.php" class="nav__link <?php echo ($currentPage == 'initAdmin.php') ? 'active-link' : ''; ?>"><span class="nav__name">Menú principal</span></a>
+                <a href="#" class="nav__link <?php echo ($currentPage == 'perfil.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
+                <a href="../Administrador/listParticipants.php" class="nav__link <?php echo ($currentPage == 'listParticipants.php') ? 'active-link' : ''; ?>"><span class="nav__name">Solicitudes</span></a>
+                <a href="../Administrador/listInstructors.php" class="nav__link <?php echo ($currentPage == 'listInstructors.php') ? 'active-link' : ''; ?>"><span class="nav__name">Instructores</span></a>
+                <a href="../Administrador/listActivitys.php" class="nav__link <?php echo ($currentPage == 'listActivitys.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad Formativa</span></a>
+                <a href="../Administrador/listAssists.php" class="nav__link <?php echo ($currentPage == 'listAssists.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
                 <div class="nav_bottom">
                     <a href="../login.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>

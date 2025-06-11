@@ -2,12 +2,14 @@
 .nav {
     position: fixed;
     top: 0;
-    left: -200px; /* Comienza fuera de la pantalla */
+    left: -200px;
+    /* Comienza fuera de la pantalla */
     height: 100vh;
     width: 200px;
     background-color: #001660;
     transition: left 0.3s ease;
-    z-index: 1000; /* Asegúrate de que el sidebar tenga un z-index alto */
+    z-index: 1000;
+    /* Asegúrate de que el sidebar tenga un z-index alto */
     overflow-x: hidden;
 }
 
@@ -19,11 +21,13 @@
 /* Botón hamburguesa flotante */
 #nav-toggle {
     position: fixed;
+    height: 8vh;
     top: 10px;
     left: 10px;
     color: white;
     font-size: 30px;
-    z-index: 1100; /* Asegúrate de que este valor sea mayor que el z-index de otros elementos */
+    z-index: 1100;
+    /* Asegúrate de que este valor sea mayor que el z-index de otros elementos */
     cursor: pointer;
     background: #001660;
     padding: 5px 10px;
@@ -40,7 +44,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 4rem; /* Añade un poco más de padding para evitar que el contenido quede detrás del botón */
+    padding-top: 4rem;
+    /* Añade un poco más de padding para evitar que el contenido quede detrás del botón */
 }
 
 .nav__toggle {
@@ -74,9 +79,11 @@
 }
 
 .nav__link:hover {
-    background-color: #003B7A;
+    background-color: #cacaca;
+    width: 200px;
+
     text-decoration: none;
-}   
+}
 
 .nav__link i {
     font-size: 1.25rem;
@@ -95,6 +102,8 @@
 /* Active link */
 .active-link {
     background-color: #003B7A;
+    width: 200px;
+
 }
 
 /* Estilo para el icono del botón de hamburguesa */
@@ -105,9 +114,12 @@
 /* Asegúrate de que el contenido principal no se mueva */
 .container {
     position: relative;
-    z-index: 100; /* Asegúrate de que el contenido principal tenga un z-index menor que el sidebar */
-    margin-left: 0; /* No necesitas margen izquierdo ya que el sidebar se superpondrá */
-    padding-left: 20px; /* Añade un poco de padding para evitar que el contenido toque el borde izquierdo */
+    z-index: 100;
+    /* Asegúrate de que el contenido principal tenga un z-index menor que el sidebar */
+    margin-left: 0;
+    /* No necesitas margen izquierdo ya que el sidebar se superpondrá */
+    padding-left: 20px;
+    /* Añade un poco de padding para evitar que el contenido toque el borde izquierdo */
 }
 
 /* Estilos para el header */
@@ -116,7 +128,8 @@
     padding: 10px;
     transition: all 0.3s ease;
     position: relative;
-    z-index: 100; /* Asegúrate de que el header tenga un z-index menor que el sidebar */
+    z-index: 100;
+    /* Asegúrate de que el header tenga un z-index menor que el sidebar */
 }
 
 .titulo .row {
@@ -130,7 +143,9 @@
     height: auto;
 }
 
-.titulo h4, .titulo h5, .titulo h6 {
+.titulo h4,
+.titulo h5,
+.titulo h6 {
     margin: 5px 0;
 }
 
