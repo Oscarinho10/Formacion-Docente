@@ -57,8 +57,16 @@
         <div id="paginationInfo" class="text-muted"></div>
         <ul class="pagination" id="pagination"></ul>
       </div>
+      <!-- Botón Volver alineado abajo -->
+      <div class="d-flex justify-content-end mt-6">
+        <a href="checkList.php" class="btn btn-dark">
+          <i class="fas fa-arrow-left mr-2"></i> Volver
+        </a>
+      </div>
     </div>
   </div>
+
+
 
   <!-- Modal -->
   <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog">

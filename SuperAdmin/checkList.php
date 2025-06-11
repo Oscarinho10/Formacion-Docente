@@ -22,7 +22,7 @@
   <div style="width: 100%; max-width: 1000px;">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="mb-0">Lista de Asistencia </h3>
-      <a href="addTrainingActivity.php" class="btn btn-primary">Agregar Actividad</a>
+      
     </div>
 
     <!-- Filtros -->

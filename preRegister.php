@@ -1,62 +1,107 @@
 <?php
-// Encabezado
-include ('HeadAndFoot/header.php');
+include('HeadAndFoot/header.php');
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de inscripción</title>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+</head>
 
-<!-- Formulario de pre-registro -->
-<div style="width: 90%; max-width: 600px; margin: 20px auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; font-family: Arial; box-sizing: border-box;">
-    <h3 style="text-align: center;">Formulario de pre-registro</h3>
-    <form method="post" action="procesar_formulario.php">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Nombre</label><br />
-                <input type="text" name="nombre" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control" />
-            </div>
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Numero de control</label><br />
-                <input type="text" name="numero_control" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control" />
-            </div>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Apellido Paterno</label><br />
-                <input type="text" name="apellido_paterno" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control"/>
-            </div>
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Apellido Materno</label><br />
-                <input type="text" name="apellido_materno" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control" />
-            </div>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Perfil académico</label><br />
-                <select name="perfil_academico" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control">
-                    <option value="">Selecciona perfil academico</option>
-                    <option value="estudiante">Estudiante</option>
-                    <option value="docente">Docente</option>
-                    <option value="egresado">Egresado</option>
-                </select>
-            </div>
-            <div style="flex: 1; min-width: 250px; padding: 10px; box-sizing: border-box;">
-                <label>Unidad académica</label><br />
-                <select name="unidad_academica" style="width: 100%; padding: 8px; box-sizing: border-box;" class="form-control">
-                    <option value="">Selecciona unidad academica</option>
-                    <option value="ingenieria">Ingeniería</option>
-                    <option value="ciencias">Ciencias</option>
-                    <option value="letras">Letras</option>
-                </select>
-            </div>
-        </div>
-        <div style="text-align: right; padding: 10px;">
-            <a href="<?php echo BASE_URL;?>/login.php" type="button" class="btn btn-danger" style="padding: 8px 16px; margin-right: 10px;">Cancelar</a>
-            <a href="./" type="button" class="btn btn-success" style="padding: 8px 16px;">Enviar</a>
-        </div>
-    </form>
-</div>
+<body class="bg-light">
 
-<?php
-// Pie de página
-include ('HeadAndFoot/footer.php');
-?>
+    <main class="container mt-5">
+        <section class="mx-auto" style="max-width: 700px;">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Formulario de inscripción al curso:<br><strong><?php echo htmlspecialchars($nombre_curso); ?></strong></h3>
+                    <form action="procesar_inscripcion.php" method="post">
+                        <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre</label>
+                                <input type="text" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Número de control / RFC</label>
+                                <input type="text" name="control_rfc" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Apellido Paterno</label>
+                                <input type="text" name="apellido_paterno" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellido Materno</label>
+                                <input type="text" name="apellido_materno" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Sexo</label>
+                                <select name="sexo" class="form-control" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="H">Hombre</option>
+                                    <option value="M">Mujer</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" name="edad" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Perfil académico</label>
+                                <select name="perfil_academico" class="form-control" required>
+                                    <option value="">Selecciona perfil</option>
+                                    <option value="estudiante">Estudiante</option>
+                                    <option value="docente">Docente</option>
+                                    <option value="egresado">Egresado</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Unidad académica</label>
+                                <select name="unidad_academica" class="form-control" required>
+                                    <option value="">Selecciona unidad</option>
+                                    <option value="ingenieria">Ingeniería</option>
+                                    <option value="ciencias">Ciencias</option>
+                                    <option value="letras">Letras</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-14">
+                            <label>Grado académico</label>
+                            <select name="unidad_academica" class="form-control" required>
+                                <option value="">Selecciona grado</option>
+                                <option value="ingenieria">Ingeniero</option>
+                                <option value="ciencias">Doctor</option>
+                                <option value="letras">Licenciado</option>
+                            </select>
+                        </div>
+                        <div class="text-right mt-4">
+                            <a href="login.php" class="btn btn-danger mr-2">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Enviar inscripción</button>
+                        </div>
+
+                </div>
+                </form>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <?php include('HeadAndFoot/footer.php'); ?>
+</body>
+
+</html>

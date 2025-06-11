@@ -48,7 +48,9 @@
 
   <div class="text-right mt-3">
     <button class="btn btn-success mr-2" onclick="window.print()">Imprimir</button>
-    <button class="btn btn-secondary">Volver</button>
+     <a href="checkList.php" class="btn btn-dark">
+          <i class="fas fa-arrow-left mr-2"></i> Volver
+        </a>
   </div>
 </div>
 

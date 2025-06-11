@@ -36,10 +36,6 @@ function renderTable() {
       <td>${item.fecha}</td>
       <td class="text-center">
         <span class="estado-label">${item.estado}</span>
-        <label class="switch ml-2">
-          <input type="checkbox" ${item.estado === "Activo" ? "checked" : ""}>
-          <span class="slider"></span>
-        </label>
       </td>
       <td>
         <a href="listActivity.php" class="btn btn-primary btn-sm">Ver lista</a>

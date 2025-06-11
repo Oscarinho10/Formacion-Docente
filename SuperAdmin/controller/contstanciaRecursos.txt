@@ -1,0 +1,386 @@
+
+
+<?php
+session_start();
+//DATOS DEL CURSO
+$curso_id = "270"; //CAMBIAR CON ID DE CURSO
+//USUARIO INGRESA CON CODIGO QR/ENLACE WEB PARA VERIFICAR LA VALIDEZ DE SU CONSTANCIA
+if ($_GET["correo"] != "") {
+	include('../conecBD/conecta.php');
+	$link = conectarse(); 
+	$correo=$_GET["correo"];
+	$result=pg_query($link, "SELECT estatus from registro_asistentes where curso_id='".$curso_id."' and acceso='".$correo."'");
+	$row=pg_fetch_array($result);
+	$result1=pg_query($link, "SELECT trim(nombre) as nombre, lugar, total_horas, fecha_fin, descripcion_fechas, descripcion_link3 from registro_actividades where id_curso='".$curso_id."';");
+	$row1=pg_fetch_array($result1);
+	if ($row["estatus"]=='Constancia') { 
+		require('../fpdf/fpdf.php'); 
+		$pdf=new FPDF();
+		$pdf=new FPDF('L','cm','letter');
+		$pdf->AddPage('L','Letter');
+		$pdf->AddFont('OpenSans-Italic');
+		$pdf->AddFont('OpenSans-Regular');
+		$pdf->AddFont('OpenSans-Semibold');
+		$pdf->AddFont('OpenSans-Bold');
+		$pdf->AddFont('OpenSans-ExtraBold');
+		$pdf->AddFont('Cookie-Regular');
+		$pdf->SetAutoPageBreak(true,0); 
+		//cambiar archivo de constancia
+		$pdf->Image('../imagen/CONSTANCIA_IA_2025_C.png' , 0 , 0, 27.94, 21.59, 'PNG'); //DISEÑO DE LA CONSTANCIA
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetTextColor(1,40,60);
+		$pdf->Ln(-0.4);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('La Universidad Autónoma del Estado de Morelos '),0,1,'C');
+		$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('y la Secretaría Académica,'),0,1,'C');
+		$pdf->Ln(-0.4);
+		//$pdf->SetFont('OpenSans-Regular','',16);
+		//$pdf->SetLeftMargin(2);
+		//$pdf->Cell(24,1,utf8_decode(''),0,1,'C');
+		//$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('a través de la Dirección General Educación Superior'),0,1,'C');
+		$pdf->Ln(0.4);
+		$pdf->SetFont('OpenSans-Regular','',12);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('Otorga la presente'),0,1,'C');
+		$pdf->Ln(0.6);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,0.5,utf8_decode('CONSTANCIA'),0,1,'C');
+		$pdf->Ln(0.9);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+		$result=pg_query($link,"SELECT distinct trim(ap_paterno) AS ap_paterno, trim(ap_materno) AS ap_materno, trim(nombre) AS nombre from registro_asistentes where curso_id='".$curso_id."' and acceso='".$correo."'");
+
+		while ($row = pg_fetch_array($result)) {
+			$pdf->Cell(24,1,'A: '.utf8_decode($row["nombre"])." ".utf8_decode($row["ap_paterno"])." ".utf8_decode($row["ap_materno"]),0,1,'C');
+		}
+
+		$pdf->Ln(0.5);
+		$pdf->SetFont('OpenSans-Regular','',12);
+		$pdf->SetLeftMargin(1);
+		$pdf->MultiCell (24,0.6,utf8_decode("Por haber acreditado el Curso-taller:"),0,'C');
+		$pdf->Ln(0.3);
+		$pdf->SetFont('OpenSans-Bold','',12);
+		$pdf->SetLeftMargin(2);
+		$pdf->MultiCell(24,1,utf8_decode($row1["nombre"]),0,'C');
+		$pdf->Ln(0.3);
+		$pdf->SetFont('OpenSans-Regular','',11);
+		$pdf->SetLeftMargin(2.5); //Margen Izquierdo
+		$pdf->SetRightMargin(2.5);//Margen Derecho
+		$pdf->MultiCell(23,0.6,utf8_decode("Impartido del 20 al 24 de enero de 2025, con una duración total de 20 horas distribuidas en 5 sesiones, en conformidad con los lineamientos establecidos por el Programa Institucional de Formación Docente."),0,'C',false); // C= Center J= Justificado
+
+		//El cual se impartió el 12 y 13 de agosto de 2024, con una duración total de 20 horas presenciales. El curso se realizó bajo los lineamientos que establece el programa de capacitación y formación docente de la UAEM.
+
+		//$pdf->SetLeftMargin(1.9);
+		//$pdf->MultiCell(25,0.6,utf8_decode("El curso en línea se impartió bajo los lineamientos que establece el programa de capacitación y formación docente de la"),0,'C');
+		$pdf->Ln(0.3);
+		$pdf->SetLeftMargin(2.5);
+		$pdf->SetRightMargin(2.5);//Margen Derecho
+		$pdf->MultiCell(23,0.5,utf8_decode("Se hace constar que cumplió con la entrega de todas las actividades requeridas, demostrando compromiso y responsabilidad en su formación."),0,'C',false);
+		$pdf->SetFont('OpenSans-Regular','',11);
+		$pdf->SetLeftMargin(0.5);
+		$pdf->Ln(1.1);
+		$pdf->Cell(25.7,0,utf8_decode("Cuernavaca, Morelos, México, a 24 de enero de 2025"),0,'L','R');
+		$pdf->Ln(1.9);
+		$pdf->SetFont('OpenSans-Bold','',11);
+		$pdf->SetLeftMargin(1);
+		//$pdf->Cell(26,1,utf8_decode("Por una humanidad culta"),0,1,'C');
+		$pdf->Image('http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://docencia.uaem.mx/formacion/programa2/2025270/constancias.php?email='.$correo.'',3.2,16,2,2,'PNG');
+		$result2=pg_query($link, "select folio,acceso from registro_asistentes where curso_id='".$curso_id."' and acceso='".$correo."'");
+		$row2=pg_fetch_array($result2);
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(3.1);
+		$pdf->SetLeftMargin(2.5);
+		$pdf->Cell(26,0,'Folio: '."" .$row2["folio"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(0.5);
+		$pdf->SetLeftMargin(1);
+		$pdf->Cell(26,0,'Clave: '."" .$row2["acceso"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',9);
+		$pdf->Ln(1);
+		$pdf->SetLeftMargin(0);
+		
+		
+		pg_close($link);
+		$pdf->Output();
+	} else if($row["estatus"]=='Asistencia'){
+		
+		require('../fpdf/fpdf.php'); 
+		$pdf=new FPDF();
+		$pdf=new FPDF('L','cm','letter');
+		$pdf->AddPage('L','Letter');
+		$pdf->AddFont('OpenSans-Italic');
+		$pdf->AddFont('OpenSans-Regular');
+		$pdf->AddFont('OpenSans-Semibold');
+		$pdf->AddFont('OpenSans-Bold');
+		$pdf->AddFont('OpenSans-ExtraBold');
+		$pdf->AddFont('Cookie-Regular');
+		$pdf->SetAutoPageBreak(true,0); 
+		//cambiar archivo de constancia
+		$pdf->Image('../imagen/CONSTANCIA_IA_2025_C.png' , 0 , 0, 27.94, 21.59, 'PNG'); //DISEÑO DE LA CONSTANCIA
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetTextColor(1,40,60);
+		$pdf->Ln(-0.4);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('La Universidad Autónoma del Estado de Morelos '),0,1,'C');
+		$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('y la Secretaría Académica,'),0,1,'C');
+		$pdf->Ln(-0.4);
+		//$pdf->SetFont('OpenSans-Regular','',16);
+		//$pdf->SetLeftMargin(2);
+		//$pdf->Cell(24,1,utf8_decode(''),0,1,'C');
+		//$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('a través de la Dirección General Educación Superior'),0,1,'C');
+		$pdf->Ln(0.4);
+		$pdf->SetFont('OpenSans-Regular','',12);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('Otorga la presente'),0,1,'C');
+		$pdf->Ln(0.6);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,0.5,utf8_decode('CONSTANCIA'),0,1,'C');
+		$pdf->Ln(0.9);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+		$result=pg_query($link,"SELECT distinct trim(ap_paterno) AS ap_paterno, trim(ap_materno) AS ap_materno, trim(nombre) AS nombre from registro_asistentes where curso_id='".$curso_id."' and acceso='".$correo."'");
+
+		while ($row = pg_fetch_array($result)) {
+			$pdf->Cell(24,1,'A: '.utf8_decode($row["nombre"])." ".utf8_decode($row["ap_paterno"])." ".utf8_decode($row["ap_materno"]),0,1,'C');
+		}
+
+		$pdf->Ln(0.5);
+		$pdf->SetFont('OpenSans-Regular','',12);
+		$pdf->SetLeftMargin(1);
+		$pdf->MultiCell (24,0.6,utf8_decode("Por su participación como asistente en el Curso-taller:"),0,'C');
+		$pdf->Ln(0.5);
+		$pdf->SetFont('OpenSans-Bold','',12);
+		$pdf->SetLeftMargin(2);
+		$pdf->MultiCell(24,1,utf8_decode($row1["nombre"]),0,'C');
+		$pdf->Ln(0.7);
+		$pdf->SetFont('OpenSans-Regular','',11);
+		$pdf->SetLeftMargin(2.5); //Margen Izquierdo
+		$pdf->SetRightMargin(2.5);//Margen Derecho
+		$pdf->MultiCell(23,0.6,utf8_decode("Impartido del 20 al 24 de enero de 2025 con una duración total de 20 horas divididas en 5 sesiones a través de la plataforma Zoom, en conformidad con los lineamientos establecidos por el Programa Institucional de Formación Docente."),0,'C',false); // C= Center J= Justificado
+
+		//El cual se impartió el 12 y 13 de agosto de 2024, con una duración total de 20 horas presenciales. El curso se realizó bajo los lineamientos que establece el programa de capacitación y formación docente de la UAEM.
+
+		//$pdf->SetLeftMargin(1.9);
+		//$pdf->MultiCell(25,0.6,utf8_decode("El curso en línea se impartió bajo los lineamientos que establece el programa de capacitación y formación docente de la"),0,'C');
+		//$pdf->SetLeftMargin(2.1);
+		//$pdf->MultiCell(25,0.6,utf8_decode("Universidad Autónoma del Estado de Morelos."),0,'C');
+		$pdf->SetFont('OpenSans-Regular','',11);
+		$pdf->SetLeftMargin(0.5);
+		$pdf->Ln(1.1);
+		$pdf->Cell(25.7,0,utf8_decode("Cuernavaca, Morelos, México, a 24 de enero de 2025"),0,'L','R');
+		$pdf->Ln(1.9);
+		$pdf->SetFont('OpenSans-Bold','',11);
+		$pdf->SetLeftMargin(1);
+		//$pdf->Cell(26,1,utf8_decode("Por una humanidad culta"),0,1,'C');
+		$pdf->Image('http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://docencia.uaem.mx/formacion/programa2/2025265/constancias.php?email='.$correo.'',3.2,16,2,2,'PNG');
+		$result2=pg_query($link, "select folio,acceso from registro_asistentes where curso_id='".$curso_id."' and acceso='".$correo."'");
+		$row2=pg_fetch_array($result2);
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(3.8);
+		$pdf->SetLeftMargin(2.5);
+		$pdf->Cell(26,0,'Folio: '."" .$row2["folio"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(0.5);
+		$pdf->SetLeftMargin(1);
+		$pdf->Cell(26,0,'Clave: '."" .$row2["acceso"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',9);
+		$pdf->Ln(1);
+		$pdf->SetLeftMargin(0);
+		
+		
+		pg_close($link);
+		$pdf->Output();
+			
+		}else{
+			pg_close($link);
+			echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
+			echo '<script>setTimeout(function(){ 
+							swal(
+								"Estimado(a) docente:",
+								"En caso de que tenga problemas para la descarga de su constancia,\nfavor de comunicarse al Depto. de Formaci\u00F3n de Profesores en el siguiente correo electr\u00F3nico:\nformacion.docente.ns@uaem.mx\nC\u00F3digo de error: 2",
+								"warning"
+							).then((value) => {
+								location.href="http://docencia.uaem.mx";
+							});
+						}, 200);
+					</script>';
+		}
+}
+
+?>
+
+
+
+-------------------------------------------
+
+<?php
+	session_start();
+	
+	
+	//CODIGO NUEVO para generar TODAS las constancias por AU con AGRADECIEMNTOS 
+	$sinMas = rtrim($_SESSION["straccesos"], "*");
+	
+	$sinAsteris = explode("*", $sinMas);
+	$id_curso = $_SESSION['id_curso'];
+	$unidad = $_SESSION['unidad'];
+	$agradecimientos = array();
+	$accessos = array();
+	foreach ($sinAsteris as $value) {
+		if($value=="0" || $value=="1"){ //Validamos par o impar
+			array_push($agradecimientos, $value);//Añadimos par
+		}else{
+			array_push($accessos, $value); //Añadimos impar
+		}
+	}
+	
+
+	//ABRIR PDF
+	require('../fpdf/fpdf.php'); 
+	$pdf=new FPDF();
+	//Primera página
+	$pdf=new FPDF('L','cm','letter');
+	include('../conecBD/conecta.php');
+	$link = conectarse(); 
+	foreach ($accessos as $key=>$value) {
+		$correo = $value;
+		
+	
+	if(intval($agradecimientos[$key]) == 1) {
+
+		
+	}
+	// CONSTANCIAS
+	else
+	{
+		$result=pg_query($link, "SELECT estatus from registro_asistentes where curso_id='".$id_curso."' and estatus='Constancia' and acceso='".$correo."'");
+		$row=pg_fetch_array($result);
+		$result1=pg_query($link, "SELECT trim(nombre) as nombre, lugar, total_horas, fecha_fin, descripcion_fechas, descripcion_link3 from registro_actividades where id_curso=".$id_curso.";");
+		$row1=pg_fetch_array($result1);
+
+		if ($row["estatus"]=='Constancia')
+		{ 
+			
+			$pdf->AddPage('L','letter');
+			$pdf->AddFont('OpenSans-Italic');
+			$pdf->AddFont('OpenSans-Regular');
+			$pdf->AddFont('OpenSans-Semibold');
+			$pdf->AddFont('OpenSans-Bold');
+			$pdf->AddFont('OpenSans-ExtraBold');
+			$pdf->AddFont('Cookie-Regular');
+			$pdf->SetAutoPageBreak(true,0);  
+			$pdf->Image('../imagen/CONSTANCIA_IA_2025_C.png' , 0 , 0, 27.94, 21.59, 'PNG');
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetTextColor(1,40,60);
+		$pdf->Ln(-0.4);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('La Universidad Autónoma del Estado de Morelos, '),0,1,'C');
+		$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('y la Secretaría Académica,'),0,1,'C');
+		$pdf->Ln(-0.4);
+		//$pdf->SetFont('OpenSans-Regular','',16);
+		//$pdf->SetLeftMargin(2);
+		//$pdf->Cell(24,1,utf8_decode(''),0,1,'C');
+		//$pdf->Ln(-0.4);
+		$pdf->SetFont('OpenSans-Regular','',14);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('a través de la Dirección General Educación Superior'),0,1,'C');
+		$pdf->Ln(0.4);
+		$pdf->SetFont('OpenSans-Regular','',12);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,1,utf8_decode('Otorga la presente'),0,1,'C');
+		$pdf->Ln(0.6);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+		$pdf->Cell(24,0.5,utf8_decode('CONSTANCIA'),0,1,'C');
+		$pdf->Ln(0.9);
+		$pdf->SetFont('OpenSans-Bold','',24);
+		$pdf->SetLeftMargin(2);
+			$result=pg_query($link,"SELECT distinct trim(ap_paterno) AS ap_paterno, trim(ap_materno) AS ap_materno, trim(nombre) AS nombre from registro_asistentes where curso_id='".$id_curso."' and acceso='".$correo."'");
+
+			$row = pg_fetch_array($result);
+				$pdf->Cell(24,1,'A: '.utf8_decode($row["nombre"])." ".utf8_decode($row["ap_paterno"])." ".utf8_decode($row["ap_materno"]),0,1,'C');
+			
+			
+			$pdf->Ln(0.5);
+			$pdf->SetFont('OpenSans-Regular','',12);
+			$pdf->SetLeftMargin(1);
+			$pdf->MultiCell (24,0.6,utf8_decode("Por su participación como asistente en el Curso-taller:"),0,'C');
+			$pdf->Ln(0.5);
+			$pdf->SetFont('OpenSans-Bold','',12);
+			$pdf->SetLeftMargin(2);
+			$pdf->MultiCell(24,1,utf8_decode($row1["nombre"]),0,'C');
+			$pdf->Ln(0.7);
+			$pdf->SetFont('OpenSans-Regular','',11);
+			$pdf->SetLeftMargin(2.5); //Margen Izquierdo
+			$pdf->SetRightMargin(2.5);//Margen Derecho
+			$pdf->MultiCell(23,0.6,utf8_decode("Impartido del 20 al 24 de enero de 2025 con una duración total de 20 horas. Esta actividad formativa fue desarrollada en 5 sesiones presenciales en las instalaciones de la Biblioteca Central Universitaria, en conformidad con los lineamientos establecidos por el Programa Institucional de Formación Docente."),0,'C',false); // C= Center J= Justificado
+
+			$pdf->SetFont('OpenSans-Regular','',11);
+			$pdf->SetLeftMargin(0.5);
+			$pdf->Ln(1.1);
+			$pdf->Cell(25.7,0,utf8_decode("Cuernavaca, Morelos, México, a 24 de enero de 2025"),0,'L','R');
+			$pdf->Ln(1.9);
+			$pdf->SetFont('OpenSans-Bold','',11);
+			$pdf->SetLeftMargin(1);
+			//$pdf->Cell(26,1,utf8_decode("Por una humanidad culta"),0,1,'C');
+		$pdf->Image('http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://docencia.uaem.mx/formacion/formacion/programa2/2025256/constancias.php?email='.$correo.'',3.2,16,2,2,'PNG');
+		$result2=pg_query($link, "select folio,acceso from registro_asistentes where curso_id='256' and acceso='".$correo."'");
+		$row2=pg_fetch_array($result2);
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(3.2);
+		$pdf->SetLeftMargin(2.5);
+		$pdf->Cell(26,0,'Folio: '."" .$row2["folio"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',8);
+		//$pdf->SetTextColor(255,255,255);
+		$pdf->Ln(0.5);
+		$pdf->SetLeftMargin(1);
+		$pdf->Cell(26,0,'Clave: '."" .$row2["acceso"],0,'L');
+		$pdf->SetFont('OpenSans-Bold','',9);
+		$pdf->Ln(1);
+		$pdf->SetLeftMargin(0);
+
+		}
+		else
+		{
+			pg_close($link);
+			echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
+			echo '<script>setTimeout(function(){ 
+							swal(
+								"Estimado(a) docente:",
+								"En caso de que tenga problemas para la descarga de su constancia,\nfavor de comunicarse al Depto. de Formaci\u00F3n de Profesores en el siguiente correo electr\u00F3nico:\nformacion.docente.ns@uaem.mx\nC\u00F3digo de error: 1",
+								"warning"
+							).then((value) => {
+								location.href="http://sistemas2.dti.uaem.mx/evadocente/formacion/";
+							});
+						}, 200);
+					</script>';
+		}
+	}
+
+	}
+	$nombrepdf = $id_curso.'_'.strtoupper($unidad).'.PDF';
+	$pdf->Output($nombrepdf,'I');
+?>
+
+
