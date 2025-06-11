@@ -16,54 +16,58 @@
 
 <body class="bg-light">
 
-<div class="container mt-4">
-    <h4 class="mb-3">Instructores </h4>
+    <div class="container mt-4">
+        <h4 class="mb-3">Instructores </h4>
 
-    <!-- Filtro -->
-    <div class="form-row mb-3">
-        <div class="col-md-6">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <!-- Filtro -->
+        <div class="form-row mb-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
                 </div>
-                <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
             </div>
-        </div>
-         <div class="col-md-6 text-right">
+            <div class="col-md-6 text-right">
                 <a class="btn btn-primary" id="addButton" href="addInstructor.php"> + Agregar</a>
             </div>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-bordered" id="professorsTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Perfil Académico</th>
+                        <th>Unidad Académica</th>
+                        <th>Cupo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Contenido dinámico -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div id="paginationInfo"></div>
+            <ul class="pagination" id="pagination"></ul>
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
+        </div>
+
     </div>
 
-    <!-- Tabla -->
-    <div class="table-responsive">
-        <table class="table table-bordered" id="professorsTable">
-            <thead class="thead-light">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Perfil Académico</th>
-                    <th>Unidad Académica</th>
-                    <th>Cupo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- Contenido dinámico -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Paginación -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-        <div id="paginationInfo"></div>
-        <ul class="pagination" id="pagination"></ul>
-    </div>
-
-</div>
-
-<!-- Scripts -->
-<script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-<script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/instructorSuper.js"></script>
+    <!-- Scripts -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/instructorSuper.js"></script>
 
 </body>
+
 </html>

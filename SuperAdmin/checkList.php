@@ -67,13 +67,14 @@
       </table>
     </div>
 
-    <!-- Paginador -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <div class="pagination-info" id="paginationInfo"></div>
-      <nav>
-        <ul class="pagination" id="pagination"></ul>
-      </nav>
-    </div>
+        <!-- Paginación -->
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div id="paginationInfo"></div>
+    <ul class="pagination" id="pagination"></ul>
+    <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </button>
+  </div>
   </div>
 </div>
 

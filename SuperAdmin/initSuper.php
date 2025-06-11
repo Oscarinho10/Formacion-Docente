@@ -24,7 +24,7 @@ include('../components/layoutSuper.php');
         <div class="card-title2">Asistencia</div>
     </a>
 
-    <a href="asistencia.php" class="card2">
+    <a href="constancy.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/certificado.png" alt="Asistencia">
         <div class="card-title2">Constancias</div>
     </a>
