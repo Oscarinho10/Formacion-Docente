@@ -24,7 +24,11 @@ include('../components/layoutAdmin.php');
 <body class="bg-light">
 
     <div class="container mt-4">
-        <h4 class="mb-3">Instructores</h4>
+
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+            <h4 class="col-md-2 mb-3">Instructores</h4>
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/addInstructor.php'" class="btn btn-primary col-md-2" id="addButton" href="addInstructor.php">+ Registrar</button>
+        </div>
 
         <!-- Filtros  -->
         <div class="form-row mb-3">

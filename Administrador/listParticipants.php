@@ -25,7 +25,10 @@ include('../components/layoutAdmin.php');
 
     <div class="container-fluid mt-4">
 
-        <h4 class="mb-3">Solicitudes de Partcipantes</h4>
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+            <h4 class="mb-3">Solicitudes de Participates</h4>
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/addActivity.php'" class="btn btn-primary col-md-2" id="addButton" href="addInstructor.php">+ Registrar</button>
+        </div>
 
         <!-- Filtros  -->
         <div class="form-row mb-3">
@@ -39,21 +42,23 @@ include('../components/layoutAdmin.php');
             </div>
 
             <div class="col-md-3">
-                <select class="form-control" id="filterUnidad">
-                    <option value="">Todas las unidades</option>
-                    <option value="">Derecho</option>
-                    <?php foreach ($unidades as $unidad): ?>
-                        <option value="<?php echo htmlspecialchars($unidad); ?>"><?php echo htmlspecialchars($unidad); ?></option>
+                <select class="form-control" id="filterPerfil">
+                    <option value="">Todos los perfiles</option>
+                    <option value="Arquitectura">Arquitectura</option>
+                    <option value="Ingeniería en Software">Ingeniería en Software</option>
+                    <?php foreach ($perfiles as $perfil): ?>
+                        <option value="<?php echo htmlspecialchars($perfil); ?>"><?php echo htmlspecialchars($perfil); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
 
             <div class="col-md-3">
-                <select class="form-control" id="filterPerfil">
-                    <option value="">Todos los perfiles</option>
-                    <option value="">Perfil de facebook</option>
-                    <?php foreach ($perfiles as $perfil): ?>
-                        <option value="<?php echo htmlspecialchars($perfil); ?>"><?php echo htmlspecialchars($perfil); ?></option>
+                <select class="form-control" id="filterUnidad">
+                    <option value="">Todas las unidades</option>
+                    <option value="Facultad de Arquitectura">Facultad de Arquitectura</option>
+                    <option value="Facultad de Ingeniería">Facultad de Ingeniería</option>
+                    <?php foreach ($unidades as $unidad): ?>
+                        <option value="<?php echo htmlspecialchars($unidad); ?>"><?php echo htmlspecialchars($unidad); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
