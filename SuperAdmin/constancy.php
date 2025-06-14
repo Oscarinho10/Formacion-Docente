@@ -21,33 +21,45 @@ include('../components/layoutSuper.php')
 <body class="bg-light">
     <div class="container mt-4 d-flex justify-content-center">
         <div style="width: 100%; max-width: 1000px;">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="studentsTable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Fecha actividad</th>
-                            <th>Tipo</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Llenado por JS -->
-                    </tbody>
-                </table>
 
-                <!-- Paginación -->
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div id="paginationInfo"></div>
-                    <ul class="pagination" id="pagination"></ul>
-                    <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
-                        <i class="fas fa-arrow-left"></i> Regresar
-                    </button>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
+
+                <div class="col-md-3">
+                    <input type="date" id="filterFecha" class="form-control">
                 </div>
             </div>
+            <br>
+            <table class="table table-bordered" id="studentsTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha actividad</th>
+                        <th>Tipo</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Llenado por JS -->
+                </tbody>
+            </table>
 
-
+            <!-- Paginación -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div id="paginationInfo"></div>
+                <ul class="pagination" id="pagination"></ul>
+                <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </button>
+            </div>
         </div>
+
+
+    </div>
 
     </div>
 
