@@ -23,8 +23,10 @@ function renderTabla() {
   const itemsToShow = filteredData.slice(start, end);
 
   tbody.innerHTML = "";
+
   itemsToShow.forEach((actividad, index) => {
     const checked = actividad.estado === "Activo" ? "checked" : "";
+
     const row = `
       <tr>
         <td>${actividad.nombre}</td>
@@ -36,13 +38,33 @@ function renderTabla() {
           </label>
         </td>
         <td class="text-center">
-          <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalVerMas${index + 1}">Ver más</button>
+          <button class="btn btn-secondary btn-sm verMasBtn"
+                  data-nombre="${actividad.nombre}"
+                  data-horas="${actividad.horas}"
+                  data-estado="${actividad.estado}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalActividad">
+            Ver más
+          </button>
           <a href="editTrainingActivity.php" class="btn btn-sm btn-general">Editar</a>
         </td>
       </tr>
     `;
+
     tbody.innerHTML += row;
   });
+
+  // Eventos para cada botón Ver más
+  setTimeout(() => {
+    const botones = document.querySelectorAll('.verMasBtn');
+    botones.forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.getElementById('modalNombre').innerText = this.dataset.nombre;
+        document.getElementById('modalHoras').innerText = this.dataset.horas;
+        document.getElementById('modalEstado').innerText = this.dataset.estado;
+      });
+    });
+  }, 0);
 
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filteredData.length)} a ${Math.min(end, filteredData.length)} de ${filteredData.length} registros`;
   renderPagination();
@@ -53,7 +75,6 @@ function renderPagination() {
   const pageCount = Math.ceil(filteredData.length / rowsPerPage);
   pagination.innerHTML = "";
 
-  // Flecha izquierda
   const prevLi = document.createElement('li');
   prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
   prevLi.innerHTML = `<a class="page-link" href="#">«</a>`;
@@ -66,7 +87,6 @@ function renderPagination() {
   });
   pagination.appendChild(prevLi);
 
-  // Números
   for (let i = 1; i <= pageCount; i++) {
     const li = document.createElement('li');
     li.className = `page-item ${i === currentPage ? 'active' : ''}`;
@@ -79,7 +99,6 @@ function renderPagination() {
     pagination.appendChild(li);
   }
 
-  // Flecha derecha
   const nextLi = document.createElement('li');
   nextLi.className = `page-item ${currentPage === pageCount ? 'disabled' : ''}`;
   nextLi.innerHTML = `<a class="page-link" href="#">»</a>`;
@@ -95,7 +114,6 @@ function renderPagination() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
-
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     filteredData = actividades.filter(a =>

@@ -1,4 +1,5 @@
 <?php include('../components/layoutSuper.php'); ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -69,5 +70,7 @@
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/trainingActivity.js"></script>
 </body>
+<?php include('../SuperAdmin/modalSuper/detailsActivityModal.php'); ?>
+
 
 </html>

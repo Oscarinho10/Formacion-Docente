@@ -29,7 +29,7 @@ include('../components/layoutSuper.php');
         <div class="card-title2">Constancias</div>
     </a>
 
-    <a href="asistencia.php" class="card2">
+    <a href="reports.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/reporte.png" alt="Asistencia">
         <div class="card-title2">Reportes</div>
     </a>
