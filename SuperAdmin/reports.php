@@ -38,7 +38,6 @@ include('../components/layoutSuper.php')
 
         <div class="p-3 mb-4">
 
-        </div>
         <!-- Filtros -->
         <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
             <div class="form-row align-items-center">
