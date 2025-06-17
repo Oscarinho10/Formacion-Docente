@@ -55,7 +55,7 @@
                 <a href="../SuperAdmin/checkList.php" class="nav__link <?php echo ($currentPage == 'checkList.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
                 <a href="../SuperAdmin/constancy.php" class="nav__link <?php echo ($currentPage == 'constancy.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancias</span></a>
                 <a href="../SuperAdmin/reports.php" class="nav__link <?php echo ($currentPage == 'reports.php') ? 'active-link' : ''; ?>"><span class="nav__name">Reportes</span></a>
-                <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Movimientos</span></a>
+                <a href="../SuperAdmin/audit.php" class="nav__link <?php echo ($currentPage == 'audit.php') ? 'active-link' : ''; ?>"><span class="nav__name">Movimientos</span></a>
                 <div class="nav_bottom">
                     <a href="../login.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>

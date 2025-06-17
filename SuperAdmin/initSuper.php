@@ -34,7 +34,7 @@ include('../components/layoutSuper.php');
         <div class="card-title2">Reportes</div>
     </a>
 
-     <a href="asistencia.php" class="card2">
+     <a href="audit.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/movimientos.png" alt="Asistencia">
         <div class="card-title2">Movimientos</div>
     </a>
