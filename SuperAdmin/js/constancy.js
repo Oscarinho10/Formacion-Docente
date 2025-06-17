@@ -99,5 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTable();
   });
 
+  
+
   updateTable(); // inicial
+
+
+  // Evento: limpiar filtros
+document.getElementById('clearFiltersBtn').addEventListener('click', function () {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterFecha').value = '';
+    renderTable(); // Muestra todo de nuevo
+});
 });

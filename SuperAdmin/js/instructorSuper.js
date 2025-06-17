@@ -1,11 +1,11 @@
  const data = [
-        { nombre: "Dr. Ana Torres", perfil: "Ingeniería en Software", unidad: "Facultad de Ingeniería", cupo: 30 },
-        { nombre: "Mtro. Luis Rivas", perfil: "Matemáticas Aplicadas", unidad: "Facultad de Ciencias", cupo: 25 },
-        { nombre: "Lic. Marta León", perfil: "Comunicación", unidad: "Facultad de Humanidades", cupo: 20 },
-        { nombre: "Dra. Claudia Díaz", perfil: "Biología Molecular", unidad: "Facultad de Ciencias Naturales", cupo: 15 },
-        { nombre: "Mtro. Pedro Jiménez", perfil: "Arquitectura", unidad: "Facultad de Arquitectura", cupo: 28 },
-        { nombre: "Ing. Julio Suárez", perfil: "Sistemas Computacionales", unidad: "Facultad de Ingeniería", cupo: 35 },
-        { nombre: "Lic. Karen López", perfil: "Diseño Gráfico", unidad: "Facultad de Artes", cupo: 22 }
+        { nombre: "Dr. Ana Torres", perfil: "Ingeniería en Software", unidad: "Facultad de Ingeniería" },
+        { nombre: "Mtro. Luis Rivas", perfil: "Matemáticas Aplicadas", unidad: "Facultad de Ciencias"},
+        { nombre: "Lic. Marta León", perfil: "Comunicación", unidad: "Facultad de Humanidades" },
+        { nombre: "Dra. Claudia Díaz", perfil: "Biología Molecular", unidad: "Facultad de Ciencias Naturales" },
+        { nombre: "Mtro. Pedro Jiménez", perfil: "Arquitectura", unidad: "Facultad de Arquitectura" },
+        { nombre: "Ing. Julio Suárez", perfil: "Sistemas Computacionales", unidad: "Facultad de Ingeniería" },
+        { nombre: "Lic. Karen López", perfil: "Diseño Gráfico", unidad: "Facultad de Artes" }
     ];
 
     const rowsPerPage = 5;
@@ -35,7 +35,6 @@
                     <td>${item.nombre}</td>
                     <td>${item.perfil}</td>
                     <td>${item.unidad}</td>
-                    <td>${item.cupo}</td>
                     <td class="text-center acciones">
                         <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'">Editar</button>
                     </td>

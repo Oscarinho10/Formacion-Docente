@@ -35,9 +35,10 @@ include('../components/layoutSuper.php');
                         <input type="text" id="searchInput" class="form-control" placeholder="Buscar participante...">
                     </div>
                 </div>
-                    <div class="col-md-4">
-                        <input type="date" id="filterFecha" class="form-control">
-                    </div>
+
+                <div class="col-md-2 text-right">
+                    <button id="clearFiltersBtn" class="btn btn-outline-secondary">Limpiar filtros</button>
+                </div>
             </div>
 
             <!-- Tabla de Participantes -->
@@ -60,9 +61,9 @@ include('../components/layoutSuper.php');
             <div class="d-flex justify-content-between mt-3">
                 <button class="btn btn-primary" id="generateAllButton">Generar Constancias de Todos</button>
 
-                 <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/constancy.php'" class="btn btn-dark">
-                        <i class="fas fa-arrow-left"></i> Regresar
-                    </button>
+                <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/constancy.php'" class="btn btn-dark">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
     </div>
@@ -72,7 +73,7 @@ include('../components/layoutSuper.php');
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/seeConstancy.js"></script>
 
- 
+
 </body>
 
 </html>

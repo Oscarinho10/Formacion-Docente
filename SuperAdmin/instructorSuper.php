@@ -42,7 +42,6 @@
                         <th>Nombre</th>
                         <th>Perfil Académico</th>
                         <th>Unidad Académica</th>
-                        <th>Cupo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

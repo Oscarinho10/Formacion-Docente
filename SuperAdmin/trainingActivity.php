@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col-md-6 text-right">
-        <a class="btn btn-primary" id="addButton" href="addUser.php"> + Agregar</a>
+        <a class="btn btn-primary" id="addButton" href="addTrainingActivity.php"> + Agregar</a>
       </div>
     </div>
 

@@ -1,55 +1,62 @@
-  // Datos estáticos de estudiantes (simulados)
-        const estudiantes = [
-            { nombre: "Juan Pérez", correo: "juan@example.com", curso: "Curso de IA" },
-            { nombre: "Maria López", correo: "maria@example.com", curso: "Curso de IA" }
-        ];
+// Datos estáticos de estudiantes (simulados)
+const estudiantes = [
+    { nombre: "Juan Pérez", correo: "juan@example.com", curso: "Curso de IA" },
+    { nombre: "Maria López", correo: "maria@example.com", curso: "Curso de IA" },
+     { nombre: "Juana   Martinez", correo: "juan@example.com", curso: "Curso de IA" },
+    { nombre: "Maria López Perez", correo: "maria@example.com", curso: "Curso de Figma " }
+];
 
-        // Renderizar tabla de estudiantes
-        function renderTable() {
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = '';
+// Función para renderizar la tabla
+function renderTable(lista = estudiantes) {
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = '';
 
-            estudiantes.forEach(estudiante => {
-                const row = document.createElement('tr');
+    lista.forEach(estudiante => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${estudiante.nombre}</td>
+            <td>${estudiante.correo}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" onclick="generarConstancia('${estudiante.correo}')">Generar</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
 
-                row.innerHTML = `
-                    <td>${estudiante.nombre}</td>
-                    <td>${estudiante.correo}</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" onclick="generarConstancia('${estudiante.correo}')">Generar</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+// Generar constancia individual
+function generarConstancia(correo) {
+    alert(`Generando constancia para: ${correo}`);
+    window.location.href = `./controller/generateConstancy.php?correo=${correo}`;
+}
 
-        // Llamada a generar constancia individual
-        function generarConstancia(correo) {
-            // Aquí se generaría la constancia para el estudiante
-            alert(`Generando constancia para: ${correo}`);
-            // Redirigir al archivo PHP de generación de constancia
-            window.location.href = `./controller/generateConstancy.php?correo=${correo}`;
-        }
+// Generar constancias para todos
+function generarConstanciasTodos() {
+    estudiantes.forEach(est => {
+        generarConstancia(est.correo);
+    });
+}
 
-        // Llamada a generar constancias para todos
-        function generarConstanciasTodos() {
-            estudiantes.forEach(est => {
-                // Llamar a generar constancia para cada estudiante
-                generarConstancia(est.correo);
-            });
-        }
+// Evento: botón "Generar todos"
+document.getElementById('generateAllButton').addEventListener('click', function () {
+    generarConstanciasTodos();
+});
 
-        // Inicializar tabla
-        renderTable();
+// Evento: filtro por nombre
+document.getElementById('searchInput').addEventListener('input', function () {
+    const search = this.value.toLowerCase();
+    const filteredEstudiantes = estudiantes.filter(est =>
+        est.nombre.toLowerCase().includes(search)
+    );
+    renderTable(filteredEstudiantes);
+});
 
-        // Evento para generar constancias de todos los participantes
-        document.getElementById('generateAllButton').addEventListener('click', function() {
-            generarConstanciasTodos();
-        });
+// Evento: limpiar filtros
+document.getElementById('clearFiltersBtn').addEventListener('click', function () {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterFecha').value = '';
+    renderTable(); // Muestra todo de nuevo
+});
 
-        // Evento de filtro de búsqueda
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const search = this.value.toLowerCase();
-            const filteredEstudiantes = estudiantes.filter(est => est.nombre.toLowerCase().includes(search));
-            renderTable(filteredEstudiantes);
-        });
+// Inicializar tabla al cargar
+renderTable();

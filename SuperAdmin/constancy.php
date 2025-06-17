@@ -32,6 +32,9 @@ include('../components/layoutSuper.php')
                 <div class="col-md-3">
                     <input type="date" id="filterFecha" class="form-control">
                 </div>
+                <div class="col-md-2 text-right">
+                    <button id="clearFiltersBtn" class="btn btn-outline-secondary">Limpiar filtros</button>
+                </div>
             </div>
             <br>
             <table class="table table-bordered" id="studentsTable">
