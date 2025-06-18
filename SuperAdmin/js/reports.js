@@ -44,6 +44,11 @@ function renderTabla(lista) {
   const tbody = document.getElementById("tbodyReporte");
   tbody.innerHTML = "";
 
+  if (lista.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center">No se encontraron resultados</td></tr>`;
+    return;
+  }
+
   lista.forEach(row => {
     tbody.innerHTML += `
       <tr>
@@ -75,9 +80,21 @@ function filtrarTabla() {
   renderTabla(filtrados);
 }
 
-// Inicializar con todos los datos
-document.addEventListener("DOMContentLoaded", () => renderTabla(data));
+function limpiarFiltros() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("semestreSelect").value = "";
+  document.getElementById("anioSelect").value = "";
+  renderTabla(data);
+}
 
+document.addEventListener("DOMContentLoaded", () => {
+  renderTabla(data);
+
+  document.getElementById("searchInput").addEventListener("input", filtrarTabla);
+  document.getElementById("semestreSelect").addEventListener("change", filtrarTabla);
+  document.getElementById("anioSelect").addEventListener("change", filtrarTabla);
+  document.getElementById("clearFilters").addEventListener("click", limpiarFiltros);
+});
 
 function imprimirReporte() {
   const tabla = document.getElementById("tablaReporte").outerHTML;
@@ -87,7 +104,7 @@ function imprimirReporte() {
     <html>
     <head>
       <title>Reporte General</title>
-      <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+      <link rel="stylesheet" href="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/css/bootstrap.css">
       <style>
         body { font-family: Arial, sans-serif; padding: 30px; }
         h2 { text-align: center; margin-bottom: 30px; }
@@ -100,8 +117,8 @@ function imprimirReporte() {
     </head>
     <body>
       <div class="logo-container">
-        <img src="<?php echo BASE_URL; ?>/assets/img/uaem.png" alt="UAEM">
-        <img src="<?php echo BASE_URL; ?>/assets/img/sigem.png" alt="SIGEM">
+        <img src="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/img/uaem.png" alt="UAEM">
+        <img src="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/img/sigem.png" alt="SIGEM">
       </div>
       <h2>Reporte General de Actividades Formativas</h2>
       ${tabla}
@@ -111,5 +128,4 @@ function imprimirReporte() {
   ventana.document.close();
   ventana.focus();
   ventana.print();
-  // ventana.close(); // opcional
 }

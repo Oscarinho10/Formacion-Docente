@@ -60,7 +60,7 @@
       <!-- Botón Volver alineado abajo -->
       <div class="d-flex justify-content-end mt-6">
         <a href="checkList.php" class="btn btn-dark">
-          <i class="fas fa-arrow-left mr-2"></i> Volver
+          <i class="fas fa-arrow-left mr-2"></i> Regresar
         </a>
       </div>
     </div>

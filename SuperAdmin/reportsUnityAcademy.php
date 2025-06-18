@@ -27,7 +27,7 @@
           <h4 class="mb-3">Generar reporte por unidad academica</h4>
           <div class="d-flex justify-content-end">
 
-              <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark mr-2">
+              <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/reports.php'" class="btn btn-dark mr-2">
                   <i class="fas fa-arrow-left"></i> Regresar
               </button>
 

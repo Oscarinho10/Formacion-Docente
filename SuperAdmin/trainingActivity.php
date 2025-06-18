@@ -28,7 +28,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
-          <input type="text" class="form-control" id="searchInput" placeholder="Buscar estudiante...">
+          <input type="text" class="form-control" id="searchInput" placeholder="Buscar actividad...">
         </div>
       </div>
       <div class="col-md-6 text-right">

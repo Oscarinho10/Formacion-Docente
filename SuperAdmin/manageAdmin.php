@@ -7,8 +7,8 @@ include('../components/layoutSuper.php')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movimientos</title>
-    <!-- CSS -->
+    <title>Gestionar administradores</title>
+      <!-- CSS -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" type="text/css">
@@ -21,9 +21,9 @@ include('../components/layoutSuper.php')
 
 <body>
     <div class="container mt-4 d-flex justify-content-center">
-        <div style="width: 100%; max-width: 1000px;">
+        <div style="width:100%; max-width:1000px;">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="mb-0">Movimientos</h3>
+                <h3 class="mb-0">Gestionar Administradores</h3>
             </div>
             <!-- Filtros -->
             <div class="form-row mb-4">
@@ -42,7 +42,7 @@ include('../components/layoutSuper.php')
                     <button class="btn btn-outline-secondary btn-block" id="clearFilters">Limpiar filtros</button>
                 </div>
                 <div class="col-md-3">
-                    <button  onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/manageAdmin.php'" class="btn btn-primary" id="addButton"> Gestionar administradores</button>
+                    <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/addAdmin.php'" class="btn btn-primary" id="addButton"> Agregar administradores</button>
                 </div>
             </div>
 
@@ -51,11 +51,12 @@ include('../components/layoutSuper.php')
                 <table class="table table-bordered" id="tablaActividades">
                     <thead class="thead-light">
                         <tr>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Administrador</th>
-                            <th>Movimientos</th>
-                            <th>Modulos</th>
+                            <th>Nombre</th>
+                            <th>Correo electronico</th>
+                            <th>Numero de control</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -63,19 +64,20 @@ include('../components/layoutSuper.php')
                     </tbody>
                 </table>
             </div>
+
             <!-- Paginación -->
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div id="paginationInfo"></div>
                 <ul class="pagination" id="pagination"></ul>
-                <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+                <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/audit.php'" class="btn btn-dark">
                     <i class="fas fa-arrow-left"></i> Regresar
                 </button>
             </div>
-
         </div>
     </div>
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/audit.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/manageAdmin.js"></script>
 </body>
+
 
 </html>

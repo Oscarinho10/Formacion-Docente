@@ -18,7 +18,7 @@ include('../components/layoutSuper.php')
 </head>
 
 <body>
-    <div class="container mt-4" style="max-width: 1200px;">
+    <div class="container mt-4" style="max-width: 1300px;">
 
         <h4 class="mb-3">Generar reporte general</h4>
         <div class="d-flex justify-content-end">
@@ -31,75 +31,76 @@ include('../components/layoutSuper.php')
                 <i class="fas fa-clipboard-list"></i> Consultar reporte por Unidad Academica
             </button>
 
-            <button class="btn btn-general btn-sm" onclick="imprimirReporte()">Imprimir reporte</button>
+            <button class="btn btn-general btn-sm" onclick="imprimirReporte()">
+                <i class="fas fa-print"></i>
+                Imprimir reporte
+            </button>
 
 
         </div>
 
         <div class="p-3 mb-4">
 
-        <!-- Filtros -->
-        <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
-            <div class="form-row align-items-center">
-                <div class="col-md-4 mb-2">
-                    <label class="mb-0"></label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+            <!-- Filtros -->
+            <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
+                <div class="form-row align-items-center">
+                    <div class="col-md-4 mb-2">
+                        <label class="mb-0"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por actividad formativa">
                         </div>
-                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar por actividad formativa">
+                    </div>
+
+                    <div class="col-md-3 mb-2 text-white">
+                        <label class="mb-0">Seleccionar semestre</label>
+                        <select class="form-control" id="semestreSelect">
+                            <option value="">Todos</option>
+                            <option value="Enero - Junio">Enero - Junio</option>
+                            <option value="Julio - Diciembre">Julio - Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-2 text-white">
+                        <label class="mb-0"></label>
+                        <select class="form-control" id="anioSelect">
+                            <option value="">Todos</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label class="mb-0"></label>
+                        <button class="btn btn-secondary btn-block" id="clearFilters">Limpiar filtros</button>
                     </div>
                 </div>
-
-                <div class="col-md-3 mb-2 text-white">
-                    <label class="mb-0">Seleccionar semestre</label>
-                    <select class="form-control" id="semestreSelect">
-                        <option value="">Todos</option>
-                        <option value="Enero - Junio">Enero - Junio</option>
-                        <option value="Julio - Diciembre">Julio - Diciembre</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2 mb-2 text-white">
-                    <label class="mb-0">Seleccionar año</label>
-                    <select class="form-control" id="anioSelect">
-                        <option value="">Todos</option>
-                        <option>2023</option>
-                        <option>2024</option>
-                        <option>2025</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2 mb-2">
-                    <label class="mb-0"></label>
-                    <button class="btn btn-success btn-block" onclick="filtrarTabla()">Consultar</button>
-                </div>
             </div>
-        </div>
 
-        <!-- Tabla -->
-        <div class="table-responsive">
-            <table class="table table-bordered " id="tablaReporte">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Actividad</th>
-                        <th>Instructor</th>
-                        <th>Duración</th>
-                        <th>Modalidad</th>
-                        <th>Fecha inicio</th>
-                        <th>Horario</th>
-                        <th>Total participantes</th>
-                        <th>Total asistidos</th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyReporte">
-                    <!-- Se llena con JS -->
-                </tbody>
-            </table>
-        </div>
+            <!-- Tabla -->
+            <div class="table-responsive">
+                <table class="table table-bordered " id="tablaReporte">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Actividad</th>
+                            <th>Instructor</th>
+                            <th>Duración</th>
+                            <th>Modalidad</th>
+                            <th>Fecha inicio</th>
+                            <th>Horario</th>
+                            <th>Total participantes</th>
+                            <th>Total asistidos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyReporte">
+                        <!-- Se llena con JS -->
+                    </tbody>
+                </table>
+            </div>
 
-    </div>
+        </div>
 </body>
 <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/reports.js"></script>
