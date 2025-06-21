@@ -36,9 +36,7 @@ include('../components/layoutSuper.php');
                     </div>
                 </div>
 
-                <div class="col-md-2 text-right">
-                    <button id="clearFiltersBtn" class="btn btn-outline-secondary">Limpiar filtros</button>
-                </div>
+              
             </div>
 
             <!-- Tabla de Participantes -->
@@ -60,11 +58,15 @@ include('../components/layoutSuper.php');
             <!-- Botones -->
             <div class="d-flex justify-content-between mt-3">
                 <button class="btn btn-primary" id="generateAllButton">Generar Constancias de Todos</button>
-
-                <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/constancy.php'" class="btn btn-dark">
-                    <i class="fas fa-arrow-left"></i> Regresar
-                </button>
             </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+            <div id="paginationInfo"></div>
+            <ul class="pagination" id="pagination"></ul>
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
+        </div>
         </div>
     </div>
 

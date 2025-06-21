@@ -36,58 +36,58 @@
               </button>
 
           </div>
-         
-            <div class="p-3 mb-4">
 
-        </div>
-              <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
-                  <div class="form-row align-items-center">
-                      <div class="col-md-5 mb-2">
-                          <label class="mb-0"></label>
-                          <div class="input-group">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
-                              </div>
-                              <input type="text" id="searchInput" class="form-control" placeholder="Buscar por unidad académica">
+          <div class="p-3 mb-4">
+
+          </div>
+          <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;"  class="form-row align-items-center">
+              <div class="form-row align-items-center">
+                  <div class="col-md-5 mb-2">
+                      <label class="mb-0"></label>
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
                           </div>
-                      </div>
-
-                      <div class="col-md-3 mb-2 text-white">
-                          <label class="mb-0 mr-2">Rango de años</label>
-                          <select class="form-control" id="yearRange">
-                              <option value="5">5</option>
-                              <option value="4">4</option>
-                              <option value="3">3</option>
-                              <option value="2">2</option>
-                              <option value="1">1</option>
-                          </select>
-                      </div>
-
-                      <div class="col-md-2 mb-2 justify-content-end">
-                          <label class="mb-0"></label>
-                          <button class="btn btn-success btn-block" onclick="filtrarAnios()">Consultar</button>
+                          <input type="text" id="searchInput" class="form-control" placeholder="Buscar por unidad académica">
                       </div>
                   </div>
-              </div>
 
-              <!-- Tabla -->
-              <div class="table-responsive">
-                  <table class="table table-bordered" id="tablaAnios">
-                      <thead class="thead-light">
-                          <tr>
-                              <th>Año</th>
-                              <th>Unidad Académica</th>
-                              <th>Actividades Realizadas</th>
-                              <th>Total Participantes</th>
-                              <th>Total Asistencias</th>
-                          </tr>
-                      </thead>
-                      <tbody id="tbodyAnios">
-                          <!-- Contenido dinámico -->
-                      </tbody>
-                  </table>
+                  <div class="col-md-3 mb-2 text-white">
+                      <label class="mb-0 mr-2">Rango de años</label>
+
+                      <select id="yearSelect" class="form-control">
+                          <option value="">Todos los años</option>
+                          <option value="2025">2025</option>
+                          <option value="2024">2024</option>
+                          <option value="2023">2023</option>
+                          <option value="2022">2022</option>
+                          <option value="2021">2021</option>
+                      </select>
+                  </div>
+
+                 
               </div>
           </div>
+
+          <!-- Tabla -->
+          <div class="table-responsive">
+              <table class="table table-bordered" id="tablaAnios">
+                  <thead class="thead-light">
+                      <tr>
+                          <th>Año</th>
+                          <th>Unidad Académica</th>
+                          <th>Actividades Realizadas</th>
+                          <th>Total Participantes</th>
+                          <th>Total Asistencias</th>
+                      </tr>
+                  </thead>
+                  <tbody id="tbodyAnios">
+                      <!-- Contenido dinámico -->
+                  </tbody>
+              </table>
+              <div id="tablasPorAnio"></div>
+          </div>
+      </div>
   </body>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/reportsUnityAcademy.js"></script>

@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   const pagination = document.getElementById('pagination');
   const paginationInfo = document.getElementById('paginationInfo');
+  document.getElementById('filterFecha').addEventListener('change', () => {
+    updateTable();
+  });
 
   function renderTablePage(dataSet, page) {
     tbody.innerHTML = "";
@@ -84,6 +87,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateTable() {
+    const query = searchInput.value.toLowerCase();
+    const fechaFiltro = document.getElementById('filterFecha').value;
+
+    filteredData = data.filter(item => {
+      const coincideTexto = item.nombre.toLowerCase().includes(query) ||
+        item.fecha.toLowerCase().includes(query) ||
+        item.tipo.toLowerCase().includes(query);
+
+      const coincideFecha = fechaFiltro === '' || item.fecha === fechaFiltro;
+
+      return coincideTexto && coincideFecha;
+    });
+
+    currentPage = 1;
     renderTablePage(filteredData, currentPage);
     renderPagination(filteredData);
   }
@@ -99,15 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTable();
   });
 
-  
+
 
   updateTable(); // inicial
 
 
   // Evento: limpiar filtros
-document.getElementById('clearFiltersBtn').addEventListener('click', function () {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('filterFecha').value = '';
-    renderTable(); // Muestra todo de nuevo
+  document.getElementById('clearFiltersBtn').addEventListener('click', function () {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('filterFecha').value = '';
+  filteredData = [...data];
+  currentPage = 1;
+  updateTable();
 });
+
 });

@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
 
     const searchInput = document.getElementById("searchInput");
-    const filterFecha = document.getElementById("filterFecha");
-    const clearFilters = document.getElementById("clearFilters");
     const tableBody = document.getElementById("tableBody");
     const pagination = document.getElementById("pagination");
     const paginationInfo = document.getElementById("paginationInfo");
@@ -23,15 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderTable(page = 1) {
         const search = searchInput.value.toLowerCase();
 
-        const filtered = datos.filter(d => {
-            const matchSearch =
-                d.nombre.toLowerCase().includes(search) ||
-                d.correo.toLowerCase().includes(search) ||
-                d.control.toLowerCase().includes(search);
-
-            // Fecha sin efecto en este contexto, pero estructura lista
-            return matchSearch;
-        });
+        const filtered = datos.filter(d =>
+            d.nombre.toLowerCase().includes(search) ||
+            d.correo.toLowerCase().includes(search) ||
+            d.control.toLowerCase().includes(search)
+        );
 
         const start = (page - 1) * rowsPerPage;
         const paginated = filtered.slice(start, start + rowsPerPage);
@@ -39,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tableBody.innerHTML = "";
 
         if (paginated.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" class="text-center">No se encontraron resultados</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No se encontraron resultados</td></tr>`;
         } else {
             paginated.forEach(actividad => {
                 const checked = actividad.activo ? "checked" : "";
@@ -55,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </label>
                         </td>
                         <td>
-                         <a href="editAdmin.php" class="btn btn-sm btn-general ml-2">Editar</a>
+                            <a href="editAdmin.php" class="btn btn-sm btn-general ml-2">Editar</a>
                         </td>
                     </tr>
                 `;
@@ -103,11 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     searchInput.addEventListener("input", () => renderTable(1));
-    clearFilters.addEventListener("click", () => {
-        searchInput.value = "";
-        filterFecha.value = "";
-        renderTable(1);
-    });
 
     renderTable(1);
 });

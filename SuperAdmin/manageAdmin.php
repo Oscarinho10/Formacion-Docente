@@ -35,12 +35,8 @@ include('../components/layoutSuper.php')
                         <input type="text" id="searchInput" class="form-control" placeholder="Buscar...">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <input type="date" id="filterFecha" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-outline-secondary btn-block" id="clearFilters">Limpiar filtros</button>
-                </div>
+              
+              
                 <div class="col-md-3">
                     <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/addAdmin.php'" class="btn btn-primary" id="addButton"> Agregar administradores</button>
                 </div>

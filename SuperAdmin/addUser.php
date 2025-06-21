@@ -55,12 +55,12 @@
               <input type="number" class="form-control" name="edad" required>
             </div>
 
-              <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="control_rfc">Número de control o RFC</label>
               <input type="text" class="form-control" name="control_rfc" required>
             </div>
 
-             <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3">
               <label for="correo">Correo electrónico</label>
               <input type="email" class="form-control" name="correo" required>
             </div>
@@ -72,17 +72,26 @@
                 <option value="D">Doctorado</option>
               </select>
             </div>
-            
-            <div class="col-md-12 mb-3">
+
+            <div class="col-md-6 mb-3">
               <label for="unidad_academica">Unidad Académica</label>
-               <select class="form-control" name="unidadAcaddemica" required>
+              <select class="form-control" name="unidadAcaddemica" required>
                 <option value="">Seleccione</option>
                 <option value="M">Medicina</option>
                 <option value="D">Derecho</option>
               </select>
             </div>
-           
-          
+
+            <div class="col-md-6 mb-3">
+              <label for="unidad_academica">Grado académico</label>
+              <select class="form-control" name="unidadAcaddemica" required>
+                <option value="">Seleccione</option>
+                <option value="M">Medicina</option>
+                <option value="D">Derecho</option>
+              </select>
+            </div>
+
+
           </div>
 
           <div class="d-flex justify-content-end mt-3">
