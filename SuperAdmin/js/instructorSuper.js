@@ -43,8 +43,9 @@ function renderTable() {
                         data-bs-toggle="modal"
                         data-bs-target="#modalInstructor">
                         Ver más
+                        <i class="fas fa-eye"></i>
                     </button>
-                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'">Editar</button>
+                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'"><i class="fas fa-pen"></i> Editar</button>
                 </td>
             </tr>
         `);

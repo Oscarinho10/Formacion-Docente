@@ -38,7 +38,7 @@ function renderTable() {
         <span class="estado-label">${item.estado}</span>
       </td>
       <td>
-        <a href="listActivity.php" class="btn btn-primary btn-sm">Ver lista</a>
+        <a href="listActivity.php" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
         <a href="participantsList.php" class="btn btn-sm btn-general">Participantes</a>
       </td>
     </tr>

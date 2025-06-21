@@ -80,6 +80,7 @@ function renderTable() {
                     data-bs-toggle="modal"
                     data-bs-target="#modalAlumno">
                     Ver más
+                     <i class="fas fa-eye"></i>
                 </button>
                         <button class="btn btn-sm btn-general">Aceptar</button>
                         <button class="btn btn-sm btn-danger">Denegar</button>

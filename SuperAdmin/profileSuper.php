@@ -41,7 +41,7 @@ include('../components/layoutSuper.php');
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/profileSuper.js"></script>
 </body>
 </html>

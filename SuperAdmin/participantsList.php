@@ -63,7 +63,7 @@
         <i class="fas fa-arrow-left mr-2"></i> Regresar
       </a>
     </div>
-
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/participantsList.js"></script>
 
 </body>

@@ -45,8 +45,9 @@ function renderTabla() {
                   data-bs-toggle="modal"
                   data-bs-target="#modalActividad">
             Ver más
+            <i class="fas fa-eye"></i>
           </button>
-          <a href="editTrainingActivity.php" class="btn btn-sm btn-general">Editar</a>
+          <a href="editTrainingActivity.php" class="btn btn-sm btn-general"><i class="fas fa-pen"></i> Editar</a>
         </td>
       </tr>
     `;
@@ -54,9 +55,7 @@ function renderTabla() {
     tbody.innerHTML += row;
   });
 
-  // Eventos para cada botón Ver más
-  setTimeout(() => {
-    const botones = document.querySelectorAll('.verMasBtn');
+  const botones = document.querySelectorAll('.verMasBtn');
     botones.forEach(btn => {
       btn.addEventListener('click', function () {
         document.getElementById('modalNombre').innerText = this.dataset.nombre;
@@ -64,6 +63,9 @@ function renderTabla() {
         document.getElementById('modalEstado').innerText = this.dataset.estado;
       });
     });
+
+  // Eventos para cada botón Ver más
+  setTimeout(() => {
   }, 0);
 
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filteredData.length)} a ${Math.min(end, filteredData.length)} de ${filteredData.length} registros`;

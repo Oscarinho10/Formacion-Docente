@@ -16,28 +16,31 @@
 
 <body class="bg-light">
 
-    <div class="container mt-4">
-        <h4 class="mb-3">Instructores </h4>
 
-        <!-- Filtro -->
-        <div class="form-row mb-3">
+    <div class="container mt-4">
+        <h4 class="mb-3">Instructores</h4>
+        <!-- Filtros y boton de agregar -->
+        <div class="row mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar instructor...">
                 </div>
             </div>
-            <div class="col-md-6 text-right">
-                <a class="btn btn-primary" id="addButton" href="addInstructor.php"> + Agregar</a>
+
+            <div class="col-md-6 text-end">
+                <a href="addInstructor.php" class="btn btn-primary" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
             </div>
         </div>
+
+
+
+
 
         <!-- Tabla -->
         <div class="table-responsive">
             <table class="table table-bordered" id="professorsTable">
-                <thead class="thead-light">
+                <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
                         <th>Perfil Académico</th>
@@ -64,7 +67,7 @@
 
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/instructorSuper.js"></script>
 
 </body>
