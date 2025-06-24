@@ -32,7 +32,7 @@ include('../components/layoutSuper.php')
             </div>
 
             <div class="col-md-6 text-end">
-                <a class="btn btn-primary" id="addButton" href="addUser.php"> + Agregar</a>
+                <a class="btn btn-primary" id="addButton" href="addUser.php"><i class="fas fa-plus"></i> Agregar</a>
             </div>
         </div>
 

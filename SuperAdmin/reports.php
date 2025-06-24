@@ -1,108 +1,107 @@
-<?php
-include('../components/layoutSuper.php')
-?>
+<?php include('../components/layoutSuper.php'); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+  <meta charset="UTF-8">
+  <title>Reportes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
 </head>
 
-<body>
-    <div class="container mt-4" style="max-width: 1300px;">
+<body class="bg-light">
+  <div class="container my-4">
+   
+      <div class="card-body">
 
-        <h4 class="mb-3">Generar reporte general</h4>
-        <div class="d-flex justify-content-end">
-
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark mr-2">
-                <i class="fas fa-arrow-left"></i> Regresar
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+          <h4 class="mb-0">Generar reporte general</h4>
+          <div class="d-flex flex-wrap gap-2">
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+              <i class="fas fa-arrow-left me-1"></i> Regresar
             </button>
-
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/reportsUnityAcademy.php'" class="btn btn-dark mr-2">
-                <i class="fas fa-clipboard-list"></i> Consultar reporte por Unidad Academica
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/reportsUnityAcademy.php'" class="btn btn-dark">
+              <i class="fas fa-clipboard-list me-1"></i> Reporte por Unidad Académica
             </button>
-
             <button class="btn btn-general btn-sm" onclick="imprimirReporte()">
-                <i class="fas fa-print"></i>
-                Imprimir reporte
+              <i class="fas fa-print me-1"></i> Imprimir reporte
             </button>
-
-
+          </div>
         </div>
 
-        <div class="p-3 mb-4">
-
-            <!-- Filtros -->
-            <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
-                <div class="form-row align-items-center">
-                    <div class="col-md-4 mb-2">
-                        <label class="mb-0"></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
-                            </div>
-                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por actividad formativa">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-2 text-white">
-                        <label class="mb-0">Seleccionar semestre</label>
-                        <select class="form-control" id="semestreSelect">
-                            <option value="">Todos</option>
-                            <option value="Enero - Junio">Enero - Junio</option>
-                            <option value="Julio - Diciembre">Julio - Diciembre</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 mb-2 text-white">
-                        <label class="mb-0"></label>
-                        <select class="form-control" id="anioSelect">
-                            <option value="">Todos</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label class="mb-0"></label>
-                        <button class="btn btn-secondary btn-block" id="clearFilters">Limpiar filtros</button>
-                    </div>
-                </div>
+        <!-- Filtros -->
+        <div class="p-3 mb-4" style="background-color: #215472; border-radius: 5px;">
+          <div class="row g-2 align-items-center">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar por actividad formativa">
+              </div>
             </div>
 
-            <!-- Tabla -->
-            <div class="table-responsive">
-                <table class="table table-bordered " id="tablaReporte">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Tipo</th>
-                            <th>Actividad</th>
-                            <th>Instructor</th>
-                            <th>Duración</th>
-                            <th>Modalidad</th>
-                            <th>Fecha inicio</th>
-                            <th>Horario</th>
-                            <th>Total participantes</th>
-                            <th>Total asistidos</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyReporte">
-                        <!-- Se llena con JS -->
-                    </tbody>
-                </table>
+            <div class="col-md-3 text-white">
+              <label class="form-label mb-1">Semestre</label>
+              <select class="form-select" id="semestreSelect">
+                <option value="">Todos</option>
+                <option value="Enero - Junio">Enero - Junio</option>
+                <option value="Julio - Diciembre">Julio - Diciembre</option>
+              </select>
             </div>
 
+            <div class="col-md-3 text-white">
+              <label class="form-label mb-1">Año</label>
+              <select class="form-select" id="anioSelect">
+                <option value="">Todos</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                
+              <button class="btn btn-secondary w-100" id="clearFilters">Limpiar filtros</button>
+            </div>
+          </div>
         </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+          <table class="table table-bordered text-center" id="tablaReporte">
+            <thead class="table-light">
+              <tr>
+                <th>Tipo</th>
+                <th>Actividad</th>
+                <th>Instructor</th>
+                <th>Duración</th>
+                <th>Modalidad</th>
+                <th>Fecha inicio</th>
+                <th>Horario</th>
+                <th>Total participantes</th>
+                <th>Total asistidos</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyReporte">
+              <!-- Rellenado por JS -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    
+  </div>
+
+  <!-- Scripts -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/reports.js"></script>
+
 </body>
-<script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/reports.js"></script>
-
 </html>

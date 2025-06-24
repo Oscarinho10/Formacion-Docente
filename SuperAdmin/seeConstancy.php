@@ -1,81 +1,76 @@
-<?php
-include('../components/layoutSuper.php');
-?>
-
+<?php include('../components/layoutSuper.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Generar Constancias</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
+  <meta charset="UTF-8">
+  <title>Generar Constancias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
 </head>
 
 <body class="bg-light">
-    <div class="container mt-4 d-flex justify-content-center">
-        <div style="width: 100%; max-width: 1000px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="mb-0">Generar Constancias</h3>
+
+  <div class="container my-4">
+   
+      <div class="card-body">
+        <h4 class="mb-4">Generar Constancias</h4>
+
+        <!-- Filtros de búsqueda -->
+        <div class="row g-2 align-items-end mb-4">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+              <input type="text" id="searchInput" class="form-control" placeholder="Buscar participante...">
             </div>
-
-            <!-- Filtros de búsqueda -->
-            <div class="form-row mb-4">
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar participante...">
-                    </div>
-                </div>
-
-              
-            </div>
-
-            <!-- Tabla de Participantes -->
-            <div class="table-responsive">
-                <table class="table table-bordered" id="studentsTable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Rellenado por JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Botones -->
-            <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-primary" id="generateAllButton">Generar Constancias de Todos</button>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center mt-3">
-            <div id="paginationInfo"></div>
-            <ul class="pagination" id="pagination"></ul>
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
-                <i class="fas fa-arrow-left"></i> Regresar
+          </div>
+          <div class="col-md-6 text-md-end">
+            <button class="btn btn-primary w-80 w-md-auto" id="generateAllButton">
+              Generar Constancias de Todos
             </button>
+          </div>
         </div>
+
+        <!-- Tabla de Participantes -->
+        <div class="table-responsive">
+          <table class="table table-bordered text-center" id="studentsTable">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Rellenado por JavaScript -->
+            </tbody>
+          </table>
         </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/seeConstancy.js"></script>
+        <!-- Paginación y botón de regreso -->
+        <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+          <div id="paginationInfo" class="text-muted"></div>
+          <ul class="pagination mb-0" id="pagination"></ul>
+          <a href="<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php" class="btn btn-dark">
+            <i class="fas fa-arrow-left me-1"></i> Regresar
+          </a>
+        </div>
+      </div>
+   
+  </div>
 
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/seeConstancy.js"></script>
 
 </body>
-
 </html>
