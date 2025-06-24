@@ -60,6 +60,7 @@
         </div>
 
     </div>
+    <?php include('../SuperAdmin/modalSuper/modalInstructor.php')?>
 
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>

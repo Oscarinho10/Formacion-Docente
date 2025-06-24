@@ -78,7 +78,7 @@ function renderTable() {
                     data-correo="${item.correo}"
                     data-perfil="${item.perfil}"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalInstructor">
+                    data-bs-target="#modalParticipants">
                     Ver más
                      <i class="fas fa-eye"></i>
                 </button>

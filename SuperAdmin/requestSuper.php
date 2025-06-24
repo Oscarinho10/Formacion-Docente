@@ -66,7 +66,7 @@ include('../components/layoutSuper.php')
 
     </div>
 
-    <?php include('../SuperAdmin/modalSuper/detailInstructorRequest.php'); ?>
+    <?php include('../SuperAdmin/modalSuper/modalParticipants.php'); ?>
 
     <!-- Scripts -->
 
