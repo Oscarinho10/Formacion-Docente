@@ -36,7 +36,7 @@
 
         <div class="col-md-6 text-end">
           <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/addAdmin.php'" class="btn btn-primary w-80 w-md-auto">
-           <i class="fas fa-plus"></i> Agregar administrador
+            <i class="fas fa-plus"></i> Agregar administrador
           </button>
         </div>
       </div>
@@ -70,7 +70,10 @@
     </div>
   </div>
 
+
+
   <!-- Scripts -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/manageAdmin.js"></script>
 </body>

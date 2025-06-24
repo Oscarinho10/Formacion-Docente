@@ -134,7 +134,11 @@
     </div>
 
   </div>
-
+  <!-- Scripts necesarios -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/editTrainingActivity.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

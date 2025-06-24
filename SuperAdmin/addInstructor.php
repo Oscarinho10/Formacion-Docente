@@ -93,7 +93,7 @@
 
           <div class="d-flex justify-content-end flex-wrap">
             <a href="./instructorSuper.php" class="btn btn-danger me-2 mb-2">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2">Guardar</button>
+            <button type="submit" class=" btn btn-general btn-sm mb-2  btn-registrar">Guardar</button>
           </div>
         </form>
 
@@ -101,7 +101,11 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts necesarios -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addInstructor.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

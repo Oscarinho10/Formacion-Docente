@@ -112,8 +112,8 @@
           </div>
 
           <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./trainingActivity.php" class="btn btn-danger me-2 mb-2">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2">Registrar</button>
+            <a href="./trainingActivity.php" class="btn btn-danger me-2 mb-3">Cancelar</a>
+            <button type="submit" class="btn btn-general btn-sm mb-2 btn-editar">Registrar</button>
           </div>
         </form>
 
@@ -121,6 +121,10 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Scripts necesarios -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addTrainingActivity.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

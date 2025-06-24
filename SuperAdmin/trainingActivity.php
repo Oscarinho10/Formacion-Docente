@@ -42,41 +42,42 @@
 
 
 
-      <!-- Tabla -->
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre de la Actividad</th>
-              <th>Total de Horas</th>
-              <th class="text-center">Estado</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="activityTableBody">
-            <!-- Filas dinámicas -->
-          </tbody>
-        </table>
-      </div>
-      <!-- Paginación -->
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <div id="paginationInfo"></div>
-        <ul class="pagination" id="pagination"></ul>
-        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
-          <i class="fas fa-arrow-left"></i> Regresar
-        </button>
-      </div>
+    <!-- Tabla -->
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>Nombre de la Actividad</th>
+            <th>Total de Horas</th>
+            <th class="text-center">Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="activityTableBody">
+          <!-- Filas dinámicas -->
+        </tbody>
+      </table>
     </div>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div id="paginationInfo"></div>
+      <ul class="pagination" id="pagination"></ul>
+      <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+        <i class="fas fa-arrow-left"></i> Regresar
+      </button>
+    </div>
+  </div>
+
+<!-- Exprtación del modal -->
+<?php include('../SuperAdmin/modalSuper/detailsActivityModal.php'); ?> 
+  
+  <!-- UNA sola línea, carga Bootstrap + Popper -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/trainingActivity.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
 
 
-
-    <!-- Bootstrap JS -->
-    <!-- UNA sola línea, carga Bootstrap + Popper -->
-    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/trainingActivity.js"></script>
-
-
-    <?php include('../SuperAdmin/modalSuper/detailsActivityModal.php'); ?>
+  
 </body>
 
 

@@ -135,8 +135,14 @@ function abrirModal(nombre, control) {
 }
 
 function verMas(nombre, control, correo) {
-  alert(`Nombre: ${nombre}\nControl: ${control}\nCorreo: ${correo}`);
+  document.getElementById('infoNombre').textContent = nombre;
+  document.getElementById('infoControl').textContent = control;
+  document.getElementById('infoCorreo').textContent = correo;
+
+  const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+  modal.show();
 }
+
 
 document.getElementById('searchInput').addEventListener('input', () => {
   currentPage = 1;

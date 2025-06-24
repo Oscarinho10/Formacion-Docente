@@ -39,7 +39,7 @@ include('../components/layoutSuper.php')
                             <label for="apellido_materno">Apellido Materno</label>
                             <input type="text" name="apellido_materno" class="form-control" required>
                         </div>
-                        
+
                         <div class="col-md-6 mb-3">
                             <label for="numero_control">Número de Control</label>
                             <input type="text" name="numero_control" class="form-control" required>
@@ -52,13 +52,19 @@ include('../components/layoutSuper.php')
 
                     <div class="d-flex justify-content-end">
                         <a href="./manageAdmin.php" class="btn btn-danger mr-2">Cancelar</a>
-                        <button type="submit" class="btn btn-general btn-sm">Guardar</button>
+                        <button type="submit" class="btn btn-general btn-sm btn-registar">Guardar</button>
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+
+    <!-- Scripts necesarios -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addAdmin.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

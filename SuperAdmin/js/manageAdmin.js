@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderTable(page = 1) {
         const search = searchInput.value.toLowerCase();
-
         const filtered = datos.filter(d =>
             d.nombre.toLowerCase().includes(search) ||
             d.correo.toLowerCase().includes(search) ||
@@ -35,16 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (paginated.length === 0) {
             tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No se encontraron resultados</td></tr>`;
         } else {
-            paginated.forEach(actividad => {
+            paginated.forEach((actividad, idx) => {
+                const realIndex = datos.indexOf(actividad);
                 const checked = actividad.activo ? "checked" : "";
-                const row = `
+                tableBody.innerHTML += `
                     <tr>
                         <td>${actividad.nombre}</td>
                         <td>${actividad.correo}</td>
                         <td>${actividad.control}</td>
                         <td class="text-center">
                             <label class="switch">
-                                <input type="checkbox" ${checked}>
+                                <input type="checkbox" ${checked} data-index="${realIndex}" class="estado-toggle">
                                 <span class="slider"></span>
                             </label>
                         </td>
@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         </td>
                     </tr>
                 `;
-                tableBody.innerHTML += row;
             });
         }
 
         renderPagination(filtered.length, page);
+        addToggleListeners(); // ← Añadido aquí
     }
 
     function renderPagination(totalItems, currentPage) {
@@ -96,7 +96,42 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationInfo.textContent = `Página ${currentPage} de ${totalPages || 1}`;
     }
 
-    searchInput.addEventListener("input", () => renderTable(1));
+    function addToggleListeners() {
+        const switches = document.querySelectorAll('.estado-toggle');
+        switches.forEach(switchEl => {
+            switchEl.addEventListener('change', function () {
+                const index = parseInt(this.getAttribute('data-index'));
+                const estadoActual = datos[index].activo;
+                const nuevoEstado = !estadoActual;
 
+                Swal.fire({
+                    title: `¿Deseas cambiar el estado?`,
+                    text: `Actualmente está "${estadoActual ? 'Activo' : 'Inactivo'}".`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: `Sí, cambiar a "${nuevoEstado ? 'Activo' : 'Inactivo'}"`,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#d33'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        datos[index].activo = nuevoEstado;
+                        renderTable(currentPage);
+                        Swal.fire({
+                            title: '¡Estado actualizado!',
+                            text: `Ahora está "${nuevoEstado ? 'Activo' : 'Inactivo'}".`,
+                            icon: nuevoEstado ? 'success' : 'warning',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        this.checked = estadoActual; // revierte toggle visualmente
+                    }
+                });
+            });
+        });
+    }
+
+    searchInput.addEventListener("input", () => renderTable(1));
     renderTable(1);
 });

@@ -25,6 +25,7 @@ function renderTabla() {
   tbody.innerHTML = "";
 
   itemsToShow.forEach((actividad, index) => {
+    const globalIndex = actividades.indexOf(actividad); // obtiene índice real
     const checked = actividad.estado === "Activo" ? "checked" : "";
 
     const row = `
@@ -33,7 +34,7 @@ function renderTabla() {
         <td>${actividad.horas}</td>
         <td class="text-center">
           <label class="switch">
-            <input type="checkbox" ${checked}>
+            <input type="checkbox" ${checked} data-index="${globalIndex}" class="estado-toggle">
             <span class="slider"></span>
           </label>
         </td>
@@ -56,20 +57,18 @@ function renderTabla() {
   });
 
   const botones = document.querySelectorAll('.verMasBtn');
-    botones.forEach(btn => {
-      btn.addEventListener('click', function () {
-        document.getElementById('modalNombre').innerText = this.dataset.nombre;
-        document.getElementById('modalHoras').innerText = this.dataset.horas;
-        document.getElementById('modalEstado').innerText = this.dataset.estado;
-      });
+  botones.forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.getElementById('modalNombre').innerText = this.dataset.nombre;
+      document.getElementById('modalHoras').innerText = this.dataset.horas;
+      document.getElementById('modalEstado').innerText = this.dataset.estado;
     });
-
-  // Eventos para cada botón Ver más
-  setTimeout(() => {
-  }, 0);
+  });
 
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filteredData.length)} a ${Math.min(end, filteredData.length)} de ${filteredData.length} registros`;
+
   renderPagination();
+  addToggleListeners(); // 🔁 LLAMADA AQUÍ DESPUÉS DE GENERAR HTML
 }
 
 function renderPagination() {
@@ -114,6 +113,42 @@ function renderPagination() {
   pagination.appendChild(nextLi);
 }
 
+function addToggleListeners() {
+  const switches = document.querySelectorAll('.estado-toggle');
+  switches.forEach(switchEl => {
+    switchEl.addEventListener('change', function () {
+      const index = parseInt(this.getAttribute('data-index'));
+      const estadoActual = actividades[index].estado;
+      const nuevoEstado = (estadoActual === 'Activo') ? 'Inactivo' : 'Activo';
+
+      Swal.fire({
+        title: `¿Estás seguro de cambiar el estado?`,
+        text: `Actualmente está "${estadoActual}".`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: `Sí, cambiar a "${nuevoEstado}"`,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          actividades[index].estado = nuevoEstado;
+          renderTabla(); // actualiza tabla
+          Swal.fire({
+            title: `¡Estado cambiado!`,
+            text: `Ahora está "${nuevoEstado}".`,
+            icon: nuevoEstado === "Activo" ? "success" : "warning",
+            timer: 1500,
+            showConfirmButton: false
+          });
+        } else {
+          this.checked = (estadoActual === 'Activo'); // revierte el toggle
+        }
+      });
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', () => {
@@ -126,5 +161,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTabla();
   });
 
-  renderTabla();
+  renderTabla(); // inicial
 });
