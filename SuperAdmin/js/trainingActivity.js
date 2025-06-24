@@ -162,4 +162,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   renderTabla(); // inicial
+  
 });
