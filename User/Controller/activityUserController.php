@@ -2,7 +2,7 @@
 include('../config/conexion.php');
 
 // Consulta para obtener las actividades
-$query = "SELECT nombre, duracion, modalidad, cupo, lugar, tipo, fecha_inicio, fecha_fin, dirigido_a, horario FROM actividades";
+$query = "SELECT nombre, total_horas, modalidad, cupo, lugar, clasificacion, fecha_inicio, fecha_fin, dirigido_a FROM actividades_formativas";
 
 $result = pg_query($conn, $query);
 
@@ -23,7 +23,7 @@ while ($row = pg_fetch_assoc($result)) {
 }
 
 // Consulta para obtener las modalidades únicas
-$modalidad_query = "SELECT DISTINCT modalidad FROM actividades";
+$modalidad_query = "SELECT DISTINCT modalidad FROM actividades_formativas";
 $modalidad_result = pg_query($conn, $modalidad_query);
 
 $modalidades = array();
