@@ -25,7 +25,7 @@ include('../components/layoutSuper.php')
             <div class="card-body">
                 <h4 class="text-center mb-4">Registro de administradores</h4>
 
-                <form action="../controller/procesar_agregar.php" method="post">
+                <form action="../SuperAdmin/controller/procesar_agregar.php" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre</label>
