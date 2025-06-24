@@ -78,7 +78,7 @@ function renderTable() {
                     data-correo="${item.correo}"
                     data-perfil="${item.perfil}"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalAlumno">
+                    data-bs-target="#modalInstructor">
                     Ver más
                      <i class="fas fa-eye"></i>
                 </button>
@@ -148,4 +148,18 @@ $('#clearFilters').click(function () {
 
 $(document).ready(function () {
     renderTable();
+
+
+    $(document).on('click', '.verMasBtn', function () {
+        const nombre = $(this).data('nombre');
+        const control = $(this).data('control');
+        const correo = $(this).data('correo');
+        const perfil = $(this).data('perfil');
+
+        $('#modalNombre').text(nombre);
+        $('#modalControl').text(control);
+        $('#modalCorreo').text(correo);
+        $('#modalPerfil').text(perfil);
+    });
 });
+
