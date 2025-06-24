@@ -97,8 +97,8 @@
           </div>
 
           <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./requestSuper.php" class="btn btn-danger me-2 mb-2">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2">Registrar</button>
+            <a href="./requestSuper.php" class="btn btn-danger me-2 mb-2 btn-cancelar">Cancelar</a>
+            <button type="submit" class="btn btn-general btn-sm mb-2 btn-aceptar">Registrar</button>
           </div>
         </form>
       </div>
@@ -107,6 +107,9 @@
 
 
   <!-- Scripts necesarios -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addUser.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 

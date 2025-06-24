@@ -82,8 +82,8 @@ function renderTable() {
                     Ver más
                      <i class="fas fa-eye"></i>
                 </button>
-                        <button class="btn btn-sm btn-general">Aceptar</button>
-                        <button class="btn btn-sm btn-danger">Denegar</button>
+                        <button class="btn btn-sm btn-general btn-aceptar">Aceptar</button>
+                        <button class="btn btn-sm btn-danger btn-denegar" >Denegar</button>
                     </td>
                 </tr>
             `);
@@ -161,5 +161,42 @@ $(document).ready(function () {
         $('#modalCorreo').text(correo);
         $('#modalPerfil').text(perfil);
     });
+
+    // Evento ACEPTAR
+    $(document).on('click', '.btn-aceptar', function () {
+        Swal.fire({
+            icon: 'question',
+            title: '¿Desea aceptar esta solicitud?',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('¡Aceptado!', 'La solicitud ha sido aceptada.', 'success');
+                // Aquí puedes agregar lógica futura para guardar al backend
+            }
+        });
+    });
+
+    // Evento DENEGAR
+    $(document).on('click', '.btn-denegar', function () {
+        Swal.fire({
+            icon: 'warning',
+            title: '¿Desea denegar esta solicitud?',
+            showCancelButton: true,
+            confirmButtonText: 'Denegar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('¡Denegado!', 'La solicitud ha sido denegada.', 'error');
+                // Aquí también podrías poner la lógica para registrar esta acción
+            }
+        });
+    });
+
 });
 
