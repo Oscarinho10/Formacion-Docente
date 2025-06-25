@@ -12,7 +12,7 @@ while ($row = pg_fetch_assoc($result)) {
         "nombre" => $row['nombre'],
         "correo" => $row['correo_electronico'],
         "control" => $row['numero_control_rfc'],
-        "activo" => $row['estado'] === 'activo' ? true : false
+        "activo" => $row['estado'] === 'activo'
     );
 }
 
