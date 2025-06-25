@@ -1,22 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const id = document.body.getAttribute("data-id");
   const form = document.querySelector('form');
-  const submitBtn = document.querySelector('.btn-registrar');
 
+  // 1. Obtener datos del administrador
+  fetch(`controller/getOneAdmin.php?id=${id}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        Swal.fire('Error', data.error, 'error');
+        return;
+      }
+
+      document.getElementById("adminId").value = data.id_admin;
+      document.getElementById("nombre").value = data.nombre;
+      document.getElementById("apellido_paterno").value = data.apellido_paterno;
+      document.getElementById("apellido_materno").value = data.apellido_materno;
+      document.getElementById("numero_control").value = data.numero_control_rfc;
+      document.getElementById("correo").value = data.correo_electronico;
+    })
+    .catch(error => {
+      console.error("Error al cargar datos:", error);
+      Swal.fire('Error', 'No se pudo cargar la información del administrador.', 'error');
+    });
+
+  // 2. Confirmación de envío con SweetAlert
   form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Detiene el envío
+    e.preventDefault(); // Detiene el envío normal
 
     Swal.fire({
-      title: '¿Desea registrar este participante?',
+      title: '¿Deseas guardar los cambios?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Sí, registrar',
+      confirmButtonText: 'Sí, guardar',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#28a745',
       cancelButtonColor: '#6c757d'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: 'Registrando...',
+          title: 'Guardando...',
           html: 'Por favor espera unos segundos',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -25,15 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Simulación de espera (2.5 segundos)
         setTimeout(() => {
           Swal.fire({
-            title: '¡Registro exitoso!',
+            title: '¡Cambios guardados!',
             icon: 'success',
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#28a745'
           }).then(() => {
-            form.submit(); // Finalmente se envía el formulario real
+            form.submit(); // Envío real
           });
         }, 2500);
       }
