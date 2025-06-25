@@ -25,7 +25,7 @@ include('../components/layoutSuper.php')
             <div class="card-body">
                 <h4 class="text-center mb-4">Registro de administradores</h4>
 
-                <form action="procesar_agregar.php" method="post">
+                <form action="../SuperAdmin/controller/procesar_agregar.php" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre</label>
@@ -48,6 +48,18 @@ include('../components/layoutSuper.php')
                             <label for="correo">Correo Electrónico</label>
                             <input type="email" name="correo" class="form-control" required>
                         </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" class="form-control" required>
+
+                        <label for="sexo">Sexo</label>
+                        <select name="sexo" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="O">Otro</option>
+                        </select>
                     </div>
 
                     <div class="d-flex justify-content-end">
