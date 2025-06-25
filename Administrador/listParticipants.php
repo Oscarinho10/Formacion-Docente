@@ -49,7 +49,7 @@ include('../components/layoutAdmin.php');
             </div>
 
             <div class="col-md-6 text-end">
-                <a class="btn btn-primary" id="addButton" href="addUser.php"><i class="fas fa-plus"></i> Agregar</a>
+                <a class="btn btn-primary" id="addButton" href="addParticipant.php"><i class="fas fa-plus"></i> Agregar</a>
             </div>
         </div>
 

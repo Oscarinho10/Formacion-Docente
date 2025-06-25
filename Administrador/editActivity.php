@@ -142,7 +142,7 @@ include('../components/layoutAdmin.php');
 
                     <!-- Botones -->
                     <div class="d-flex justify-content-end mt-3">
-                        <a href="./listActivitys.php" class="btn btn-danger mr-2">Cancelar</a>
+                        <a href="./listActivitys.php" class="btn btn-danger me-2">Cancelar</a>
                         <button type="submit" class="btn btn-general btn-sm">Registrar</button>
                     </div>
                 </form>

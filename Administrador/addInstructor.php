@@ -129,7 +129,7 @@ include('../components/layoutAdmin.php');
 
                         <!-- Botones -->
                         <div class="d-flex justify-content-end col-12 mb-10 mt-3">
-                            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger mr-3 col-2 py-2">Cancelar</button>
+                            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
                             <button class="btn btn-sm btn-general col-2">Registrar</button>
                         </div>
                     </div>

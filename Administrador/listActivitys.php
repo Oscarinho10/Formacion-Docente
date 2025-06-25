@@ -50,14 +50,9 @@ include('../components/layoutAdmin.php');
         </div>
       </div>
       <div class="col-md-6 text-end">
-        <a href="addTrainingActivity.php" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar</a>
+        <a href="addActivity.php" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar</a>
       </div>
     </div>
-
-
-
-
-
 
     <!-- Tabla -->
     <div class="table-responsive">

@@ -9,7 +9,7 @@ header("Pragma: no-cache");
 // Verificar que hay sesión iniciada y es admin
 include_once('../verificaSesion.php');
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'instructor') {
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'participante') {
     header("Location: ../login.php");
     exit;
 }
