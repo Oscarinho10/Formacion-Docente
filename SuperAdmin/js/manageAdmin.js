@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch('controller/updateEstado.php', {
+                        fetch('controller/updateStateAdmin.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
