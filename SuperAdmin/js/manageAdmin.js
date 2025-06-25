@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationInfo.textContent = `Página ${currentPage} de ${totalPages || 1}`;
     }
 
-
     function renderTable(page = 1) {
         const search = searchInput.value.toLowerCase();
         const filtered = datos.filter(d =>
@@ -88,7 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             </label>
                         </td>
                         <td>
-                            <a href="editAdmin.php?control=${admin.control}" class="btn btn-sm btn-general ml-2">Editar</a>
+                            <a href="editAdmin.php?id=${admin.id}" class="btn btn-sm btn-general ml-2">Editar</a>
+
                         </td>
                     </tr>
                 `;
@@ -99,6 +99,51 @@ document.addEventListener("DOMContentLoaded", function () {
         addToggleListeners();
     }
 
-    // (mantén renderPagination y addToggleListeners como los tienes)
+    function addToggleListeners() {
+        const toggles = document.querySelectorAll('.estado-toggle');
+
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function () {
+                const index = this.getAttribute('data-index');
+                const admin = datos[index];
+                const nuevoEstado = this.checked ? 'activo' : 'inactivo';
+
+                Swal.fire({
+                    title: `¿Estás seguro?`,
+                    text: `El administrador será marcado como ${nuevoEstado}.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, cambiar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('controller/updateEstado.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `control=${admin.control}&estado=${nuevoEstado}`
+                        })
+                            .then(response => response.text())
+                            .then(response => {
+                                if (response === 'ok') {
+                                    datos[index].activo = (nuevoEstado === 'activo');
+                                    Swal.fire('Actualizado', 'El estado se ha actualizado correctamente.', 'success');
+                                } else {
+                                    throw new Error(response);
+                                }
+                            })
+                            .catch(error => {
+                                Swal.fire('Error', 'Hubo un problema al actualizar el estado.', 'error');
+                                this.checked = !this.checked; // Revertir cambio
+                            });
+                    } else {
+                        this.checked = !this.checked; // Revertir si se cancela
+                    }
+                });
+            });
+        });
+    }
+
     searchInput.addEventListener("input", () => renderTable(1));
 });
