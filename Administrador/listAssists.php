@@ -8,100 +8,84 @@ include('../components/layoutAdmin.php');
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Solicitudes de Usuarios</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+  <meta charset="UTF-8">
+  <title>Tabla con filtros</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" type="text/css">
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
 </head>
 
 <body class="bg-light">
 
-    <div class="container mt-4">
+  <div class="container mt-4 d-flex justify-content-center">
+    <div style="width: 100%; max-width: 1000px;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Lista de Asistencia </h3>
 
-        <h4 class="mb-3">Asistencias</h4>
+      </div>
 
-        <!-- Filtros  -->
-        <div class="form-row mb-3">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar general...">
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <select class="form-control" id="filterUnidad">
-                    <option value="">Todas las unidades</option>
-                    <option value="">Derecho</option>
-                    <?php foreach ($unidades as $unidad): ?>
-                        <option value="<?php echo htmlspecialchars($unidad); ?>"><?php echo htmlspecialchars($unidad); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select class="form-control" id="filterPerfil">
-                    <option value="">Todos los perfiles</option>
-                    <option value="">Perfil de facebook</option>
-                    <?php foreach ($perfiles as $perfil): ?>
-                        <option value="<?php echo htmlspecialchars($perfil); ?>"><?php echo htmlspecialchars($perfil); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <button class="btn btn-outline-secondary btn-block" id="clearFilters">Limpiar filtros</button>
-            </div>
+      <!-- Filtros -->
+      <div class="row mb-4">
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar actividad...">
+          </div>
         </div>
 
-        <!-- Contenedor de la tabla -->
-        <div class="table-container">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="usersTable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">Nombre de la Actividad</th>
-                            <th class="text-center">Fecha de Inicio</th>
-                            <th class="text-center">Fecha de Fin</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Se llenará con JS -->
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <input type="date" id="filterFecha" class="form-control">
         </div>
 
-        <!-- Paginador y contador -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div id="paginationInfo"></div>
-            <ul class="pagination" id="pagination"></ul>
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <select id="filterEstado" class="form-select">
+            <option value="">-- Estado --</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
         </div>
 
-        <!-- Botón totalmente a la derecha -->
-        <div class="d-flex justify-content-end mt-3 mb-4">
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark">
-                <i class="fas fa-arrow-left"></i> Regresar
-            </button>
+        <div class="col-12 col-md-2">
+          <button class="btn btn-outline-secondary w-100" id="clearFilters">Limpiar filtros</button>
         </div>
+      </div>
 
+
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table class="table table-bordered" id="tablaActividades">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre de la Actividad</th>
+              <th>Fecha Fin</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Filas dinámicas -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div id="paginationInfo"></div>
+        <ul class="pagination" id="pagination"></ul>
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark">
+          <i class="fas fa-arrow-left"></i> Regresar
+        </button>
+      </div>
     </div>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listAssistsScript.js"></script>
-
+  </div>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listAssistsScript.js"></script>
 
 </body>
 

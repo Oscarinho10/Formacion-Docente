@@ -10,8 +10,7 @@ include('../components/layoutAdmin.php');
 
 <head>
     <meta charset="UTF-8">
-    <title>Solicitudes de Usuarios</title>
-    <!-- CSS -->
+    <title>Tabla de Docentes</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
 
@@ -23,86 +22,57 @@ include('../components/layoutAdmin.php');
 
 <body class="bg-light">
 
+
     <div class="container mt-4">
-
-        <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <h4 class="col-md-2 mb-3">Instructores</h4>
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/addInstructor.php'" class="btn btn-primary col-md-2" id="addButton" href="addInstructor.php">+ Registrar</button>
-        </div>
-
-        <!-- Filtros  -->
-        <div class="form-row mb-3">
-            <div class="col-md-4">
+        <h4 class="mb-3">Instructores</h4>
+        <!-- Filtros y boton de agregar -->
+        <div class="row mb-3">
+            <div class="col-md-6">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar general...">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar instructor...">
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <select class="form-control" id="filterUnidad">
-                    <option value="">Todas las unidades</option>
-                    <?php foreach ($unidades as $unidad): ?>
-                        <option value="<?php echo htmlspecialchars($unidad); ?>"><?php echo htmlspecialchars($unidad); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select class="form-control" id="filterPerfil">
-                    <option value="">Todos los perfiles</option>
-                    <?php foreach ($perfiles as $perfil): ?>
-                        <option value="<?php echo htmlspecialchars($perfil); ?>"><?php echo htmlspecialchars($perfil); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <button class="btn btn-outline-secondary btn-block" id="clearFilters">Limpiar filtros</button>
+            <div class="col-md-6 text-end">
+                <a href="addInstructor.php" class="btn btn-primary" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
             </div>
         </div>
 
-        <!-- Contenedor de la tabla -->
-        <div class="table-container">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="usersTable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Perfil Académico</th>
-                            <th class="text-center">Unidad Académica</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Se llenará con JS -->
-                    </tbody>
-                </table>
-            </div>
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-bordered" id="professorsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Perfil Académico</th>
+                        <th>Unidad Académica</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Contenido dinámico -->
+                </tbody>
+            </table>
         </div>
 
-        <!-- Paginador y contador -->
+        <!-- Paginación -->
         <div class="d-flex justify-content-between align-items-center mt-3">
             <div id="paginationInfo"></div>
             <ul class="pagination" id="pagination"></ul>
-        </div>
-
-        <!-- Botón totalmente a la derecha -->
-        <div class="d-flex justify-content-end mt-3 mb-4">
             <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark">
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
         </div>
 
     </div>
+    <?php include('../Administrador/modalAdmin/modalInstructor.php') ?>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/bootstrap.min.js"></script>
-
+    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listInstructorsScript.js"></script>
+
 </body>
 
 </html>
