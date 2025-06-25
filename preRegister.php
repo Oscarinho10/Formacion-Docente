@@ -64,7 +64,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
                 <option value="">Seleccione</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
-                <option value="No especificado">Prefiero no decirlo</option>
+                <option value="NoEspecificado">Prefiero no decirlo</option>
               </select>
             </div>
 
@@ -115,9 +115,10 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 
             <!-- Botones -->
             <div class="d-flex justify-content-end col-12 mt-3">
-              <button type="button" onclick="window.location.href='<?php echo BASE_URL; ?>/login.php'" class="btn btn-sm btn-danger mr-3 col-2 py-2">Cancelar</button>
+              <button type="button" onclick="window.location.href='<?php echo BASE_URL; ?>/login.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
               <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
             </div>
+
 
           </div>
         </form>
@@ -129,7 +130,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 
 
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
-<script src="<?php echo BASE_URL; ?>/config/js/preRegister.js"></script>
+  <script src="<?php echo BASE_URL; ?>/config/js/preRegister.js"></script>
 
 
 </body>

@@ -1,50 +1,5 @@
 <?php
-session_start();
-// include('./config/conexion.php');
-
-if (isset($_POST['login'])) {
-    $correo = $_POST['correo'];
-    $contrasena = $_POST['contrasena'];
-
-    // Consulta el usuario en base al correo
-    $query = "SELECT * FROM administradores WHERE correo = '$correo'";
-    $resultado = pg_query($conn, $query);
-
-    if ($resultado && pg_num_rows($resultado) == 1) {
-        $usuario = pg_fetch_assoc($resultado);
-
-
-        // Si es que las contraseñas están encriptadas, se puede usar la función crypt() para comparar
-        // if (crypt($contrasena, $usuario['contrasena']) == $usuario['contrasena']) {
-
-        // Comparar contraseña en texto plano (sin encriptar)
-        if ($contrasena == $usuario['contrasena']) {
-
-            // Guardar datos del usuario en sesión
-            $_SESSION['usuario'] = $usuario;
-
-            // Redirigir según el rol
-            switch ($usuario['rol']) {
-                case 'superAdmin':
-                    header("Location: SuperAdmin/initSuper.php");
-                    break;
-                case 'administrador':
-                    header("Location: Administrador/initAdmin.php");
-                    break;
-                case 'usuario':
-                    header("Location: User/initUser.php");
-                    break;
-                default:
-                    header("Location: inicio.php");
-            }
-            exit;
-        } else {
-            echo "<script>alert('Contraseña incorrecta');</script>";
-        }
-    } else {
-        echo "<script>alert('Correo no registrado');</script>";
-    }
-}
+include('config/controller/loginController.php');
 ?>
 
 <?php include('HeadAndFoot/header.php'); ?>

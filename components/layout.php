@@ -52,7 +52,7 @@
                 <a href="../User/ActivityUser.php" class="nav__link <?php echo ($currentPage == 'ActivityUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad Formativa</span></a>
                 <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancia participantes</span></a>
                 <div class="nav_bottom">
-                    <a href="../login.php" class="nav__link">
+                    <a href="../logout.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>
                     </a>
                 </div>

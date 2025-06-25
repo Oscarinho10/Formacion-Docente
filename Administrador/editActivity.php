@@ -1,5 +1,22 @@
-<?php include('../components/layoutAdmin.php'); ?>
+<?php
+session_start();
 
+// Prevenir que el navegador guarde páginas en caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Verificar que hay sesión iniciada y es admin
+include_once('../verificaSesion.php');
+
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
+    header("Location: ../login.php");
+    exit;
+}
+
+// Hasta aquí no se ha enviado contenido, entonces ahora sí
+include('../components/layoutAdmin.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +142,7 @@
 
                     <!-- Botones -->
                     <div class="d-flex justify-content-end mt-3">
-                        <a href="./listActivitys.php" class="btn btn-danger mr-2">Cancelar</a>
+                        <a href="./listActivitys.php" class="btn btn-danger me-2">Cancelar</a>
                         <button type="submit" class="btn btn-general btn-sm">Registrar</button>
                     </div>
                 </form>

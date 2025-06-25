@@ -1,8 +1,23 @@
 <?php
-include('../components/layoutAdmin.php');
-// include('./controller/listParticipantsController.php');
+session_start();
 
+// Prevenir que el navegador guarde páginas en caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Verificar que hay sesión iniciada y es admin
+include_once('../verificaSesion.php');
+
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
+    header("Location: ../login.php");
+    exit;
+}
+
+// Hasta aquí no se ha enviado contenido, entonces ahora sí
+include('../components/layoutAdmin.php');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -34,7 +49,7 @@ include('../components/layoutAdmin.php');
             </div>
 
             <div class="col-md-6 text-end">
-                <a class="btn btn-primary" id="addButton" href="addUser.php"><i class="fas fa-plus"></i> Agregar</a>
+                <a class="btn btn-primary" id="addButton" href="addParticipant.php"><i class="fas fa-plus"></i> Agregar</a>
             </div>
         </div>
 

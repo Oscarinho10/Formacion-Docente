@@ -57,7 +57,7 @@
                 <a href="../SuperAdmin/reports.php" class="nav__link <?php echo ($currentPage == 'reports.php') ? 'active-link' : ''; ?>"><span class="nav__name">Reportes</span></a>
                 <a href="../SuperAdmin/audit.php" class="nav__link <?php echo ($currentPage == 'audit.php') ? 'active-link' : ''; ?>"><span class="nav__name">Movimientos</span></a>
                 <div class="nav_bottom">
-                    <a href="../login.php" class="nav__link">
+                    <a href="../logout.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>
                     </a>
                 </div>
