@@ -19,32 +19,54 @@ function administradorExiste($correo_electronico, $numero_control_rfc)
     return $resultado && pg_num_rows($resultado) > 0;
 }
 
-function registrarAdministrador($nombre, $apellido_paterno, $apellido_materno, $numero_control_rfc, $correo_electronico, $fecha_nacimiento, $sexo)
-{
-    global $conn;
+function registrarAdministrador(
+    $nombre,
+    $apellido_paterno,
+    $apellido_materno,
+    $numero_control_rfc,
+    $correo_electronico,
+    $fecha_nacimiento,
+    $sexo
+) {
+    include('../../config/conexion.php');
 
-    $nombre = pg_escape_string($conn, $nombre);
-    $apellido_paterno = pg_escape_string($conn, $apellido_paterno);
-    $apellido_materno = pg_escape_string($conn, $apellido_materno);
-    $numero_control_rfc = pg_escape_string($conn, $numero_control_rfc);
-    $correo_electronico = pg_escape_string($conn, $correo_electronico);
-    $fecha_nacimiento = pg_escape_string($conn, $fecha_nacimiento);
-    $sexo = pg_escape_string($conn, $sexo);
-
-    if (administradorExiste($correo_electronico, $numero_control_rfc)) {
+    // Verificar duplicados
+    $verifica = pg_query_params($conn, "SELECT 1 FROM administradores WHERE correo_electronico = $1 OR numero_control_rfc = $2", array($correo_electronico, $numero_control_rfc));
+    if (pg_num_rows($verifica) > 0) {
         return "duplicado";
     }
 
-    $contrasena = md5("admin123");
-    $rol = "admin";
+    // Contraseña por defecto encriptada con SHA1
+    $contrasena = sha1("admin123");
     $estado = "activo";
-    $fecha_registro = date("Y-m-d");
+    $rol = "admin";
+    $fecha_registro = date('Y-m-d');
 
-    $query = "INSERT INTO administradores 
-        (nombre, apellido_paterno, apellido_materno, fecha_nacimiento, sexo, correo_electronico, contrasena, numero_control_rfc, estado, rol, fecha_registro) 
-        VALUES 
-        ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$sexo', '$correo_electronico', '$contrasena', '$numero_control_rfc', '$estado', '$rol', '$fecha_registro')";
+    $query = "INSERT INTO administradores (
+        nombre, apellido_paterno, apellido_materno,
+        numero_control_rfc, correo_electronico, contrasena,
+        fecha_nacimiento, sexo, estado, rol, fecha_registro
+    ) VALUES (
+        $1, $2, $3,
+        $4, $5, $6,
+        $7, $8, $9, $10, $11
+    )";
 
-    $resultado = pg_query($conn, $query);
-    return $resultado ? "ok" : "error";
+    $params = array(
+        $nombre,
+        $apellido_paterno,
+        $apellido_materno,
+        $numero_control_rfc,
+        $correo_electronico,
+        $contrasena,
+        $fecha_nacimiento,
+        $sexo,
+        $estado,
+        $rol,
+        $fecha_registro
+    );
+
+    $result = pg_query_params($conn, $query, $params);
+
+    return $result ? "ok" : "error";
 }
