@@ -1,4 +1,24 @@
-<?php include('../components/layout.php'); ?>
+<?php
+session_start();
+
+// Prevenir que el navegador guarde páginas en caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Verificar que hay sesión iniciada y es admin
+include_once('../verificaSesion.php');
+
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'instructor') {
+    header("Location: ../login.php");
+    exit;
+}
+
+// Hasta aquí no se ha enviado contenido, entonces ahora sí
+include('../components/layout.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
