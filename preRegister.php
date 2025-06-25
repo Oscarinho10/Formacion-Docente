@@ -1,3 +1,8 @@
+<?php
+define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +30,7 @@
       <div class="card-body">
         <h4 class="text-center mb-3">Formulario pre registro</h4>
 
-        <form action="procesar_actividad.php" method="post" enctype="multipart/form-data">
+        <form action="./config/controller/preRegisterController.php" method="post" enctype="multipart/form-data">
           <div class="row">
 
             <!-- Nombre -->
@@ -121,6 +126,12 @@
   </div>
 
   <?php include('HeadAndFoot/footer.php'); ?>
+
+
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+<script src="<?php echo BASE_URL; ?>/config/js/preRegister.js"></script>
+
+
 </body>
 
 </html>
