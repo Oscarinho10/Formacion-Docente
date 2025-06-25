@@ -1,31 +1,28 @@
-<?php
-include('../components/layoutAdmin.php');
-?>
-
-
+<?php include('../components/layoutAdmin.php'); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Actividad</title>
-    <!-- Estilos -->
+    <title>Agregar Participante</title>
+
+    <!-- Recursos Bootstrap y personalizados -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
-
 </head>
 
 <body>
     <div class="container my-4">
         <div class="card shadow-sm mx-auto" style="max-width: 900px;">
             <div class="card-body">
-                <h4 class="text-center mb-3">Registrar Instructor</h4>
+                <h4 class="text-center mb-4">Edición de instructores</h4>
 
                 <form action="procesar_actividad.php" method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -57,7 +54,7 @@ include('../components/layoutAdmin.php');
                         <!-- Sexo -->
                         <div class="col-md-4 mb-3">
                             <label for="modalidad">Sexo:</label><br />
-                            <select name="modalidad" style="width: 100%; padding: 11px;" required>
+                            <select name="modalidad" style="width: 100%; padding: 12px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="linea">Masculino</option>
                                 <option value="linea">Femenino</option>
@@ -80,7 +77,7 @@ include('../components/layoutAdmin.php');
                         <!-- Grado Académico -->
                         <div class="col-md-4 mb-3">
                             <label for="modalidad">Grado Académico:</label><br />
-                            <select name="modalidad" style="width: 100%; padding: 11px;" required>
+                            <select name="modalidad" style="width: 100%; padding: 12px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="Licenciado">Licenciado</option>
                                 <option value="Ingeniero">Ingeniero</option>
@@ -91,7 +88,7 @@ include('../components/layoutAdmin.php');
                         <!-- Perfil Académico -->
                         <div class="col-md-4 mb-3">
                             <label for="modalidad">Perfil Académico:</label><br />
-                            <select name="modalidad" style="width: 100%; padding: 11px;" required>
+                            <select name="modalidad" style="width: 100%; padding: 12px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="Tiempo completo">Tiempo completo</option>
                                 <option value="Medio tiempo">Medio tiempo</option>
@@ -102,7 +99,7 @@ include('../components/layoutAdmin.php');
                         <!-- Unidad Académica -->
                         <div class="col-md-4 mb-3">
                             <label for="modalidad">Unidad Académica:</label><br />
-                            <select name="modalidad" style="width: 322%; padding: 11px;" required>
+                            <select name="modalidad" style="width: 322%; padding: 12px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="Tepetongo">Tepetongo</option>
                                 <option value="Chamilpa">Chamilpa</option>
@@ -118,13 +115,10 @@ include('../components/layoutAdmin.php');
                     </div>
 
                 </form>
+
             </div>
-
         </div>
-
     </div>
-
-
 </body>
 
 </html>

@@ -1,43 +1,11 @@
-const data = [{
-    nombre: "Alejandro Morales",
-    perfil: "Tiempo completo",
-    unidad: "Centro de investigaciones de mota"
-},
-{
-    nombre: "Ana Torres",
-    perfil: "Ingeniería en Software",
-    unidad: "Facultad de Ingeniería"
-},
-{
-    nombre: "Luis Rivas",
-    perfil: "Matemáticas Aplicadas",
-    unidad: "Facultad de Ciencias"
-},
-{
-    nombre: "Marta León",
-    perfil: "Comunicación",
-    unidad: "Facultad de Humanidades"
-},
-{
-    nombre: "Claudia Díaz",
-    perfil: "Biología Molecular",
-    unidad: "Facultad de Ciencias Naturales"
-},
-{
-    nombre: "Pedro Jiménez",
-    perfil: "Arquitectura",
-    unidad: "Facultad de Arquitectura"
-},
-{
-    nombre: "Julio Suárez",
-    perfil: "Sistemas Computacionales",
-    unidad: "Facultad de Ingeniería"
-},
-{
-    nombre: "Karen López",
-    perfil: "Diseño Gráfico",
-    unidad: "Facultad de Artes"
-}
+const data = [
+    { nombre: "Dr. Ana Torres", perfil: "Ingeniería en Software", unidad: "Facultad de Ingeniería" },
+    { nombre: "Mtro. Luis Rivas", perfil: "Matemáticas Aplicadas", unidad: "Facultad de Ciencias" },
+    { nombre: "Lic. Marta León", perfil: "Comunicación", unidad: "Facultad de Humanidades" },
+    { nombre: "Dra. Claudia Díaz", perfil: "Biología Molecular", unidad: "Facultad de Ciencias Naturales" },
+    { nombre: "Mtro. Pedro Jiménez", perfil: "Arquitectura", unidad: "Facultad de Arquitectura" },
+    { nombre: "Ing. Julio Suárez", perfil: "Sistemas Computacionales", unidad: "Facultad de Ingeniería" },
+    { nombre: "Lic. Karen López", perfil: "Diseño Gráfico", unidad: "Facultad de Artes" }
 ];
 
 const rowsPerPage = 5;
@@ -63,38 +31,59 @@ function renderTable() {
 
     visibleData.forEach(item => {
         $('#tableBody').append(`
-                <tr>
-                    <td class="text-center">${item.nombre}</td>
-                    <td class="text-center">${item.perfil}</td>
-                    <td class="text-center">${item.unidad}</td>
-                    <td class="acciones">
-                        <button href="editInstructor.php" class="btn btn-sm btn-general">Editar</button>
-                    </td>
-                </tr>
-            `);
+            <tr>
+                <td>${item.nombre}</td>
+                <td>${item.perfil}</td>
+                <td>${item.unidad}</td>
+                <td class="text-center acciones">
+                    <button class="btn btn-secondary btn-sm verMasBtn"
+                        data-nombre="${item.nombre}"
+                        data-perfil="${item.perfil}"
+                        data-unidad="${item.unidad}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalInstructor">
+                        Ver más
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'"><i class="fas fa-pen"></i> Editar</button>
+                </td>
+            </tr>
+        `);
     });
+
+    // Eventos para botón "Ver más"
+    setTimeout(() => {
+        const botones = document.querySelectorAll('.verMasBtn');
+        botones.forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.getElementById('modalNombre').innerText = this.dataset.nombre;
+                document.getElementById('modalPerfil').innerText = this.dataset.perfil;
+                document.getElementById('modalUnidad').innerText = this.dataset.unidad;
+            });
+        });
+    }, 0);
 
     $('#pagination').html('');
     if (totalPages > 1) {
         $('#pagination').append(`
-                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" id="prevPage">&laquo;</a>
-                </li>
-            `);
+            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" id="prevPage">&laquo;</a>
+            </li>
+        `);
 
         for (let i = 1; i <= totalPages; i++) {
             $('#pagination').append(`
-                    <li class="page-item ${i === currentPage ? 'active' : ''}">
-                        <a class="page-link" href="#">${i}</a>
-                    </li>
-                `);
+                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link" href="#">${i}</a>
+                </li>
+            `);
         }
 
         $('#pagination').append(`
-                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" id="nextPage">&raquo;</a>
-                </li>
-            `);
+            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" id="nextPage">&raquo;</a>
+            </li>
+        `);
     }
 
     $('#pagination a').not('#prevPage, #nextPage').click(function (e) {
@@ -121,18 +110,6 @@ function renderTable() {
 }
 
 $('#searchInput').on('input', function () {
-    currentPage = 1;
-    renderTable();
-});
-
-$('#filterUnidad, #filterPerfil').change(function () {
-    currentPage = 1;
-    renderTable();
-});
-
-$('#clearFilters').click(function () {
-    $('#searchInput').val('');
-    $('#filterUnidad, #filterPerfil').val('');
     currentPage = 1;
     renderTable();
 });
