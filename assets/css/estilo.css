@@ -454,9 +454,9 @@ body {
 /* Contenedor de tarjetas (3 columnas en desktop, 1 en móvil) */
 .card-container1 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas en desktop */
-    gap: 30px;
-    max-width: 1200px;
+    grid-template-columns: repeat(2, 1fr); /* 3 columnas en desktop */
+    gap: 100px;
+    max-width: 800px;
     margin: 40px auto;
     padding: 20px;
 }
