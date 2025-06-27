@@ -26,7 +26,7 @@
           <strong><?php echo htmlspecialchars($nombre_curso); ?></strong>
         </h4>
 
-        <form action="procesar_inscripcion.php" method="post">
+        <form action="controller/addUserController.php" method="post">
           <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
 
           <div class="row">
@@ -53,18 +53,18 @@
             </div>
 
             <div class="col-12 col-md-4 mb-3">
-              <label for="edad" class="form-label">Edad</label>
-              <input type="number" class="form-control" id="edad" name="edad" required>
+              <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
 
             <div class="col-12 col-md-4 mb-3">
-              <label for="control_rfc" class="form-label">Número de control o RFC</label>
-              <input type="text" class="form-control" id="control_rfc" name="control_rfc" required>
+              <label for="numero_control" class="form-label">Número de control o RFC</label>
+              <input type="text" class="form-control" id="numero_control" name="numero_control" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="correo" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="correo" name="correo" required>
+              <label for="correo_electronico" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
@@ -104,7 +104,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Scripts necesarios -->
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
