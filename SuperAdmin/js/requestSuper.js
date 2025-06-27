@@ -44,6 +44,20 @@ function renderTable() {
     $('#paginationInfo').text(`Mostrando ${start + 1}-${end} de ${filtered.length} registros`);
     $('#tableBody').html('');
 
+    // ✅ Si no hay resultados
+    if (filtered.length === 0) {
+        $('#tableBody').html(`
+            <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                    No hay solicitudes pendientes por el momento.
+                </td>
+            </tr>
+        `);
+        $('#pagination').html('');
+        return;
+    }
+
+    // Mostrar datos normales si sí hay
     visibleData.forEach(item => {
         $('#tableBody').append(`
             <tr>
@@ -72,6 +86,7 @@ function renderTable() {
             </tr>
         `);
     });
+
 
     $('#pagination').html('');
     if (totalPages > 1) {

@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector('form');
-  const submitBtn = document.querySelector('.btn-aceptar');
 
   form.addEventListener('submit', function (e) {
     e.preventDefault(); // Detiene el envío
@@ -25,17 +24,49 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Simulación de espera (2.5 segundos)
-        setTimeout(() => {
-          Swal.fire({
-            title: '¡Registro exitoso!',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#28a745'
-          }).then(() => {
-            form.submit(); // Finalmente se envía el formulario real
+        // Recolecta los datos del formulario
+        const formData = new FormData(form);
+
+        // Envía los datos al backend con fetch
+        fetch('controller/addUserController.php', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            Swal.close();
+
+            if (data.success) {
+              Swal.fire({
+                title: '¡Registro exitoso!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#28a745'
+              }).then(() => {
+                window.location.href = './requestSuper.php'; // Redirige o recarga
+              });
+
+            } else {
+              // ⚠️ Mostrar el mensaje de error del backend
+              Swal.fire({
+                title: 'Error al registrar',
+                text: data.error || 'Ha ocurrido un error inesperado.',
+                icon: 'error',
+                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#dc3545'
+              });
+            }
+          })
+          .catch(error => {
+            Swal.close();
+            Swal.fire({
+              title: 'Error de red',
+              text: 'No se pudo conectar con el servidor.',
+              icon: 'error',
+              confirmButtonText: 'Cerrar',
+              confirmButtonColor: '#dc3545'
+            });
           });
-        }, 2500);
       }
     });
   });
