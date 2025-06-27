@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitBtn = document.querySelector('.btn-registrar');
 
   form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Detiene el envío
+    e.preventDefault(); // Detiene el envío tradicional
 
     Swal.fire({
-      title: '¿Desea registrar este participante?',
+      title: '¿Desea registrar este instructor?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí, registrar',
@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelButtonColor: '#6c757d'
     }).then((result) => {
       if (result.isConfirmed) {
+        const formData = new FormData(form);
+
         Swal.fire({
           title: 'Registrando...',
           html: 'Por favor espera unos segundos',
@@ -25,17 +27,35 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Simulación de espera (2.5 segundos)
-        setTimeout(() => {
-          Swal.fire({
-            title: '¡Registro exitoso!',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#28a745'
-          }).then(() => {
-            form.submit(); // Finalmente se envía el formulario real
-          });
-        }, 2500);
+        fetch('controller/addInstructorController.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          Swal.close();
+          if (data.success) {
+            Swal.fire({
+              title: '¡Registro exitoso!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#28a745'
+            }).then(() => {
+              // Redirige a tabla de instructores
+              window.location.href = 'instructorSuper.php';
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: data.error || 'No se pudo registrar.',
+              icon: 'error'
+            });
+          }
+        })
+        .catch(() => {
+          Swal.close();
+          Swal.fire('Error', 'Ocurrió un error inesperado.', 'error');
+        });
       }
     });
   });

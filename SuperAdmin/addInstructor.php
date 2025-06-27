@@ -24,7 +24,7 @@
       <div class="card-body">
         <h4 class="text-center mb-4">Registro de instructores</h4>
 
-        <form action="procesar_agregar.php" method="post">
+        <form action="controller/addInstructorController.php" method="post">
           <div class="row">
             <div class="col-12 col-md-6 mb-3">
               <label for="nombre" class="form-label">Nombre</label>
