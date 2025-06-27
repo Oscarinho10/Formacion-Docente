@@ -53,19 +53,21 @@ function renderTable() {
                 <td>${item.perfil_academico}</td>
                 <td>
                     <button class="btn btn-secondary btn-sm verMasBtn"
-                      data-nombre="${item.nombre}"
-                       data-apellido-paterno="${item.apellido_paterno}"
-                      data-apellido-materno="${item.apellido_materno}"
-                      data-fecha="${item.fecha_nacimiento}"
+                        data-nombre="${item.nombre}"
+                        data-apellido-paterno="${item.apellido_paterno}"
+                        data-apellido-materno="${item.apellido_materno}"
+                        data-fecha="${item.fecha_nacimiento}"
                         data-sexo="${item.sexo}"
-                       data-unidad="${item.unidad_academica}"
-                      data-grado="${item.grado_academico}"
-                      data-bs-toggle="modal"
-                         data-bs-target="#modalParticipants">
-                      Ver más <i class="fas fa-eye"></i>
-                      </button>
-                    <button class="btn btn-sm btn-general btn-aceptar">Aceptar</button>
-                    <button class="btn btn-sm btn-danger btn-denegar">Denegar</button>
+                        data-unidad="${item.unidad_academica}"
+                        data-grado="${item.grado_academico}"
+                        data-correo="${item.correo}"
+                        data-perfil="${item.perfil_academico}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalParticipants">
+                        Ver más <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-general btn-aceptar" data-id="${item.id_usuario}">Aceptar</button>
+                    <button class="btn btn-sm btn-danger btn-denegar" data-id="${item.id_usuario}">Denegar</button>
                 </td>
             </tr>
         `);
@@ -131,7 +133,7 @@ $(document).ready(function () {
         const materno = $(this).data('apellido-materno');
         const fecha = $(this).data('fecha');
         const sexo = $(this).data('sexo');
-        const control = $(this).data('control');
+        const numero_control = $(this).data('numero_control');
         const correo = $(this).data('correo');
         const unidad = $(this).data('unidad');
         const grado = $(this).data('grado');
@@ -140,16 +142,16 @@ $(document).ready(function () {
         $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
         $('#modalFecha').text(fecha);
         $('#modalSexo').text(sexo);
-
-
+        $('#modalCorreo').text(correo);
+        $('#modalControl').text(numero_control);
         $('#modalUnidad').text(unidad);
         $('#modalGrado').text(grado);
-
+        $('#modalPerfil').text(perfil);
     });
 
     // ✅ ACEPTAR participante
     $(document).on('click', '.btn-aceptar', function () {
-        const control = $(this).closest('tr').find('td:nth-child(2)').text();
+        const id_usuario = $(this).data('id');
 
         Swal.fire({
             icon: 'question',
@@ -175,7 +177,7 @@ $(document).ready(function () {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `control=${encodeURIComponent(control)}&accion=aceptar`
+                    body: `id_usuario=${encodeURIComponent(id_usuario)}&accion=aceptar`
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -198,7 +200,7 @@ $(document).ready(function () {
 
     // ❌ DENEGAR participante
     $(document).on('click', '.btn-denegar', function () {
-        const control = $(this).closest('tr').find('td:nth-child(2)').text();
+        const id_usuario = $(this).data('id');
 
         Swal.fire({
             icon: 'warning',
@@ -224,7 +226,7 @@ $(document).ready(function () {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `control=${encodeURIComponent(control)}&accion=denegar`
+                    body: `id_usuario=${encodeURIComponent(id_usuario)}&accion=denegar`
                 })
                     .then(response => response.json())
                     .then(data => {
