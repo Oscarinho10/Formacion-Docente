@@ -13,7 +13,7 @@ function cargarDatos() {
         }
     });
 
-    fetch('controller/getPendingParticipants.php')
+    fetch('controller/requestProcessController.php')
         .then(res => res.json())
         .then(json => {
             data = json;
@@ -172,7 +172,7 @@ $(document).ready(function () {
                     }
                 });
 
-                fetch('controller/requestProcess.php', {
+                fetch('controller/requestProcessController.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -221,7 +221,7 @@ $(document).ready(function () {
                     }
                 });
 
-                fetch('controller/requestProcess.php', {
+                fetch('controller/requestProcessController.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
