@@ -24,7 +24,7 @@
       <div class="card-body">
         <h4 class="text-center mb-4">Registro de instructores</h4>
 
-        <form action="procesar_agregar.php" method="post">
+        <form action="controller/editInstructorController.php" method="post">
           <div class="row">
             <div class="col-12 col-md-6 mb-3">
               <label for="nombre" class="form-label">Nombre</label>
@@ -47,9 +47,10 @@
               </select>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <label for="edad" class="form-label">Edad</label>
-              <input type="number" name="edad" id="edad" class="form-control" required>
+              <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" required>
             </div>
+
             <div class="col-12 col-md-6 mb-3">
               <label for="numero_control" class="form-label">Número de Control</label>
               <input type="text" name="numero_control" id="numero_control" class="form-control" required>
@@ -57,7 +58,10 @@
             <div class="col-12 mb-3">
               <label for="correo" class="form-label">Correo Electrónico</label>
               <input type="email" name="correo" id="correo" class="form-control" required>
+              
             </div>
+            <input type="hidden" name="id_usuario" id="id_usuario" value="">
+
 
             <div class="col-12 mb-3">
               <label for="perfil_academico" class="form-label">Perfil Académico</label>
