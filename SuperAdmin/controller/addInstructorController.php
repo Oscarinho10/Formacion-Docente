@@ -65,11 +65,10 @@ $params = array(
 $result = pg_query_params($conn, $query, $params);
 
 if ($result) {
-    // Redirigir al listado de instructores
-    header('Location: ../instructorSuper.php'); // Ajusta la ruta según tu estructura
+    echo json_encode(array("success" => true));
     exit;
-} else {
-    echo json_encode(array("success" => false, "error" => pg_last_error($conn)));
 }
+
+
 
 ?>

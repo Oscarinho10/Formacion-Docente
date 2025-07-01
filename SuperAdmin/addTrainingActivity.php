@@ -1,6 +1,7 @@
 <?php include('../components/layoutSuper.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,10 @@
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
+  <!-- Al final del <head> -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -23,26 +28,38 @@
       <div class="card-body">
         <h4 class="text-center mb-3">Registro de actividad formativa</h4>
 
-        <form action="procesar_actividad.php" method="post" enctype="multipart/form-data">
+        <form action="addTrainingController.php" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="col-12 col-md-4 mb-3">
-              <label for="nombre_actividad" class="form-label">Nombre de la actividad:</label>
-              <input type="text" name="nombre_actividad" class="form-control" required>
+              <label for="nombre_actividad">Nombre:</label>
+              <input type="text" id="nombre_actividad" name="nombre_actividad" class="form-control">
+
+
             </div>
 
-            <div class="col-12 col-md-4 mb-3">
-              <label for="instructores" class="form-label">Selecciona los instructores:</label>
-              <select name="instructores[]" multiple class="form-select" style="height: 100px;">
-                <option value="1">Juan Perez</option>
-                <option value="2">Juana Teresa</option>
-                <option value="3">Carlos López</option>
+            <div class="col-12 col-md-6 mb-3">
+              <label for="instructores" class="form-label">Selecciona instructores:</label>
+              <select name="instructores[]" id="instructores" class="form-select" multiple="multiple" required>
+
+                <?php
+                include('../../config/conexion.php');
+                $consulta = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno FROM usuarios WHERE rol = 'instructor'";
+                $resultado = pg_query($conn, $consulta);
+
+                while ($fila = pg_fetch_assoc($resultado)) {
+                  $nombre = $fila['nombre'] . ' ' . $fila['apellido_paterno'] . ' ' . $fila['apellido_materno'];
+                  echo '<option value="' . $fila['id_usuario'] . '">' . htmlspecialchars($nombre) . '</option>';
+                }
+                ?>
               </select>
-              <small class="text-muted">Puedes seleccionar varios con Ctrl o Cmd</small>
+
             </div>
+
 
             <div class="col-12 col-md-4 mb-3">
               <label for="lugar" class="form-label">Lugar:</label>
-              <input type="text" name="lugar" class="form-control" required>
+              <input type="text" id="lugar" name="lugar" class="form-control" required>
+
             </div>
 
             <div class="col-12 col-md-4 mb-3">
@@ -82,7 +99,8 @@
 
             <div class="col-12 col-md-4 mb-3">
               <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
-              <input type="date" name="fecha_inicio" class="form-control" required>
+              <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" required>
+
             </div>
 
             <div class="col-12 col-md-4 mb-3">
@@ -121,10 +139,13 @@
     </div>
   </div>
 
-   <!-- Scripts necesarios -->
-  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
-  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addTrainingActivity.js"></script>
+  <!-- Scripts necesarios -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addTrainingActivity.js"></script>
+
 </body>
+
 </html>

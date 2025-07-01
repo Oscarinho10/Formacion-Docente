@@ -1,12 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
+  $('#instructores').select2({
+    placeholder: 'Buscar instructores',
+    allowClear: true
+  });
+
   const form = document.querySelector('form');
-  const submitBtn = document.querySelector('.btn-registrar');
 
   form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Detiene el envío
+    e.preventDefault();
+
+    const instructoresSeleccionados = $('#instructores').val();
+    if (!instructoresSeleccionados || instructoresSeleccionados.length === 0) {
+      Swal.fire({
+        title: 'Debe seleccionar al menos un instructor.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#dc3545'
+      });
+      return;
+    }
 
     Swal.fire({
-      title: '¿Desea registrar este participante?',
+      title: '¿Desea registrar esta actividad?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí, registrar',
@@ -25,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Simulación de espera (2.5 segundos)
         setTimeout(() => {
           Swal.fire({
             title: '¡Registro exitoso!',
@@ -33,9 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#28a745'
           }).then(() => {
-            form.submit(); // Finalmente se envía el formulario real
+            form.submit();
           });
-        }, 2500);
+        }, 2000);
       }
     });
   });

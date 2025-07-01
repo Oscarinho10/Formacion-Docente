@@ -8,6 +8,10 @@ include('../components/layoutSuper.php');
         <img src="<?php echo BASE_URL; ?>/assets/img/solicitud.png" alt="Solicitudes">
         <div class="card-title2">Solicitudes</div>
     </a>
+      <a href="viewUserSuper.php" class="card2">
+        <img src="<?php echo BASE_URL; ?>/assets/img/grupo.png" alt="Solicitudes">
+        <div class="card-title2">Participantes</div>
+    </a>
 
     <a href="instructorSuper.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/instructor.png" alt="Instructores">
