@@ -42,41 +42,36 @@ include('../components/layoutAdmin.php');
             <div class="card-body">
                 <h4 class="text-center mb-3">Registro de actividad formativa</h4>
 
-                <form action="procesar_actividad.php" method="post" enctype="multipart/form-data">
+                <form action="../Administrador/controller/addActivityController.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <!-- Nombre actividad -->
                         <div class="col-md-4 mb-3">
-                            <label for="nombre_actividad">Nombre de la actividad:</label><br />
-                            <input type="text" name="nombre_actividad" style="width: 100%; padding: 8px;" required>
+                            <label for="nombre">Nombre de la actividad:</label><br />
+                            <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 8px;" required>
                         </div>
 
-                        <!-- Instructores -->
-                        <div class="col-md-4 mb-3">
-                            <label for="instructores">Selecciona los instructores:</label><br />
-                            <select name="instructores[]" multiple style="width: 100%; padding: 8px; height: 80px;">
-                                <option value="1">Juan Perez</option>
-                                <option value="2">Juana Teresa</option>
-                                <option value="3">Carlos López</option>
-                            </select>
-                            <small>Puedes seleccionar varios con Ctrl o Cmd</small>
+                        <!-- Descripción de la actividad -->
+                        <div class="col-md-12 mb-3">
+                            <label for="descripcion">Descripción de la actividad:</label><br />
+                            <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; padding: 12px;" required></textarea>
                         </div>
 
                         <!-- Lugar -->
                         <div class="col-md-4 mb-3">
                             <label for="lugar">Lugar:</label><br />
-                            <input type="text" name="lugar" style="width: 100%; padding: 8px;" required>
+                            <input type="text" id="lugar" name="lugar" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Dirigido a -->
                         <div class="col-md-4 mb-3">
                             <label for="dirigido_a">Dirigido a:</label><br />
-                            <input type="text" name="dirigido_a" style="width: 100%; padding: 8px;" required>
+                            <input type="text" id="dirigido_a" name="dirigido_a" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Modalidad -->
                         <div class="col-md-4 mb-3">
                             <label for="modalidad">Modalidad:</label><br />
-                            <select name="modalidad" style="width: 100%; padding: 8px;" required>
+                            <select id="modalidad" name="modalidad" style="width: 100%; padding: 8px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="linea">En línea</option>
                                 <option value="presencial">Presencial</option>
@@ -87,56 +82,40 @@ include('../components/layoutAdmin.php');
                         <!-- Clasificación -->
                         <div class="col-md-4 mb-3">
                             <label for="clasificacion">Clasificación:</label><br />
-                            <input type="text" name="clasificacion" style="width: 100%; padding: 8px;" required>
+                            <input type="text" id="clasificacion" name="clasificacion" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Participantes -->
                         <div class="col-md-4 mb-3">
-                            <label for="num_participantes">Número de participantes:</label><br />
-                            <input type="text" name="num_participantes" style="width: 100%; padding: 8px;" required>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="total_participantes">Total participantes:</label><br />
-                            <input type="text" name="total_participantes" style="width: 100%; padding: 8px;" required>
+                            <label for="cupo">Cupo para participantes:</label><br />
+                            <input type="text" id="cupo" name="cupo" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label for="total_horas">Total de horas:</label><br />
-                            <input type="text" name="total_horas" style="width: 100%; padding: 8px;" required>
+                            <input type="text" id="total_horas" name="total_horas" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Fechas con calendario -->
                         <div class="col-md-4 mb-3">
                             <label for="fecha_inicio">Fecha de inicio:</label><br />
-                            <input type="date" name="fecha_inicio" style="width: 100%; padding: 8px;" required>
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label for="fecha_fin">Fecha de fin:</label><br />
-                            <input type="date" name="fecha_fin" style="width: 100%; padding: 8px;" required>
-                        </div>
-
-                        <!-- Horarios con selector -->
-                        <div class="col-md-4 mb-3">
-                            <label for="hora_inicio">Hora de inicio:</label><br />
-                            <input type="time" name="hora_inicio" style="width: 100%; padding: 8px;" required>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="hora_fin">Hora de fin:</label><br />
-                            <input type="time" name="hora_fin" style="width: 100%; padding: 8px;" required>
+                            <input type="date" id="fecha_fin" name="fecha_fin" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Archivos -->
                         <div class="col-md-4 mb-3">
                             <label for="temario_pdf">Agregar temario en PDF:</label><br />
-                            <input type="file" name="temario_pdf" accept=".pdf" style="width: 100%; padding: 8px;">
+                            <input type="file" id="temario_pdf" name="temario_pdf" accept=".pdf" style="width: 100%; padding: 8px;">
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="imagen">Agregar imagen:</label><br />
-                            <input type="file" name="imagen" accept="image/*" style="width: 100%; padding: 8px;">
+                            <label for="url_imagen">Agregar imagen:</label><br />
+                            <input type="file" id="url_imagen" name="url_imagen" accept="image/*" style="width: 100%; padding: 8px;">
                         </div>
                     </div>
 
@@ -146,6 +125,7 @@ include('../components/layoutAdmin.php');
                         <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
                     </div>
                 </form>
+
             </div>
 
         </div>
