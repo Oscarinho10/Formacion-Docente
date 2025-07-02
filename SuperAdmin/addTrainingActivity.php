@@ -1,150 +1,121 @@
-<?php include('../components/layoutSuper.php'); ?>
+<?php
+// Hasta aquí no se ha enviado contenido, entonces ahora sí
+include('../components/layoutAdmin.php');
+?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agregar Actividad</title>
-
-  <!-- Estilos Bootstrap -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
-
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
-  <!-- Al final del <head> -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Actividad</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
 
 </head>
 
 <body>
-  <div class="container d-flex justify-content-center my-4">
-    <div class="card shadow-sm w-100" style="max-width: 900px;">
-      <div class="card-body">
-        <h4 class="text-center mb-3">Registro de actividad formativa</h4>
+    <div class="container my-4">
+        <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+            <div class="card-body">
+                <h4 class="text-center mb-3">Registro de actividad formativa</h4>
 
-        <form action="addTrainingController.php" method="post" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-12 col-md-4 mb-3">
-              <label for="nombre_actividad">Nombre:</label>
-              <input type="text" id="nombre_actividad" name="nombre_actividad" class="form-control">
+                <form action="../Administrador/controller/addActivityController.php" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- Nombre actividad -->
+                        <div class="col-md-4 mb-3">
+                            <label for="nombre">Nombre de la actividad:</label><br />
+                            <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 8px;" required>
+                        </div>
 
+                        <!-- Descripción de la actividad -->
+                        <div class="col-md-12 mb-3">
+                            <label for="descripcion">Descripción de la actividad:</label><br />
+                            <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; padding: 12px;" required></textarea>
+                        </div>
+
+                        <!-- Lugar -->
+                        <div class="col-md-4 mb-3">
+                            <label for="lugar">Lugar:</label><br />
+                            <input type="text" id="lugar" name="lugar" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Dirigido a -->
+                        <div class="col-md-4 mb-3">
+                            <label for="dirigido_a">Dirigido a:</label><br />
+                            <input type="text" id="dirigido_a" name="dirigido_a" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Modalidad -->
+                        <div class="col-md-4 mb-3">
+                            <label for="modalidad">Modalidad:</label><br />
+                            <select id="modalidad" name="modalidad" style="width: 100%; padding: 8px;" required>
+                                <option value="">Seleccione</option>
+                                <option value="linea">En línea</option>
+                                <option value="presencial">Presencial</option>
+                                <option value="hibrido">Híbrido</option>
+                            </select>
+                        </div>
+
+                        <!-- Clasificación -->
+                        <div class="col-md-4 mb-3">
+                            <label for="clasificacion">Clasificación:</label><br />
+                            <input type="text" id="clasificacion" name="clasificacion" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Participantes -->
+                        <div class="col-md-4 mb-3">
+                            <label for="cupo">Cupo para participantes:</label><br />
+                            <input type="text" id="cupo" name="cupo" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="total_horas">Total de horas:</label><br />
+                            <input type="text" id="total_horas" name="total_horas" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Fechas con calendario -->
+                        <div class="col-md-4 mb-3">
+                            <label for="fecha_inicio">Fecha de inicio:</label><br />
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="fecha_fin">Fecha de fin:</label><br />
+                            <input type="date" id="fecha_fin" name="fecha_fin" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Archivos -->
+                        <div class="col-md-4 mb-3">
+                            <label for="temario_pdf">Agregar temario en PDF:</label><br />
+                            <input type="file" id="temario_pdf" name="temario_pdf" accept=".pdf" style="width: 100%; padding: 8px;">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="url_imagen">Agregar imagen:</label><br />
+                            <input type="file" id="url_imagen" name="url_imagen" accept="image/*" style="width: 100%; padding: 8px;">
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listActivitys.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
+                    </div>
+                </form>
 
             </div>
 
-            <div class="col-12 col-md-6 mb-3">
-              <label for="instructores" class="form-label">Selecciona instructores:</label>
-              <select name="instructores[]" id="instructores" class="form-select" multiple="multiple" required>
+        </div>
 
-                <?php
-                include('../../config/conexion.php');
-                $consulta = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno FROM usuarios WHERE rol = 'instructor'";
-                $resultado = pg_query($conn, $consulta);
-
-                while ($fila = pg_fetch_assoc($resultado)) {
-                  $nombre = $fila['nombre'] . ' ' . $fila['apellido_paterno'] . ' ' . $fila['apellido_materno'];
-                  echo '<option value="' . $fila['id_usuario'] . '">' . htmlspecialchars($nombre) . '</option>';
-                }
-                ?>
-              </select>
-
-            </div>
-
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="lugar" class="form-label">Lugar:</label>
-              <input type="text" id="lugar" name="lugar" class="form-control" required>
-
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="dirigido_a" class="form-label">Dirigido a:</label>
-              <input type="text" name="dirigido_a" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="modalidad" class="form-label">Modalidad:</label>
-              <select name="modalidad" class="form-select" required>
-                <option value="">Seleccione</option>
-                <option value="linea">En línea</option>
-                <option value="presencial">Presencial</option>
-                <option value="hibrido">Híbrido</option>
-              </select>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="clasificacion" class="form-label">Clasificación:</label>
-              <input type="text" name="clasificacion" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="num_participantes" class="form-label">Número de participantes:</label>
-              <input type="text" name="num_participantes" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="total_participantes" class="form-label">Total participantes:</label>
-              <input type="text" name="total_participantes" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="total_horas" class="form-label">Total de horas:</label>
-              <input type="text" name="total_horas" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
-              <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" required>
-
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="fecha_fin" class="form-label">Fecha de fin:</label>
-              <input type="date" name="fecha_fin" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="hora_inicio" class="form-label">Hora de inicio:</label>
-              <input type="time" name="hora_inicio" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="hora_fin" class="form-label">Hora de fin:</label>
-              <input type="time" name="hora_fin" class="form-control" required>
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="temario_pdf" class="form-label">Agregar temario en PDF:</label>
-              <input type="file" name="temario_pdf" class="form-control" accept=".pdf">
-            </div>
-
-            <div class="col-12 col-md-4 mb-3">
-              <label for="imagen" class="form-label">Agregar imagen:</label>
-              <input type="file" name="imagen" class="form-control" accept="image/*">
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./trainingActivity.php" class="btn btn-danger me-2 mb-3">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2 btn-editar">Registrar</button>
-          </div>
-        </form>
-
-      </div>
     </div>
-  </div>
-
-  <!-- Scripts necesarios -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
-  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addTrainingActivity.js"></script>
 
 </body>
 

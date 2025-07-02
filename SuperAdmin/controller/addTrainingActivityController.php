@@ -1,71 +1,72 @@
 <?php
 include('../../config/conexion.php');
 
-// Verifica si se envió el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Datos del formulario
-    $nombre = $_POST['nombre_actividad'];
-    $lugar = $_POST['lugar'];
-    $dirigido_a = $_POST['dirigido_a'];
-    $modalidad = $_POST['modalidad'];
-    $clasificacion = $_POST['clasificacion'];
-    $cupo = $_POST['num_participantes'];
-    $total_participantes = $_POST['total_participantes'];
-    $total_horas = $_POST['total_horas'];
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_fin = $_POST['fecha_fin'];
-    $hora_inicio = $_POST['hora_inicio'];
-    $hora_fin = $_POST['hora_fin'];
-    $instructores = $_POST['instructores'];
+// Rutas relativas desde este script (NO empiezan con /)
+$carpetaPDF = '../../uploads/temarios/';
+$carpetaIMG = '../../uploads/imagenes/';
 
-    // Manejo de archivos
-    $temario_nombre = $_FILES['temario_pdf']['name'];
-    $temario_tmp = $_FILES['temario_pdf']['tmp_name'];
-    $url_temario = '';
+// Crear carpetas si no existen (por si acaso)
+// if (!file_exists($carpetaPDF)) mkdir($carpetaPDF, 0777, true);
+// if (!file_exists($carpetaIMG)) mkdir($carpetaIMG, 0777, true);
 
-    if ($temario_nombre != '') {
-        $url_temario = '../../uploads/temarios/' . $temario_nombre;
-        move_uploaded_file($temario_tmp, $url_temario);
+// Obtener datos del formulario
+$nombre = $_POST['nombre'];
+$descripcion = $_POST['descripcion'];
+$dirigido_a = $_POST['dirigido_a'];
+$modalidad = $_POST['modalidad'];
+$lugar = $_POST['lugar'];
+$clasificacion = $_POST['clasificacion'];
+$cupo = $_POST['cupo'];
+$total_horas = $_POST['total_horas'];
+$fecha_inicio = $_POST['fecha_inicio'];
+$fecha_fin = $_POST['fecha_fin'];
+
+// --------------------
+// GUARDAR TEMARIO PDF
+// --------------------
+$temarioRuta = '';
+if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
+    $nombrePDF = basename($_FILES['temario_pdf']['name']);
+    $rutaDestinoPDF = $carpetaPDF . $nombrePDF;
+
+    if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
+        $temarioRuta = 'uploads/temarios/' . $nombrePDF;
     }
+}
 
-    $imagen_nombre = $_FILES['imagen']['name'];
-    $imagen_tmp = $_FILES['imagen']['tmp_name'];
-    $url_imagen = '';
+// --------------------
+// GUARDAR IMAGEN
+// --------------------
+$imagenRuta = '';
+if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
+    $nombreIMG = basename($_FILES['url_imagen']['name']);
+    $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
 
-    if ($imagen_nombre != '') {
-        $url_imagen = '../../uploads/imagenes/' . $imagen_nombre;
-        move_uploaded_file($imagen_tmp, $url_imagen);
+    if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
+        $imagenRuta = 'uploads/imagenes/' . $nombreIMG;
     }
+}
 
-    // Inserta la actividad
-    $query = "INSERT INTO actividades_formativas (
-        nombre, lugar, dirigido_a, modalidad, clasificacion,
-        cupo, fecha_inicio, fecha_fin, hora_inicio, hora_fin,
-        total_horas, temario_pdf, url_imagen
-    ) VALUES (
-        '$nombre', '$lugar', '$dirigido_a', '$modalidad', '$clasificacion',
-        '$cupo', '$fecha_inicio', '$fecha_fin', '$hora_inicio', '$hora_fin',
-        '$total_horas', '$temario_nombre', '$imagen_nombre'
-    ) RETURNING id_actividad";
+// --------------------
+// INSERTAR EN BD
+// --------------------
+$query = "INSERT INTO actividades_formativas (
+    nombre, descripcion, dirigido_a, modalidad, lugar, clasificacion,
+    cupo, total_horas, fecha_inicio, fecha_fin, temario_pdf, url_imagen, estado
+) VALUES (
+    '$nombre', '$descripcion', '$dirigido_a', '$modalidad', '$lugar', '$clasificacion',
+    '$cupo', '$total_horas', '$fecha_inicio', '$fecha_fin', '$temarioRuta', '$imagenRuta', 'activo'
+) RETURNING id_actividad";
 
-    $result = pg_query($conn, $query);
+$resultado = pg_query($conn, $query);
 
-    if ($result && $row = pg_fetch_assoc($result)) {
-        $idActividad = $row['id_actividad'];
-
-        // Inserta relación con instructores
-        foreach ($instructores as $idInstructor) {
-            $idInstructor = intval($idInstructor);
-            pg_query($conn, "INSERT INTO instructores_actividades (id_actividad, id_usuario) VALUES ($idActividad, $idInstructor)");
-        }
-
-        // Redirige con éxito
-        header("Location: ../views/trainingActivity.php?exito=1");
-        exit;
-    } else {
-        echo 'Error al registrar actividad.';
-    }
+// Redirigir si se inserta correctamente
+if ($resultado && pg_num_rows($resultado) > 0) {
+    $row = pg_fetch_assoc($resultado);
+    $id_actividad = $row['id_actividad'];
+    header("Location: ../addSessions.php?id=" . $id_actividad);
+    exit;
 } else {
-    echo 'Acceso no válido.';
+    echo "Error al guardar la actividad.";
 }
 ?>
