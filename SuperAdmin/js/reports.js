@@ -98,6 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function imprimirReporte() {
   const tabla = document.getElementById("tablaReporte").outerHTML;
+  const fechaImpresion = new Date().toLocaleDateString();
+
+  const search = document.getElementById("searchInput").value.trim();
+  const semestre = document.getElementById("semestreSelect").value;
+  const anio = document.getElementById("anioSelect").value;
+
+  const filtrosAplicados = `
+    <div style="margin-top: 20px; font-size: 14px;">
+      <strong>Filtros aplicados:</strong><br>
+      Búsqueda: ${search || "Todos"}<br>
+      Semestre: ${semestre || "Todos"}<br>
+      Año: ${anio || "Todos"}
+    </div>
+  `;
 
   const ventana = window.open('', '', 'height=700,width=1000');
   ventana.document.write(`
@@ -106,22 +120,71 @@ function imprimirReporte() {
       <title>Reporte General</title>
       <link rel="stylesheet" href="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/css/bootstrap.css">
       <style>
-        body { font-family: Arial, sans-serif; padding: 30px; }
-        h2 { text-align: center; margin-bottom: 30px; }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { height: 60px; margin: 0 15px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
-        th { background-color: #f0f0f0; }
+        body {
+          font-family: Arial, sans-serif;
+          padding: 30px;
+          color: #333;
+        }
+        .encabezado-institucional {
+          width: 100%;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        .img-header {
+          width: 100%;
+          max-height: 110px;
+          object-fit: contain;
+        }
+        h2 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        hr {
+          border: 1px solid #ccc;
+          margin: 20px 0;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          overflow: hidden;
+        }
+        th, td {
+          border: 1px solid #ccc;
+          padding: 8px;
+          font-size: 13px;
+          text-align: center;
+          vertical-align: middle;
+        }
+        th {
+          background-color: #343a40;
+          color: white;
+        }
+        .footer {
+          margin-top: 40px;
+          font-size: 12px;
+          text-align: right;
+        }
+        @media print {
+          table, thead, tbody, th, td, tr {
+            page-break-inside: avoid !important;
+          }
+        }
       </style>
     </head>
     <body>
-      <div class="logo-container">
-        <img src="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/img/uaem.png" alt="UAEM">
-        <img src="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/img/sigem.png" alt="SIGEM">
+      <div class="encabezado-institucional">
+        <img src="${window.location.origin}/formacion/PROYECTO/Formacion-Docente/assets/img/header-institucional.png" alt="Encabezado Institucional" class="img-header">
       </div>
       <h2>Reporte General de Actividades Formativas</h2>
+      <hr>
+      ${filtrosAplicados}
       ${tabla}
+      <div class="footer">
+        Fecha de impresión: ${fechaImpresion}
+      </div>
     </body>
     </html>
   `);
