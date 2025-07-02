@@ -44,6 +44,7 @@
           <table class="table table-bordered text-center" id="studentsTable">
             <thead class="table-light">
               <tr>
+                <th><input type="checkbox" id="selectAll"></th>
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Acciones</th>

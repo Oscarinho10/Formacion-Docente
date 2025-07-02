@@ -31,7 +31,7 @@
             <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/reportsUnityAcademy.php'" class="btn btn-dark">
               <i class="fas fa-clipboard-list me-1"></i> Reporte por Unidad Académica
             </button>
-            <button class="btn btn-general btn-sm" onclick="imprimirReporte()">
+            <button id="btnExportarPDF" class="btn btn-primary">
               <i class="fas fa-print me-1"></i> Imprimir reporte
             </button>
           </div>

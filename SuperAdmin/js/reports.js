@@ -67,7 +67,7 @@ function renderTabla(lista) {
 }
 
 function filtrarTabla() {
-  const search = document.getElementById("searchInput").value.toLowerCase();
+  const search = (document.getElementById("searchInput").value || "").toLowerCase();
   const semestre = document.getElementById("semestreSelect").value;
   const anio = document.getElementById("anioSelect").value;
 
@@ -87,14 +87,32 @@ function limpiarFiltros() {
   renderTabla(data);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderTabla(data);
+function exportarPDF() {
+  const search = (document.getElementById("searchInput").value || "").toLowerCase();
+  const semestre = document.getElementById("semestreSelect").value;
+  const anio = document.getElementById("anioSelect").value;
 
-  document.getElementById("searchInput").addEventListener("input", filtrarTabla);
-  document.getElementById("semestreSelect").addEventListener("change", filtrarTabla);
-  document.getElementById("anioSelect").addEventListener("change", filtrarTabla);
-  document.getElementById("clearFilters").addEventListener("click", limpiarFiltros);
-});
+  const filtrados = data.filter(d =>
+    (!search || d.actividad.toLowerCase().includes(search)) &&
+    (!semestre || d.semestre === semestre) &&
+    (!anio || d.anio === anio)
+  );
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'controller/reportController.php';
+  form.target = '_blank';
+
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'data';
+  input.value = JSON.stringify(filtrados);
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
 
 function imprimirReporte() {
   const tabla = document.getElementById("tablaReporte").outerHTML;
@@ -192,3 +210,12 @@ function imprimirReporte() {
   ventana.focus();
   ventana.print();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderTabla(data);
+  document.getElementById("searchInput").addEventListener("input", filtrarTabla);
+  document.getElementById("semestreSelect").addEventListener("change", filtrarTabla);
+  document.getElementById("anioSelect").addEventListener("change", filtrarTabla);
+  document.getElementById("clearFilters").addEventListener("click", limpiarFiltros);
+  document.getElementById("btnExportarPDF").addEventListener("click", exportarPDF);
+});
