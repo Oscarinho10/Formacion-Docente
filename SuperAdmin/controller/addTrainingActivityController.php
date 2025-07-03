@@ -64,7 +64,7 @@ $resultado = pg_query($conn, $query);
 if ($resultado && pg_num_rows($resultado) > 0) {
     $row = pg_fetch_assoc($resultado);
     $id_actividad = $row['id_actividad'];
-    header("Location: ../addSessions.php?id=" . $id_actividad);
+    header("Location: ../SuperAdmin/addSessions.php?id=" . $id_actividad);
     exit;
 } else {
     echo "Error al guardar la actividad.";

@@ -106,7 +106,7 @@ include('../components/layoutAdmin.php');
 
                     <!-- Botones -->
                     <div class="d-flex justify-content-end mt-3">
-                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listActivitys.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/trainingActivity.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
                         <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
                     </div>
                 </form>
@@ -116,7 +116,11 @@ include('../components/layoutAdmin.php');
         </div>
 
     </div>
-
+    <!-- Scripts necesarios -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addTrainingActivity.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
