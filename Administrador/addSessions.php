@@ -99,7 +99,7 @@ $resultado_sesiones = pg_query($conn, $query);
                                     <td><?php echo substr($sesion['hora_inicio'], 0, 5); ?></td>
                                     <td><?php echo substr($sesion['hora_fin'], 0, 5); ?></td>
                                     <td>
-                                        <form action="eliminar_sesion.php" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar esta sesión?');">
+                                        <form action="./controller/deleteSessionController.php" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar esta sesión?');">
                                             <input type="hidden" name="id_sesion" value="<?php echo $sesion['id_sesion']; ?>">
                                             <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
                                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

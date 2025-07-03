@@ -1,5 +1,5 @@
 <?php
-include('../config/conexion.php');
+include('../../config/conexion.php');
 
 $id_sesion = intval($_POST['id_sesion']);
 $id_actividad = intval($_POST['id_actividad']);
@@ -27,5 +27,5 @@ if ($id_sesion > 0 && $id_actividad > 0) {
                      WHERE id_actividad = $id_actividad");
 }
 
-header("Location: registrar_sesiones.php?id=$id_actividad&ok=1");
+header("Location: ../addSessions.php?id=$id_actividad&ok=1");
 exit;

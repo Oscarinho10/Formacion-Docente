@@ -8,8 +8,15 @@
       </div>
       <div class="modal-body">
         <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
-        <p><strong>Horas:</strong> <span id="modalHoras"></span></p>
+        <p><strong>Descripción:</strong> <span id="modalDescripcion"></span></p>
+        <p><strong>Dirigido a:</strong> <span id="modalDirigido"></span></p>
+        <p><strong>Modalidad:</strong> <span id="modalModalidad"></span></p>
+        <p><strong>Lugar:</strong> <span id="modalLugar"></span></p>
+        <p><strong>Clasificación:</strong> <span id="modalClasificacion"></span></p>
+        <p><strong>Cupo:</strong> <span id="modalCupo"></span></p>
+        <p><strong>Total de horas:</strong> <span id="modalHoras"></span></p>
         <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+        <p><strong>Descripción de horarios:</strong><br /><span id="modalHorarios"></span></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
