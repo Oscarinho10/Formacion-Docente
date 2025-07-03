@@ -144,7 +144,7 @@ function addToggleListeners() {
   const switches = document.querySelectorAll('.estado-toggle');
   switches.forEach(switchEl => {
     switchEl.addEventListener('change', function () {
-      const id = this.getAttribute('data-id');
+      const id = this.dataset.id; // ✅ Aquí defines 'id' correctamente
       const actividad = actividades.find(a => a.id == id);
       const estadoActual = actividad.estado;
       const nuevoEstado = (estadoActual === 'activo') ? 'inactivo' : 'activo';
@@ -171,9 +171,39 @@ function addToggleListeners() {
             showConfirmButton: false
           });
 
-          // TODO: aquí puedes hacer un fetch POST al backend para actualizar en la BD si quieres
+          // ✅ Actualizar en base de datos
+          fetch('../Administrador/controller/updateEstadoActividad.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id_actividad=${encodeURIComponent(actividad.id)}&estado=${encodeURIComponent(nuevoEstado)}`
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (!data.success) {
+              console.error("Error al actualizar en la base de datos:", data.error);
+              Swal.fire({
+                title: "Error",
+                text: "No se pudo actualizar el estado en la base de datos.",
+                icon: "error"
+              });
+              actividad.estado = estadoActual;
+              renderTabla();
+            }
+          })
+          .catch(err => {
+            console.error("Error al enviar solicitud:", err);
+            Swal.fire({
+              title: "Error",
+              text: "Hubo un problema de conexión.",
+              icon: "error"
+            });
+            actividad.estado = estadoActual;
+            renderTabla();
+          });
         } else {
-          this.checked = (estadoActual === 'activo'); // revertir toggle
+          this.checked = (estadoActual === 'activo');
         }
       });
     });
