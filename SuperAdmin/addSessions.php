@@ -7,6 +7,21 @@ include('../components/layoutAdmin.php');
 // Obtener ID de la actividad desde GET
 $id_actividad = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+// Obtener nombre de la actividad desde la base de datos
+$query = "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad";
+$result = pg_query($conn, $query);
+
+// Por este (usa variables únicas):
+$query_nombre = "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad";
+$result_nombre = pg_query($conn, $query_nombre);
+
+if ($result_nombre && pg_num_rows($result_nombre) > 0) {
+    $row = pg_fetch_assoc($result_nombre);
+    $nombreActividad = $row['nombre'];
+}
+
+
+
 // Obtener sesiones ya registradas
 $query = "SELECT id_sesion, fecha, hora_inicio, hora_fin FROM sesiones_actividad 
           WHERE id_actividad = $id_actividad 
@@ -21,7 +36,7 @@ $resultado_sesiones = pg_query($conn, $query);
     <meta charset="UTF-8">
     <title>Registrar sesiones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Estilos -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
@@ -36,7 +51,8 @@ $resultado_sesiones = pg_query($conn, $query);
     <div class="container my-4">
         <div class="card shadow-sm mx-auto" style="max-width: 800px;">
             <div class="card-body">
-                <h4 class="text-center mb-4">Registrar sesiones para actividad #<?php echo $id_actividad; ?></h4>
+                <h4 class="text-center mb-4">Registrar sesiones para actividad: <?php echo $nombreActividad; ?></h4>
+
 
                 <?php if (isset($_GET['ok'])): ?>
                     <div class="alert alert-success">Sesión guardada correctamente.</div>
@@ -62,7 +78,7 @@ $resultado_sesiones = pg_query($conn, $query);
 
                     <div class="d-flex justify-content-end mt-3">
                         <button type="submit" class="btn btn-sm btn-general col-2 me-2">Guardar</button>
-                        <a href="../Administrador/listActivitys.php" class="btn btn-sm btn-danger col-2">Finalizar</a>
+                        <a href="../SuperAdmin/trainingActivity.php" class="btn btn-sm btn-danger col-2">Finalizar</a>
                     </div>
                 </form>
 
