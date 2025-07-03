@@ -1,9 +1,6 @@
 <?php
 include('../../config/conexion.php');
 
-// Establecer locale en español (ajustado para PHP 5.2.0 y Windows)
-setlocale(LC_TIME, 'spanish');
-
 // Obtener y sanitizar datos
 $id_actividad = intval($_POST['id_actividad']);
 $fecha = pg_escape_string($_POST['fecha']);
@@ -25,19 +22,28 @@ $result = pg_query($conn, "SELECT fecha, hora_inicio, hora_fin
                            WHERE id_actividad = $id_actividad 
                            ORDER BY fecha, hora_inicio");
 
+// Traducción manual del día en español (compatible con PHP 5.2.0)
+$dias_es = array(
+    'Sunday'    => 'Domingo',
+    'Monday'    => 'Lunes',
+    'Tuesday'   => 'Martes',
+    'Wednesday' => 'Miércoles',
+    'Thursday'  => 'Jueves',
+    'Friday'    => 'Viernes',
+    'Saturday'  => 'Sábado'
+);
+
 $descripcion = '';
 while ($row = pg_fetch_assoc($result)) {
     $timestamp = strtotime($row['fecha']);
-
-    // strftime en español (PHP 5.2.0 compatible)
-    $dia = strftime('%A', $timestamp); // Ej: lunes
-    $diaCapitalizado = ucfirst(utf8_encode($dia)); // Asegura acentos y primera mayúscula
+    $dia_en = date('l', $timestamp); // Día en inglés
+    $dia = isset($dias_es[$dia_en]) ? $dias_es[$dia_en] : $dia_en;
 
     $fecha_format = date('d/m/Y', $timestamp);
     $hora_inicio = substr($row['hora_inicio'], 0, 5);
     $hora_fin = substr($row['hora_fin'], 0, 5);
 
-    $descripcion .= $diaCapitalizado . " " . $fecha_format . ": " . $hora_inicio . " a " . $hora_fin . "\n";
+    $descripcion .= $dia . " " . $fecha_format . ": " . $hora_inicio . " a " . $hora_fin . "\n";
 }
 
 // Guardar en la base de datos
@@ -49,3 +55,4 @@ pg_query($conn, "UPDATE actividades_formativas
 // Redirigir
 header("Location: ../addSessions.php?id=$id_actividad&ok=1");
 exit;
+?>

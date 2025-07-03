@@ -14,11 +14,24 @@ if ($id_sesion > 0 && $id_actividad > 0) {
                                WHERE id_actividad = $id_actividad 
                                ORDER BY fecha, hora_inicio");
 
+    $dias_es = array(
+        'Sunday' => 'Domingo',
+        'Monday' => 'Lunes',
+        'Tuesday' => 'Martes',
+        'Wednesday' => 'Miércoles',
+        'Thursday' => 'Jueves',
+        'Friday' => 'Viernes',
+        'Saturday' => 'Sábado'
+    );
+
     $descripcion = '';
     while ($row = pg_fetch_assoc($result)) {
-        $dia = strftime('%A', strtotime($row['fecha']));
-        $fecha_format = date('d/m/Y', strtotime($row['fecha']));
-        $descripcion .= ucfirst($dia) . " $fecha_format: " . substr($row['hora_inicio'], 0, 5) . " a " . substr($row['hora_fin'], 0, 5) . "\n";
+        $timestamp = strtotime($row['fecha']);
+        $dia_en = date('l', $timestamp);
+        $dia = isset($dias_es[$dia_en]) ? $dias_es[$dia_en] : $dia_en;
+
+        $fecha_format = date('d/m/Y', $timestamp);
+        $descripcion .= $dia . " $fecha_format: " . substr($row['hora_inicio'], 0, 5) . " a " . substr($row['hora_fin'], 0, 5) . "\n";
     }
 
     $descripcion_sql = pg_escape_string($descripcion);

@@ -34,7 +34,7 @@ $resultado_sesiones = pg_query($conn, $query);
     <meta charset="UTF-8">
     <title>Registrar sesiones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Estilos -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
@@ -74,8 +74,8 @@ $resultado_sesiones = pg_query($conn, $query);
                     </div>
 
                     <div class="d-flex justify-content-end mt-3">
+                        <a href="../Administrador/listActivitys.php" class="btn btn-sm btn-danger col-2 me-2">Finalizar</a>
                         <button type="submit" class="btn btn-sm btn-general col-2 me-2">Guardar</button>
-                        <a href="../Administrador/listActivitys.php" class="btn btn-sm btn-danger col-2">Finalizar</a>
                     </div>
                 </form>
 
