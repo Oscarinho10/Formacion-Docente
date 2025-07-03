@@ -115,7 +115,7 @@ if (!$actividad) {
     </div>
 
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/trainingActivity.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/editActivity.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
 </body>
 

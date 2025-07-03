@@ -172,9 +172,29 @@ function addToggleListeners() {
           });
 
           // TODO: aquí puedes hacer un fetch POST al backend para actualizar en la BD si quieres
-        } else {
-          this.checked = (estadoActual === 'activo'); // revertir toggle
-        }
+        } fetch('../SuperAdmin/controller/updateStateActivityController.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `id=${id}&estado=${nuevoEstado}`
+        })
+          .then(response => response.text())
+          .then(data => {
+            if (data.trim() !== 'ok') {
+              console.error('Error al actualizar en la base de datos:', data);
+              Swal.fire('Error', 'No se pudo actualizar el estado en la base de datos.', 'error');
+              actividad.estado = estadoActual; // revertimos si falla
+              renderTabla();
+            }
+          })
+          .catch(error => {
+            console.error('Error en la petición:', error);
+            Swal.fire('Error', 'Ocurrió un error en la solicitud.', 'error');
+            actividad.estado = estadoActual;
+            renderTabla();
+          });
+
       });
     });
   });

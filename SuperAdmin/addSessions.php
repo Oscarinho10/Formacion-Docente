@@ -53,10 +53,6 @@ $resultado_sesiones = pg_query($conn, $query);
             <div class="card-body">
                 <h4 class="text-center mb-4">Registrar sesiones para actividad: <?php echo htmlspecialchars($nombreActividad); ?></h4>
 
-                <?php if (isset($_GET['ok'])): ?>
-                    <div class="alert alert-success">Sesión guardada correctamente.</div>
-                <?php endif; ?>
-
                 <form action="../SuperAdmin/controller/addSessionsController.php" method="post">
                     <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
 
@@ -126,7 +122,7 @@ $resultado_sesiones = pg_query($conn, $query);
                                         )); ?>
                                     </td>
                                     <td>
-                                        <form action="./controller/deleteSessionController.php" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar esta sesión?');">
+                                        <form class="form-eliminar-sesion" action="./controller/deleteSessionController.php" method="post" style="display:inline;">
                                             <input type="hidden" name="id_sesion" value="<?php echo $sesion['id_sesion']; ?>">
                                             <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
                                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
@@ -142,5 +138,12 @@ $resultado_sesiones = pg_query($conn, $query);
             </div>
         </div>
     </div>
+
+
+      <!-- Scripts necesarios -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/addSessions.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
