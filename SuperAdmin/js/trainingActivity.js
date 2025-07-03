@@ -40,7 +40,7 @@ function renderTabla() {
     const row = `
       <tr>
         <td>${actividad.nombre}</td>
-        <td>${actividad.horas}</td>
+        <td>${actividad.total_horas}</td>
         <td class="text-center">
           <label class="switch">
             <input type="checkbox" ${checked} data-id="${actividad.id}" class="estado-toggle">
@@ -48,25 +48,21 @@ function renderTabla() {
           </label>
         </td>
         <td class="text-center">
-        <button class="btn btn-secondary btn-sm verMasBtn"
-  data-nombre="${actividad.nombre}"
- data-horas="${actividad.horas}"
-  data-estado="${actividad.estado}"
-  data-descripcion="${actividad.descripcion}"
-  data-dirigido_a="${actividad.dirigido_a}"
-  data-modalidad="${actividad.modalidad}"
-  data-lugar="${actividad.lugar}"
-  data-clasificacion="${actividad.clasificacion}"
-  data-cupo="${actividad.cupo}"
-  data-fecha_inicio="${actividad.fecha_inicio}"
-  data-fecha_fin="${actividad.fecha_fin}"
-  data-hora_inicio="${actividad.hora_inicio}"
-  data-hora_fin="${actividad.hora_fin}"
-  data-bs-toggle="modal"
-  data-bs-target="#modalActividad">
-  Ver más <i class="fas fa-eye"></i>
-</button>
-
+          <button class="btn btn-secondary btn-sm verMasBtn"
+            data-nombre="${actividad.nombre}"
+            data-descripcion="${actividad.descripcion}"
+            data-dirigido_a="${actividad.dirigido_a}"
+            data-modalidad="${actividad.modalidad}"
+            data-lugar="${actividad.lugar}"
+            data-clasificacion="${actividad.clasificacion}"
+            data-cupo="${actividad.cupo}"
+            data-total_horas="${actividad.total_horas}"
+            data-estado="${actividad.estado}"
+            data-descripcion_horarios="${actividad.descripcion_horarios}"
+            data-bs-toggle="modal"
+            data-bs-target="#modalActividad">
+            Ver más <i class="fas fa-eye"></i>
+          </button>
           <a href="editActivity.php?id=${actividad.id}" class="btn btn-sm btn-general">
             <i class="fas fa-pen"></i> Editar
           </a>
@@ -84,21 +80,16 @@ function renderTabla() {
   botones.forEach(btn => {
     btn.addEventListener('click', function () {
       document.getElementById('modalNombre').innerText = this.dataset.nombre;
-      document.getElementById('modalHoras').innerText = this.dataset.horas;
-      document.getElementById('modalEstado').innerText = this.dataset.estado;
-
       document.getElementById('modalDescripcion').innerText = this.dataset.descripcion;
-      document.getElementById('modalDirigidoA').innerText = this.dataset.dirigido_a;
+      document.getElementById('modalDirigido').innerText = this.dataset.dirigido_a;
       document.getElementById('modalModalidad').innerText = this.dataset.modalidad;
       document.getElementById('modalLugar').innerText = this.dataset.lugar;
       document.getElementById('modalClasificacion').innerText = this.dataset.clasificacion;
       document.getElementById('modalCupo').innerText = this.dataset.cupo;
-      document.getElementById('modalFechaInicio').innerText = this.dataset.fecha_inicio;
-      document.getElementById('modalFechaFin').innerText = this.dataset.fecha_fin;
-      document.getElementById('modalHoraInicio').innerText = this.dataset.hora_inicio;
-      document.getElementById('modalHoraFin').innerText = this.dataset.hora_fin;
+      document.getElementById('modalHoras').innerText = this.dataset.total_horas;
+      document.getElementById('modalEstado').innerText = this.dataset.estado;
+      document.getElementById('modalHorarios').innerText = this.dataset.descripcion_horarios;
     });
-
   });
 
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filteredData.length)} a ${Math.min(end, filteredData.length)} de ${filteredData.length} registros`;
