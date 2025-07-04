@@ -2,7 +2,6 @@
 define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +10,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro Participante</title>
 
-  <!-- Recursos CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" />
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" />
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" />
@@ -32,7 +31,6 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 
         <form action="./config/controller/preRegisterController.php" method="post" enctype="multipart/form-data">
           <div class="row">
-
             <!-- Nombre -->
             <div class="col-md-4 mb-3">
               <label for="nombre">Nombre:</label>
@@ -60,7 +58,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
             <!-- Sexo -->
             <div class="col-md-4 mb-3">
               <label for="sexo">Sexo:</label>
-              <select name="sexo" id="sexo" style="width: 100%; padding: 12px;" required>
+              <select name="sexo" id="sexo" style="width: 100%; padding: 11px;" required>
                 <option value="">Seleccione</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
@@ -80,21 +78,10 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
               <input type="text" name="numero_control" id="numero_control" style="width: 100%; padding: 8px;" required>
             </div>
 
-            <!-- Unidad Académica -->
-            <div class="col-md-4 mb-3">
-              <label for="unidad_academica">Unidad Académica:</label>
-              <select name="unidad_academica" id="unidad_academica" style="width: 100%; padding: 12px;" required>
-                <option value="">Seleccione</option>
-                <option value="Tepetongo">Tepetongo</option>
-                <option value="Chamilpa">Chamilpa</option>
-                <option value="Cuautla">Cuautla</option>
-              </select>
-            </div>
-
             <!-- Grado Académico -->
             <div class="col-md-4 mb-3">
               <label for="grado_academico">Grado Académico:</label>
-              <select name="grado_academico" id="grado_academico" style="width: 100%; padding: 12px;" required>
+              <select name="grado_academico" id="grado_academico" style="width: 100%; padding: 11px;" required>
                 <option value="">Seleccione</option>
                 <option value="Licenciado">Licenciado</option>
                 <option value="Ingeniero">Ingeniero</option>
@@ -105,22 +92,32 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
             <!-- Perfil Académico -->
             <div class="col-md-4 mb-3">
               <label for="perfil_academico">Perfil Académico:</label>
-              <select name="perfil_academico" id="perfil_academico" style="width: 100%; padding: 12px;" required>
+              <select name="perfil_academico" id="perfil_academico" style="width: 100%; padding: 11px;" required>
                 <option value="">Seleccione</option>
                 <option value="Tiempo completo">Tiempo completo</option>
                 <option value="Medio tiempo">Medio tiempo</option>
                 <option value="Otro">Otro</option>
               </select>
             </div>
-
-            <!-- Botones -->
-            <div class="d-flex justify-content-end col-12 mt-3">
-              <button type="button" onclick="window.location.href='<?php echo BASE_URL; ?>/login.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
-              <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
-            </div>
-
-
           </div>
+
+          <!-- Unidad Académica -->
+          <div class="col-md-4 mb-3">
+            <label for="unidad_academica">Unidad Académica:</label>
+            <select name="unidad_academica" id="unidad_academica" style="width: 300%; padding: 11px;" required>
+              <option value="">Seleccione</option>
+              <option value="Tepetongo">Tepetongo</option>
+              <option value="Chamilpa">Chamilpa</option>
+              <option value="Cuautla">Cuautla</option>
+            </select>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex justify-content-end mt-3">
+            <a href="<?php echo BASE_URL; ?>/login.php" class="btn btn-danger me-2">Cancelar</a>
+            <button type="submit" class="btn btn-general btn-sm">Registrar</button>
+          </div>
+
         </form>
       </div>
     </div>
@@ -128,11 +125,9 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 
   <?php include('HeadAndFoot/footer.php'); ?>
 
-
+  <!-- JS -->
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="<?php echo BASE_URL; ?>/config/js/preRegister.js"></script>
-
-
 </body>
 
 </html>

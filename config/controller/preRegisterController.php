@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insertar nuevo usuario
     $query = "INSERT INTO usuarios (
         id_usuario, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
-        sexo, correo_electronico, contrasena, numero_control_rfc,
+        sexo, correo_electronico, numero_control_rfc,
         unidad_academica, grado_academico, perfil_academico, estado, rol, fecha_registro
     ) VALUES (
         $1, $2, $3, $4, $5,
