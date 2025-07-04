@@ -2,10 +2,9 @@
 session_start();
 include('../../config/conexion.php');
 include_once('../../config/verificaRol.php');
-verificarRol('admin');
+verificarRol('admin'); // Solo accesible por admin
 
-include_once('../../config/auditor.php');
-
+include_once('../../config/auditor.php'); // Auditoría
 
 // Obtener datos del formulario
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
@@ -33,7 +32,7 @@ if (
 $check = pg_query_params(
     $conn,
     "SELECT id_usuario FROM usuarios WHERE numero_control_rfc = $1 OR correo_electronico = $2",
-    array($numero_control, $correo)
+    array($numero_control, $correo_electronico)
 );
 
 if ($check && pg_num_rows($check) > 0) {
@@ -41,10 +40,10 @@ if ($check && pg_num_rows($check) > 0) {
     exit;
 }
 
-// Contraseña por defecto
+// Contraseña por defecto (encriptada con SHA1)
 $contrasena = sha1('default123');
 $estado = 'activo';
-$rol = 'participante'; // Puedes cambiar a 'instructor' u otro rol si lo deseas
+$rol = 'participante'; // Puedes cambiar a 'instructor' si este formulario lo requiere
 
 // Insertar nuevo usuario
 $query = "INSERT INTO usuarios (
@@ -76,6 +75,10 @@ $params = array(
 $result = pg_query_params($conn, $query, $params);
 
 if ($result) {
+    // ✅ Auditoría: registrar movimiento
+    $movimiento = "Registró al participante: $nombre $apellido_paterno $apellido_materno";
+    registrarAuditoria($conn, $movimiento, 'Participantes');
+
     echo json_encode(array("success" => true));
 } else {
     echo json_encode(array("success" => false, "error" => pg_last_error($conn)));
