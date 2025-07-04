@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Conexión a PostgreSQL
-$conn = pg_connect("host=172.21.37.83 port=5432 dbname=formacion_docente2 user=jerss password=admin");
+include('../../config/conexion.php');
 
 header('Content-Type: application/json');
 

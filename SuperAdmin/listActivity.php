@@ -38,7 +38,7 @@
       <table class="table table-bordered" id="tablaAsistencias">
         <thead class="table-light">
           <tr>
-            <th>Nombre Instructor</th>
+            <th>Nombre participante</th>
             <th>No. Control</th>
             <th>Correo Electrónico</th>
             <th class="text-center">Acciones</th>
