@@ -156,7 +156,7 @@ function addToggleListeners() {
         showCancelButton: true,
         confirmButtonText: `Sí, cambiar a "${nuevoEstado}"`,
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#28a745',
+        confirmButtonColor: '#2D882D',
         cancelButtonColor: '#d33'
       }).then((result) => {
         if (result.isConfirmed) {
