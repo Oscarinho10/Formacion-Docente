@@ -4,7 +4,7 @@ verificarRol('participante'); // Esto asegura el acceso solo a participantes
 
 // Hasta aquí no se ha enviado contenido, entonces ahora sí
 include('../components/layout.php');
-include('../User/Controller/activityUserController.php');
+include('../User/Controller/activityUserController.php' );
 
 ?>
 
