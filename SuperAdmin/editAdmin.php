@@ -1,4 +1,7 @@
 <?php
+include_once('../config/verificaRol.php');
+verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
+
 include('../components/layoutSuper.php');
 if (!isset($_GET['id'])) {
     echo "<script>alert('ID no proporcionado'); window.location.href='manageAdmin.php';</script>";

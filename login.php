@@ -8,6 +8,13 @@ include('config/controller/loginController.php');
 <div class="login-container">
     <!-- Columna del formulario -->
     <div class="login-form">
+
+        <?php if (isset($_GET['exp']) && $_GET['exp'] == '1'): ?>
+            <div class="alert alert-warning text-center" role="alert">
+                Tu sesión ha expirado por inactividad. Por favor, inicia sesión nuevamente.
+            </div>
+        <?php endif; ?>
+
         <form method="POST" action="">
             <h5 class="mt-3 mb-2">Correo electrónico*</h5>
             <input type="email" name="correo" class="form-control" placeholder="Ingresa tu correo" required>

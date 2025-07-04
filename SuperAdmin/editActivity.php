@@ -1,5 +1,7 @@
 <?php
-session_start();
+include_once('../config/verificaRol.php');
+verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
+
 include('../config/conexion.php');
 // Obtener ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

@@ -1,5 +1,7 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/auditor.php');
 header('Content-Type: application/json');
 
 // Si es POST: ACEPTAR o DENEGAR participante
@@ -7,34 +9,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : '';
     $accion = isset($_POST['accion']) ? $_POST['accion'] : '';
 
-    // Validar que existan los datos requeridos
     if ($id_usuario == '' || $accion == '') {
         echo json_encode(array("success" => false, "error" => "Datos incompletos."));
         exit;
     }
 
+    // Obtener nombre del participante para auditoría
+    $nombreCompleto = 'participante desconocido';
+    $resNombre = pg_query($conn, "SELECT nombre, apellido_paterno, apellido_materno FROM usuarios WHERE id_usuario = $id_usuario");
+    if ($resNombre && pg_num_rows($resNombre) > 0) {
+        $row = pg_fetch_assoc($resNombre);
+        $nombreCompleto = trim($row['nombre'] . ' ' . $row['apellido_paterno'] . ' ' . $row['apellido_materno']);
+    }
+
     if ($accion == 'aceptar') {
-        $password_default = sha1('default123'); // Se asigna contraseña por defecto
+        $password_default = sha1('default123');
         $query = "UPDATE usuarios 
                   SET estado = 'activo', contrasena = $1 
                   WHERE id_usuario = $2";
         $params = array($password_default, $id_usuario);
+        $accionTexto = "Aceptó al participante: $nombreCompleto";
 
     } elseif ($accion == 'denegar') {
         $query = "UPDATE usuarios 
                   SET estado = 'rechazado' 
                   WHERE id_usuario = $1";
         $params = array($id_usuario);
+        $accionTexto = "Rechazó al participante: $nombreCompleto";
 
     } else {
         echo json_encode(array("success" => false, "error" => "Acción inválida."));
         exit;
     }
 
-    // Ejecutar actualización
     $result = pg_query_params($conn, $query, $params);
 
     if ($result) {
+        registrarAuditoria($conn, $accionTexto, 'Usuarios');
         echo json_encode(array("success" => true));
     } else {
         echo json_encode(array("success" => false, "error" => pg_last_error($conn)));
@@ -61,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 "fecha_nacimiento" => $row['fecha_nacimiento'],
                 "sexo" => $row['sexo'],
                 "correo" => $row['correo_electronico'],
-                "numero_control_rfc" => $row['numero_control_rfc'], // ← Renombrado para JS
+                "numero_control_rfc" => $row['numero_control_rfc'],
                 "unidad_academica" => $row['unidad_academica'],
                 "grado_academico" => $row['grado_academico'],
                 "perfil_academico" => $row['perfil_academico']
@@ -73,6 +84,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 } else {
-    // Otro método HTTP no permitido
     echo json_encode(array("success" => false, "error" => "Método no permitido."));
 }

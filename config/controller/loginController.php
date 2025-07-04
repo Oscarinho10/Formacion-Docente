@@ -10,6 +10,7 @@ if (isset($_POST['login'])) {
     $usuario = null;
     $rol = '';
     $tipo = '';
+    $id_usuario = null;
 
     // Buscar en tabla administradores
     $query = "SELECT * FROM administradores WHERE correo_electronico = '$correo' AND contrasena = '$hashed_contrasena'";
@@ -19,6 +20,7 @@ if (isset($_POST['login'])) {
         $usuario = pg_fetch_assoc($resultado);
         $rol = $usuario['rol'];
         $tipo = 'administrador';
+        $id_usuario = $usuario['id_admin'];
     } else {
         // Buscar en tabla usuarios si no fue encontrado en administradores
         $query = "SELECT * FROM usuarios WHERE correo_electronico = '$correo' AND contrasena = '$hashed_contrasena'";
@@ -28,14 +30,18 @@ if (isset($_POST['login'])) {
             $usuario = pg_fetch_assoc($resultado);
             $rol = $usuario['rol'];
             $tipo = 'usuario';
+            $id_usuario = $usuario['id_usuario'];
         }
     }
 
     if ($usuario) {
-        // Guardar datos del usuario en sesión
-        $_SESSION['usuario'] = $usuario;
+        // Guardar datos del usuario en la sesión
+        $_SESSION['id_usuario'] = $id_usuario;
+        $_SESSION['usuario'] = $usuario['correo_electronico'];
         $_SESSION['rol'] = $rol;
         $_SESSION['tipo'] = $tipo;
+
+        session_regenerate_id(true); // Seguridad extra
 
         // Redirigir según el rol
         switch ($rol) {

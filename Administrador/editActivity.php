@@ -1,18 +1,6 @@
 <?php
-session_start();
-
-// Prevenir que el navegador guarde páginas en caché
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
-// Verificar que hay sesión iniciada y es admin
-include_once('../config/verificaSesion.php');
-
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-    header("Location: ../login.php");
-    exit;
-}
+include_once('../config/verificaRol.php');
+verificarRol('admin'); // Esto asegura el acceso solo a admins
 
 include('../components/layoutAdmin.php');
 include('../config/conexion.php');

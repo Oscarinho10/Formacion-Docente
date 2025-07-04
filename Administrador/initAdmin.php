@@ -1,23 +1,9 @@
 <?php
-session_start();
+include_once('../config/verificaRol.php');
+verificarRol('admin'); // Esto asegura el acceso solo a admins
 
-// Prevenir que el navegador guarde páginas en caché
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
-// Verificar que hay sesión iniciada y es admin
-include_once('../config/verificaSesion.php');
-
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-    header("Location: ../login.php");
-    exit;
-}
-
-// Hasta aquí no se ha enviado contenido, entonces ahora sí
-include('../components/layoutAdmin.php');
+include('../components/layoutAdmin.php'); // Aquí sí puedes incluir lo demás
 ?>
-
 
 <div class="card-container2">
     <a href="listParticipants.php" class="card2">

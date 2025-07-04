@@ -1,13 +1,13 @@
 <?php
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin'); // Solo admins pueden registrar
+
+include_once('../../config/auditor.php');
 
 // Rutas relativas desde este script (NO empiezan con /)
 $carpetaPDF = '../../uploads/temarios/';
 $carpetaIMG = '../../uploads/imagenes/';
-
-// Crear carpetas si no existen (por si acaso)
-// if (!file_exists($carpetaPDF)) mkdir($carpetaPDF, 0777, true);
-// if (!file_exists($carpetaIMG)) mkdir($carpetaIMG, 0777, true);
 
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
@@ -64,9 +64,13 @@ $resultado = pg_query($conn, $query);
 if ($resultado && pg_num_rows($resultado) > 0) {
     $row = pg_fetch_assoc($resultado);
     $id_actividad = $row['id_actividad'];
+
+    // ✅ Registrar en auditoría con nombre de la actividad
+    $movimiento = "Registró la actividad formativa: " . pg_escape_string($conn, $nombre);
+    registrarAuditoria($conn, $movimiento, 'Actividades formativas');
+
     header("Location: ../addSessions.php?id=" . $id_actividad);
     exit;
 } else {
     echo "Error al guardar la actividad.";
 }
-?>
