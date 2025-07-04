@@ -1,29 +1,30 @@
-<!-- modalDetalles.php -->
-<div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal de Detalles de Actividad -->
+<div class="modal fade" id="modalActividad" tabindex="-1" aria-labelledby="modalActividadLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
+      
       <div class="modal-header">
-        <h5 class="modal-title" id="detalleModalLabel">Detalles del curso</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="modalActividadLabel">Detalles de la Actividad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
       <div class="modal-body">
-
-        <!-- Nuevos campos -->
-        <hr>
-        <p><strong>Lugar:</strong> <span id="modalLugar"></span></p>
-        <p><strong>Tipo:</strong> <span id="modalTipo"></span></p>
-        <p><strong>Fecha de inicio:</strong> <span id="modalInicio"></span></p>
-        <p><strong>Fecha de fin:</strong> <span id="modalFin"></span></p>
+        <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
+        <p><strong>Descripción:</strong> <span id="modalDescripcion"></span></p>
         <p><strong>Dirigido a:</strong> <span id="modalDirigido"></span></p>
-        <p><strong>Horario:</strong> <span id="modalHorario"></span></p>
+        <p><strong>Modalidad:</strong> <span id="modalModalidad"></span></p>
+        <p><strong>Lugar:</strong> <span id="modalLugar"></span></p>
+        <p><strong>Clasificación:</strong> <span id="modalClasificacion"></span></p>
+        <p><strong>Cupo:</strong> <span id="modalCupo"></span></p>
+        <p><strong>Total de horas:</strong> <span id="modalHoras"></span></p>
+        <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+        <p><strong>Horario:</strong> <span id="modalHorarios"></span></p>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
+
     </div>
   </div>
 </div>
