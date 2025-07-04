@@ -1,4 +1,6 @@
 <?php
+include_once('../config/verificaRol.php');
+verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
 // Conexión y layout
 include('../config/conexion.php');

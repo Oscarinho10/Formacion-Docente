@@ -1,6 +1,10 @@
 <?php
 session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
+
+include_once('../../config/auditor.php');
 
 // Recolectar datos del formulario (compatible con PHP 5.2)
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
@@ -27,7 +31,7 @@ if (
     exit;
 }
 
-// Verificar duplicado (ya no usamos pg_query_params)
+// Verificar duplicado
 $check_query = "SELECT id_usuario FROM usuarios WHERE numero_control_rfc = '" . pg_escape_string($numero_control) . "' OR correo_electronico = '" . pg_escape_string($correo) . "'";
 $check_result = pg_query($conn, $check_query);
 
@@ -59,21 +63,10 @@ $query = "INSERT INTO usuarios (
 $result = pg_query($conn, $query);
 
 if ($result) {
-    // Auditoría (solo si existe id_admin)
-    if (isset($_SESSION['id_admin'])) {
-        $id_admin = $_SESSION['id_admin'];
-        date_default_timezone_set('America/Mexico_City');
-        $fecha = date("Y-m-d");
-        $hora = date("H:i:s");
-        $movimiento = "Alta de nuevo instructor ($nombre $apellido_paterno)";
-        $modulo = "Usuarios";
+    // ✅ Registrar en auditoría
+    $movimiento = "Registró al instructor: $nombre $apellido_paterno $apellido_materno";
+    registrarAuditoria($conn, $movimiento, 'Instructores');
 
-        $auditoria_sql = "INSERT INTO auditoria (fecha, hora, id_admin, movimiento, modulo)
-            VALUES ('$fecha', '$hora', $id_admin, '" . pg_escape_string($movimiento) . "', '" . pg_escape_string($modulo) . "')";
-        pg_query($conn, $auditoria_sql);
-    }
-
-    // Redirección
     header('Location: ../listInstructors.php');
     exit;
 } else {

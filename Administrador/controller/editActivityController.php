@@ -1,5 +1,10 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
+
+include_once('../../config/auditor.php'); // Para registrar auditoría
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = intval($_POST['id']);
@@ -62,6 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = pg_query($conn, $updateQuery);
 
     if ($result) {
+        // ✅ Obtener el nombre actualizado de la actividad para la auditoría
+        $consulta = pg_query($conn, "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id");
+        $nombre_act = ($consulta && pg_num_rows($consulta) > 0) ? pg_fetch_result($consulta, 0, 'nombre') : '';
+
+        // Registrar en auditoría con nombre
+        $movimiento = "Editó los datos de la actividad \"$nombre_act\" (ID $id)";
+        $modulo = "Actividades formativas";
+        registrarAuditoria($conn, $movimiento, $modulo);
+
         header("Location: ../listActivitys.php?edit=ok");
         exit;
     } else {
@@ -70,4 +84,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo "Acceso no permitido.";
 }
-?>
