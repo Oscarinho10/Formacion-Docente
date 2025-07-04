@@ -2,9 +2,6 @@ const rowsPerPage = 5;
 let currentPage = 1;
 let data = [];
 let filtered = [];
-let nombreActual = '';
-let controlActual = '';
-let picker = null;
 
 async function fetchParticipantes() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -25,9 +22,6 @@ async function fetchParticipantes() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', fetchParticipantes);
-
-
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   filtered = data.filter(item => item.nombre.toLowerCase().includes(search));
@@ -42,8 +36,30 @@ function renderTable() {
       <td><strong>${item.control}</strong></td>
       <td>${item.correo}</td>
       <td class="text-center">
-        <button class="btn btn-sm btn-secondary" onclick="verMas('${item.nombre}', '${item.control}', '${item.correo}')"> <i class="fas fa-eye"></i> Ver más</button>
-        <button class="btn btn-sm btn-success" onclick="abrirModal('${item.nombre}', '${item.control}')"><i class="fas fa-plus"></i> Asistencia</button>
+        <button class="btn btn-secondary btn-sm verMasBtn"
+                data-nombre="${item.nombre}"
+                data-apellido-paterno="${item.apellido_paterno}"
+                data-apellido-materno="${item.apellido_materno}"
+                data-fecha="${item.fecha_nacimiento}"
+                data-sexo="${item.sexo}"
+                data-unidad="${item.unidad_academica}"
+                data-grado="${item.grado_academico}"
+                data-correo="${item.correo}"
+                data-perfil="${item.perfil_academico}"
+                data-fecha-registro="${item.fecha_registro}"
+                data-bs-toggle="modal"
+                data-bs-target="#modalParticipants">
+                Ver más <i class="fas fa-eye"></i>
+        </button>
+        <button class="btn btn-sm btn-success btnAsistencia"
+        data-id="${item.id_usuario}"  
+        data-control="${item.control}"
+        data-nombre="${item.nombre}"
+        data-bs-toggle="modal"
+        data-bs-target="#modalAsistencia">
+  <i class="fas fa-calendar-check"></i> Asistencia
+</button>
+
       </td>
     </tr>
   `).join('');
@@ -79,87 +95,88 @@ function cambiarPagina(pag) {
   }
 }
 
-function abrirModal(nombre, control) {
-  nombreActual = nombre;
-  controlActual = control;
+$(document).ready(function () {
+  fetchParticipantes();
 
-  fetch('modalSuper/calendarModal.php')
-    .then(res => res.text())
-    .then(html => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-      document.body.appendChild(tempDiv);
+  $('#searchInput').on('input', function () {
+    currentPage = 1;
+    renderTable();
+  });
 
-      const modalElement = document.getElementById('calendarModal');
-      const nombreSpan = document.getElementById('nombreParticipante');
-      const fechaInput = document.getElementById('fechaAsistencia');
-      const listaFechas = document.getElementById('listaFechasSeleccionadas');
+  $(document).on('click', '.verMasBtn', function () {
+    const nombre = $(this).data('nombre');
+    const paterno = $(this).data('apellido-paterno');
+    const materno = $(this).data('apellido-materno');
+    const fecha = $(this).data('fecha');
+    const sexo = $(this).data('sexo');
+    const correo = $(this).data('correo');
+    const unidad = $(this).data('unidad');
+    const grado = $(this).data('grado');
+    const perfil = $(this).data('perfil');
+    const fecha_registro = $(this).data('fecha-registro');
 
-      if (!modalElement || !nombreSpan || !fechaInput) {
-        console.error("Error: elementos del modal no se encontraron.");
-        return;
-      }
-
-      nombreSpan.textContent = `${nombre} (No. Control: ${control})`;
-
-      if (picker) picker.destroy();
-
-      picker = new Litepicker({
-        element: fechaInput,
-        format: 'YYYY-MM-DD',
-        numberOfMonths: 2,
-        numberOfColumns: 2,
-        autoApply: true,
-        mode: 'multiple'
-      });
-
-      picker.on('selected', () => {
-        if (picker.selectedDates && picker.selectedDates.length > 0) {
-          listaFechas.innerHTML = picker.selectedDates
-            .map(f => new Date(f).toISOString().split('T')[0])
-            .join(', ');
-        } else {
-          listaFechas.innerHTML = '<p>No se ha seleccionado ninguna fecha.</p>';
-        }
-      });
-
-      document.getElementById('guardarAsistencia').addEventListener('click', () => {
-        const fechas = picker.selectedDates;
-        if (!fechas || fechas.length === 0) {
-          alert("Debes seleccionar al menos una fecha.");
-          return;
-        }
-        const fechasTexto = fechas.map(f => new Date(f).toISOString().split('T')[0]).join(', ');
-        console.log("Participante:", nombreActual);
-        console.log("Control:", controlActual);
-        console.log("Fechas:", fechasTexto);
-        alert("Fechas guardadas en consola.");
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal) modal.hide();
-      });
-
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    })
-    .catch(err => {
-      console.error("Error al cargar el modal:", err);
-      alert("Error al cargar el modal.");
-    });
-}
-
-function verMas(nombre, control, correo) {
-  document.getElementById('infoNombre').textContent = nombre;
-  document.getElementById('infoControl').textContent = control;
-  document.getElementById('infoCorreo').textContent = correo;
-
-  const modal = new bootstrap.Modal(document.getElementById('infoModal'));
-  modal.show();
-}
-
-
-document.getElementById('searchInput').addEventListener('input', () => {
-  currentPage = 1;
-  renderTable();
+    $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
+    $('#modalFecha').text(fecha);
+    $('#modalSexo').text(sexo);
+    $('#modalCorreo').text(correo);
+    $('#modalUnidad').text(unidad);
+    $('#modalGrado').text(grado);
+    $('#modalPerfil').text(perfil);
+    $('#modalFechaRegistro').text(fecha_registro);
+  });
 });
+$(document).on('click', '.btnAsistencia', function () {
+  const idUsuario = $(this).data('id');
+  const nombre = $(this).data('nombre');
 
-document.addEventListener('DOMContentLoaded', renderTable);
+  $('#nombreParticipanteAsistencia').text(nombre);
+
+  // Cargar sesiones por AJAX
+  fetch(`../SuperAdmin/controller/getSessionsActivity.php?id_usuario=${idUsuario}`)
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('tablaSesionesAsistencia');
+      tbody.innerHTML = '';
+
+      data.forEach(sesion => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${sesion.fecha}</td>
+            <td>${sesion.nombre_sesion}</td>
+            <td class="text-center">
+              <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}">
+            </td>
+          </tr>
+        `;
+      });
+
+      // Guardar asistencia
+      $('#guardarAsistenciaBtn').off('click').on('click', function () {
+        const asistencias = [];
+        document.querySelectorAll('.checkAsistencia').forEach(chk => {
+          if (chk.checked) {
+            asistencias.push(parseInt(chk.dataset.idSesion));
+          }
+        });
+
+        fetch('../SuperAdmin/controller/saveAssist.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_usuario: idUsuario,
+            sesiones: asistencias
+          })
+        })
+          .then(res => res.json())
+          .then(resp => {
+            alert(resp.mensaje || 'Asistencia guardada.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
+            modal.hide();
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Error al guardar asistencia.');
+          });
+      });
+    });
+});
