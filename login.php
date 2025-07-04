@@ -38,5 +38,15 @@ include('config/controller/loginController.php');
         <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
     </div>
 </div>
-
+<script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+<?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: 'Correo o contraseña incorrectos',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+<?php endif; ?>
 <?php include('HeadAndFoot/footer.php'); ?>

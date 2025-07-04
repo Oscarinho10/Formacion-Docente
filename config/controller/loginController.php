@@ -62,7 +62,7 @@ if (isset($_POST['login'])) {
         }
         exit;
     } else {
-        echo "<script>alert('Correo o contraseña incorrectos');</script>";
+        header("Location: login.php?error=1");
+    exit;
     }
 }
-?>
