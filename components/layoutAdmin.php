@@ -57,7 +57,7 @@
 
             <div class="nav__list">
                 <a href="../Administrador/initAdmin.php" class="nav__link <?php echo ($currentPage == 'initAdmin.php') ? 'active-link' : ''; ?>"><span class="nav__name">Menú principal</span></a>
-                <a href="../Administrador/profilelUser.php" class="nav__link <?php echo ($currentPage == 'profilelUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
+                <a href="../Administrador/profileUser.php" class="nav__link <?php echo ($currentPage == 'profilelUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
                 <a href="../Administrador/listParticipants.php" class="nav__link <?php echo ($currentPage == 'listParticipants.php') ? 'active-link' : ''; ?>"><span class="nav__name">Solicitudes</span></a>
                 <a href="../Administrador/listInstructors.php" class="nav__link <?php echo ($currentPage == 'listInstructors.php') ? 'active-link' : ''; ?>"><span class="nav__name">Instructores</span></a>
                 <a href="../Administrador/listActivitys.php" class="nav__link <?php echo ($currentPage == 'listActivitys.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad Formativa</span></a>
