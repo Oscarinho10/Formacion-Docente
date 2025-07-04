@@ -1,6 +1,18 @@
 <?php
-include_once('../config/verificaRol.php');
-verificarRol('participante'); // Esto asegura el acceso solo a participantes
+session_start();
+
+// Prevenir que el navegador guarde páginas en caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Verificar que hay sesión iniciada y es admin
+include_once('../config/verificaSesion.php');
+
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'participante') {
+    header("Location: ../login.php");
+    exit;
+}
 
 // Hasta aquí no se ha enviado contenido, entonces ahora sí
 include('../components/layout.php');
@@ -10,94 +22,54 @@ include('../User/Controller/activityUserController.php');
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Tabla con filtros</title>
-
-    <!-- Bootstrap & Estilos -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css" type="text/css">
+  <meta charset="UTF-8">
+  <title>Actividades Disponibles</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/tabla.css">
+  <link rel="stylesheet" href="../assets/css/estilo.css">
+  <link rel="stylesheet" href="../assets/fontawesome/all.min.css">
 </head>
-
 <body class="bg-light">
 
-    <div class="container mt-4">
+<div class="container mt-4">
+  <h4 class="mb-3">Actividades Disponibles</h4>
 
-        <!-- Filtros -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar curso...">
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <select class="form-control" id="filterModality">
-                    <option value="">Todas las modalidades</option>
-                    <?php foreach ($modalidades as $modo): ?>
-                        <option value="<?= htmlspecialchars($modo) ?>"><?= htmlspecialchars($modo) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="col-md-4 text-end">
-                <button class="btn btn-outline-secondary" id="clearFilters">Limpiar filtros</button>
-            </div>
-        </div>
-
-        <!-- Tabla -->
-        <div class="table-container table-responsive">
-            <table class="table table-bordered table-striped" id="coursesTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Nombre del curso</th>
-                        <th>Total de horas</th>
-                        <th>Modalidad</th>
-                        <th>Cupo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Datos dinámicos -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Paginador -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div id="paginationInfo">
-                Mostrando 1-5 de <?= count($actividades) ?> registros
-            </div>
-            <nav>
-                <ul class="pagination mb-0" id="pagination">
-                    <!-- Paginación dinámica -->
-                </ul>
-            </nav>
-        </div>
-
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" id="searchInput" placeholder="Buscar actividad...">
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Horas</th>
+          <th>Modalidad</th>
+          <th>Cupo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 
-    <!-- Exportar datos PHP a JS -->
-    <script>
-        const actividadesData = <?= json_encode($actividades); ?>;
-    </script>
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div id="paginationInfo"></div>
+    <ul class="pagination" id="pagination"></ul>
+  </div>
+</div>
 
-    <!-- Lógica de renderizado JS -->
-    <script src="<?php echo BASE_URL; ?>/User/js/activityUser.js"></script>
+<!-- Modal de detalles -->
+<?php include('modalDetalles.php'); ?>
 
-    <!-- Modal -->
-    <?php include('./modals/modalDetalles.php'); ?>
-
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/sweetAlert2.js"></script>
+<script src="js/actividadUser.js"></script>
 </body>
 </html>

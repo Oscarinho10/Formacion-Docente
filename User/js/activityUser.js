@@ -37,18 +37,43 @@ function renderTable() {
             '<td>' + item.modalidad + '</td>' +
             '<td>' + item.cupo + '</td>' +
             '<td class="table-actions">' +
-            '<button class="btn btn-sm btn-secondary btn-vermas" ' +
+            '<button class="btn btn-secondary btn-sm verMasBtn" ' +
+            'data-nombre="' + item.nombre + '" ' +
+            'data-descripcion="' + item.descripcion + '" ' +
+            'data-dirigido_a="' + item.dirigido_a + '" ' +
+            'data-modalidad="' + item.modalidad + '" ' +
             'data-lugar="' + item.lugar + '" ' +
-            'data-tipo="' + item.tipo + '" ' +
-            'data-inicio="' + item.fecha_inicio + '" ' +
-            'data-fin="' + item.fecha_fin + '" ' +
-            'data-dirigido="' + item.dirigido_a + '" ' +
-            'data-horario="' + item.horario + '">Ver más</button>' +
+            'data-clasificacion="' + item.clasificacion + '" ' +
+            'data-cupo="' + item.cupo + '" ' +
+            'data-total_horas="' + item.total_horas + '" ' +
+            'data-estado="' + item.estado + '" ' +
+            'data-descripcion_horarios="' + item.descripcion_horarios + '" ' +
+            'data-bs-toggle="modal" data-bs-target="#modalActividad">' +
+            'Ver más</button>'
+            +
             '<a href="registerActivity.php?curso=' + encodeURIComponent(item.nombre) + '" class="btn btn-sm btn-success">Inscribirme</a>' +
             '</td>' +
             '</tr>'
         );
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.verMasBtn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.getElementById('modalNombre').innerText = this.dataset.nombre;
+                document.getElementById('modalDescripcion').innerText = this.dataset.descripcion;
+                document.getElementById('modalDirigido').innerText = this.dataset.dirigido_a;
+                document.getElementById('modalModalidad').innerText = this.dataset.modalidad;
+                document.getElementById('modalLugar').innerText = this.dataset.lugar;
+                document.getElementById('modalClasificacion').innerText = this.dataset.clasificacion;
+                document.getElementById('modalCupo').innerText = this.dataset.cupo;
+                document.getElementById('modalHoras').innerText = this.dataset.total_horas;
+                document.getElementById('modalEstado').innerText = this.dataset.estado;
+                document.getElementById('modalHorarios').innerText = this.dataset.descripcion_horarios;
+            });
+        });
+    });
+
 
     $('#pagination').html('');
     if (totalPages > 1) {
