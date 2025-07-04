@@ -1,36 +1,37 @@
-const data = [
-  { nombre: "Curso de Liderazgo", fecha: "2025-06-15", estado: "Activo" },
-  { nombre: "Seminario de Innovación", fecha: "2025-07-01", estado: "Inactivo" },
-  { nombre: "Curso de Ventas", fecha: "2025-07-10", estado: "Activo" },
-  { nombre: "Diplomado de Finanzas", fecha: "2025-08-05", estado: "Activo" },
-  { nombre: "Conferencia Marketing", fecha: "2025-08-20", estado: "Inactivo" },
-  { nombre: "Taller de Negociación", fecha: "2025-09-15", estado: "Activo" },
-  { nombre: "Seminario Legal", fecha: "2025-10-02", estado: "Inactivo" },
-  { nombre: "Curso de Diseño", fecha: "2025-10-18", estado: "Activo" }
-];
-
+let actividades = [];
+let filtered = [];
 const rowsPerPage = 5;
 let currentPage = 1;
-let filtered = [...data];
+
+async function fetchActividades() {
+  try {
+    const res = await fetch('../SuperAdmin/controller/listActivitysController.php');
+    actividades = await res.json();
+    filtered = [...actividades];
+    renderTable();
+  } catch (error) {
+    console.error("Error al obtener actividades:", error);
+  }
+}
 
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const fecha = document.getElementById('filterFecha').value;
   const estado = document.getElementById('filterEstado').value;
 
-  filtered = data.filter(item => {
+  filtered = actividades.filter(item => {
     const matchNombre = item.nombre.toLowerCase().includes(search);
     const matchFecha = !fecha || item.fecha === fecha;
     const matchEstado = !estado || item.estado === estado;
     return matchNombre && matchFecha && matchEstado;
   });
 
-  const totalPages = Math.ceil(filtered.length / rowsPerPage);
   const start = (currentPage - 1) * rowsPerPage;
-  const end = Math.min(start + rowsPerPage, filtered.length);
+  const end = start + rowsPerPage;
   const visibleData = filtered.slice(start, end);
 
-  document.getElementById('tableBody').innerHTML = visibleData.map(item => `
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = visibleData.map(item => `
     <tr>
       <td>${item.nombre}</td>
       <td>${item.fecha}</td>
@@ -38,17 +39,18 @@ function renderTable() {
         <span class="estado-label">${item.estado}</span>
       </td>
       <td>
-        <a href="listActivity.php" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
-        <a href="participantsList.php" class="btn btn-sm btn-general">Participantes</a>
+        <a href="listActivity.php?id=${item.id}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
+        <a href="participantsList.php?id=${item.id}" class="btn btn-sm btn-general">Participantes</a>
       </td>
     </tr>
   `).join('');
 
-  // Paginador
-  document.getElementById('paginationInfo').textContent =
-    `Mostrando ${start + 1}-${end} de ${filtered.length} registros`;
-
+  // Paginación
+  const totalPages = Math.ceil(filtered.length / rowsPerPage);
   const pagination = document.getElementById('pagination');
+  document.getElementById('paginationInfo').textContent = 
+    `Mostrando ${filtered.length === 0 ? 0 : (start + 1)}-${Math.min(end, filtered.length)} de ${filtered.length} registros`;
+
   pagination.innerHTML = '';
 
   if (totalPages > 1) {
@@ -73,7 +75,6 @@ function renderTable() {
     `;
   }
 
-  // Eventos paginador
   document.querySelectorAll('#pagination a.page-link').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -86,7 +87,6 @@ function renderTable() {
   });
 }
 
-// Eventos filtros
 document.getElementById('searchInput').addEventListener('input', () => {
   currentPage = 1;
   renderTable();
@@ -107,5 +107,5 @@ document.getElementById('clearFilters').addEventListener('click', () => {
   renderTable();
 });
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', renderTable);
+// Inicializar datos dinámicos
+document.addEventListener('DOMContentLoaded', fetchActividades);

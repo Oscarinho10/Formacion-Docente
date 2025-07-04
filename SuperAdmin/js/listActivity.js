@@ -1,19 +1,32 @@
-const data = [
-  { nombre: "Juan Perez", control: "45612", correo: "Juanperez@example.com" },
-  { nombre: "Oscar Maydon", control: "5623", correo: "OscarMaydon@example.com" },
-  { nombre: "Giovanni Pedraza", control: "568952", correo: "GiovanniPedraza@example.com" },
-  { nombre: "Alejandro Morales", control: "89567", correo: "AlejandroMorales@example.com" },
-  { nombre: "Diana Ruiz", control: "98712", correo: "DianaRuiz@example.com" },
-  { nombre: "Ernesto Torres", control: "65234", correo: "ErnestoTorres@example.com" },
-  { nombre: "Carla Romero", control: "47852", correo: "CarlaRomero@example.com" }
-];
-
 const rowsPerPage = 5;
 let currentPage = 1;
-let filtered = [...data];
+let data = [];
+let filtered = [];
 let nombreActual = '';
 let controlActual = '';
 let picker = null;
+
+async function fetchParticipantes() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const idActividad = urlParams.get('id');
+
+  if (!idActividad) {
+    alert("No se proporcionó ID de actividad.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`../SuperAdmin/controller/getParticipantsForActivity.php?id=${idActividad}`);
+    data = await res.json();
+    filtered = [...data];
+    renderTable();
+  } catch (error) {
+    console.error("Error al cargar participantes:", error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', fetchParticipantes);
+
 
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
