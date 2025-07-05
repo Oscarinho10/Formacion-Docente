@@ -73,7 +73,7 @@ include('../components/layoutSuper.php');
   <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/listActivity.js"></script>
 
 <?php include('../SuperAdmin/modalSuper/detailsListActivity.php')?>
-<?php include('../SuperAdmin/modalSuper/calendarModal.php')?>
+<?php include('../SuperAdmin/modalSuper/modalAsistSessionsActivity.php')?>
 </body>
 
 </html>

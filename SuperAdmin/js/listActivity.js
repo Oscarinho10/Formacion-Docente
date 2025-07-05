@@ -52,14 +52,13 @@ function renderTable() {
                 Ver más <i class="fas fa-eye"></i>
         </button>
         <button class="btn btn-sm btn-success btnAsistencia"
-        data-id="${item.id_usuario}"  
-        data-control="${item.control}"
-        data-nombre="${item.nombre}"
-        data-bs-toggle="modal"
-        data-bs-target="#modalAsistencia">
-  <i class="fas fa-calendar-check"></i> Asistencia
-</button>
-
+                data-id="${item.id_usuario}"  
+                data-control="${item.control}"
+                data-nombre="${item.nombre}"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAsistencia">
+          <i class="fas fa-calendar-check"></i> Asistencia
+        </button>
       </td>
     </tr>
   `).join('');
@@ -125,32 +124,44 @@ $(document).ready(function () {
     $('#modalFechaRegistro').text(fecha_registro);
   });
 });
+
+// ASISTENCIA
 $(document).on('click', '.btnAsistencia', function () {
   const idUsuario = $(this).data('id');
   const nombre = $(this).data('nombre');
+  const idActividad = new URLSearchParams(window.location.search).get('id');
 
   $('#nombreParticipanteAsistencia').text(nombre);
 
-  // Cargar sesiones por AJAX
-  fetch(`../SuperAdmin/controller/getSessionsActivity.php?id_usuario=${idUsuario}`)
+  // Obtener sesiones
+  fetch(`../SuperAdmin/controller/getSessionsActivity.php?id=${idActividad}&id_usuario=${idUsuario}`)
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById('tablaSesionesAsistencia');
       tbody.innerHTML = '';
 
-      data.forEach(sesion => {
-        tbody.innerHTML += `
+      if (!Array.isArray(data) || data.length === 0) {
+        tbody.innerHTML = `
           <tr>
-            <td>${sesion.fecha}</td>
-            <td>${sesion.nombre_sesion}</td>
-            <td class="text-center">
-              <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}">
-            </td>
-          </tr>
-        `;
+            <td colspan="3" class="text-center text-muted">No hay sesiones para esta actividad.</td>
+          </tr>`;
+        return;
+      }
+
+      data.forEach(sesion => {
+        const checked = sesion.asistio == 1 ? 'checked' : '';
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+  <td>${sesion.fecha}</td>
+  <td>${sesion.nombre_sesion}</td>
+  <td class="text-center">
+    <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}" ${checked}>
+  </td>
+`;
+        tbody.appendChild(fila);
+
       });
 
-      // Guardar asistencia
       $('#guardarAsistenciaBtn').off('click').on('click', function () {
         const asistencias = [];
         document.querySelectorAll('.checkAsistencia').forEach(chk => {
@@ -171,12 +182,15 @@ $(document).on('click', '.btnAsistencia', function () {
           .then(resp => {
             alert(resp.mensaje || 'Asistencia guardada.');
             const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
-            modal.hide();
+            if (modal) modal.hide();
           })
           .catch(err => {
             console.error(err);
             alert('Error al guardar asistencia.');
           });
       });
+    })
+    .catch(error => {
+      console.error("Error al cargar sesiones:", error);
     });
 });
