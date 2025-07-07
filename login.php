@@ -64,8 +64,3 @@ include('HeadAndFoot/header.php');
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo BASE_URL; ?>/config/js/login.js"></script>
-    <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
-        <script>
-            mostrarAlertaLoginError(); // Esta función está definida en login.js
-        </script>
-    <?php endif; ?>
