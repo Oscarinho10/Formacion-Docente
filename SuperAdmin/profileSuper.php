@@ -25,26 +25,30 @@ include('../components/layoutSuper.php');
                 </div>
                 <div class="form-group">
                     <label for="apellidoPaterno">Apellido Paterno*</label>
-                    <input type="text" class="form-control" id="apellidoPaterno" required>
+                    <input type="text" class="form-control" id="apellido_paterno" required>
                 </div>
                 <div class="form-group">
                     <label for="apellidoMaterno">Apellido Materno*</label>
-                    <input type="text" class="form-control" id="apellidoMaterno" required>
+                    <input type="text" class="form-control" id="apellido_materno" required>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo Electrónico*</label>
-                    <input type="email" class="form-control" id="correo" readonly>
+                    <input type="email" class="form-control"  style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;"  id="correo_electronico" readonly>
                 </div>
                 <div class="form-group">
                     <label for="numeroControl">Número de Control*</label>
-                    <input type="text" class="form-control" id="numeroControl" readonly>
+                    <input type="text" class="form-control"  style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;"   id="numero_control_rfc" readonly>
                 </div>
-                <button type="submit" class="btn btn-guardar">Guardar</button>
+                 <!-- Botones -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Regresar</button>
+                        <button type="submit" class="btn btn-sm btn-general col-2">Guardar</button>
+                    </div>
             </form>
         </div>
     </div>
-
-    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/profileSuper.js"></script>
 </body>
 </html>
