@@ -30,18 +30,18 @@ function renderTable() {
   const end = Math.min(start + rowsPerPage, filtered.length);
   const visibleData = filtered.slice(start, end);
 
-   // ✅ Si no hay resultados
-    if (filtered.length === 0) {
-        $('#tableBody').html(`
+  // ✅ Si no hay resultados
+  if (filtered.length === 0) {
+    $('#tableBody').html(`
             <tr>
                 <td colspan="5" class="text-center text-muted py-3">
                     No hay participantes registrados en esta actividad por el momento.
                 </td>
             </tr>
         `);
-        $('#pagination').html('');
-        return;
-    }
+    $('#pagination').html('');
+    return;
+  }
 
   document.getElementById('tableBody').innerHTML = visibleData.map(item => `
     <tr>
@@ -181,17 +181,19 @@ $(document).on('click', '.btnAsistencia', function () {
       $('#guardarAsistenciaBtn').off('click').on('click', function () {
         const asistencias = [];
         document.querySelectorAll('.checkAsistencia').forEach(chk => {
-          if (chk.checked) {
-            asistencias.push(parseInt(chk.dataset.idSesion));
-          }
+          asistencias.push({
+            id_sesion: parseInt(chk.dataset.idSesion),
+            presente: chk.checked
+          });
         });
+
 
         fetch('../SuperAdmin/controller/saveAssist.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id_usuario: idUsuario,
-            sesiones: asistencias
+            asistencias: asistencias // ✅ CAMBIAR DE 'sesiones' A 'asistencias'
           })
         })
           .then(res => res.json())

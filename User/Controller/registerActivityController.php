@@ -31,7 +31,21 @@ $query = "INSERT INTO inscripciones (id_usuario, id_actividad, fecha_inscripcion
 $result = pg_query($conn, $query);
 
 if ($result) {
+    // Obtener sesiones de la actividad
+    $querySesiones = "SELECT id_sesion FROM sesiones_actividad WHERE id_actividad = $id_actividad";
+    $resultSesiones = pg_query($conn, $querySesiones);
+
+    if ($resultSesiones && pg_num_rows($resultSesiones) > 0) {
+        while ($row = pg_fetch_assoc($resultSesiones)) {
+            $id_sesion = intval($row['id_sesion']);
+
+            // Insertar asistencia con presente en false
+            $insertAsistencia = "INSERT INTO asistencias (id_sesion, id_usuario, presente) VALUES ($id_sesion, $id_usuario, FALSE)";
+            pg_query($conn, $insertAsistencia);
+        }
+    }
+
     echo json_encode(array('success' => true));
-} else {
+}else {
     echo json_encode(array('success' => false, 'message' => 'Error al registrar inscripción'));
 }
