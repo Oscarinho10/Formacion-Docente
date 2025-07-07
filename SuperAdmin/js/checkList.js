@@ -21,7 +21,7 @@ function renderTable() {
 
   filtered = actividades.filter(item => {
     const matchNombre = item.nombre.toLowerCase().includes(search);
-    const matchFecha = !fecha || item.fecha === fecha;
+    const matchFecha = !fecha || item.fecha_fin === fecha;
     const matchEstado = !estado || item.estado === estado;
     return matchNombre && matchFecha && matchEstado;
   });
@@ -34,7 +34,7 @@ function renderTable() {
   tbody.innerHTML = visibleData.map(item => `
     <tr>
       <td>${item.nombre}</td>
-      <td>${item.fecha}</td>
+      <td>${item.fecha_fin}</td>
       <td class="text-center">
         <span class="estado-label">${item.estado}</span>
       </td>
