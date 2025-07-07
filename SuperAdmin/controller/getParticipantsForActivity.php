@@ -6,6 +6,7 @@ $participantes = array();
 
 $query = "
   SELECT 
+    u.id_usuario,
     u.nombre, 
     u.apellido_paterno, 
     u.apellido_materno,
@@ -25,22 +26,22 @@ $query = "
 $result = pg_query($conn, $query);
 
 if ($result) {
-    while ($row = pg_fetch_assoc($result)) {
-        $participantes[] = array(
-            'id_usuario' => $row['id_usuario'], // 👈 AGREGA ESTA LÍNEA
-            'nombre' => $row['nombre'],
-            'apellido_paterno' => $row['apellido_paterno'],
-            'apellido_materno' => $row['apellido_materno'],
-            'control' => $row['control'],
-            'correo' => $row['correo'],
-            'fecha_nacimiento' => $row['fecha_nacimiento'],
-            'sexo' => $row['sexo'],
-            'unidad_academica' => $row['unidad_academica'],
-            'grado_academico' => $row['grado_academico'],
-            'perfil_academico' => $row['perfil_academico'],
-            'fecha_registro' => $row['fecha_registro']
-        );
-    }
+  while ($row = pg_fetch_assoc($result)) {
+    $participantes[] = array(
+      'id_usuario' => $row['id_usuario'],
+      'nombre' => $row['nombre'],
+      'apellido_paterno' => $row['apellido_paterno'],
+      'apellido_materno' => $row['apellido_materno'],
+      'control' => $row['control'],
+      'correo' => $row['correo'],
+      'fecha_nacimiento' => $row['fecha_nacimiento'],
+      'sexo' => $row['sexo'],
+      'unidad_academica' => $row['unidad_academica'],
+      'grado_academico' => $row['grado_academico'],
+      'perfil_academico' => $row['perfil_academico'],
+      'fecha_registro' => $row['fecha_registro']
+    );
+  }
 }
 
 header('Content-Type: application/json');

@@ -30,9 +30,22 @@ function renderTable() {
   const end = Math.min(start + rowsPerPage, filtered.length);
   const visibleData = filtered.slice(start, end);
 
+   // ✅ Si no hay resultados
+    if (filtered.length === 0) {
+        $('#tableBody').html(`
+            <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                    No hay participantes registrados en esta actividad por el momento.
+                </td>
+            </tr>
+        `);
+        $('#pagination').html('');
+        return;
+    }
+
   document.getElementById('tableBody').innerHTML = visibleData.map(item => `
     <tr>
-      <td>${item.nombre}</td>
+      <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
       <td><strong>${item.control}</strong></td>
       <td>${item.correo}</td>
       <td class="text-center">
@@ -55,6 +68,8 @@ function renderTable() {
                 data-id="${item.id_usuario}"  
                 data-control="${item.control}"
                 data-nombre="${item.nombre}"
+                data-apellido_paterno="${item.apellido_paterno}"
+                data-apellido_materno="${item.apellido_materno}"
                 data-bs-toggle="modal"
                 data-bs-target="#modalAsistencia">
           <i class="fas fa-calendar-check"></i> Asistencia
@@ -104,8 +119,8 @@ $(document).ready(function () {
 
   $(document).on('click', '.verMasBtn', function () {
     const nombre = $(this).data('nombre');
-    const paterno = $(this).data('apellido-paterno');
-    const materno = $(this).data('apellido-materno');
+    const paterno = $(this).data('apellido_paterno');
+    const materno = $(this).data('apellido_materno');
     const fecha = $(this).data('fecha');
     const sexo = $(this).data('sexo');
     const correo = $(this).data('correo');
@@ -129,9 +144,10 @@ $(document).ready(function () {
 $(document).on('click', '.btnAsistencia', function () {
   const idUsuario = $(this).data('id');
   const nombre = $(this).data('nombre');
+  const paterno = $(this).data('apellido_paterno');
+  const materno = $(this).data('apellido_materno');
+  $('#nombreParticipanteAsistencia').text(`${nombre} ${paterno} ${materno}`);
   const idActividad = new URLSearchParams(window.location.search).get('id');
-
-  $('#nombreParticipanteAsistencia').text(nombre);
 
   // Obtener sesiones
   fetch(`../SuperAdmin/controller/getSessionsActivity.php?id=${idActividad}&id_usuario=${idUsuario}`)
@@ -152,12 +168,12 @@ $(document).on('click', '.btnAsistencia', function () {
         const checked = sesion.asistio == 1 ? 'checked' : '';
         const fila = document.createElement('tr');
         fila.innerHTML = `
-  <td>${sesion.fecha}</td>
-  <td>${sesion.nombre_sesion}</td>
-  <td class="text-center">
-    <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}" ${checked}>
-  </td>
-`;
+          <td>${sesion.fecha}</td>
+          <td>${sesion.nombre_sesion}</td>
+          <td class="text-center">
+            <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}" ${checked}>
+          </td>
+        `;
         tbody.appendChild(fila);
 
       });
