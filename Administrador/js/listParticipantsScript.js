@@ -31,6 +31,8 @@ function renderTable() {
 
     filtered = data.filter(item =>
         item.nombre.toLowerCase().includes(search) ||
+        item.apellido_paterno.toLowerCase().includes(search) ||
+        item.apellido_materno.toLowerCase().includes(search) ||
         item.numero_control_rfc.toLowerCase().includes(search) ||
         item.correo.toLowerCase().includes(search) ||
         item.perfil_academico.toLowerCase().includes(search)
@@ -60,7 +62,7 @@ function renderTable() {
     visibleData.forEach(item => {
         $('#tableBody').append(`
             <tr>
-                <td>${item.nombre}</td>
+                <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
                 <td>${item.numero_control_rfc}</td>
                 <td>${item.correo}</td>
                 <td>${item.perfil_academico}</td>

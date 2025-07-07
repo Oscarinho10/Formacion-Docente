@@ -1,24 +1,50 @@
-const data = [
-    { nombre: "Dr. Ana Torres", perfil: "Ingeniería en Software", unidad: "Facultad de Ingeniería" },
-    { nombre: "Mtro. Luis Rivas", perfil: "Matemáticas Aplicadas", unidad: "Facultad de Ciencias" },
-    { nombre: "Lic. Marta León", perfil: "Comunicación", unidad: "Facultad de Humanidades" },
-    { nombre: "Dra. Claudia Díaz", perfil: "Biología Molecular", unidad: "Facultad de Ciencias Naturales" },
-    { nombre: "Mtro. Pedro Jiménez", perfil: "Arquitectura", unidad: "Facultad de Arquitectura" },
-    { nombre: "Ing. Julio Suárez", perfil: "Sistemas Computacionales", unidad: "Facultad de Ingeniería" },
-    { nombre: "Lic. Karen López", perfil: "Diseño Gráfico", unidad: "Facultad de Artes" }
-];
-
+let data = [];
 const rowsPerPage = 5;
 let currentPage = 1;
-let filtered = [...data];
+let filtered = [];
+
+function cargarInstructores() {
+    fetch('controller/listInstructorsController.php')
+        .then(res => res.json())
+        .then(json => {
+            if (!Array.isArray(json)) {
+                throw new Error(json.error || 'Respuesta inesperada del servidor');
+            }
+
+            data = json;
+            currentPage = 1;
+            renderTable();
+        })
+        .catch(err => {
+            console.error("Error al cargar instructores:", err);
+            if (typeof Swal !== 'undefined') {
+                Swal.fire('Error', 'No se pudo obtener la lista de instructores.', 'error');
+            } else {
+                alert('No se pudo obtener la lista de instructores.');
+            }
+        });
+}
+
+function calcularEdad(fechaNacimiento) {
+    const fecha = new Date(fechaNacimiento);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fecha.getFullYear();
+    const mes = hoy.getMonth() - fecha.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+    }
+    return edad;
+}
 
 function renderTable() {
     const search = $('#searchInput').val().toLowerCase();
 
     filtered = data.filter(item =>
         item.nombre.toLowerCase().includes(search) ||
-        item.perfil.toLowerCase().includes(search) ||
-        item.unidad.toLowerCase().includes(search)
+        item.apellido_paterno.toLowerCase().includes(search) ||
+        item.apellido_materno.toLowerCase().includes(search) ||
+        item.perfil_academico.toLowerCase().includes(search) ||
+        item.unidad_academica.toLowerCase().includes(search)
     );
 
     const totalPages = Math.ceil(filtered.length / rowsPerPage);
@@ -29,40 +55,70 @@ function renderTable() {
     $('#paginationInfo').text(`Mostrando ${start + 1}-${end} de ${filtered.length} registros`);
     $('#tableBody').html('');
 
+    // ✅ Si no hay resultados
+    if (filtered.length === 0) {
+        $('#tableBody').html(`
+            <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                    No hay instructores registrados por el momento.
+                </td>
+            </tr>
+        `);
+        $('#pagination').html('');
+        return;
+    }
+
     visibleData.forEach(item => {
         $('#tableBody').append(`
             <tr>
-                <td>${item.nombre}</td>
-                <td>${item.perfil}</td>
-                <td>${item.unidad}</td>
+                <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
+                <td>${item.perfil_academico}</td>
+                <td>${item.unidad_academica}</td>
                 <td class="text-center acciones">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
-                        data-perfil="${item.perfil}"
-                        data-unidad="${item.unidad}"
+                        data-apellido_paterno="${item.apellido_paterno}"
+                        data-apellido_materno="${item.apellido_materno}"
+                        data-perfil="${item.perfil_academico}"
+                        data-unidad="${item.unidad_academica}"
+                        data-correo="${item.correo_electronico}"
+                        data-sexo="${item.sexo}"
+                        data-grado="${item.grado_academico}"
+                        data-fecha="${item.fecha_nacimiento}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalInstructor">
-                        Ver más
-                        <i class="fas fa-eye"></i>
+                        Ver más <i class="fas fa-eye"></i>
                     </button>
-                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php'"><i class="fas fa-pen"></i> Editar</button>
+                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php?id=${item.id_usuario}'">
+                        <i class="fas fa-pen"></i> Editar
+                    </button>
                 </td>
             </tr>
         `);
     });
 
-    // Eventos para botón "Ver más"
+    // Eventos para "Ver más"
     setTimeout(() => {
         const botones = document.querySelectorAll('.verMasBtn');
         botones.forEach(btn => {
             btn.addEventListener('click', function () {
-                document.getElementById('modalNombre').innerText = this.dataset.nombre;
-                document.getElementById('modalPerfil').innerText = this.dataset.perfil;
-                document.getElementById('modalUnidad').innerText = this.dataset.unidad;
+                const nombreCompleto = `${this.dataset.nombre} ${this.dataset.apellido_paterno} ${this.dataset.apellido_materno}`;
+                const fechaNacimiento = this.dataset.fecha;
+                const edad = calcularEdad(fechaNacimiento);
+
+                $('#modalNombre').text(nombreCompleto);
+                $('#modalPerfil').text(this.dataset.perfil);
+                $('#modalUnidad').text(this.dataset.unidad);
+                $('#modalCorreo').text(this.dataset.correo);
+                $('#modalSexo').text(this.dataset.sexo);
+                $('#modalGrado').text(this.dataset.grado);
+                $('#modalEdad').text(edad + " años");
+                $('#modalFecha').text(fechaNacimiento);
             });
         });
     }, 0);
 
+    // Paginación
     $('#pagination').html('');
     if (totalPages > 1) {
         $('#pagination').append(`
@@ -109,11 +165,11 @@ function renderTable() {
     });
 }
 
-$('#searchInput').on('input', function () {
-    currentPage = 1;
-    renderTable();
-});
-
 $(document).ready(function () {
-    renderTable();
+    cargarInstructores();
+
+    $('#searchInput').on('input', function () {
+        currentPage = 1;
+        renderTable();
+    });
 });
