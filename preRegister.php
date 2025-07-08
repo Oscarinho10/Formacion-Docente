@@ -111,7 +111,6 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
               <label for="unidad_academica" class="form-label">Unidad Académica:</label>
               <select name="unidad_academica" id="unidad_academica" class="form-select" required>
                 <option value="">Seleccione</option>
-                <option value="">Seleccione</option>
                 <option value="Centro de Investigación Interdisciplinar para el Desarrollo Universitario">Centro de Investigación Interdisciplinar para el Desarrollo Universitario</option>
                 <option value="Centro de Investigación Transdisciplinar en Psicología">Centro de Investigación Transdisciplinar en Psicología</option>
                 <option value="Centro de Investigación en Biodiversidad y Conservación">Centro de Investigación en Biodiversidad y Conservación</option>
