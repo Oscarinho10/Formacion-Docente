@@ -8,6 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const pagination = document.getElementById("pagination");
     const paginationInfo = document.getElementById("paginationInfo");
 
+    // ✅ Función para calcular edad desde fecha de nacimiento
+    function calcularEdad(fechaNacimientoStr) {
+        const fechaSolo = fechaNacimientoStr.split(' ')[0];
+        const partes = fechaSolo.split('-');
+        if (partes.length !== 3) return 0;
+
+        const nacimiento = new Date(partes[0], partes[1] - 1, partes[2]);
+        const hoy = new Date();
+
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const m = hoy.getMonth() - nacimiento.getMonth();
+        if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
+        return edad;
+    }
+
     fetch('controller/viewUserSuperController.php')
         .then(response => response.json())
         .then(data => {
@@ -69,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tableBody.innerHTML = "";
 
         if (paginated.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No se encontraron resultados</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">No se encontraron resultados</td></tr>`;
         } else {
             paginated.forEach((participante, idx) => {
                 const realIndex = datos.indexOf(participante);
@@ -81,12 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${participante.numero_control_rfc}</td>
                         <td>${participante.correo}</td>
                         <td>${participante.perfil_academico}</td>
-                        <td>  
-                    <label class="switch">
-    <input type="checkbox" ${checked} data-index="${realIndex}" data-id="${participante.id_usuario}" class="estado-toggle">
-    <span class="slider"></span>
-</label>
-
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" ${checked} data-index="${realIndex}" data-id="${participante.id_usuario}" class="estado-toggle">
+                                <span class="slider"></span>
+                            </label>
                         </td>
                         <td class="text-center">
                             <button class="btn btn-secondary btn-sm verMasBtn"
@@ -100,13 +116,14 @@ document.addEventListener("DOMContentLoaded", function () {
                                 data-correo="${participante.correo}"
                                 data-perfil="${participante.perfil_academico}"
                                 data-fecha-registro="${participante.fecha_registro}"
+                                data-numero_control_rfc="${participante.numero_control_rfc}"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalParticipants">
                                 Ver más <i class="fas fa-eye"></i>
                             </button>
-                            
-
-                          
+                            <a href="editParticipant.php?id=${participante.id_usuario}" class="btn btn-sm btn-general ml-2">
+                                Editar <i class="fas fa-edit"></i>
+                            </a>
                         </td>
                     </tr>
                 `;
@@ -147,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (response === 'ok') {
                                     datos[index].estado = nuevoEstado;
                                     Swal.fire('Actualizado', 'El estado se ha actualizado correctamente.', 'success');
-                                    if (nuevoEstado === 'inactivo') renderTable(currentPage);
+                                    renderTable(currentPage);
                                 } else {
                                     throw new Error(response);
                                 }
@@ -169,16 +186,24 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (e) {
         if (e.target.closest(".verMasBtn")) {
             const btn = e.target.closest(".verMasBtn");
-            document.getElementById("modalNombreCompleto").textContent =
-                `${btn.dataset.nombre} ${btn.dataset.apellidoPaterno} ${btn.dataset.apellidoMaterno}`;
-            document.getElementById("modalFecha").textContent = btn.dataset.fecha;
-            document.getElementById("modalSexo").textContent = btn.dataset.sexo;
-            document.getElementById("modalCorreo").textContent = btn.dataset.correo;
-            document.getElementById("modalControl").textContent = btn.dataset.numero_control_rfc;
-            document.getElementById("modalUnidad").textContent = btn.dataset.unidad;
-            document.getElementById("modalGrado").textContent = btn.dataset.grado;
-            document.getElementById("modalPerfil").textContent = btn.dataset.perfil;
-            document.getElementById("modalFechaRegistro").textContent = btn.dataset.fechaRegistro;
+
+            const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            };
+
+            const fechaNacimiento = btn.dataset.fecha;
+            const edadCalculada = calcularEdad(fechaNacimiento);
+
+            setText("modalNombreCompleto", `${btn.dataset.nombre} ${btn.dataset.apellidoPaterno} ${btn.dataset.apellidoMaterno}`);
+            setText("modalEdad", `${edadCalculada} años`);
+            setText("modalSexo", btn.dataset.sexo);
+            setText("modalCorreo", btn.dataset.correo);
+            setText("modalControl", btn.dataset.numero_control_rfc);
+            setText("modalUnidad", btn.dataset.unidad);
+            setText("modalGrado", btn.dataset.grado);
+            setText("modalPerfil", btn.dataset.perfil);
+            setText("modalFechaRegistro", btn.dataset.fechaRegistro);
         }
     });
 });

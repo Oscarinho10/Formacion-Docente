@@ -7,12 +7,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <p><strong>Nombre completo:</strong> <span id="modalNombreCompleto"></span></p>
-        <p><strong>Fecha de nacimiento:</strong> <span id="modalFecha"></span></p>
-        <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
-        <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>
-        <p><strong>Grado académico:</strong> <span id="modalGrado"></span></p>
-        <p><strong>Fecha de registro:</strong> <span id="modalFechaRegistro"></span></p>
+        <div class="modal-body">
+          <p><strong>Nombre completo:</strong> <span id="modalNombreCompleto"></span></p>
+          <p><strong>Edad:</strong> <span id="modalEdad"></span></p>
+          <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
+          <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>
+          <p><strong>Grado académico:</strong> <span id="modalGrado"></span></p>
+          <p><strong>Fecha de registro: </strong> <span id="modalFechaRegistro"></span></p>
+        </div>
+
 
       </div>
       <div class="modal-footer">
