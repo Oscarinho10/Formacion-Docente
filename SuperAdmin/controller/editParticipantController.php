@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sexo = $_POST['sexo'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $numero_control_rfc = $_POST['numero_control'];
-    $correo = $_POST['correo'];
+    $correo = $_POST['correo_electronico'];
     $perfil = $_POST['perfil_academico'];
     $unidad = $_POST['unidad_academica'];
     $grado = $_POST['grado_academico'];
@@ -30,9 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               WHERE id_usuario = $11 AND rol = 'participante'";
 
     $params = array(
-        $nombre, $apellido_paterno, $apellido_materno,
-        $sexo, $fecha_nacimiento, $numero_control_rfc, $correo,
-        $perfil, $unidad, $grado, $id
+        $nombre,
+        $apellido_paterno,
+        $apellido_materno,
+        $sexo,
+        $fecha_nacimiento,
+        $numero_control_rfc,
+        $correo,
+        $perfil,
+        $unidad,
+        $grado,
+        $id
     );
 
     $result = pg_query_params($conn, $query, $params);
@@ -41,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../viewUserSuper.php?editado=ok");
         exit;
     } else {
+        error_log("Error en UPDATE: " . pg_last_error($conn));
         header("Location: ../viewUserSuper.php?editado=error");
         exit;
     }
@@ -64,4 +73,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 }
 
 ob_end_flush();
-?>
