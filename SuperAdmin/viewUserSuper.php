@@ -49,7 +49,9 @@ include('../components/layoutSuper.php')
                         <th>Número de Control</th>
                         <th>Correo Electrónico</th>
                         <th>Perfil Académico</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody id="tableBody">

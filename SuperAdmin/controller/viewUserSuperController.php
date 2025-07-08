@@ -14,7 +14,7 @@ if (!$conn) {
     exit;
 }
 
-// Consulta de usuarios activos con fecha_registro
+// Consulta de todos los usuarios con rol 'participante' (sin importar estado)
 $query = "SELECT 
     id_usuario,
     nombre,
@@ -27,9 +27,11 @@ $query = "SELECT
     sexo,
     unidad_academica,
     grado_academico,
-    fecha_registro
-    FROM usuarios
-    WHERE estado = 'activo'";
+    fecha_registro,
+    estado,
+    rol
+FROM usuarios
+WHERE rol = 'participante' AND estado IN ('activo', 'inactivo')";
 
 $result = pg_query($conn, $query);
 
@@ -44,4 +46,3 @@ while ($row = pg_fetch_assoc($result)) {
 }
 
 echo json_encode($usuarios);
-?>
