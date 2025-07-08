@@ -82,12 +82,13 @@ function renderTable() {
                         data-perfil="${item.perfil_academico}"
                         data-unidad="${item.unidad_academica}"
                         data-correo="${item.correo_electronico}"
-                        data-sexo="${item.sexo}"
+                        data-sexo="${item.sexo}"    
                         data-grado="${item.grado_academico}"
                         data-fecha="${item.fecha_nacimiento}"
+                        data-registro="${item.fecha_registro}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalInstructor">
-                        Ver más <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye"></i> Ver más
                     </button>
                     <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php?id=${item.id_usuario}'">
                         <i class="fas fa-pen"></i> Editar
@@ -114,6 +115,7 @@ function renderTable() {
                 $('#modalGrado').text(this.dataset.grado);
                 $('#modalEdad').text(edad + " años");
                 $('#modalFecha').text(fechaNacimiento);
+                $('#modalRegistro').text(this.dataset.registro);
             });
         });
     }, 0);

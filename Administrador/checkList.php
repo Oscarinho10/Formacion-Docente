@@ -47,8 +47,8 @@ include('../components/layoutSuper.php');
         <div class="col-12 col-md-3 mb-2 mb-md-0">
           <select id="filterEstado" class="form-select">
             <option value="">-- Estado --</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
           </select>
         </div>
 

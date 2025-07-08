@@ -26,6 +26,18 @@ function cargarDatos() {
         });
 }
 
+function calcularEdad(fechaNacimiento) {
+    console.log("Fecha Nacimiento cruda:", fechaNacimiento);
+    const fecha = new Date(fechaNacimiento);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fecha.getFullYear();
+    const mes = hoy.getMonth() - fecha.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+    }
+    return edad;
+}
+
 function renderTable() {
     const search = $('#searchInput').val().toLowerCase();
 
@@ -66,7 +78,7 @@ function renderTable() {
                 <td>${item.numero_control_rfc}</td>
                 <td>${item.correo}</td>
                 <td>${item.perfil_academico}</td>
-                <td>
+                <td class="text-center">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
                         data-apellido-paterno="${item.apellido_paterno}"
@@ -79,7 +91,7 @@ function renderTable() {
                         data-perfil="${item.perfil_academico}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalParticipants">
-                        Ver más <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye"></i> Ver más
                     </button>
                     <button class="btn btn-sm btn-general btn-aceptar" data-id="${item.id_usuario}">Aceptar</button>
                     <button class="btn btn-sm btn-danger btn-denegar" data-id="${item.id_usuario}">Denegar</button>
@@ -146,7 +158,8 @@ $(document).ready(function () {
         const nombre = $(this).data('nombre');
         const paterno = $(this).data('apellido-paterno');
         const materno = $(this).data('apellido-materno');
-        const fecha = $(this).data('fecha');
+        const fechaNacimiento = this.dataset.fecha; 
+        const edad = calcularEdad(fechaNacimiento);
         const sexo = $(this).data('sexo');
         const numero_control = $(this).data('numero_control');
         const correo = $(this).data('correo');
@@ -155,7 +168,7 @@ $(document).ready(function () {
         const perfil = $(this).data('perfil');
 
         $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
-        $('#modalFecha').text(fecha);
+        $('#modalEdad').text(edad);
         $('#modalSexo').text(sexo);
         $('#modalCorreo').text(correo);
         $('#modalControl').text(numero_control);

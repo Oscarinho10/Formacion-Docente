@@ -64,7 +64,7 @@ include('../components/layoutAdmin.php');
           <ul class="pagination mb-2" id="pagination"></ul>
           <div class="d-flex gap-2 mb-2">
             <button class="btn btn-success" onclick="window.print()"><i class="fas fa-print me-1"></i> Imprimir</button>
-            <a href="listAssists.php" class="btn btn-dark"><i class="fas fa-arrow-left me-1"></i> Regresar</a>
+            <a href="checkList.php" class="btn btn-dark"><i class="fas fa-arrow-left me-1"></i> Regresar</a>
           </div>
         </div>
 

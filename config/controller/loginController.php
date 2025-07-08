@@ -12,8 +12,11 @@ if (isset($_POST['login'])) {
     $tipo = '';
     $id_usuario = null;
 
-    // Buscar en tabla administradores
-    $query = "SELECT * FROM administradores WHERE correo_electronico = '$correo' AND contrasena = '$hashed_contrasena'";
+    // Buscar en tabla administradores con estado activo
+    $query = "SELECT * FROM administradores 
+              WHERE correo_electronico = '$correo' 
+              AND contrasena = '$hashed_contrasena' 
+              AND estado = 'activo'";
     $resultado = pg_query($conn, $query);
 
     if ($resultado && pg_num_rows($resultado) == 1) {
@@ -22,8 +25,11 @@ if (isset($_POST['login'])) {
         $tipo = 'administrador';
         $id_usuario = $usuario['id_admin'];
     } else {
-        // Buscar en tabla usuarios si no fue encontrado en administradores
-        $query = "SELECT * FROM usuarios WHERE correo_electronico = '$correo' AND contrasena = '$hashed_contrasena'";
+        // Buscar en tabla usuarios con estado activo
+        $query = "SELECT * FROM usuarios 
+                  WHERE correo_electronico = '$correo' 
+                  AND contrasena = '$hashed_contrasena' 
+                  AND estado = 'activo'";
         $resultado = pg_query($conn, $query);
 
         if ($resultado && pg_num_rows($resultado) == 1) {
@@ -62,7 +68,8 @@ if (isset($_POST['login'])) {
         }
         exit;
     } else {
+        // Login inválido
         header("Location: login.php?error=1");
-    exit;
+        exit;
     }
 }
