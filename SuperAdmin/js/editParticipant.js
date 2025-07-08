@@ -1,16 +1,13 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
     const form = document.getElementById("formParticipante");
 
-    if (id) {
-        
+    if (id && form) {
         form.action = "controller/editParticipantController.php";
         document.getElementById("id_usuario").value = id;
         document.querySelector("button[type='submit']").textContent = "Actualizar";
 
-        // Obtener datos del participante
         fetch(`controller/editParticipantController.php?id=${id}`)
             .then(res => res.json())
             .then(data => {
@@ -18,6 +15,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     Swal.fire('Error', data.error, 'error');
                     return;
                 }
+
+                // Mapeos si vienen descripciones en lugar de valores exactos
+                const perfilMap = {
+                    "PROFESOR TIEMPO PARCIAL": "PTP",
+                    "PROFESOR INVESTIGADOR DE TIEMPO PARCIAL": "PITP",
+                    "PROFESOR TIEMPO COMPLETO": "PTC",
+                    "PROFESOR INVESTIGADOR DE TIEMPO COMPLETO": "PITC",
+                    "TECNICO ACADEMICO": "TA",
+                    "TECNICO CULTURAL": "TC",
+                    "ADMINISTRATIVO": "ADMIN"
+                };
+
+                const gradoMap = {
+                    "Licenciatura": "Licenciatura",
+                    "Maestria": "Maestria",
+                    "Maestría": "Maestria",
+                    "Doctorado": "Doctorado",
+                    "Otro": "Otro"
+                };
 
                 // Rellenar campos
                 document.getElementById("nombre").value = data.nombre;
@@ -27,9 +43,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento;
                 document.getElementById("numero_control").value = data.numero_control_rfc;
                 document.getElementById("correo_electronico").value = data.correo_electronico;
-                document.getElementById("perfil_academico").value = data.perfil_academico;
-                document.getElementById("unidad_academica").value = data.unidad_academica;
-                document.getElementById("grado_academico").value = data.grado_academico;
+
+                // Ajuste para selects con posibles diferencias de formato
+                // Invertir el mapa para hacer lookup por descripción
+                const perfilMapReverse = Object.entries(perfilMap).reduce((acc, [key, val]) => {
+                    acc[key.toLowerCase()] = val;
+                    return acc;
+                }, {});
+
+                const perfilValue = perfilMapReverse[data.perfil_academico.toLowerCase()] || data.perfil_academico;
+                document.getElementById("perfil_academico").value = perfilValue;
+
+                const gradoValue = gradoMap[data.grado_academico] || data.grado_academico;
+
+                document.getElementById("perfil_academico").value = perfilValue;
+                const unidadSelect = document.getElementById("unidad_academica");
+                for (let i = 0; i < unidadSelect.options.length; i++) {
+                    if (unidadSelect.options[i].text.trim().toLowerCase() === data.unidad_academica.trim().toLowerCase()) {
+                        unidadSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+
+                document.getElementById("grado_academico").value = gradoValue;
+
             })
             .catch(error => {
                 console.error("Error al cargar participante:", error);
@@ -37,4 +74,3 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 });
-

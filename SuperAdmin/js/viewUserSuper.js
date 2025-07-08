@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return edad;
     }
 
+    Swal.fire({
+        title: 'Cargando participantes...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
     fetch('controller/viewUserSuperController.php')
         .then(response => response.json())
         .then(data => {
@@ -34,7 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => {
             console.error('Error al obtener participantes:', error);
             tableBody.innerHTML = `<tr><td colspan="5" class="text-center">Error al cargar datos.</td></tr>`;
+        })
+        .finally(() => {
+            Swal.close();
         });
+
 
     function renderPagination(totalItems, currentPage) {
         const totalPages = Math.ceil(totalItems / rowsPerPage);
@@ -106,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </td>
                         <td class="text-center">
                             <button class="btn btn-secondary btn-sm verMasBtn"
+                                data-id="${participante.id_usuario}"
                                 data-nombre="${participante.nombre}"
                                 data-apellido-paterno="${participante.apellido_paterno}"
                                 data-apellido-materno="${participante.apellido_materno}"
@@ -122,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 Ver más <i class="fas fa-eye"></i>
                             </button>
                             <a href="editParticipant.php?id=${participante.id_usuario}" class="btn btn-sm btn-general ml-2">
-                                Editar <i class="fas fa-edit"></i>
+                                Editar <i class="fas fa-pen"></i>
                             </a>
                         </td>
                     </tr>
@@ -186,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (e) {
         if (e.target.closest(".verMasBtn")) {
             const btn = e.target.closest(".verMasBtn");
+            const idUsuario = btn.dataset.id;
 
             const setText = (id, value) => {
                 const el = document.getElementById(id);

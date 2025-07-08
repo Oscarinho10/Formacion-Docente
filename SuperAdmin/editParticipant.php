@@ -27,12 +27,14 @@ include('../components/layoutSuper.php');
     <div class="card shadow-sm w-100" style="max-width: 800px;">
       <div class="card-body">
         <h4 class="text-center mb-3">
-          Formulario de edición de participantes<br>
+          Formulario de registro de participantes<br>
           <strong><?php echo htmlspecialchars($nombre_curso); ?></strong>
         </h4>
 
-        <form id="formParticipante" method="post" action="controller/addUserController.php">
-    <input type="hidden" name="id_usuario" id="id_usuario">
+        <form  id="formParticipante" action="controller/editParticipantController.php" method="post">
+          <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
+          <input type="hidden" name="id_usuario" id="id_usuario">
+
 
           <div class="row">
             <div class="col-12 col-md-4 mb-3">

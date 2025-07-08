@@ -147,7 +147,7 @@ include('../components/layoutSuper.php');
           </div>
 
           <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./requestSuper.php" class="btn btn-danger me-2 mb-2 btn-cancelar">Cancelar</a>
+            <a href="./viewUserSuper.php" class="btn btn-danger me-2 mb-2 btn-cancelar">Cancelar</a>
             <button type="submit" class="btn btn-general btn-sm mb-2 btn-aceptar">Registrar</button>
           </div>
         </form>
