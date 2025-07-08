@@ -14,7 +14,7 @@ include('../components/layoutAdmin.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Actividad</title>
+    <title>Agregar Instructor</title>
     <!-- Estilos -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
@@ -30,7 +30,7 @@ include('../components/layoutAdmin.php');
     <div class="container my-4">
         <div class="card shadow-sm mx-auto" style="max-width: 900px;">
             <div class="card-body">
-                <h4 class="text-center mb-3">Registrar Instructor</h4>
+                <h4 class="text-center mb-3">Agregar Instructor</h4>
 
                 <form action="procesar_actividad.php" method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -64,8 +64,8 @@ include('../components/layoutAdmin.php');
                             <label for="sexo">Sexo:</label><br />
                             <select name="sexo" id="sexo" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
-                                <option value="H">Masculino</option>
-                                <option value="M">Femenino</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
                                 <option value="Otro">Prefiero no decirlo</option>
                             </select>
                         </div>
@@ -87,6 +87,7 @@ include('../components/layoutAdmin.php');
                             <label for="grado_academico">Grado Académico:</label><br />
                             <select name="grado_academico" id="grado_academico" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
+                                <option value="N/A">No aplica</option>
                                 <option value="Licenciado">Licenciado</option>
                                 <option value="Ingeniero">Ingeniero</option>
                                 <option value="Maestro">Maestro</option>
@@ -98,6 +99,7 @@ include('../components/layoutAdmin.php');
                             <label for="perfil_academico">Perfil Académico:</label><br />
                             <select name="perfil_academico" id="perfil_academico" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
+                                <option value="N/A">No aplica</option>
                                 <option value="Tiempo completo">Tiempo completo</option>
                                 <option value="Medio tiempo">Medio tiempo</option>
                                 <option value="Maestro">Maestro</option>
@@ -109,6 +111,7 @@ include('../components/layoutAdmin.php');
                             <label for="unidad_academica">Unidad Académica:</label><br />
                             <select name="unidad_academica" id="unidad_academica" style="width: 322%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
+                                <option value="N/A">No aplica</option>
                                 <option value="Tepetongo">Tepetongo</option>
                                 <option value="Chamilpa">Chamilpa</option>
                                 <option value="Cuautla">Cuautla</option>

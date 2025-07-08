@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fecha_nacimiento, sexo,
                      correo_electronico, numero_control_rfc, unidad_academica, grado_academico, 
-                     perfil_academico
+                     perfil_academico, fecha_registro
               FROM usuarios 
               WHERE estado = 'pendiente' AND rol = 'participante'";
 
@@ -75,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 "numero_control_rfc" => $row['numero_control_rfc'],
                 "unidad_academica" => $row['unidad_academica'],
                 "grado_academico" => $row['grado_academico'],
-                "perfil_academico" => $row['perfil_academico']
+                "perfil_academico" => $row['perfil_academico'],
+                "fecha_registro" => $row['fecha_registro']
             );
         }
         echo json_encode($datos);

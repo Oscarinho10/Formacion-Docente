@@ -12,6 +12,7 @@
         <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
         <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>
         <p><strong>Grado académico:</strong> <span id="modalGrado"></span></p>
+        <p><strong>Fecha de registro:</strong> <span id="modalRegistro"></span></p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

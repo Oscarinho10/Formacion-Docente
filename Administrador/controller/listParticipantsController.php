@@ -3,7 +3,7 @@ include('../../config/conexion.php');
 
 // Consulta modificada para incluir los nuevos campos -->
 $query = "SELECT nombre, apellido_paterno, apellido_materno, numero_control_rfc, correo, 
-                 perfil_academico, unidad_academica 
+                 perfil_academico, unidad_academica, fecha_registro
           FROM usuarios 
           WHERE rol = 'participante' AND estado = 'pendiente'";
 
@@ -19,7 +19,8 @@ while ($row = pg_fetch_assoc($result)) {
         "numero_control_rfc" => $row["numero_control_rfc"],
         "correo" => $row["correo"],
         "perfil_academico" => $row["perfil_academico"],
-        "unidad_academica" => $row["unidad_academica"]
+        "unidad_academica" => $row["unidad_academica"],
+        "fecha_registro" => $row["fecha_registro"]
     );
     $usuarios[] = $usuario;
 

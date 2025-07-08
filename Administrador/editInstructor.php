@@ -27,7 +27,7 @@ if (!$usuario) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Participante</title>
+    <title>Editar Instructor</title>
 
     <!-- Recursos Bootstrap y personalizados -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
@@ -44,7 +44,7 @@ if (!$usuario) {
     <div class="container my-4">
         <div class="card shadow-sm mx-auto" style="max-width: 900px;">
             <div class="card-body">
-                <h4 class="text-center mb-4">Edición de instructores</h4>
+                <h4 class="text-center mb-4">Editar Instructor</h4>
 
                 <form action="../Administrador/controller/editInstructorController.php" method="post">
                     <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">

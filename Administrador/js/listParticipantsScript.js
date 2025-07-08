@@ -89,6 +89,7 @@ function renderTable() {
                         data-grado="${item.grado_academico}"
                         data-correo="${item.correo}"
                         data-perfil="${item.perfil_academico}"
+                        data-registro="${item.fecha_registro}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalParticipants">
                         <i class="fas fa-eye"></i> Ver más
@@ -155,10 +156,11 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.verMasBtn', function () {
+        console.log($(this).data());
         const nombre = $(this).data('nombre');
         const paterno = $(this).data('apellido-paterno');
         const materno = $(this).data('apellido-materno');
-        const fechaNacimiento = this.dataset.fecha; 
+        const fechaNacimiento = this.dataset.fecha;
         const edad = calcularEdad(fechaNacimiento);
         const sexo = $(this).data('sexo');
         const numero_control = $(this).data('numero_control');
@@ -166,15 +168,18 @@ $(document).ready(function () {
         const unidad = $(this).data('unidad');
         const grado = $(this).data('grado');
         const perfil = $(this).data('perfil');
-
+        const registro = $(this).data('registro');
+        
         $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
-        $('#modalEdad').text(edad);
+        $('#modalEdad').text(edad + " años");
         $('#modalSexo').text(sexo);
         $('#modalCorreo').text(correo);
         $('#modalControl').text(numero_control);
         $('#modalUnidad').text(unidad);
         $('#modalGrado').text(grado);
         $('#modalPerfil').text(perfil);
+        $('#modalFecha').text(fechaNacimiento);
+        $('#modalRegistro').text(registro);
     });
 
     // ✅ ACEPTAR participante
