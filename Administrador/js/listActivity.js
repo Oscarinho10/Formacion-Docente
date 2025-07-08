@@ -62,7 +62,7 @@ function renderTable() {
                 data-fecha-registro="${item.fecha_registro}"
                 data-bs-toggle="modal"
                 data-bs-target="#modalParticipants">
-                Ver más <i class="fas fa-eye"></i>
+                <i class="fas fa-eye"></i> Ver más 
         </button>
         <button class="btn btn-sm btn-success btnAsistencia"
                 data-id="${item.id_usuario}"  

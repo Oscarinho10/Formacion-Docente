@@ -61,7 +61,7 @@ function renderTabla() {
             data-descripcion_horarios="${actividad.descripcion_horarios}"
             data-bs-toggle="modal"
             data-bs-target="#modalActividad">
-            Ver más <i class="fas fa-eye"></i>
+            <i class="fas fa-eye"></i> Ver más
           </button>
           <a href="editActivity.php?id=${actividad.id}" class="btn btn-sm btn-general">
             <i class="fas fa-pen"></i> Editar
