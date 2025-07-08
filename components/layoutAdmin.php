@@ -61,7 +61,7 @@
                 <a href="../Administrador/listParticipants.php" class="nav__link <?php echo ($currentPage == 'listParticipants.php') ? 'active-link' : ''; ?>"><span class="nav__name">Solicitudes</span></a>
                 <a href="../Administrador/listInstructors.php" class="nav__link <?php echo ($currentPage == 'listInstructors.php') ? 'active-link' : ''; ?>"><span class="nav__name">Instructores</span></a>
                 <a href="../Administrador/listActivitys.php" class="nav__link <?php echo ($currentPage == 'listActivitys.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad Formativa</span></a>
-                <a href="../Administrador/listAssists.php" class="nav__link <?php echo ($currentPage == 'listAssists.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
+                <a href="../Administrador/checkList.php" class="nav__link <?php echo ($currentPage == 'checkList.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
                 <div class="nav_bottom">
                     <a href="../logout.php" class="nav__link">
                         <span class="nav__name">Cerrar sesión <i class='bx bx-log-out'></i></span>

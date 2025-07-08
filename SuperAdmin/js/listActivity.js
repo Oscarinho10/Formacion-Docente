@@ -51,8 +51,8 @@ function renderTable() {
       <td class="text-center">
         <button class="btn btn-secondary btn-sm verMasBtn"
                 data-nombre="${item.nombre}"
-                data-apellido-paterno="${item.apellido_paterno}"
-                data-apellido-materno="${item.apellido_materno}"
+                data-apellido_paterno="${item.apellido_paterno}"
+                data-apellido_materno="${item.apellido_materno}"
                 data-fecha="${item.fecha_nacimiento}"
                 data-sexo="${item.sexo}"
                 data-unidad="${item.unidad_academica}"

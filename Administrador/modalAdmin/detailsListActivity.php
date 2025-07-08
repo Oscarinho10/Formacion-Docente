@@ -1,25 +1,24 @@
 <!-- Modal Ver Más -->
-<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalParticipants" tabindex="-1" aria-labelledby="modalParticipantsLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-3 shadow-sm border-0">
 
       <div class="modal-header rounded-top">
-        <h5 class="modal-title" id="infoModalLabel">
+        <h5 class="modal-title" id="modalParticipantsLabel">
           <i class="fas fa-user me-2"></i>Detalle del participante
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
       <div class="modal-body">
-        <div class="mb-2">
-          <strong>Nombre:</strong> <span id="infoNombre"></span>
-        </div>
-        <div class="mb-2">
-          <strong>Número de Control:</strong> <span id="infoControl"></span>
-        </div>
-        <div class="mb-2">
-          <strong>Correo:</strong> <span id="infoCorreo"></span>
-        </div>
+        <p><strong>Nombre completo:</strong> <span id="modalNombreCompleto"></span></p>
+        <p><strong>Fecha de nacimiento:</strong> <span id="modalFecha"></span></p>
+        <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
+        <p><strong>Correo:</strong> <span id="modalCorreo"></span></p>
+        <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>
+        <p><strong>Grado académico:</strong> <span id="modalGrado"></span></p>
+        <p><strong>Perfil académico:</strong> <span id="modalPerfil"></span></p>
+        <p><strong>Fecha de registro:</strong> <span id="modalFechaRegistro"></span></p>
       </div>
 
       <div class="modal-footer bg-light rounded-bottom">

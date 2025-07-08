@@ -21,7 +21,7 @@ include('../components/layoutAdmin.php'); // Aquí sí puedes incluir lo demás
         <div class="card-title2">Actividad formativa</div>
     </a>
 
-    <a href="listAssists.php" class="card2">
+    <a href="checkList.php" class="card2">
         <img src="<?php echo BASE_URL; ?>/assets/img/asistencia.png" alt="Asistencia">
         <div class="card-title2">Asistencia</div>
     </a>
