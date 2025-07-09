@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector('form');
-  const submitBtn = document.querySelector('.btn-editar');
 
-  // Obtener ID del instructor desde la URL
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
@@ -11,15 +9,40 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Precargar datos del instructor
+  // Función para hacer coincidencia flexible (insensible a mayúsculas, espacios, acentos)
+  function normalizar(texto) {
+    return texto
+      .normalize("NFD") // elimina acentos
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function seleccionarOptionPorTextoNormalizado(selectElement, valorBD) {
+    const normalizadoBD = normalizar(valorBD);
+    const opciones = selectElement.options;
+    for (let i = 0; i < opciones.length; i++) {
+      const valor = normalizar(opciones[i].value);
+      if (valor === normalizadoBD) {
+        selectElement.selectedIndex = i;
+        return;
+      }
+    }
+    console.warn(`❗ No se encontró coincidencia exacta para: ${valorBD}`);
+  }
+
+  // Cargar datos del instructor
   fetch(`controller/editInstructorController.php?id=${id}`)
     .then(res => res.json())
     .then(data => {
+      console.log("Datos cargados:", data);
+
       if (data.error) {
         Swal.fire("Error", data.error, "error");
         return;
       }
 
+      // Carga simple
       document.getElementById('id_usuario').value = data.id_usuario;
       document.getElementById('nombre').value = data.nombre;
       document.getElementById('apellido_paterno').value = data.apellido_paterno;
@@ -28,16 +51,29 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('fecha_nacimiento').value = data.fecha_nacimiento;
       document.getElementById('numero_control').value = data.numero_control_rfc;
       document.getElementById('correo').value = data.correo_electronico;
-      document.getElementById('perfil_academico').value = data.perfil_academico;
-      document.getElementById('unidad_academica').value = data.unidad_academica;
-      document.getElementById('grado_academico').value = data.grado_academico;
+
+      // Selección flexible para los select
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById('perfil_academico'),
+        data.perfil_academico
+      );
+
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById('unidad_academica'),
+        data.unidad_academica
+      );
+
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById('grado_academico'),
+        data.grado_academico
+      );
     })
     .catch(err => {
       console.error("Error al cargar instructor:", err);
       Swal.fire("Error", "No se pudieron cargar los datos del instructor.", "error");
     });
 
-  // Evento de edición con confirmación
+  // Confirmación al editar
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -63,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
           form.submit(); // Enviar formulario al backend
-        }, 2000);
+        }, 1500);
       }
     });
   });
