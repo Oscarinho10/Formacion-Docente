@@ -47,6 +47,7 @@ function renderTabla() {
             <span class="slider"></span>
           </label>
         </td>
+        <td>${actividad.inscritos}/${actividad.cupo}</td>
         <td class="text-center">
           <button class="btn btn-secondary btn-sm verMasBtn"
             data-nombre="${actividad.nombre}"

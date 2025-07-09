@@ -55,6 +55,7 @@ include('../components/layoutSuper.php');
             <th>Nombre de la Actividad</th>
             <th>Total de Horas</th>
             <th class="text-center">Estado</th>
+            <th class="text-center">Cupo</th>
             <th class="text-center">Acciones</th>
           </tr>
         </thead>
