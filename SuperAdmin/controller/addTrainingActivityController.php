@@ -12,6 +12,7 @@ $carpetaIMG = '../../uploads/imagenes/';
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];
+$tipo_evaluacion = $_POST['tipo_evaluacion'];
 $dirigido_a = $_POST['dirigido_a'];
 $modalidad = $_POST['modalidad'];
 $lugar = $_POST['lugar'];
@@ -64,7 +65,7 @@ $resultado = pg_query($conn, $query);
 if ($resultado && pg_num_rows($resultado) > 0) {
     $row = pg_fetch_assoc($resultado);
     $id_actividad = $row['id_actividad'];
-    header("Location: ../SuperAdmin/addSessions.php?id=" . $id_actividad);
+    header("Location: ../addSessions.php?id=" . $id_actividad);
     exit;
 } else {
     echo "Error al guardar la actividad.";

@@ -29,12 +29,33 @@ include('../components/layoutAdmin.php');
             <div class="card-body">
                 <h4 class="text-center mb-3">Registro de actividad formativa</h4>
 
-                <form action="../Administrador/controller/addActivityController.php" method="post" enctype="multipart/form-data">
+                <form action="../SuperAdmin/controller/addTrainingActivityController.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <!-- Nombre actividad -->
                         <div class="col-md-4 mb-3">
                             <label for="nombre">Nombre de la actividad:</label><br />
                             <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 8px;" required>
+                        </div>
+
+                        <!-- Tipo de evaluacion -->
+                        <div class="col-md-4 mb-3">
+                            <label for="tipo_evaluacion">Tipo de evaluación:</label><br />
+                            <select id="tipo_evaluacion" name="tipo_evaluacion" style="width: 100%; padding: 11px;" required>
+                                <option value="">Seleccione</option>
+                                <option value="asistencias">Con asistencias</option>
+                                <option value="actividad">Con entrega de actividades</option>
+                            </select>
+                        </div>
+
+
+                        <!-- Clasificación -->
+                        <div class="col-md-4 mb-3">
+                            <label for="clasificacion">Clasificación:</label><br />
+                            <select id="clasificacion" name="clasificacion" style="width: 100%; padding: 11px;" required>
+                                <option value="">Seleccione</option>
+                                <option value="didáctico-pedagógico">Didáctico-pedagógico</option>
+                                <option value="disciplinar">Disciplinar</option>
+                            </select>
                         </div>
 
                         <!-- Descripción de la actividad -->
@@ -64,12 +85,6 @@ include('../components/layoutAdmin.php');
                                 <option value="presencial">Presencial</option>
                                 <option value="hibrido">Híbrido</option>
                             </select>
-                        </div>
-
-                        <!-- Clasificación -->
-                        <div class="col-md-4 mb-3">
-                            <label for="clasificacion">Clasificación:</label><br />
-                            <input type="text" id="clasificacion" name="clasificacion" style="width: 100%; padding: 8px;" required>
                         </div>
 
                         <!-- Participantes -->
