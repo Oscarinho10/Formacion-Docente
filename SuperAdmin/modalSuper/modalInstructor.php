@@ -14,6 +14,7 @@
         <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
         <p><strong>Edad:</strong> <span id="modalEdad"></span></p>
         <p><strong>Grado Académico:</strong> <span id="modalGrado"></span></p>
+        <p><strong>Fecha de registro: </strong><span id=modalFechaRegistro></span></p>
       </div>
 
       <div class="modal-footer">

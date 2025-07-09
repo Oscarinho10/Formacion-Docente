@@ -70,6 +70,7 @@ function renderTable() {
                         data-sexo="${item.sexo}"
                         data-grado="${item.grado_academico}"
                         data-fecha="${item.fecha_nacimiento}"
+                        data-fecha-registro="${item.fecha_registro}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalInstructor">
                         Ver más <i class="fas fa-eye"></i>
@@ -99,6 +100,7 @@ function renderTable() {
                 $('#modalGrado').text(this.dataset.grado);
                 $('#modalEdad').text(edad + " años");
                 $('#modalFecha').text(fechaNacimiento);
+                $('#modalFechaRegistro').text(this.dataset.fechaRegistro);
             });
         });
     }, 0);
