@@ -633,3 +633,24 @@ input:checked+.slider:before {
     transform: translateX(20px);
     background-color: white;
 }
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* número de líneas a mostrar */
+    -webkit-box-orient: vertical;
+}
