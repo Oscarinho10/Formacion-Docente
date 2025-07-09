@@ -48,8 +48,28 @@ if (!$actividad) {
                             <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 8px;" value="<?php echo $actividad['nombre']; ?>" required>
                         </div>
 
+                        <!-- Tipo de evaluacion -->
+                        <div class="col-md-4 mb-3">
+                            <label for="tipo_evaluacion">Tipo de evaluación:</label><br />
+                            <select id="tipo_evaluacion" name="tipo_evaluacion" style="width: 100%; padding: 11px;" required>
+                                <option value="">Seleccione</option>
+                                <option value="asistencias" <?php if ($actividad['tipo_evaluacion'] == 'asistencias') echo 'selected'; ?>>Con asistencias</option>
+                                <option value="entrega de actividades" <?php if ($actividad['tipo_evaluacion'] == 'entrega de actividades') echo 'selected'; ?>>Con entrega de actividades</option>
+                            </select>
+                        </div>
+
+                        <!-- Clasificación -->
+                        <div class="col-md-4 mb-3">
+                            <label for="clasificacion">Clasificación:</label><br />
+                            <select id="clasificacion" name="clasificacion" style="width: 100%; padding: 11px;" required>
+                                <option value="">Seleccione</option>
+                                <option value="didáctico-pedagógico" <?php if ($actividad['clasificacion'] == 'didáctico-pedagógico') echo 'selected'; ?>>Didáctico-pedagógico</option>
+                                <option value="disciplinar" <?php if ($actividad['clasificacion'] == 'disciplinar') echo 'selected'; ?>>Disciplinar</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-12 mb-3">
-                            <label for="descripcion">Descripción:</label>
+                            <label for="descripcion">Descripción de la actividad:</label>
                             <textarea id="descripcion" name="descripcion" style="width: 100%; padding: 12px;" rows="4" required><?php echo $actividad['descripcion']; ?></textarea>
                         </div>
 
@@ -71,11 +91,6 @@ if (!$actividad) {
                                 <option value="presencial" <?php if ($actividad['modalidad'] == 'presencial') echo 'selected'; ?>>Presencial</option>
                                 <option value="hibrido" <?php if ($actividad['modalidad'] == 'hibrido') echo 'selected'; ?>>Híbrido</option>
                             </select>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="clasificacion">Clasificación:</label>
-                            <input type="text" id="clasificacion" name="clasificacion" style="width: 100%; padding: 8px;" value="<?php echo $actividad['clasificacion']; ?>" required>
                         </div>
 
                         <div class="col-md-4 mb-3">

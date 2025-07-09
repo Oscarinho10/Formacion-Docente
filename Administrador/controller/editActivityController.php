@@ -9,6 +9,7 @@ include_once('../../config/auditor.php'); // Para registrar auditoría
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = intval($_POST['id']);
     $nombre = pg_escape_string($_POST['nombre']);
+    $tipo_evaluacion = pg_escape_string($_POST['tipo_evaluacion']);
     $descripcion = pg_escape_string($_POST['descripcion']);
     $dirigido_a = pg_escape_string($_POST['dirigido_a']);
     $modalidad = pg_escape_string($_POST['modalidad']);
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $actualizaciones = array();
     $actualizaciones[] = "nombre = '$nombre'";
+    $actualizaciones[] = "tipo_evaluacion = '$tipo_evaluacion'";
     $actualizaciones[] = "descripcion = '$descripcion'";
     $actualizaciones[] = "dirigido_a = '$dirigido_a'";
     $actualizaciones[] = "modalidad = '$modalidad'";

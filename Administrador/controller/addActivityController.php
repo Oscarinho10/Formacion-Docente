@@ -11,6 +11,7 @@ $carpetaIMG = '../../uploads/imagenes/';
 
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
+$tipo_evaluacion = $_POST['tipo_evaluacion'];
 $descripcion = $_POST['descripcion'];
 $dirigido_a = $_POST['dirigido_a'];
 $modalidad = $_POST['modalidad'];
@@ -52,10 +53,10 @@ if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
 // --------------------
 $query = "INSERT INTO actividades_formativas (
     nombre, descripcion, dirigido_a, modalidad, lugar, clasificacion,
-    cupo, total_horas, fecha_inicio, fecha_fin, temario_pdf, url_imagen, estado
+    cupo, total_horas, fecha_inicio, fecha_fin, temario_pdf, url_imagen, estado, tipo_evaluacion
 ) VALUES (
     '$nombre', '$descripcion', '$dirigido_a', '$modalidad', '$lugar', '$clasificacion',
-    '$cupo', '$total_horas', '$fecha_inicio', '$fecha_fin', '$temarioRuta', '$imagenRuta', 'activo'
+    '$cupo', '$total_horas', '$fecha_inicio', '$fecha_fin', '$temarioRuta', '$imagenRuta', 'activo', '$tipo_evaluacion'
 ) RETURNING id_actividad";
 
 $resultado = pg_query($conn, $query);
