@@ -1,52 +1,61 @@
-const data = [
-  { nombre: "Juan Perez", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Oscar Maydon", fechas: ["Asistió", "No asistió", "No asistió", "No asistió"], constancia: "No" },
-  { nombre: "Giovanni Pedraza", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "No" },
-  { nombre: "Alejandro Morales", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Juan Perez", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Oscar Maydon", fechas: ["Asistió", "No asistió", "No asistió", "No asistió"], constancia: "No" },
-  { nombre: "Giovanni Pedraza", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "No" },
-  { nombre: "Alejandro Morales", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Juan Perez", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Oscar Maydon", fechas: ["Asistió", "No asistió", "No asistió", "No asistió"], constancia: "No" },
-  { nombre: "Giovanni Pedraza", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "No" },
-  { nombre: "Alejandro Morales", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Juan Perez", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" },
-  { nombre: "Oscar Maydon", fechas: ["Asistió", "No asistió", "No asistió", "No asistió"], constancia: "No" },
-  { nombre: "Giovanni Pedraza", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "No" },
-  { nombre: "Alejandro Morales", fechas: ["Asistió", "Asistió", "Asistió", "Asistió"], constancia: "Sí" }
-];
-
 let currentPage = 1;
 const rowsPerPage = 5;
+let fullData = [];
+let fechasGlobales = [];
 
-function renderTable(filteredData, page = 1) {
+function cargarAsistencias() {
+  const idActividad = new URLSearchParams(window.location.search).get('id_actividad');
+
+  fetch(`./controller/participantsAttendanceController.php?id_actividad=${idActividad}`)
+      .then(res => res.json())
+    .then(json => {
+      fechasGlobales = json.fechas;
+      fullData = json.data;
+
+      console.log("Todos los datos:", fullData);
+      console.log("Filtrados:", getFilteredData());
+
+      // ✅ Renderizar el encabezado de la tabla con las fechas
+      const thead = document.getElementById('theadAsistencias');
+      let theadHtml = '<tr><th>Nombre</th>';
+      fechasGlobales.forEach(fecha => {
+        theadHtml += `<th>${fecha}</th>`;
+      });
+      theadHtml += '<th>Constancia</th></tr>';
+      thead.innerHTML = theadHtml;
+
+      // ✅ Renderizar tabla (sin filtro inicial para evitar errores)
+      renderTable(fullData, currentPage);
+    })
+    .catch(err => {
+      console.error("Error al cargar asistencias:", err);
+      Swal.fire('Error', 'No se pudo cargar la asistencia.', 'error');
+    });
+}
+
+function renderTable(data, page = 1) {
   const start = (page - 1) * rowsPerPage;
   const end = start + rowsPerPage;
-  const paginatedData = filteredData.slice(start, end);
+  const paginatedData = data.slice(start, end);
 
   const body = document.getElementById('asistenciaBody');
   body.innerHTML = "";
 
   if (paginatedData.length === 0) {
-    body.innerHTML = `<tr><td colspan="6" class="text-center">No se encontraron resultados</td></tr>`;
-  } else {
-    paginatedData.forEach(item => {
-      const row = `
-        <tr>
-          <td>${item.nombre}</td>
-          <td>${item.fechas[0]}</td>
-          <td>${item.fechas[1]}</td>
-          <td>${item.fechas[2]}</td>
-          <td>${item.fechas[3]}</td>
-          <td>${item.constancia}</td>
-        </tr>
-      `;
-      body.innerHTML += row;
-    });
+    body.innerHTML = `<tr><td colspan="${fechasGlobales.length + 2}" class="text-center">Sin resultados</td></tr>`;
+    return;
   }
 
-  renderPagination(filteredData.length, page);
+  paginatedData.forEach(row => {
+    let html = `<tr><td>${row.nombre}</td>`;
+    fechasGlobales.forEach(fecha => {
+      html += `<td>${row.asistencias[fecha]}</td>`;
+    });
+    html += `<td>${row.constancia}</td></tr>`;
+    body.innerHTML += html;
+  });
+
+  renderPagination(data.length, page);
 }
 
 function renderPagination(totalItems, page) {
@@ -57,42 +66,28 @@ function renderPagination(totalItems, page) {
   pagination.innerHTML = "";
   paginationInfo.textContent = `Página ${page} de ${totalPages || 1}`;
 
-  // Flecha anterior
-  const prev = document.createElement("li");
-  prev.className = `page-item ${page === 1 ? 'disabled' : ''}`;
-  prev.innerHTML = `<a class="page-link" href="#">&laquo;</a>`;
-  prev.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (page > 1) renderTable(getFilteredData(), page - 1);
-  });
-  pagination.appendChild(prev);
+  const prev = `<li class="page-item ${page === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="if(${page}>1) renderTable(getFilteredData(), ${page}-1)">«</a>
+                  </li>`;
+  pagination.innerHTML += prev;
 
-  // Números de página
   for (let i = 1; i <= totalPages; i++) {
-    const li = document.createElement("li");
-    li.className = `page-item ${i === page ? 'active' : ''}`;
-    li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-    li.addEventListener("click", (e) => {
-      e.preventDefault();
-      renderTable(getFilteredData(), i);
-    });
-    pagination.appendChild(li);
+    pagination.innerHTML += `<li class="page-item ${i === page ? 'active' : ''}">
+            <a class="page-link" href="#" onclick="renderTable(getFilteredData(), ${i})">${i}</a>
+        </li>`;
   }
 
-  // Flecha siguiente
-  const next = document.createElement("li");
-  next.className = `page-item ${page === totalPages ? 'disabled' : ''}`;
-  next.innerHTML = `<a class="page-link" href="#">&raquo;</a>`;
-  next.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (page < totalPages) renderTable(getFilteredData(), page + 1);
-  });
-  pagination.appendChild(next);
+  const next = `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="if(${page}<${totalPages}) renderTable(getFilteredData(), ${page}+1)">»</a>
+                  </li>`;
+  pagination.innerHTML += next;
 }
 
 function getFilteredData() {
-  const filter = document.getElementById('searchInput').value.toLowerCase();
-  return data.filter(d => d.nombre.toLowerCase().includes(filter));
+  const input = document.getElementById('searchInput');
+  if (!input || !input.value) return fullData;
+  const filtro = input.value.trim().toLowerCase();
+  return fullData.filter(d => d.nombre.toLowerCase().includes(filtro));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,5 +96,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTable(getFilteredData(), currentPage);
   });
 
-  renderTable(data, currentPage);
+  cargarAsistencias();
 });

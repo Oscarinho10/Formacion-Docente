@@ -2,7 +2,7 @@
 include_once('../config/verificaRol.php');
 verificarRol('admin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutSuper.php'); 
+include('../components/layoutAdmin.php'); 
 ?>
 <!DOCTYPE html>
 <html lang="es">

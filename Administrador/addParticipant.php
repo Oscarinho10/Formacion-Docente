@@ -87,6 +87,7 @@ include('../components/layoutAdmin.php');
                             <label for="grado_academico">Grado Académico:</label>
                             <select name="grado_academico" id="grado_academico" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
+                                <option value="N/A">No aplica</option>
                                 <option value="Licenciado">Licenciado</option>
                                 <option value="Ingeniero">Ingeniero</option>
                                 <option value="Maestro">Maestro</option>
@@ -98,6 +99,7 @@ include('../components/layoutAdmin.php');
                             <label for="perfil_academico">Perfil Académico:</label>
                             <select name="perfil_academico" id="perfil_academico" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
+                                <option value="N/A">No aplica</option>
                                 <option value="Tiempo completo">Tiempo completo</option>
                                 <option value="Medio tiempo">Medio tiempo</option>
                                 <option value="Otro">Otro</option>
@@ -110,6 +112,7 @@ include('../components/layoutAdmin.php');
                         <label for="unidad_academica">Unidad Académica:</label>
                         <select name="unidad_academica" id="unidad_academica" style="width: 300%; padding: 11px;" required>
                             <option value="">Seleccione</option>
+                            <option value="N/A">No aplica</option>
                             <option value="Tepetongo">Tepetongo</option>
                             <option value="Chamilpa">Chamilpa</option>
                             <option value="Cuautla">Cuautla</option>
