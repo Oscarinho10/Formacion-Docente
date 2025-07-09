@@ -3,22 +3,21 @@ session_start();
 include('../../config/conexion.php');
 include_once('../../config/verificaRol.php');
 verificarRol('admin');
-
 include_once('../../config/auditor.php');
 
-// Obtener y sanitizar datos
-$id_actividad = intval($_POST['id_actividad']);
-$id_usuario = intval($_POST['id_usuario']);
-$fecha = pg_escape_string($_POST['fecha']);
-$inicio = pg_escape_string($_POST['hora_inicio']);
-$fin = pg_escape_string($_POST['hora_fin']);
+// Validar y sanitizar entrada
+$id_actividad = isset($_POST['id_actividad']) ? intval($_POST['id_actividad']) : 0;
+$id_usuario = isset($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;
+$fecha = isset($_POST['fecha']) ? pg_escape_string($conn, $_POST['fecha']) : '';
+$inicio = isset($_POST['hora_inicio']) ? pg_escape_string($conn, $_POST['hora_inicio']) : '';
+$fin = isset($_POST['hora_fin']) ? pg_escape_string($conn, $_POST['hora_fin']) : '';
 
-if (!$id_actividad || !$id_usuario || !$fecha || !$inicio || !$fin) {
+if ($id_actividad <= 0 || $id_usuario <= 0 || $fecha == '' || $inicio == '' || $fin == '') {
     echo "Datos incompletos.";
     exit;
 }
 
-// Obtener fecha de inicio y fin de la actividad
+// Verificar rango de fechas permitido
 $queryFechas = "SELECT fecha_inicio, fecha_fin FROM actividades_formativas WHERE id_actividad = $id_actividad";
 $resFechas = pg_query($conn, $queryFechas);
 
@@ -31,17 +30,17 @@ $datosFecha = pg_fetch_assoc($resFechas);
 $fechaInicio = $datosFecha['fecha_inicio'];
 $fechaFin = $datosFecha['fecha_fin'];
 
-// Validar que la fecha de la sesión esté dentro del rango permitido
 if ($fecha < $fechaInicio || $fecha > $fechaFin) {
     header("Location: ../addSessions.php?id=$id_actividad&error=fuera_de_rango");
     exit;
 }
 
-// Guardar sesión con instructor
-pg_query($conn, "INSERT INTO sesiones_actividad (id_actividad, id_usuario, fecha, hora_inicio, hora_fin)
-                 VALUES ($id_actividad, $id_usuario, '$fecha', '$inicio', '$fin')");
+// Insertar sesión
+$insert = "INSERT INTO sesiones_actividad (id_actividad, id_usuario, fecha, hora_inicio, hora_fin) 
+           VALUES ($id_actividad, $id_usuario, '$fecha', '$inicio', '$fin')";
+pg_query($conn, $insert);
 
-// Obtener sesiones con nombre completo del instructor
+// Consultar sesiones con nombre del instructor
 $result = pg_query($conn, "
     SELECT sa.fecha, sa.hora_inicio, sa.hora_fin,
            u.nombre, u.apellido_paterno, u.apellido_materno
@@ -51,7 +50,7 @@ $result = pg_query($conn, "
     ORDER BY sa.fecha, sa.hora_inicio
 ");
 
-// Traducción de días y meses (compatible con PHP 5.2.0)
+// Traducción manual (PHP 5.2 compatible)
 $dias_es = array(
     'Sunday'    => 'Domingo',
     'Monday'    => 'Lunes',
@@ -99,21 +98,21 @@ while ($row = pg_fetch_assoc($result)) {
     $descripcion .= "$dia_es $dia_num de $mes_es de $anio de $hora_inicio a $hora_fin (instruido por: $nombre_instructor)\n";
 }
 
-// Guardar descripción actualizada
-$descripcion_sql = pg_escape_string($descripcion);
-pg_query($conn, "UPDATE actividades_formativas 
-                 SET descripcion_horarios = '$descripcion_sql' 
-                 WHERE id_actividad = $id_actividad");
+// Actualizar descripción de horarios
+$descripcion_sql = pg_escape_string($conn, $descripcion);
+$update = "UPDATE actividades_formativas 
+           SET descripcion_horarios = '$descripcion_sql' 
+           WHERE id_actividad = $id_actividad";
+pg_query($conn, $update);
 
-// Obtener nombre de la actividad para la auditoría
+// Auditar movimiento
 $nombre_actividad = '';
-$consulta_nombre = pg_query($conn, "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad");
-if ($consulta_nombre && pg_num_rows($consulta_nombre) > 0) {
-    $row = pg_fetch_assoc($consulta_nombre);
-    $nombre_actividad = $row['nombre'];
+$resNombre = pg_query($conn, "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad");
+if ($resNombre && pg_num_rows($resNombre) > 0) {
+    $rowNombre = pg_fetch_assoc($resNombre);
+    $nombre_actividad = $rowNombre['nombre'];
 }
 
-// Registrar acción en auditoría
 $movimiento = "Agregó una sesión a la actividad \"$nombre_actividad\" (ID $id_actividad)";
 $modulo = "Sesiones de actividad";
 registrarAuditoria($conn, $movimiento, $modulo);

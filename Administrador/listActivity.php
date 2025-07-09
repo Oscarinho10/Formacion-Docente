@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('admin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutAdmin.php'); 
+include('../components/layoutAdmin.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,16 +64,18 @@ include('../components/layoutAdmin.php');
 
   </div>
 
-  
+
 
   <!-- Scripts -->
-  <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
   <script src="<?php echo BASE_URL; ?>/Administrador/js/listActivity.js"></script>
 
-<?php include('../Administrador/modalAdmin/detailsListActivity.php')?>
-<?php include('../Administrador/modalAdmin/modalAsistSessionsActivity.php')?>
+  <?php include('../Administrador/modalAdmin/detailsListActivity.php') ?>
+  <?php include('../Administrador/modalAdmin/modalAsistSessionsActivity.php') ?>
+  <?php include('../Administrador/modalAdmin/modalEntrega.php') ?>
+
 </body>
 
 </html>

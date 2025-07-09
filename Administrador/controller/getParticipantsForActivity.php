@@ -17,9 +17,11 @@ $query = "
     u.unidad_academica,
     u.grado_academico,
     u.perfil_academico,
-    u.fecha_registro
+    u.fecha_registro,
+    a.tipo_evaluacion
   FROM usuarios u
   INNER JOIN inscripciones i ON i.id_usuario = u.id_usuario
+  INNER JOIN actividades_formativas a ON a.id_actividad = i.id_actividad
   WHERE i.id_actividad = $id_actividad
 ";
 
@@ -39,10 +41,12 @@ if ($result) {
       'unidad_academica' => $row['unidad_academica'],
       'grado_academico' => $row['grado_academico'],
       'perfil_academico' => $row['perfil_academico'],
-      'fecha_registro' => $row['fecha_registro']
+      'fecha_registro' => $row['fecha_registro'],
+      'tipo_evaluacion' => $row['tipo_evaluacion']
     );
   }
 }
 
 header('Content-Type: application/json');
 echo json_encode($participantes);
+?>

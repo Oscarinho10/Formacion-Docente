@@ -42,53 +42,66 @@ function renderTable() {
   const end = Math.min(start + rowsPerPage, filtered.length);
   const visibleData = filtered.slice(start, end);
 
-  // ✅ Si no hay resultados
   if (filtered.length === 0) {
     $('#tableBody').html(`
-            <tr>
-                <td colspan="5" class="text-center text-muted py-3">
-                    No hay participantes registrados en esta actividad por el momento.
-                </td>
-            </tr>
-        `);
+      <tr>
+        <td colspan="5" class="text-center text-muted py-3">
+          No hay participantes registrados en esta actividad por el momento.
+        </td>
+      </tr>
+    `);
     $('#pagination').html('');
     return;
   }
 
-  document.getElementById('tableBody').innerHTML = visibleData.map(item => `
-    <tr>
-      <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
-      <td><strong>${item.control}</strong></td>
-      <td>${item.correo}</td>
-      <td class="text-center">
-        <button class="btn btn-secondary btn-sm verMasBtn"
-                data-nombre="${item.nombre}"
-                data-apellido_paterno="${item.apellido_paterno}"
-                data-apellido_materno="${item.apellido_materno}"
-                data-fecha="${item.fecha_nacimiento}"
-                data-sexo="${item.sexo}"
-                data-unidad="${item.unidad_academica}"
-                data-grado="${item.grado_academico}"
-                data-correo="${item.correo}"
-                data-perfil="${item.perfil_academico}"
-                data-fecha-registro="${item.fecha_registro}"
-                data-bs-toggle="modal"
-                data-bs-target="#modalParticipants">
-                <i class="fas fa-eye"></i> Ver más 
-        </button>
-        <button class="btn btn-sm btn-success btnAsistencia"
-                data-id="${item.id_usuario}"  
-                data-control="${item.control}"
-                data-nombre="${item.nombre}"
-                data-apellido_paterno="${item.apellido_paterno}"
-                data-apellido_materno="${item.apellido_materno}"
-                data-bs-toggle="modal"
-                data-bs-target="#modalAsistencia">
-          <i class="fas fa-calendar-check"></i> Asistencia
-        </button>
-      </td>
-    </tr>
-  `).join('');
+  document.getElementById('tableBody').innerHTML = visibleData.map(item => {
+    const btnEntrega = item.tipo_evaluacion === 'actividad' ? `
+      <button class="btn btn-sm btn-info btnEntrega"
+              data-id="${item.id_usuario}"
+              data-nombre="${item.nombre}"
+              data-apellido_paterno="${item.apellido_paterno}"
+              data-apellido_materno="${item.apellido_materno}"
+              data-bs-toggle="modal"
+              data-bs-target="#modalEntrega">
+        <i class="fas fa-file-upload"></i> Entrega
+      </button>` : '';
+
+    return `
+      <tr>
+        <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
+        <td><strong>${item.control}</strong></td>
+        <td>${item.correo}</td>
+        <td class="text-center">
+          <button class="btn btn-secondary btn-sm verMasBtn"
+                  data-nombre="${item.nombre}"
+                  data-apellido_paterno="${item.apellido_paterno}"
+                  data-apellido_materno="${item.apellido_materno}"
+                  data-fecha="${item.fecha_nacimiento}"
+                  data-sexo="${item.sexo}"
+                  data-unidad="${item.unidad_academica}"
+                  data-grado="${item.grado_academico}"
+                  data-correo="${item.correo}"
+                  data-perfil="${item.perfil_academico}"
+                  data-fecha-registro="${item.fecha_registro}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalParticipants">
+            <i class="fas fa-eye"></i> Ver más 
+          </button>
+          <button class="btn btn-sm btn-success btnAsistencia"
+                  data-id="${item.id_usuario}"  
+                  data-control="${item.control}"
+                  data-nombre="${item.nombre}"
+                  data-apellido_paterno="${item.apellido_paterno}"
+                  data-apellido_materno="${item.apellido_materno}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalAsistencia">
+            <i class="fas fa-calendar-check"></i> Asistencia
+          </button>
+          ${btnEntrega}
+        </td>
+      </tr>
+    `;
+  }).join('');
 
   document.getElementById('paginationInfo').textContent =
     `Mostrando ${start + 1}-${end} de ${filtered.length} registros`;
@@ -223,5 +236,60 @@ $(document).on('click', '.btnAsistencia', function () {
     })
     .catch(error => {
       console.error("Error al cargar sesiones:", error);
+    });
+});
+
+// ENTREGA
+let idUsuarioEntrega = null;
+let idActividadEntrega = new URLSearchParams(window.location.search).get('id');
+
+$(document).on('click', '.btnEntrega', function () {
+  console.log("✅ Se hizo clic en Entrega");
+
+  idUsuarioEntrega = $(this).data('id');
+  const nombre = $(this).data('nombre');
+  const paterno = $(this).data('apellido_paterno');
+  const materno = $(this).data('apellido_materno');
+
+  // ✅ Muestra nombre correctamente
+  $('#nombreParticipanteEntrega').text(`${nombre} ${paterno} ${materno}`);
+
+  // ✅ Reinicia el modal
+  $('#entregadoCheckbox').prop('checked', false);
+  $('#observacionesEntrega').val('');
+});
+
+$(document).on('click', '#guardarEntregaBtn', function () {
+  const entregado = $('#entregadoCheckbox').is(':checked');
+  const observaciones = $('#observacionesEntrega').val();
+
+  const payload = {
+    id_usuario: idUsuarioEntrega,
+    id_actividad: idActividadEntrega,
+    entregado: entregado,
+    observaciones: observaciones
+  };
+
+  console.log("🚀 Enviando datos:", payload); // Debug
+
+  fetch('../Administrador/controller/saveEntrega.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("📦 Respuesta del servidor:", data); // Debug
+      if (data.mensaje) {
+        alert(data.mensaje);
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalEntrega'));
+        if (modal) modal.hide();
+      } else {
+        alert(data.error || 'Error al guardar.');
+      }
+    })
+    .catch(err => {
+      console.error("❌ Error en fetch:", err);
+      alert('Error al enviar la entrega.');
     });
 });
