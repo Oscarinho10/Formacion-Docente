@@ -54,7 +54,7 @@ if (!$actividad) {
                             <select id="tipo_evaluacion" name="tipo_evaluacion" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
                                 <option value="asistencias" <?php if ($actividad['tipo_evaluacion'] == 'asistencias') echo 'selected'; ?>>Con asistencias</option>
-                                <option value="entrega de actividades" <?php if ($actividad['tipo_evaluacion'] == 'entrega de actividades') echo 'selected'; ?>>Con entrega de actividades</option>
+                                <option value="actividad" <?php if ($actividad['tipo_evaluacion'] == 'actividad') echo 'selected'; ?>>Con entrega de actividades</option>
                             </select>
                         </div>
 

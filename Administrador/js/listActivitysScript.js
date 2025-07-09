@@ -51,6 +51,7 @@ function renderTabla() {
         <td class="text-center">
           <button class="btn btn-secondary btn-sm verMasBtn"
             data-nombre="${actividad.nombre}"
+            data-tipo_evaluacion="${actividad.tipo_evaluacion}"
             data-descripcion="${actividad.descripcion}"
             data-dirigido_a="${actividad.dirigido_a}"
             data-modalidad="${actividad.modalidad}"
@@ -81,6 +82,7 @@ function renderTabla() {
   botones.forEach(btn => {
     btn.addEventListener('click', function () {
       document.getElementById('modalNombre').innerText = this.dataset.nombre;
+      document.getElementById('modalTipoEvaluacion').innerText = this.dataset.tipo_evaluacion;
       document.getElementById('modalDescripcion').innerText = this.dataset.descripcion;
       document.getElementById('modalDirigido').innerText = this.dataset.dirigido_a;
       document.getElementById('modalModalidad').innerText = this.dataset.modalidad;

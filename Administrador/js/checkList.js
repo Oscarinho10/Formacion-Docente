@@ -38,6 +38,7 @@ function renderTable() {
       <td class="text-center">
         <span class="estado-label">${item.estado}</span>
       </td>
+      <td>${item.tipo_evaluacion}</td>
       <td class="text-center">
         <a href="listActivity.php?id=${item.id}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
         <a href="participantsList.php?id_actividad=${item.id}" class="btn btn-sm btn-general">Participantes</a>

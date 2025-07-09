@@ -66,6 +66,7 @@ include('../components/layoutAdmin.php');
               <th>Nombre de la Actividad</th>
               <th>Fecha Fin</th>
               <th>Estado</th>
+              <th>Tipo de evaluación</th>
               <th>Acciones</th>
             </tr>
           </thead>

@@ -8,6 +8,7 @@
       </div>
       <div class="modal-body">
         <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
+        <p><strong>Tipo de Evaluación:</strong> <span id="modalTipoEvaluacion"></span></p>
         <p><strong>Descripción:</strong> <span id="modalDescripcion"></span></p>
         <p><strong>Dirigido a:</strong> <span id="modalDirigido"></span></p>
         <p><strong>Modalidad:</strong> <span id="modalModalidad"></span></p>
