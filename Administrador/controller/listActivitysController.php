@@ -3,7 +3,7 @@ include('../../config/conexion.php');
 
     $query = "SELECT a.id_actividad, a.nombre, a.descripcion, a.dirigido_a, a.modalidad, a.lugar, 
                     a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_fin,
-                    COUNT(i.id_inscripcion) AS inscritos
+                    COUNT(i.id_inscripcion) AS inscritos, a.tipo_evaluacion
             FROM actividades_formativas a
             LEFT JOIN inscripciones i ON a.id_actividad = i.id_actividad AND i.estado = 'activo'
             GROUP BY a.id_actividad
