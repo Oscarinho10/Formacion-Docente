@@ -90,40 +90,90 @@ if (!$usuario) {
                             <input type="text" name="numero_control_rfc" id="numero_control_rfc" value="<?php echo $usuario['numero_control_rfc']; ?>" style="width: 100%; padding: 8px;" required>
                         </div>
 
+                        <!-- Grado Académico -->
                         <div class="col-md-4 mb-3">
-                            <label for="grado_academico">Grado Académico:</label>
-                            <select name="grado_academico" id="grado_academico" style="width: 100%; padding: 11px;" required>
+                            <label for="grado_academico">Grado Académico</label>
+                            <select style="width: 100%; padding: 11px;" id="grado_academico" name="grado_academico" required>
                                 <option value="">Seleccione</option>
-                                <option value="Licenciado" <?php if ($usuario['grado_academico'] == 'Licenciado') echo 'selected'; ?>>Licenciado</option>
-                                <option value="Ingeniero" <?php if ($usuario['grado_academico'] == 'Ingeniero') echo 'selected'; ?>>Ingeniero</option>
-                                <option value="Maestro" <?php if ($usuario['grado_academico'] == 'Maestro') echo 'selected'; ?>>Maestro</option>
+                                <option value="Licenciatura" <?php if ($usuario['grado_academico'] == 'Licenciatura') echo 'selected'; ?>>Licenciatura</option>
+                                <option value="Maestria" <?php if ($usuario['grado_academico'] == 'Maestria') echo 'selected'; ?>>Maestría</option>
+                                <option value="Doctorado" <?php if ($usuario['grado_academico'] == 'Doctorado') echo 'selected'; ?>>Doctorado</option>
+                                <option value="Otro" <?php if ($usuario['grado_academico'] == 'Otro') echo 'selected'; ?>>Otro</option>
                             </select>
                         </div>
 
+                        <!-- Perfil Académico -->
                         <div class="col-md-4 mb-3">
-                            <label for="perfil_academico">Perfil Académico:</label>
-                            <select name="perfil_academico" id="perfil_academico" style="width: 100%; padding: 11px;" required>
+                            <label for="perfil_academico">Perfil Académico</label>
+                            <select style="width: 100%; padding: 11px;" id="perfil_academico" name="perfil_academico" required>
                                 <option value="">Seleccione</option>
-                                <option value="Tiempo completo" <?php if ($usuario['perfil_academico'] == 'Tiempo completo') echo 'selected'; ?>>Tiempo completo</option>
-                                <option value="Medio tiempo" <?php if ($usuario['perfil_academico'] == 'Medio tiempo') echo 'selected'; ?>>Medio tiempo</option>
-                                <option value="Maestro" <?php if ($usuario['perfil_academico'] == 'Maestro') echo 'selected'; ?>>Maestro</option>
+                                <option value="N/A" <?php if ($usuario['perfil_academico'] == 'N/A') echo 'selected'; ?>>No aplica</option>
+                                <option value="PTP" <?php if ($usuario['perfil_academico'] == 'PTP') echo 'selected'; ?>>PROFESOR TIEMPO PARCIAL</option>
+                                <option value="PITP" <?php if ($usuario['perfil_academico'] == 'PITP') echo 'selected'; ?>>PROFESOR INVESTIGADOR DE TIEMPO PARCIAL</option>
+                                <option value="PTC" <?php if ($usuario['perfil_academico'] == 'PTC') echo 'selected'; ?>>PROFESOR TIEMPO COMPLETO</option>
+                                <option value="PITC" <?php if ($usuario['perfil_academico'] == 'PITC') echo 'selected'; ?>>PROFESOR INVESTIGADOR DE TIEMPO COMPLETO</option>
+                                <option value="TA" <?php if ($usuario['perfil_academico'] == 'TA') echo 'selected'; ?>>TECNICO ACADEMICO</option>
+                                <option value="TC" <?php if ($usuario['perfil_academico'] == 'TC') echo 'selected'; ?>>TECNICO CULTURAL</option>
+                                <option value="ADMIN" <?php if ($usuario['perfil_academico'] == 'ADMIN') echo 'selected'; ?>>ADMINISTRATIVO</option>
                             </select>
                         </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label for="unidad_academica">Unidad Académica:</label>
-                            <select name="unidad_academica" id="unidad_academica" style="width: 322%; padding: 11px;" required>
-                                <option value="">Seleccione</option>
-                                <option value="Tepetongo" <?php if ($usuario['unidad_academica'] == 'Tepetongo') echo 'selected'; ?>>Tepetongo</option>
-                                <option value="Chamilpa" <?php if ($usuario['unidad_academica'] == 'Chamilpa') echo 'selected'; ?>>Chamilpa</option>
-                                <option value="Cuautla" <?php if ($usuario['unidad_academica'] == 'Cuautla') echo 'selected'; ?>>Cuautla</option>
-                            </select>
-                        </div>
+                    </div>
 
-                        <div class="d-flex justify-content-end col-12 mb-10 mt-3">
-                            <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
-                            <button class="btn btn-sm btn-general col-2">Guardar</button>
-                        </div>
+
+                    <!-- Unidad Académica -->
+                    <div class="col-md-12 mb-3">
+                        <label for="unidad_academica" class="form-label">Unidad Académica</label>
+                        <select style="width: 100%; padding: 11px;" id="unidad_academica" name="unidad_academica" required>
+                            <option value="">Seleccione</option>
+                            <option value="N/A" <?php if ($usuario['unidad_academica'] == 'N/A') echo 'selected'; ?>>No aplica</option>
+                            <option value="Centro de Investigación Interdisciplinar para el Desarrollo Universitario" <?php if ($usuario['unidad_academica'] == 'Centro de Investigación Interdisciplinar para el Desarrollo Universitario') echo 'selected'; ?>>Centro de Investigación Interdisciplinar para el Desarrollo Universitario</option>
+                            <option value="Centro de Investigación Transdisciplinar en Psicología" <?php if ($usuario['unidad_academica'] == 'Centro de Investigación Transdisciplinar en Psicología') echo 'selected'; ?>>Centro de Investigación Transdisciplinar en Psicología</option>
+                            <option value="Centro de Investigación en Biodiversidad y Conservación" <?php if ($usuario['unidad_academica'] == 'Centro de Investigación en Biodiversidad y Conservación') echo 'selected'; ?>>Centro de Investigación en Biodiversidad y Conservación</option>
+                            <option value="Centro de Investigaciones Biológicas" <?php if ($usuario['unidad_academica'] == 'Centro de Investigaciones Biológicas') echo 'selected'; ?>>Centro de Investigaciones Biológicas</option>
+                            <option value="Centro de Investigación en Biotecnología" <?php if ($usuario['unidad_academica'] == 'Centro de Investigación en Biotecnología') echo 'selected'; ?>>Centro de Investigación en Biotecnología</option>
+                            <option value="Escuela de Estudios Superiores de Atlatlahucan" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Atlatlahucan') echo 'selected'; ?>>Escuela de Estudios Superiores de Atlatlahucan</option>
+                            <option value="Escuela de Estudios Superiores de Atlatlahucan (Subsede de Totolapan)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Atlatlahucan (Subsede de Totolapan)') echo 'selected'; ?>>Escuela de Estudios Superiores de Atlatlahucan (Subsede de Totolapan)</option>
+                            <option value="Escuela de Estudios Superiores de Jicarero" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Jicarero') echo 'selected'; ?>>Escuela de Estudios Superiores de Jicarero</option>
+                            <option value="Escuela de Estudios Superiores de Jonacatepec" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Jonacatepec') echo 'selected'; ?>>Escuela de Estudios Superiores de Jonacatepec</option>
+                            <option value="Escuela de Estudios Superiores de Jonacatepec (Subsede de Axochiapan)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Jonacatepec (Subsede de Axochiapan)') echo 'selected'; ?>>Escuela de Estudios Superiores de Jonacatepec (Subsede de Axochiapan)</option>
+                            <option value="Escuela de Estudios Superiores de Jonacatepec (Subsede de Tepalcingo)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Jonacatepec (Subsede de Tepalcingo)') echo 'selected'; ?>>Escuela de Estudios Superiores de Jonacatepec (Subsede de Tepalcingo)</option>
+                            <option value="Escuela de Estudios Superiores de Jojutla" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Jojutla') echo 'selected'; ?>>Escuela de Estudios Superiores de Jojutla</option>
+                            <option value="Escuela de Estudios Superiores de Mazatepec" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Mazatepec') echo 'selected'; ?>>Escuela de Estudios Superiores de Mazatepec</option>
+                            <option value="Escuela de Estudios Superiores de Mazatepec (Subsede de Miacatlán)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Mazatepec (Subsede de Miacatlán)') echo 'selected'; ?>>Escuela de Estudios Superiores de Mazatepec (Subsede de Miacatlán)</option>
+                            <option value="Escuela de Estudios Superiores de Mazatepec (Subsede de Tetecala)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Mazatepec (Subsede de Tetecala)') echo 'selected'; ?>>Escuela de Estudios Superiores de Mazatepec (Subsede de Tetecala)</option>
+                            <option value="Escuela de Estudios Superiores de Xalostoc" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Xalostoc') echo 'selected'; ?>>Escuela de Estudios Superiores de Xalostoc</option>
+                            <option value="Escuela de Estudios Superiores de Yautepec" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Yautepec') echo 'selected'; ?>>Escuela de Estudios Superiores de Yautepec</option>
+                            <option value="Escuela de Estudios Superiores de Yecapixtla" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Yecapixtla') echo 'selected'; ?>>Escuela de Estudios Superiores de Yecapixtla</option>
+                            <option value="Escuela de Estudios Superiores de Yecapixtla (Subsede de Tetela del Volcán)" <?php if ($usuario['unidad_academica'] == 'Escuela de Estudios Superiores de Yecapixtla (Subsede de Tetela del Volcán)') echo 'selected'; ?>>Escuela de Estudios Superiores de Yecapixtla (Subsede de Tetela del Volcán)</option>
+                            <option value="Escuela de Teatro, Danza y Música" <?php if ($usuario['unidad_academica'] == 'Escuela de Teatro, Danza y Música') echo 'selected'; ?>>Escuela de Teatro, Danza y Música</option>
+                            <option value="Escuela de Turismo" <?php if ($usuario['unidad_academica'] == 'Escuela de Turismo') echo 'selected'; ?>>Escuela de Turismo</option>
+                            <option value="Facultad de Arquitectura" <?php if ($usuario['unidad_academica'] == 'Facultad de Arquitectura') echo 'selected'; ?>>Facultad de Arquitectura</option>
+                            <option value="Facultad de Artes" <?php if ($usuario['unidad_academica'] == 'Facultad de Artes') echo 'selected'; ?>>Facultad de Artes</option>
+                            <option value="Facultad de Ciencias Agropecuarias" <?php if ($usuario['unidad_academica'] == 'Facultad de Ciencias Agropecuarias') echo 'selected'; ?>>Facultad de Ciencias Agropecuarias</option>
+                            <option value="Facultad de Ciencias Biológicas" <?php if ($usuario['unidad_academica'] == 'Facultad de Ciencias Biológicas') echo 'selected'; ?>>Facultad de Ciencias Biológicas</option>
+                            <option value="Facultad de Ciencias del Deporte" <?php if ($usuario['unidad_academica'] == 'Facultad de Ciencias del Deporte') echo 'selected'; ?>>Facultad de Ciencias del Deporte</option>
+                            <option value="Facultad de Ciencias Químicas e Ingeniería" <?php if ($usuario['unidad_academica'] == 'Facultad de Ciencias Químicas e Ingeniería') echo 'selected'; ?>>Facultad de Ciencias Químicas e Ingeniería</option>
+                            <option value="Facultad de Comunicación Humana" <?php if ($usuario['unidad_academica'] == 'Facultad de Comunicación Humana') echo 'selected'; ?>>Facultad de Comunicación Humana</option>
+                            <option value="Facultad de Contaduría, Administración e Informática" <?php if ($usuario['unidad_academica'] == 'Facultad de Contaduría, Administración e Informática') echo 'selected'; ?>>Facultad de Contaduría, Administración e Informática</option>
+                            <option value="Facultad de Derecho y Ciencias Sociales" <?php if ($usuario['unidad_academica'] == 'Facultad de Derecho y Ciencias Sociales') echo 'selected'; ?>>Facultad de Derecho y Ciencias Sociales</option>
+                            <option value="Facultad de Diseño" <?php if ($usuario['unidad_academica'] == 'Facultad de Diseño') echo 'selected'; ?>>Facultad de Diseño</option>
+                            <option value="Facultad de Enfermería" <?php if ($usuario['unidad_academica'] == 'Facultad de Enfermería') echo 'selected'; ?>>Facultad de Enfermería</option>
+                            <option value="Facultad de Estudios Sociales" <?php if ($usuario['unidad_academica'] == 'Facultad de Estudios Sociales') echo 'selected'; ?>>Facultad de Estudios Sociales</option>
+                            <option value="Facultad de Estudios Superiores de Cuautla" <?php if ($usuario['unidad_academica'] == 'Facultad de Estudios Superiores de Cuautla') echo 'selected'; ?>>Facultad de Estudios Superiores de Cuautla</option>
+                            <option value="Facultad de Farmacia" <?php if ($usuario['unidad_academica'] == 'Facultad de Farmacia') echo 'selected'; ?>>Facultad de Farmacia</option>
+                            <option value="Facultad de Medicina" <?php if ($usuario['unidad_academica'] == 'Facultad de Medicina') echo 'selected'; ?>>Facultad de Medicina</option>
+                            <option value="Facultad de Nutrición" <?php if ($usuario['unidad_academica'] == 'Facultad de Nutrición') echo 'selected'; ?>>Facultad de Nutrición</option>
+                            <option value="Facultad de Psicología" <?php if ($usuario['unidad_academica'] == 'Facultad de Psicología') echo 'selected'; ?>>Facultad de Psicología</option>
+                            <option value="Instituto de Ciencias de la Educación" <?php if ($usuario['unidad_academica'] == 'Instituto de Ciencias de la Educación') echo 'selected'; ?>>Instituto de Ciencias de la Educación</option>
+                            <option value="Instituto de Investigación en Ciencias Básicas y Aplicadas" <?php if ($usuario['unidad_academica'] == 'Instituto de Investigación en Ciencias Básicas y Aplicadas') echo 'selected'; ?>>Instituto de Investigación en Ciencias Básicas y Aplicadas</option>
+                            <option value="Instituto de Investigación en Humanidades y Ciencias Sociales" <?php if ($usuario['unidad_academica'] == 'Instituto de Investigación en Humanidades y Ciencias Sociales') echo 'selected'; ?>>Instituto de Investigación en Humanidades y Ciencias Sociales</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-end col-12 mb-10 mt-3">
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
+                        <button class="btn btn-sm btn-general col-2">Guardar</button>
                     </div>
                 </form>
 
