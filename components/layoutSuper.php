@@ -51,6 +51,7 @@
                 <a href="../SuperAdmin/profileSuper.php" class="nav__link <?php echo ($currentPage == 'profileSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
                 <a href="../SuperAdmin/requestSuper.php" class="nav__link <?php echo ($currentPage == 'requestSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Solicitudes</span></a>
                 <a href="../SuperAdmin/instructorSuper.php" class="nav__link <?php echo ($currentPage == 'instructorSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Instructores</span></a>
+                             <a href="../SuperAdmin/viewUserSuper.php" class="nav__link <?php echo ($currentPage == 'viewUserSuper.php') ? 'active-link' : ''; ?>"><span class="nav__name">Participantes</span></a>
                 <a href="../SuperAdmin/trainingActivity.php" class="nav__link <?php echo ($currentPage == 'trainingActivity.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad formativa</span></a>
                 <a href="../SuperAdmin/checkList.php" class="nav__link <?php echo ($currentPage == 'checkList.php') ? 'active-link' : ''; ?>"><span class="nav__name">Asistencias</span></a>
                 <a href="../SuperAdmin/constancy.php" class="nav__link <?php echo ($currentPage == 'constancy.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancias</span></a>
