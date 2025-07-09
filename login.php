@@ -60,6 +60,10 @@ include('HeadAndFoot/header.php');
         </div>
     </div>
 
+<?php
+    include('HeadAndFoot/footer.php');
+?>
+
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>

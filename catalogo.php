@@ -18,7 +18,7 @@
                             <h6 class="card-title"><?php echo htmlspecialchars($fila['nombre']); ?></h6>
                             <p class="card-text"><?php echo htmlspecialchars($fila['descripcion']); ?></p>
                             <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-outline-secondary btn-sm">Detalles</a>
+                                <a href="./detailsActivity.php?id=<?php echo $fila['id_actividad']; ?>" class="btn btn-outline-secondary btn-sm">Detalles</a>
                                 <button onclick="window.location.href='<?php echo BASE_URL; ?>/login.php'" class="btn btn-primary btn-sm">Pre-registrarse</button>
                             </div>
                         </div>
