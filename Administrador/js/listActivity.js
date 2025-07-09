@@ -22,6 +22,18 @@ async function fetchParticipantes() {
   }
 }
 
+function calcularEdad(fechaNacimiento) {
+  console.log("Fecha Nacimiento cruda:", fechaNacimiento);
+  const fecha = new Date(fechaNacimiento);
+  const hoy = new Date();
+  let edad = hoy.getFullYear() - fecha.getFullYear();
+  const mes = hoy.getMonth() - fecha.getMonth();
+  if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+    edad--;
+  }
+  return edad;
+}
+
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   filtered = data.filter(item => item.nombre.toLowerCase().includes(search));
@@ -121,7 +133,8 @@ $(document).ready(function () {
     const nombre = $(this).data('nombre');
     const paterno = $(this).data('apellido_paterno');
     const materno = $(this).data('apellido_materno');
-    const fecha = $(this).data('fecha');
+    const fechaNacimiento = this.dataset.fecha;
+    const edad = calcularEdad(fechaNacimiento);
     const sexo = $(this).data('sexo');
     const correo = $(this).data('correo');
     const unidad = $(this).data('unidad');
@@ -130,7 +143,7 @@ $(document).ready(function () {
     const fecha_registro = $(this).data('fecha-registro');
 
     $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
-    $('#modalFecha').text(fecha);
+    $('#modalEdad').text(edad + " años");
     $('#modalSexo').text(sexo);
     $('#modalCorreo').text(correo);
     $('#modalUnidad').text(unidad);

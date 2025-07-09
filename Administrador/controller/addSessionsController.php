@@ -18,6 +18,25 @@ if (!$id_actividad || !$id_usuario || !$fecha || !$inicio || !$fin) {
     exit;
 }
 
+// Obtener fecha de inicio y fin de la actividad
+$queryFechas = "SELECT fecha_inicio, fecha_fin FROM actividades_formativas WHERE id_actividad = $id_actividad";
+$resFechas = pg_query($conn, $queryFechas);
+
+if (!$resFechas || pg_num_rows($resFechas) === 0) {
+    echo "Actividad no encontrada.";
+    exit;
+}
+
+$datosFecha = pg_fetch_assoc($resFechas);
+$fechaInicio = $datosFecha['fecha_inicio'];
+$fechaFin = $datosFecha['fecha_fin'];
+
+// Validar que la fecha de la sesión esté dentro del rango permitido
+if ($fecha < $fechaInicio || $fecha > $fechaFin) {
+    header("Location: ../addSessions.php?id=$id_actividad&error=fuera_de_rango");
+    exit;
+}
+
 // Guardar sesión con instructor
 pg_query($conn, "INSERT INTO sesiones_actividad (id_actividad, id_usuario, fecha, hora_inicio, hora_fin)
                  VALUES ($id_actividad, $id_usuario, '$fecha', '$inicio', '$fin')");

@@ -1,20 +1,24 @@
 <?php
 include_once('../config/verificaRol.php');
-verificarRol('admin'); // Esto asegura el acceso solo a admins
-// Conexión y layout
+verificarRol('admin');
 include('../config/conexion.php');
 include('../components/layoutAdmin.php');
 
 // Obtener ID de la actividad desde GET
 $id_actividad = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Nombre de la actividad
-$query_nombre = "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad";
-$result_nombre = pg_query($conn, $query_nombre);
+// Obtener nombre y fechas de la actividad
+$query_datos = "SELECT nombre, fecha_inicio, fecha_fin FROM actividades_formativas WHERE id_actividad = $id_actividad";
+$result_datos = pg_query($conn, $query_datos);
 $nombreActividad = '';
-if ($result_nombre && pg_num_rows($result_nombre) > 0) {
-    $row = pg_fetch_assoc($result_nombre);
+$fecha_inicio = '';
+$fecha_fin = '';
+
+if ($result_datos && pg_num_rows($result_datos) > 0) {
+    $row = pg_fetch_assoc($result_datos);
     $nombreActividad = $row['nombre'];
+    $fecha_inicio = $row['fecha_inicio'];
+    $fecha_fin = $row['fecha_fin'];
 }
 
 // Obtener instructores
@@ -79,7 +83,10 @@ $resultado_sesiones = pg_query($conn, $query);
                     <!-- Fecha -->
                     <div class="mb-3">
                         <label for="fecha">Fecha de la sesión:</label>
-                        <input type="date" id="fecha" name="fecha" style="width: 100%; padding: 11px;" required>
+                        <input type="date" id="fecha" name="fecha"
+                               style="width: 100%; padding: 11px;" required
+                               min="<?php echo $fecha_inicio; ?>"
+                               max="<?php echo $fecha_fin; ?>">
                     </div>
 
                     <!-- Hora inicio -->
