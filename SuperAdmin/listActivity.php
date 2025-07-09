@@ -16,6 +16,7 @@ include('../components/layoutSuper.php');
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
 
   <!-- FontAwesome -->

@@ -11,6 +11,7 @@ include('../components/layoutSuper.php') ?>
     <title>Tabla de Docentes</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">

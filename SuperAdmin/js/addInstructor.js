@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector('form');
   const submitBtn = document.querySelector('.btn-registrar');
 
