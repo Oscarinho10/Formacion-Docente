@@ -1,10 +1,13 @@
 <?php
 include('../../config/conexion.php');
 
-$query = "SELECT id_actividad, nombre, descripcion, dirigido_a, modalidad, lugar, clasificacion, 
-                 cupo, total_horas, estado, descripcion_horarios, fecha_fin 
-          FROM actividades_formativas 
-          ORDER BY id_actividad DESC";
+    $query = "SELECT a.id_actividad, a.nombre, a.descripcion, a.dirigido_a, a.modalidad, a.lugar, 
+                    a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_fin,
+                    COUNT(i.id_inscripcion) AS inscritos
+            FROM actividades_formativas a
+            LEFT JOIN inscripciones i ON a.id_actividad = i.id_actividad AND i.estado = 'activo'
+            GROUP BY a.id_actividad
+            ORDER BY a.id_actividad DESC";
 
 $result = pg_query($conn, $query);
 
@@ -20,6 +23,7 @@ while ($row = pg_fetch_assoc($result)) {
         'lugar' => $row['lugar'],
         'clasificacion' => $row['clasificacion'],
         'cupo' => $row['cupo'],
+        'inscritos' => $row['inscritos'], // nuevo dato
         'total_horas' => $row['total_horas'],
         'estado' => $row['estado'],
         'descripcion_horarios' => $row['descripcion_horarios'],

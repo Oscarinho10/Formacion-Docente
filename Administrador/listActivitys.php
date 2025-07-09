@@ -50,6 +50,7 @@ include('../components/layoutAdmin.php');
             <th>Nombre de la Actividad</th>
             <th>Total de Horas</th>
             <th class="text-center">Estado</th>
+            <th class="text-center">Cupo</th>
             <th class="text-center">Acciones</th>
           </tr>
         </thead>
@@ -68,16 +69,16 @@ include('../components/layoutAdmin.php');
     </div>
   </div>
 
-<!-- Exprtación del modal -->
-<?php include('../Administrador/modalAdmin/detailsActivityModal.php'); ?> 
-  
+  <!-- Exprtación del modal -->
+  <?php include('../Administrador/modalAdmin/detailsActivityModal.php'); ?>
+
   <!-- UNA sola línea, carga Bootstrap + Popper -->
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/listActivitysScript.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
 
 
-  
+
 </body>
 
 </html>

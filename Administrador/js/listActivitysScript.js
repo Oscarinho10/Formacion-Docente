@@ -47,6 +47,7 @@ function renderTabla() {
             <span class="slider"></span>
           </label>
         </td>
+        <td class="text-center">${actividad.inscritos}/${actividad.cupo}</td>
         <td class="text-center">
           <button class="btn btn-secondary btn-sm verMasBtn"
             data-nombre="${actividad.nombre}"
@@ -179,29 +180,29 @@ function addToggleListeners() {
             },
             body: `id_actividad=${encodeURIComponent(actividad.id)}&estado=${encodeURIComponent(nuevoEstado)}`
           })
-          .then(res => res.json())
-          .then(data => {
-            if (!data.success) {
-              console.error("Error al actualizar en la base de datos:", data.error);
+            .then(res => res.json())
+            .then(data => {
+              if (!data.success) {
+                console.error("Error al actualizar en la base de datos:", data.error);
+                Swal.fire({
+                  title: "Error",
+                  text: "No se pudo actualizar el estado en la base de datos.",
+                  icon: "error"
+                });
+                actividad.estado = estadoActual;
+                renderTabla();
+              }
+            })
+            .catch(err => {
+              console.error("Error al enviar solicitud:", err);
               Swal.fire({
                 title: "Error",
-                text: "No se pudo actualizar el estado en la base de datos.",
+                text: "Hubo un problema de conexión.",
                 icon: "error"
               });
               actividad.estado = estadoActual;
               renderTabla();
-            }
-          })
-          .catch(err => {
-            console.error("Error al enviar solicitud:", err);
-            Swal.fire({
-              title: "Error",
-              text: "Hubo un problema de conexión.",
-              icon: "error"
             });
-            actividad.estado = estadoActual;
-            renderTabla();
-          });
         } else {
           this.checked = (estadoActual === 'activo');
         }
