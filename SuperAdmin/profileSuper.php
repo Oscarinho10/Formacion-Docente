@@ -22,24 +22,24 @@ include('../components/layoutSuper.php');
             <h2 class="form-title">Perfil de Usuario</h2>
             <form id="userForm">
                 <div class="form-group">
-                    <label for="nombre">Nombre*</label>
+                    <label for="nombre">Nombre: *</label>
                     <input type="text" class="form-control" id="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellidoPaterno">Apellido Paterno*</label>
+                    <label for="apellidoPaterno">Apellido Paterno: *</label>
                     <input type="text" class="form-control" id="apellido_paterno" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellidoMaterno">Apellido Materno*</label>
+                    <label for="apellidoMaterno">Apellido Materno: *</label>
                     <input type="text" class="form-control" id="apellido_materno" required>
                 </div>
                 <div class="form-group">
-                    <label for="correo">Correo Electrónico*</label>
+                    <label for="correo">Correo Electrónico: </label>
                     <input type="email" class="form-control" style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;" id="correo_electronico" readonly>
                 </div>
 
                 <div class="form-group position-relative" style="margin-bottom: 1rem;">
-                    <label for="nueva_contrasena">Nueva Contraseña (opcional)</label>
+                    <label for="nueva_contrasena">Nueva Contraseña (opcional):</label>
                     <input type="password"
                         style="width: 100%; padding: 8px; box-sizing: border-box;"
                         id="nueva_contrasena"
@@ -52,7 +52,7 @@ include('../components/layoutSuper.php');
                 </div>
 
                 <div class="form-group">
-                    <label for="numeroControl">Número de Control*</label>
+                    <label for="numeroControl">Número de Control: </label>
                     <input type="text" class="form-control" style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;" id="numero_control_rfc" readonly>
                 </div>
                 <!-- Botones -->
