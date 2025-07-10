@@ -64,7 +64,7 @@ include('../components/layoutAdmin.php');
           <thead class="table-light">
             <tr>
               <th>Nombre de la Actividad</th>
-              <th>Fecha Fin</th>
+              <th>Fecha Inicio/Fecha Fin</th>
               <th>Estado</th>
               <th>Tipo de evaluación</th>
               <th>Acciones</th>

@@ -17,13 +17,15 @@ async function fetchActividades() {
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const fecha = document.getElementById('filterFecha').value;
+  const fechaI = document.getElementById('filterFecha').value;
   const estado = document.getElementById('filterEstado').value;
 
   filtered = actividades.filter(item => {
     const matchNombre = item.nombre.toLowerCase().includes(search);
     const matchFecha = !fecha || item.fecha_fin === fecha;
+    const matchFechaI = !fechaI || item.fecha_inicio === fechaI;
     const matchEstado = !estado || item.estado === estado;
-    return matchNombre && matchFecha && matchEstado;
+    return matchNombre && matchFecha && matchEstado && matchFechaI;
   });
 
   const start = (currentPage - 1) * rowsPerPage;
@@ -34,14 +36,15 @@ function renderTable() {
   tbody.innerHTML = visibleData.map(item => `
     <tr>
       <td>${item.nombre}</td>
-      <td>${item.fecha_fin}</td>
+      <td>${item.fecha_inicio} / ${item.fecha_fin}</td>
+      
       <td class="text-center">
         <span class="estado-label">${item.estado}</span>
       </td>
-      <td>${item.tipo_evaluacion}</td>
-      <td class="text-center">
+      <td>${item.tipo_evaluacion}
+      <td>
         <a href="listActivity.php?id=${item.id}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
-        <a href="participantsList.php?id_actividad=${item.id}" class="btn btn-sm btn-general">Participantes</a>
+        <a href="participantsList.php?id=${item.id}" class="btn btn-sm btn-general">Participantes</a>
       </td>
     </tr>
   `).join('');

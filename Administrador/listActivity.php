@@ -67,6 +67,7 @@ include('../components/layoutAdmin.php');
 
 
   <!-- Scripts -->
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>

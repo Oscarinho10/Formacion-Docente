@@ -1,11 +1,9 @@
 <?php
 include_once('../config/verificaRol.php');
-verificarRol('admin'); // Esto asegura el acceso solo a admins
+verificarRol('admin'); // Esto asegura el acceso solo a superAdmins
 
-// Hasta aquí no se ha enviado contenido, entonces ahora sí
 include('../components/layoutAdmin.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -43,10 +41,9 @@ include('../components/layoutAdmin.php');
       <div class="table-responsive">
         <table class="table table-bordered text-center">
           <thead class="table-light" id="theadAsistencias">
-
+            <!-- Aquí se insertarán dinámicamente las fechas desde JS -->
           </thead>
-
-          <tbody id="asistenciaBody">
+          <tbody id="asistenciaBody"> 
             <!-- Contenido dinámico -->
           </tbody>
         </table>
@@ -67,10 +64,8 @@ include('../components/layoutAdmin.php');
   </div>
 
   <!-- Scripts -->
-
-  <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-  <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="<?php echo BASE_URL; ?>/Administrador/js/participantsList.js"></script>
 
 </body>

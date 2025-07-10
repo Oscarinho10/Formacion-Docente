@@ -22,20 +22,47 @@ $(document).ready(function () {
     $('#userForm').on('submit', function (e) {
         e.preventDefault();
 
+        const nuevaContrasena = $('#nueva_contrasena').val();
+
+        const data = {
+            nombre: $('#nombre').val(),
+            apellido_paterno: $('#apellido_paterno').val(),
+            apellido_materno: $('#apellido_materno').val()
+        };
+
+        // Solo incluir contraseña si el campo fue llenado
+        if (nuevaContrasena.trim() !== '') {
+            data.nueva_contrasena = nuevaContrasena;
+        }
+
         $.ajax({
             url: 'controller/profileUserController.php',
             type: 'POST',
-            data: {
-                nombre: $('#nombre').val(),
-                apellido_paterno: $('#apellido_paterno').val(),
-                apellido_materno: $('#apellido_materno').val()
-            },
+            data: data,
             success: function (response) {
-                alert(response);
+                Swal.fire('Actualización', response, 'success');
+                $('#nueva_contrasena').val(''); // Limpiar campo por seguridad
             },
             error: function () {
-                alert('Error al actualizar el perfil.');
+                Swal.fire('Error', 'Error al actualizar el perfil.', 'error');
             }
         });
     });
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('nueva_contrasena');
+    const toggle = document.getElementById('togglePassword');
+
+    if (toggle && input) {
+        toggle.addEventListener('click', function () {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+
+            // Cambia icono (de ojo cerrado a abierto y viceversa)
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+        });
+    }
 });

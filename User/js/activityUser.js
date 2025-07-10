@@ -34,18 +34,26 @@ function renderTable() {
     }
 
     data.forEach(item => {
-        const yaInscrito = item.ya_inscrito == "1"; // <-- tu endpoint debe devolver esto
-        const botonInscripcion = yaInscrito
-            ? `<button class="btn btn-sm btn-secondary" disabled>Inscrito</button>`
-            : `<button class="btn btn-sm btn-general btn-aceptar" data-id="${item.id_actividad}">Inscribirme</button>`;
+        const yaInscrito = item.ya_inscrito == "1";
+        const cupoLleno = parseInt(item.inscritos) >= parseInt(item.cupo);
+
+        let botonInscripcion = '';
+
+        if (yaInscrito) {
+            botonInscripcion = `<button class="btn btn-sm btn-secondary" disabled>Inscrito</button>`;
+        } else if (cupoLleno) {
+            botonInscripcion = `<button class="btn btn-sm btn-danger" disabled>Cupo lleno</button>`;
+        } else {
+            botonInscripcion = `<button class="btn btn-sm btn-general btn-aceptar" data-id="${item.id_actividad}">Inscribirme</button>`;
+        }
 
         tbody.innerHTML += `
       <tr>
         <td>${item.nombre}</td>
         <td>${item.total_horas}</td>
         <td>${item.modalidad}</td>
-        <td>${item.cupo}</td>
-        <td>
+        <td class="text-center">${item.inscritos}/${item.cupo}</td>
+        <td class="text-center">
           <button class="btn btn-sm btn-secondary verMasBtn"
             data-nombre="${item.nombre}"
             data-descripcion="${item.descripcion}"

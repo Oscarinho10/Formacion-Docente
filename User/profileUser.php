@@ -1,9 +1,9 @@
 <?php
 include_once('../config/verificaRol.php');
-verificarRol('admin'); // Esto asegura el acceso solo a admins
+verificarRol('participante'); // Esto asegura el acceso solo a admins
 
 // Hasta aquí no se ha enviado contenido, entonces ahora sí
-include('../components/layoutAdmin.php');
+include('../components/layout.php');
 ?>
 
 <!DOCTYPE html>
@@ -58,14 +58,14 @@ include('../components/layoutAdmin.php');
                             id="togglePassword"
                             style="position: absolute; top: 70%; right: 10px; transform: translateY(-50%); cursor: pointer; color: #6c757d;"></i>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="numero_control_rfc">Número de Control*</label>
                         <input type="text" style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;" id="numero_control_rfc" readonly>
                     </div>
                     <!-- Botones -->
                     <div class="d-flex justify-content-end mt-3">
-                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Regresar</button>
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/User/initUser.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Regresar</button>
                         <button type="submit" class="btn btn-sm btn-general col-2">Guardar</button>
                     </div>
                 </form>
@@ -76,7 +76,7 @@ include('../components/layoutAdmin.php');
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.min.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/profileUser.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/User/js/profileUser.js"></script>
 </body>
 
 </html>

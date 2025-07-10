@@ -30,38 +30,47 @@ $(document).ready(function () {
     $('#userForm').on('submit', function (e) {
         e.preventDefault();
 
-        Swal.fire({
-            title: '¿Guardar cambios?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, guardar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: 'controller/profileSuperController.php',
-                    type: 'POST',
-                    data: {
-                        nombre: $('#nombre').val(),
-                        apellido_paterno: $('#apellido_paterno').val(),
-                        apellido_materno: $('#apellido_materno').val()
-                    },
-                    success: function (response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Éxito!',
-                            text: response
-                        });
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'No se pudo actualizar el perfil.'
-                        });
-                    }
-                });
+        const nuevaContrasena = $('#nueva_contrasena').val();
+
+        const data = {
+            nombre: $('#nombre').val(),
+            apellido_paterno: $('#apellido_paterno').val(),
+            apellido_materno: $('#apellido_materno').val()
+        };
+
+        // Solo incluir contraseña si el campo fue llenado
+        if (nuevaContrasena.trim() !== '') {
+            data.nueva_contrasena = nuevaContrasena;
+        }
+
+        $.ajax({
+            url: 'controller/profileSuperController.php',
+            type: 'POST',
+            data: data,
+            success: function (response) {
+                Swal.fire('Actualización', response, 'success');
+                $('#nueva_contrasena').val(''); // Limpiar campo por seguridad
+            },
+            error: function () {
+                Swal.fire('Error', 'Error al actualizar el perfil.', 'error');
             }
         });
     });
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('nueva_contrasena');
+    const toggle = document.getElementById('togglePassword');
+
+    if (toggle && input) {
+        toggle.addEventListener('click', function () {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+
+            // Cambia icono (de ojo cerrado a abierto y viceversa)
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+        });
+    }
 });

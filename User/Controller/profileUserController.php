@@ -13,14 +13,14 @@ if (!isset($_SESSION['id_usuario'])) {
     exit;
 }
 
-$id_admin = intval($_SESSION['id_usuario']); // ID del administrador logueado
+$id_usuario = intval($_SESSION['id_usuario']); // ID del administrador logueado
 
 // 🔹 Obtener datos del perfil
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $query = "SELECT nombre, apellido_paterno, apellido_materno, correo_electronico, numero_control_rfc 
-              FROM administradores 
-              WHERE id_admin = $id_admin";
-
+              FROM usuarios 
+              WHERE id_usuario = $id_usuario";
+    
     $result = pg_query($conn, $query);
 
     if ($result && pg_num_rows($result) > 0) {
@@ -47,15 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Armar UPDATE con o sin contraseña
     if ($nueva_contrasena != '') {
         $sha1_pass = sha1($nueva_contrasena); // Encriptar
-        $query = "UPDATE administradores 
+        $query = "UPDATE usuarios 
                   SET nombre = '$nombre', apellido_paterno = '$apellido_paterno', 
                       apellido_materno = '$apellido_materno', contrasena = '$sha1_pass' 
-                  WHERE id_admin = $id_admin";
+                  WHERE id_usuario = $id_usuario";
     } else {
-        $query = "UPDATE administradores 
+        $query = "UPDATE usuarios 
                   SET nombre = '$nombre', apellido_paterno = '$apellido_paterno', 
                       apellido_materno = '$apellido_materno' 
-                  WHERE id_admin = $id_admin";
+                  WHERE id_usuario = $id_usuario";
     }
 
     $result = pg_query($conn, $query);

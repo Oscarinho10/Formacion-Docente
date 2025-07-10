@@ -48,7 +48,7 @@
 
             <div class="nav__list">
                 <a href="../User/initUser.php" class="nav__link <?php echo ($currentPage == 'initUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Menú principal</span></a>
-                <a href="../User/profilelUser.php" class="nav__link <?php echo ($currentPage == 'profilelUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
+                <a href="../User/profileUser.php" class="nav__link <?php echo ($currentPage == 'profileUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
                 <a href="../User/ActivityUser.php" class="nav__link <?php echo ($currentPage == 'ActivityUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Actividad Formativa</span></a>
                 <a href="../User/participantCertificate.php" class="nav__link <?php echo ($currentPage == 'participantCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancia participantes</span></a>
                 <div class="nav_bottom">

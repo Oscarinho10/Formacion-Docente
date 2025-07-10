@@ -2,7 +2,8 @@
 include('../../config/conexion.php');
 
 $query = "SELECT a.id_actividad, a.nombre, a.descripcion, a.dirigido_a, a.modalidad, a.lugar, 
-                    a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_fin, a.tipo_evaluacion,
+                    a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_inicio,
+                    a.fecha_fin, a.tipo_evaluacion,
                     COUNT(i.id_inscripcion) AS inscritos, a.tipo_evaluacion
             FROM actividades_formativas a
             LEFT JOIN inscripciones i ON a.id_actividad = i.id_actividad AND i.estado = 'activo'
@@ -28,7 +29,8 @@ while ($row = pg_fetch_assoc($result)) {
         'total_horas' => $row['total_horas'],
         'estado' => $row['estado'],
         'descripcion_horarios' => $row['descripcion_horarios'],
-        'fecha_fin' => $row['fecha_fin']
+        'fecha_fin' => $row['fecha_fin'],
+        'fecha_inicio' => $row['fecha_inicio'],
     );
 }
 

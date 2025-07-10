@@ -14,22 +14,23 @@ if (!isset($_SESSION['id_usuario'])) {
 $id_usuario = intval($_SESSION['id_usuario']);
 
 // Consulta corregida: usa CASE en lugar de COALESCE + IS NOT NULL
-$query = "
-    SELECT 
-        a.id_actividad,
-        a.nombre,
-        a.descripcion,
-        a.dirigido_a,
-        a.modalidad,
-        a.lugar,
-        a.clasificacion,
-        a.cupo,
-        a.total_horas,
-        CASE WHEN i.id_inscripcion IS NOT NULL THEN 1 ELSE 0 END AS ya_inscrito
-    FROM actividades_formativas a
-    LEFT JOIN inscripciones i ON i.id_actividad = a.id_actividad AND i.id_usuario = $id_usuario AND i.estado = 'activo'
+$query = "SELECT a.id_actividad, a.nombre, a.descripcion, a.dirigido_a, a.modalidad, a.lugar, 
+                 a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_inicio,
+                 a.fecha_fin, a.tipo_evaluacion,
+                 COUNT(i.id_inscripcion) AS inscritos,
+                 CASE 
+                     WHEN EXISTS (
+                         SELECT 1 FROM inscripciones i2
+                         WHERE i2.id_actividad = a.id_actividad 
+                         AND i2.id_usuario = $id_usuario
+                         AND i2.estado = 'activo'
+                     ) THEN 1 ELSE 0 
+                 END AS ya_inscrito
+         FROM actividades_formativas a
+         LEFT JOIN inscripciones i ON a.id_actividad = i.id_actividad AND i.estado = 'activo'
+         GROUP BY a.id_actividad
+         ORDER BY a.id_actividad DESC";
 
-";
 
 $result = pg_query($conn, $query);
 $actividades = array();
@@ -44,6 +45,7 @@ while ($row = pg_fetch_assoc($result)) {
         'lugar' => $row['lugar'],
         'clasificacion' => $row['clasificacion'],
         'cupo' => $row['cupo'],
+        'inscritos' => $row['inscritos'], // nuevo dato
         'total_horas' => $row['total_horas'],
         'estado' => '', // puedes agregar lógica si manejas estado
         'descripcion_horarios' => '', // opcional si lo manejas
@@ -53,4 +55,3 @@ while ($row = pg_fetch_assoc($result)) {
 
 header('Content-Type: application/json');
 echo json_encode($actividades);
-?>

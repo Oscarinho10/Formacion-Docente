@@ -1,6 +1,10 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
+
 // Función para registrar una acción del administrador en la tabla auditoria
-function registrarAuditoria($conn, $movimiento, $modulo) {
+function registrarAuditoria($conn, $movimiento, $modulo)
+{
+
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -9,7 +13,7 @@ function registrarAuditoria($conn, $movimiento, $modulo) {
     if (isset($_SESSION['id_usuario']) && $_SESSION['rol'] == 'admin') {
         $id_admin = $_SESSION['id_usuario'];
         $fecha = date('Y-m-d');       // Ej: 2025-07-03
-        $hora = date('H:i:s');        // Ej: 16:25:42
+        $hora = date('H:i:s', strtotime('-1 hour'));
 
         // Escapar datos para seguridad
         $movimiento_s = pg_escape_string($conn, $movimiento);
@@ -23,7 +27,8 @@ function registrarAuditoria($conn, $movimiento, $modulo) {
 }
 
 // Función para mostrar la fecha en español desde Y-m-d
-function formatearFechaEspanol($fecha) {
+function formatearFechaEspanol($fecha)
+{
     $dias = array(
         'Sunday' => 'Domingo',
         'Monday' => 'Lunes',
@@ -62,11 +67,11 @@ function formatearFechaEspanol($fecha) {
 }
 
 // Función para mostrar la hora en formato 12h con AM/PM en español
-function formatearHoraEspanol($hora24) {
+function formatearHoraEspanol($hora24)
+{
     $timestamp = strtotime($hora24);
     $hora = date('g:i A', $timestamp); // Ej: "4:25 PM"
     $hora = str_replace('AM', 'a.m.', $hora);
     $hora = str_replace('PM', 'p.m.', $hora);
     return $hora;
 }
-?>
