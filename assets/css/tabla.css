@@ -72,7 +72,7 @@
     align-items: center;
 }
 
-.acciones > button {
+.acciones>button {
     margin-right: 8px;
     white-space: nowrap;
     padding: 6px 14px;
@@ -80,10 +80,25 @@
     line-height: 1.4;
     width: auto;
     height: auto;
-    min-width: 70px; /* Puedes ajustar esto */
+    min-width: 70px;
+    /* Puedes ajustar esto */
     text-align: center;
 }
 
-.acciones > button:last-child {
+.acciones>button:last-child {
     margin-right: 0;
+}
+
+#tablaReporte th,
+#tablaReporte td {
+  word-break: normal;
+  white-space: normal;
+  min-width: 120px;
+  max-width: 250px;
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+#tablaReporte {
+  min-width: 1000px; /* fuerza scroll horizontal en pantallas pequeñas */
 }

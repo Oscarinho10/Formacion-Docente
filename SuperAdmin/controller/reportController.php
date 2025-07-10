@@ -1,42 +1,14 @@
 <?php
 require_once('../../includes/fpdf/fpdf.php');
 
-// Encabezados obligatorios para PDF correcto
 header('Content-Type: application/pdf');
 header('Content-Disposition: inline; filename="Reporte_Actividades_SIGEMFD.pdf"');
 
-// Obtener los datos del POST (evitar funciones modernas)
+// Obtener los datos del POST
 $data = array();
 if (isset($_POST['data'])) {
-    $data = json_decode($_POST['data'], true);
-}
-
-// Fallback si no vienen datos (modo prueba)
-if (!is_array($data) || count($data) == 0) {
-    $data = array(
-        array(
-            "tipo" => "Curso",
-            "actividad" => "Liderazgo Organizacional",
-            "instructor" => "Dra. Ana Torres",
-            "duracion" => "20h",
-            "modalidad" => "Presencial",
-            "fecha" => "2023-03-15",
-            "horario" => "10:00 - 14:00",
-            "participantes" => 30,
-            "asistidos" => 28
-        ),
-        array(
-            "tipo" => "Taller",
-            "actividad" => "Innovación Educativa",
-            "instructor" => "Mtro. Luis Rivas",
-            "duracion" => "16h",
-            "modalidad" => "Virtual",
-            "fecha" => "2023-08-01",
-            "horario" => "09:00 - 13:00",
-            "participantes" => 25,
-            "asistidos" => 23
-        )
-    );
+    $json = $_POST['data'];
+    $data = json_decode($json, true);
 }
 
 class PDF extends FPDF
@@ -45,11 +17,9 @@ class PDF extends FPDF
     {
         $this->Image('../../assets/img/logo-uaem.png', 10, 6, 25);
         $this->Image('../../assets/img/SIGEM-FD.jpg', 170, 6, 25);
-
         $this->SetFont('Arial', 'B', 14);
         $this->SetY(20);
         $this->Cell(0, 10, utf8_decode('Departamento de Evaluación y Profesionalización de la Docencia'), 0, 1, 'C');
-
         $this->Ln(2);
         $this->SetDrawColor(0, 102, 153);
         $this->Line(10, $this->GetY(), 200, $this->GetY());
@@ -82,8 +52,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', '', 7);
         $fill = false;
 
-        for ($i = 0; $i < count($data); $i++) {
-            $row = $data[$i];
+        foreach ($data as $row) {
             $this->Cell($w[0], 6, utf8_decode($row['tipo']), 'LR', 0, 'C', $fill);
             $this->Cell($w[1], 6, utf8_decode($row['actividad']), 'LR', 0, 'L', $fill);
             $this->Cell($w[2], 6, utf8_decode($row['instructor']), 'LR', 0, 'L', $fill);
@@ -103,8 +72,6 @@ class PDF extends FPDF
 
 $pdf = new PDF();
 $pdf->AddPage();
-
-// Título general debajo
 $pdf->SetFont('Arial', 'B', 13);
 $pdf->Ln(5);
 $pdf->MultiCell(0, 10, utf8_decode('Reporte general de actividades del programa SIGEM-FD'), 0, 'C');
