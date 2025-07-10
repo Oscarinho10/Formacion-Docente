@@ -1,8 +1,8 @@
 <?php
 include_once('../config/verificaRol.php');
-verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
+verificarRol('superAdmin'); // Asegura acceso solo a superAdmins
 
-include('../components/layoutSuper.php')
+include('../components/layoutSuper.php');
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ include('../components/layoutSuper.php')
 
 <head>
     <meta charset="UTF-8">
-    <title>Tabla de Estudiantes</title>
+    <title>Solicitudes de recuperación</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css" type="text/css">
@@ -24,46 +24,36 @@ include('../components/layoutSuper.php')
 <body class="bg-light">
 
     <div class="container mt-4">
-        <h4 class="mb-3">Solicitudes de participantes </h4>
-        <!-- Filtros y Botón Agregar -->
+        <h4 class="mb-3">Solicitudes de restablecimiento de contraseña</h4>
+
+        <!-- Filtro de búsqueda -->
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar participante...">
-
+                    <input type="text" class="form-control" id="searchRecovery" placeholder="Buscar por correo...">
                 </div>
-
-
             </div>
-
-            <div class="col-md-4 text-end">
-                <a class="btn btn-primary" id="addButton" href="requestRecovery.php"><i class="fas fa-plus"></i> Solicitudes de restablecimiento</a>
-            </div>
-
-
         </div>
 
-
-        <!-- Tabla -->
+        <!-- Tabla de solicitudes -->
         <div class="table-responsive">
-            <table class="table table-bordered" id="studentsTable">
+            <table class="table table-bordered" id="recoveryTable">
                 <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
-                        <th>Número de Control</th>
-                        <th>Correo Electrónico</th>
-                        <th>Perfil Académico</th>
+                        <th>Correo</th>
+                        <th>Fecha de solicitud</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <!-- Rellenado por JavaScript -->
+                <tbody id="recoveryTableBody">
+                    <!-- Datos se llenarán dinámicamente con JS -->
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación -->
+        <!-- Paginación y regreso -->
         <div class="d-flex justify-content-between align-items-center mt-3">
             <div id="paginationInfo"></div>
             <ul class="pagination" id="pagination"></ul>
@@ -71,17 +61,13 @@ include('../components/layoutSuper.php')
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
         </div>
-
     </div>
 
-    <?php include('../SuperAdmin/modalSuper/modalParticipants.php'); ?>
-
     <!-- Scripts -->
-
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/requestSuper.js"></script>
+    <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/requestRecovery.js"></script>
 
 </body>
 

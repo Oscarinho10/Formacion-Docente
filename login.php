@@ -45,9 +45,11 @@ include('HeadAndFoot/header.php');
 
                 <button type="submit" name="login" class="btn btn-primary w-100 mb-2">Iniciar sesión</button>
             </form>
+            <div class="text-center">
+                <button onclick="window.location.href='<?php echo BASE_URL; ?>/preRegister.php'" class="btn btn-success w-100 mb-2">Registrarse</button>
+                <u><a class="text-center" data-bs-toggle="modal" data-bs-target="#modalRecuperar">¿Olvidaste tu contraseña?</a></u>
+            </div>
 
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/preRegister.php'" class="btn btn-success w-100 mb-2">Registrarse</button>
-            <a href="#" class="small-link">¿Olvidaste tu contraseña?</a>
         </div>
 
         <!-- Columna de información -->
@@ -59,10 +61,10 @@ include('HeadAndFoot/header.php');
             <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" alt="icono uaem" class="img-fluid">
         </div>
     </div>
-
-<?php
+    <?php include('./config/modals/recoveryPassword.php'); ?>
+    <?php
     include('HeadAndFoot/footer.php');
-?>
+    ?>
 
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
