@@ -185,16 +185,16 @@ $(document).ready(function () {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id_usuario: idUsuario, asistencias })
               })
-              .then(res => res.json())
-              .then(resp => {
-                Swal.fire('Guardado', resp.mensaje || 'Asistencia registrada correctamente.', 'success');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
-                if (modal) modal.hide();
-              })
-              .catch(err => {
-                console.error(err);
-                Swal.fire('Error', 'Ocurrió un error al guardar la asistencia.', 'error');
-              });
+                .then(res => res.json())
+                .then(resp => {
+                  Swal.fire('Guardado', resp.mensaje || 'Asistencia registrada correctamente.', 'success');
+                  const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
+                  if (modal) modal.hide();
+                })
+                .catch(err => {
+                  console.error(err);
+                  Swal.fire('Error', 'Ocurrió un error al guardar la asistencia.', 'error');
+                });
             }
           });
         });
@@ -204,16 +204,30 @@ $(document).ready(function () {
       });
   });
 
-  // Modal Entrega
+  // Modal Entrega 
   $(document).on('click', '.btnEntrega', function () {
     idUsuarioEntrega = $(this).data('id');
     const nombre = $(this).data('nombre');
     const paterno = $(this).data('apellido_paterno');
     const materno = $(this).data('apellido_materno');
     $('#nombreParticipanteEntrega').text(`${nombre} ${paterno} ${materno}`);
+
+    // Limpia primero
     $('#entregadoCheckbox').prop('checked', false);
     $('#observacionesEntrega').val('');
+
+    // Carga estado actual desde el backend
+    fetch(`../SuperAdmin/controller/getEntregaUsuario.php?id_usuario=${idUsuarioEntrega}&id_actividad=${idActividadEntrega}`)
+      .then(res => res.json())
+      .then(data => {
+        $('#entregadoCheckbox').prop('checked', data.entregado === true);
+        $('#observacionesEntrega').val(data.observaciones || '');
+      })
+      .catch(err => {
+        console.error("Error al cargar entrega previa:", err);
+      });
   });
+
 
   $(document).on('click', '#guardarEntregaBtn', function () {
     const entregado = $('#entregadoCheckbox').is(':checked');

@@ -18,7 +18,7 @@ while ($row = pg_fetch_assoc($resultSesiones)) {
     $sesiones[$row['id_sesion']] = $row['fecha'];
 }
 
-// Obtener usuarios inscritos (aunque no tengan asistencias)
+// Obtener usuarios inscritos
 $queryUsuarios = "
     SELECT DISTINCT u.id_usuario, u.nombre, u.apellido_paterno, u.apellido_materno
     FROM usuarios u
@@ -38,7 +38,7 @@ while ($user = pg_fetch_assoc($resultUsuarios)) {
         $asistencias[$fecha] = "No asistió";
     }
 
-    // Obtener asistencias reales (si existen)
+    // Obtener asistencias reales
     $queryAsist = "
         SELECT a.id_sesion, a.presente
         FROM asistencias a
@@ -47,13 +47,14 @@ while ($user = pg_fetch_assoc($resultUsuarios)) {
     ";
     $resAsist = pg_query($conn, $queryAsist);
     while ($asist = pg_fetch_assoc($resAsist)) {
-        $fecha = isset($sesiones[$asist['id_sesion']]) ? $sesiones[$asist['id_sesion']] : null;
-        if ($fecha) {
+        $id_sesion = $asist['id_sesion'];
+        $fecha = isset($sesiones[$id_sesion]) ? $sesiones[$id_sesion] : null;
+        if ($fecha !== null) {
             $asistencias[$fecha] = ($asist['presente'] == 't') ? "Asistió" : "No asistió";
         }
     }
 
-    // Verificar si tiene constancia
+    // Verificar constancia
     $totalSesiones = count($asistencias);
     $asistio = 0;
     foreach ($asistencias as $estado) {
@@ -63,10 +64,39 @@ while ($user = pg_fetch_assoc($resultUsuarios)) {
     }
     $constancia = ($totalSesiones > 0 && $asistio == $totalSesiones) ? "Sí" : "No";
 
+    // Obtener id_inscripcion
+    $id_usuario = intval($user['id_usuario']);
+    $id_inscripcion = null;
+    $queryInscripcion = "
+        SELECT id_inscripcion 
+        FROM inscripciones 
+        WHERE id_usuario = $id_usuario 
+          AND id_actividad = $id_actividad
+        LIMIT 1
+    ";
+    $resInscripcion = pg_query($conn, $queryInscripcion);
+    if ($resInscripcion && pg_num_rows($resInscripcion) > 0) {
+        $rowIns = pg_fetch_assoc($resInscripcion);
+        $id_inscripcion = $rowIns['id_inscripcion'];
+    }
+
+    // Verificar entrega (si aplica)
+    $entregado = "No aplica";
+    if ($id_inscripcion !== null) {
+        $queryEntrega = "SELECT entregado FROM entregas_actividad WHERE id_inscripcion = $id_inscripcion LIMIT 1";
+        $resEntrega = pg_query($conn, $queryEntrega);
+        if ($resEntrega && pg_num_rows($resEntrega) > 0) {
+            $rowEntrega = pg_fetch_assoc($resEntrega);
+            $entregado = ($rowEntrega['entregado'] == 't') ? "Entregado" : "No entregado";
+        }
+    }
+
+
     $tabla[] = array(
         'nombre' => $nombreCompleto,
         'asistencias' => $asistencias,
-        'constancia' => $constancia
+        'constancia' => $constancia,
+        'entregado' => $entregado
     );
 }
 
@@ -75,4 +105,3 @@ echo json_encode(array(
     'fechas' => $fechas,
     'data' => $tabla
 ));
-?>
