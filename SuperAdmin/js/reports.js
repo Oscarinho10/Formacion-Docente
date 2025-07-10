@@ -75,20 +75,23 @@ function exportarPDF() {
     (!anio || d.anio === anio)
   );
 
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'controller/reportController.php';
-  form.target = '_blank';
-
-  const input = document.createElement('input');
-  input.type = 'hidden';
-  input.name = 'data';
-  input.value = JSON.stringify(filtrados);
-  form.appendChild(input);
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
+  // Envío por fetch como JSON para evitar truncados
+  fetch('controller/reportPDF.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' // ← importante para PHP
+    },
+    body: JSON.stringify(filtrados)
+  })
+    .then(res => res.blob()) // ← recibe el PDF como blob
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank'); // ← lo abre en nueva pestaña
+    })
+    .catch(err => {
+      console.error("Error generando PDF:", err);
+      alert("No se pudo generar el PDF.");
+    });
 }
 
 // Inicializa eventos al cargar el documento
