@@ -1,15 +1,38 @@
-// Datos estáticos de prueba
-const estudiantes = [
-  { nombre: "Juan Pérez", correo: "juan@example.com", curso: "Curso de IA" },
-  { nombre: "Maria López", correo: "maria@example.com", curso: "Curso de IA" },
-  { nombre: "Juana Martinez", correo: "juana@example.com", curso: "Curso de IA" },
-  { nombre: "Maria López Perez", correo: "maria.p@example.com", curso: "Curso de Figma" }
-];
-
-const rowsPerPage = 2;
+let estudiantes = [];
+const rowsPerPage = 5;
 let currentPage = 1;
 
-// Función principal para renderizar la tabla
+// Cargar los datos reales desde PHP
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('./controller/getParticipantsWithConstancyController.php?id=' + actividadId)
+
+    .then(res => res.json())
+    .then(json => {
+      estudiantes = json;
+      renderTabla();
+    })
+    .catch(err => {
+      console.error("Error al cargar participantes con constancia:", err);
+    });
+
+  const btnAll = document.getElementById('generateAllButton');
+  if (btnAll) {
+    btnAll.addEventListener('click', function () {
+      estudiantes.forEach(est => {
+        generarConstancia(est.correo);
+      });
+    });
+  }
+
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      currentPage = 1;
+      renderTabla(this.value);
+    });
+  }
+});
+
 function renderTabla(filtro = '') {
   const tableBody = document.getElementById('tableBody');
   const paginationInfo = document.getElementById('paginationInfo');
@@ -39,22 +62,18 @@ function renderTabla(filtro = '') {
   });
 
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filtrados.length)} a ${Math.min(end, filtrados.length)} de ${filtrados.length} registros`;
-
   renderPagination(filtrados.length);
 
-  // Reasignar evento a checkbox "Seleccionar todos" después de renderizar
-  setTimeout(() => {
-    const selectAllCheckbox = document.getElementById('selectAll');
-    if (selectAllCheckbox) {
-      selectAllCheckbox.onclick = function () {
-        const checkboxes = document.querySelectorAll('.chk-estudiante');
-        checkboxes.forEach(chk => chk.checked = this.checked);
-      };
-    }
-  }, 0);
+  // Checkbox seleccionar todos
+  const selectAllCheckbox = document.getElementById('selectAll');
+  if (selectAllCheckbox) {
+    selectAllCheckbox.onclick = function () {
+      const checkboxes = document.querySelectorAll('.chk-estudiante');
+      checkboxes.forEach(chk => chk.checked = this.checked);
+    };
+  }
 }
 
-// Función de paginación
 function renderPagination(totalItems) {
   const pagination = document.getElementById('pagination');
   const pageCount = Math.ceil(totalItems / rowsPerPage);
@@ -97,46 +116,6 @@ function renderPagination(totalItems) {
   pagination.appendChild(nextLi);
 }
 
-// Función para generar constancia individual
 function generarConstancia(correo) {
-  alert(`Generando constancia para: ${correo}`);
   window.open(`./controller/generateConstancy.php?correo=${correo}`, "_blank");
 }
-
-// Botón: generar constancias de TODOS
-document.addEventListener('DOMContentLoaded', () => {
-  const btnAll = document.getElementById('generateAllButton');
-  if (btnAll) {
-    btnAll.addEventListener('click', function () {
-      estudiantes.forEach(est => {
-        generarConstancia(est.correo);
-      });
-    });
-  }
-
-  const btnSeleccionados = document.getElementById('generateSelectedButton');
-  if (btnSeleccionados) {
-    btnSeleccionados.addEventListener('click', function () {
-      const seleccionados = document.querySelectorAll('.chk-estudiante:checked');
-      if (seleccionados.length === 0) {
-        alert("Selecciona al menos un participante.");
-        return;
-      }
-
-      seleccionados.forEach(chk => {
-        generarConstancia(chk.value);
-      });
-    });
-  }
-
-  // Búsqueda
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', function () {
-      currentPage = 1;
-      renderTabla(this.value);
-    });
-  }
-
-  renderTabla();
-});

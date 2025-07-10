@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${item.fecha}</td>
         <td>${item.tipo}</td>
         <td class="text-center">
-          <a href="seeConstancy.php" class="btn btn-sm btn-general"> <i class="fas fa-eye"></i> Ver constancias</a>
+         <a href="seeConstancy.php?id=${item.id_actividad}" class="btn btn-sm btn-general"><i class="fas fa-eye"></i> Ver constancias</a>
         </td>
       </tr>
     `).join('');
