@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "dirigido_a",
       "modalidad",
       "clasificacion",
+      "tipo_evaluacion",
       "cupo",
       "total_horas",
       "fecha_inicio",

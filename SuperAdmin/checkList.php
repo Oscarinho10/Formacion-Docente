@@ -66,6 +66,7 @@ include('../components/layoutSuper.php');
               <th>Nombre de la Actividad</th>
               <th>Fecha Fin</th>
               <th>Estado</th>
+              <th>Tipo</th>
               <th>Acciones</th>
             </tr>
           </thead>

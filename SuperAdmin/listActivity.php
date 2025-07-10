@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutSuper.php'); 
+include('../components/layoutSuper.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +16,7 @@ include('../components/layoutSuper.php');
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
-  
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
 
   <!-- FontAwesome -->
@@ -65,16 +65,18 @@ include('../components/layoutSuper.php');
 
   </div>
 
-  
+
 
   <!-- Scripts -->
   <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/listActivity.js"></script>
 
-<?php include('../SuperAdmin/modalSuper/detailsListActivity.php')?>
-<?php include('../SuperAdmin/modalSuper/modalAsistSessionsActivity.php')?>
+  <?php include('../SuperAdmin/modalSuper/detailsListActivity.php') ?>
+  <?php include('../SuperAdmin/modalSuper/modalAsistSessionsActivity.php') ?>
+  <?php include('../Administrador/modalAdmin/modalEntrega.php') ?>
 </body>
 
 </html>

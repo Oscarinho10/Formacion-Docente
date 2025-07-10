@@ -2,18 +2,17 @@ const rowsPerPage = 5;
 let currentPage = 1;
 let data = [];
 let filtered = [];
+let idUsuarioEntrega = null;
+let idActividadEntrega = new URLSearchParams(window.location.search).get('id');
 
 async function fetchParticipantes() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const idActividad = urlParams.get('id');
-
-  if (!idActividad) {
+  if (!idActividadEntrega) {
     alert("No se proporcionó ID de actividad.");
     return;
   }
 
   try {
-    const res = await fetch(`../SuperAdmin/controller/getParticipantsForActivity.php?id=${idActividad}`);
+    const res = await fetch(`../SuperAdmin/controller/getParticipantsForActivity.php?id=${idActividadEntrega}`);
     data = await res.json();
     filtered = [...data];
     renderTable();
@@ -30,75 +29,77 @@ function renderTable() {
   const end = Math.min(start + rowsPerPage, filtered.length);
   const visibleData = filtered.slice(start, end);
 
-  // ✅ Si no hay resultados
   if (filtered.length === 0) {
-    $('#tableBody').html(`
-            <tr>
-                <td colspan="5" class="text-center text-muted py-3">
-                    No hay participantes registrados en esta actividad por el momento.
-                </td>
-            </tr>
-        `);
+    $('#tableBody').html(`<tr><td colspan="5" class="text-center text-muted py-3">No hay participantes registrados.</td></tr>`);
     $('#pagination').html('');
     return;
   }
 
-  document.getElementById('tableBody').innerHTML = visibleData.map(item => `
-    <tr>
-      <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
-      <td><strong>${item.control}</strong></td>
-      <td>${item.correo}</td>
-      <td class="text-center">
-        <button class="btn btn-secondary btn-sm verMasBtn"
-                data-nombre="${item.nombre}"
-                data-apellido_paterno="${item.apellido_paterno}"
-                data-apellido_materno="${item.apellido_materno}"
-                data-fecha="${item.fecha_nacimiento}"
-                data-sexo="${item.sexo}"
-                data-unidad="${item.unidad_academica}"
-                data-grado="${item.grado_academico}"
-                data-correo="${item.correo}"
-                data-perfil="${item.perfil_academico}"
-                data-fecha-registro="${item.fecha_registro}"
-                data-bs-toggle="modal"
-                data-bs-target="#modalParticipants">
-                Ver más <i class="fas fa-eye"></i>
-        </button>
-        <button class="btn btn-sm btn-success btnAsistencia"
-                data-id="${item.id_usuario}"  
-                data-control="${item.control}"
-                data-nombre="${item.nombre}"
-                data-apellido_paterno="${item.apellido_paterno}"
-                data-apellido_materno="${item.apellido_materno}"
-                data-bs-toggle="modal"
-                data-bs-target="#modalAsistencia">
-          <i class="fas fa-calendar-check"></i> Asistencia
-        </button>
-      </td>
-    </tr>
-  `).join('');
+  document.getElementById('tableBody').innerHTML = visibleData.map(item => {
+    const btnEntrega = item.tipo_evaluacion === 'actividad' ? `
+      <button class="btn btn-sm btn-primary btnEntrega "
+              data-id="${item.id_usuario}"
+              data-nombre="${item.nombre}"
+              data-apellido_paterno="${item.apellido_paterno}"
+              data-apellido_materno="${item.apellido_materno}"
+              data-bs-toggle="modal"
+              data-bs-target="#modalEntrega">
+        <i class="fas fa-file-upload"></i> Entrega
+      </button>` : '';
 
-  document.getElementById('paginationInfo').textContent =
-    `Mostrando ${start + 1}-${end} de ${filtered.length} registros`;
+    return `
+      <tr>
+        <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
+        <td><strong>${item.control}</strong></td>
+        <td>${item.correo}</td>
+        <td class="text-center">
+          <button class="btn btn-secondary btn-sm verMasBtn"
+                  data-nombre="${item.nombre}"
+                  data-apellido_paterno="${item.apellido_paterno}"
+                  data-apellido_materno="${item.apellido_materno}"
+                  data-fecha="${item.fecha_nacimiento}"
+                  data-sexo="${item.sexo}"
+                  data-unidad="${item.unidad_academica}"
+                  data-grado="${item.grado_academico}"
+                  data-correo="${item.correo}"
+                  data-perfil="${item.perfil_academico}"
+                  data-fecha-registro="${item.fecha_registro}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalParticipants">
+                  Ver más <i class="fas fa-eye"></i>
+          </button>
+          <button class="btn btn-sm btn-success btnAsistencia"
+                  data-id="${item.id_usuario}"  
+                  data-control="${item.control}"
+                  data-nombre="${item.nombre}"
+                  data-apellido_paterno="${item.apellido_paterno}"
+                  data-apellido_materno="${item.apellido_materno}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalAsistencia">
+            <i class="fas fa-calendar-check"></i> Asistencia
+          </button>
+          ${btnEntrega}
+        </td>
+      </tr>`;
+  }).join('');
+
+  document.getElementById('paginationInfo').textContent = `Mostrando ${start + 1}-${end} de ${filtered.length} registros`;
 
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
   if (totalPages > 1) {
-    pagination.innerHTML += `
-      <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-        <a class="page-link" href="#" onclick="cambiarPagina(${currentPage - 1})">&laquo;</a>
-      </li>`;
+    pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="cambiarPagina(${currentPage - 1})">&laquo;</a>
+    </li>`;
     for (let i = 1; i <= totalPages; i++) {
-      pagination.innerHTML += `
-        <li class="page-item ${i === currentPage ? 'active' : ''}">
-          <a class="page-link" href="#" onclick="cambiarPagina(${i})">${i}</a>
-        </li>`;
-    }
-    pagination.innerHTML += `
-      <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-        <a class="page-link" href="#" onclick="cambiarPagina(${currentPage + 1})">&raquo;</a>
+      pagination.innerHTML += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#" onclick="cambiarPagina(${i})">${i}</a>
       </li>`;
+    }
+    pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="cambiarPagina(${currentPage + 1})">&raquo;</a>
+    </li>`;
   }
 }
 
@@ -111,6 +112,7 @@ function cambiarPagina(pag) {
 
 $(document).ready(function () {
   fetchParticipantes();
+  console.log("Datos participantes:", data);
 
   $('#searchInput').on('input', function () {
     currentPage = 1;
@@ -118,97 +120,141 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.verMasBtn', function () {
+    $('#modalNombreCompleto').text(`${$(this).data('nombre')} ${$(this).data('apellido_paterno')} ${$(this).data('apellido_materno')}`);
+    $('#modalFecha').text($(this).data('fecha'));
+    $('#modalSexo').text($(this).data('sexo'));
+    $('#modalCorreo').text($(this).data('correo'));
+    $('#modalUnidad').text($(this).data('unidad'));
+    $('#modalGrado').text($(this).data('grado'));
+    $('#modalPerfil').text($(this).data('perfil'));
+    $('#modalFechaRegistro').text($(this).data('fecha-registro'));
+  });
+
+  // Modal Asistencia
+  $(document).on('click', '.btnAsistencia', function () {
+    const idUsuario = $(this).data('id');
     const nombre = $(this).data('nombre');
     const paterno = $(this).data('apellido_paterno');
     const materno = $(this).data('apellido_materno');
-    const fecha = $(this).data('fecha');
-    const sexo = $(this).data('sexo');
-    const correo = $(this).data('correo');
-    const unidad = $(this).data('unidad');
-    const grado = $(this).data('grado');
-    const perfil = $(this).data('perfil');
-    const fecha_registro = $(this).data('fecha-registro');
+    $('#nombreParticipanteAsistencia').text(`${nombre} ${paterno} ${materno}`);
 
-    $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
-    $('#modalFecha').text(fecha);
-    $('#modalSexo').text(sexo);
-    $('#modalCorreo').text(correo);
-    $('#modalUnidad').text(unidad);
-    $('#modalGrado').text(grado);
-    $('#modalPerfil').text(perfil);
-    $('#modalFechaRegistro').text(fecha_registro);
-  });
-});
+    fetch(`../SuperAdmin/controller/getSessionsActivity.php?id=${idActividadEntrega}&id_usuario=${idUsuario}`)
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById('tablaSesionesAsistencia');
+        tbody.innerHTML = '';
 
-// ASISTENCIA
-$(document).on('click', '.btnAsistencia', function () {
-  const idUsuario = $(this).data('id');
-  const nombre = $(this).data('nombre');
-  const paterno = $(this).data('apellido_paterno');
-  const materno = $(this).data('apellido_materno');
-  $('#nombreParticipanteAsistencia').text(`${nombre} ${paterno} ${materno}`);
-  const idActividad = new URLSearchParams(window.location.search).get('id');
+        if (!Array.isArray(data) || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No hay sesiones para esta actividad.</td></tr>`;
+          return;
+        }
 
-  // Obtener sesiones
-  fetch(`../SuperAdmin/controller/getSessionsActivity.php?id=${idActividad}&id_usuario=${idUsuario}`)
-    .then(res => res.json())
-    .then(data => {
-      const tbody = document.getElementById('tablaSesionesAsistencia');
-      tbody.innerHTML = '';
-
-      if (!Array.isArray(data) || data.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="3" class="text-center text-muted">No hay sesiones para esta actividad.</td>
-          </tr>`;
-        return;
-      }
-
-      data.forEach(sesion => {
-        const checked = sesion.asistio == 1 ? 'checked' : '';
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-          <td>${sesion.fecha}</td>
-          <td>${sesion.nombre_sesion}</td>
-          <td class="text-center">
-            <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}" ${checked}>
-          </td>
-        `;
-        tbody.appendChild(fila);
-
-      });
-
-      $('#guardarAsistenciaBtn').off('click').on('click', function () {
-        const asistencias = [];
-        document.querySelectorAll('.checkAsistencia').forEach(chk => {
-          asistencias.push({
-            id_sesion: parseInt(chk.dataset.idSesion),
-            presente: chk.checked
-          });
+        data.forEach(sesion => {
+          const checked = sesion.asistio == 1 ? 'checked' : '';
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${sesion.fecha}</td>
+            <td>${sesion.nombre_sesion}</td>
+            <td class="text-center">
+              <input type="checkbox" class="checkAsistencia" data-id-sesion="${sesion.id_sesion}" ${checked}>
+            </td>
+          `;
+          tbody.appendChild(fila);
         });
 
+        $('#guardarAsistenciaBtn').off('click').on('click', function () {
+          Swal.fire({
+            title: '¿Confirmar asistencia?',
+            text: '¿Estás seguro de guardar los datos?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const asistencias = [];
+              document.querySelectorAll('.checkAsistencia').forEach(chk => {
+                asistencias.push({
+                  id_sesion: parseInt(chk.dataset.idSesion),
+                  presente: chk.checked
+                });
+              });
 
-        fetch('../SuperAdmin/controller/saveAssist.php', {
+              fetch('../SuperAdmin/controller/saveAssist.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_usuario: idUsuario, asistencias })
+              })
+              .then(res => res.json())
+              .then(resp => {
+                Swal.fire('Guardado', resp.mensaje || 'Asistencia registrada correctamente.', 'success');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
+                if (modal) modal.hide();
+              })
+              .catch(err => {
+                console.error(err);
+                Swal.fire('Error', 'Ocurrió un error al guardar la asistencia.', 'error');
+              });
+            }
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Error al cargar sesiones:", error);
+      });
+  });
+
+  // Modal Entrega
+  $(document).on('click', '.btnEntrega', function () {
+    idUsuarioEntrega = $(this).data('id');
+    const nombre = $(this).data('nombre');
+    const paterno = $(this).data('apellido_paterno');
+    const materno = $(this).data('apellido_materno');
+    $('#nombreParticipanteEntrega').text(`${nombre} ${paterno} ${materno}`);
+    $('#entregadoCheckbox').prop('checked', false);
+    $('#observacionesEntrega').val('');
+  });
+
+  $(document).on('click', '#guardarEntregaBtn', function () {
+    const entregado = $('#entregadoCheckbox').is(':checked');
+    const observaciones = $('#observacionesEntrega').val();
+
+    Swal.fire({
+      title: '¿Confirmar entrega?',
+      text: '¿Deseas guardar esta entrega?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.isConfirmed) {
+        const payload = {
+          id_usuario: idUsuarioEntrega,
+          id_actividad: idActividadEntrega,
+          entregado,
+          observaciones
+        };
+
+        fetch('../Administrador/controller/saveEntrega.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id_usuario: idUsuario,
-            asistencias: asistencias // ✅ CAMBIAR DE 'sesiones' A 'asistencias'
-          })
+          body: JSON.stringify(payload)
         })
           .then(res => res.json())
-          .then(resp => {
-            alert(resp.mensaje || 'Asistencia guardada.');
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalAsistencia'));
-            if (modal) modal.hide();
+          .then(data => {
+            if (data.mensaje) {
+              Swal.fire('Guardado', data.mensaje, 'success');
+              const modal = bootstrap.Modal.getInstance(document.getElementById('modalEntrega'));
+              if (modal) modal.hide();
+            } else {
+              Swal.fire('Error', data.error || 'Error al guardar.', 'error');
+            }
           })
           .catch(err => {
-            console.error(err);
-            alert('Error al guardar asistencia.');
+            console.error("❌ Error en fetch:", err);
+            Swal.fire('Error', 'Error al enviar la entrega.', 'error');
           });
-      });
-    })
-    .catch(error => {
-      console.error("Error al cargar sesiones:", error);
+      }
     });
+  });
 });
