@@ -71,7 +71,7 @@ $actividad_nombre = isset($_GET['actividad']) ? urldecode($_GET['actividad']) : 
       <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
         <div id="paginationInfo" class="text-muted"></div>
         <ul class="pagination mb-0" id="pagination"></ul>
-        <a href="<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php" class="btn btn-dark">
+        <a href="<?php echo BASE_URL; ?>/SuperAdmin/constancy.php" class="btn btn-dark">
           <i class="fas fa-arrow-left me-1"></i> Regresar
         </a>
       </div>

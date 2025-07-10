@@ -12,7 +12,7 @@
 
       <div class="modal-body">
         <p><strong>Nombre completo:</strong> <span id="modalNombreCompleto"></span></p>
-        <p><strong>Fecha de nacimiento:</strong> <span id="modalFecha"></span></p>
+        <p><strong>Edad:</strong> <span id="modalEdad"></span></p>
         <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
         <p><strong>Correo:</strong> <span id="modalCorreo"></span></p>
         <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>

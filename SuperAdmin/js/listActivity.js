@@ -21,6 +21,23 @@ async function fetchParticipantes() {
   }
 }
 
+// ✅ Función para calcular edad desde fecha de nacimiento
+function calcularEdad(fechaNacimientoStr) {
+  const fechaSolo = fechaNacimientoStr.split(' ')[0];
+  const partes = fechaSolo.split('-');
+  if (partes.length !== 3) return 0;
+
+  const nacimiento = new Date(partes[0], partes[1] - 1, partes[2]);
+  const hoy = new Date();
+
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const m = hoy.getMonth() - nacimiento.getMonth();
+  if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+    edad--;
+  }
+  return edad;
+}
+
 function renderTable() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   filtered = data.filter(item => item.nombre.toLowerCase().includes(search));
@@ -120,8 +137,15 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.verMasBtn', function () {
-    $('#modalNombreCompleto').text(`${$(this).data('nombre')} ${$(this).data('apellido_paterno')} ${$(this).data('apellido_materno')}`);
-    $('#modalFecha').text($(this).data('fecha'));
+    const nombre = $(this).data('nombre');
+    const paterno = $(this).data('apellido_paterno');
+    const materno = $(this).data('apellido_materno');
+    const fecha = $(this).data('fecha');
+    const edad = calcularEdad(fecha);
+
+    $('#modalNombreCompleto').text(`${nombre} ${paterno} ${materno}`);
+    $('#modalEdad').text(`${edad} años`);
+    $('#modalFecha').text(fecha);
     $('#modalSexo').text($(this).data('sexo'));
     $('#modalCorreo').text($(this).data('correo'));
     $('#modalUnidad').text($(this).data('unidad'));
@@ -212,11 +236,9 @@ $(document).ready(function () {
     const materno = $(this).data('apellido_materno');
     $('#nombreParticipanteEntrega').text(`${nombre} ${paterno} ${materno}`);
 
-    // Limpia primero
     $('#entregadoCheckbox').prop('checked', false);
     $('#observacionesEntrega').val('');
 
-    // Carga estado actual desde el backend
     fetch(`../SuperAdmin/controller/getEntregaUsuario.php?id_usuario=${idUsuarioEntrega}&id_actividad=${idActividadEntrega}`)
       .then(res => res.json())
       .then(data => {
@@ -227,7 +249,6 @@ $(document).ready(function () {
         console.error("Error al cargar entrega previa:", err);
       });
   });
-
 
   $(document).on('click', '#guardarEntregaBtn', function () {
     const entregado = $('#entregadoCheckbox').is(':checked');
