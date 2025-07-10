@@ -1,11 +1,14 @@
-const datos = [
-  { anio: 2025, unidad: "Facultad de Ingeniería", actividades: 10, participantes: 250, asistencias: 240 },
-  { anio: 2024, unidad: "Facultad de Ciencias", actividades: 8, participantes: 200, asistencias: 190 },
-  { anio: 2023, unidad: "Facultad de Arquitectura", actividades: 7, participantes: 180, asistencias: 175 },
-  { anio: 2022, unidad: "Facultad de Humanidades", actividades: 5, participantes: 150, asistencias: 148 },
-  { anio: 2021, unidad: "Facultad de Derecho", actividades: 6, participantes: 160, asistencias: 159 },
-  { anio: 2020, unidad: "Facultad de Medicina", actividades: 4, participantes: 120, asistencias: 110 }
-];
+let datos = [];
+
+async function cargarDatosUnidadAcademica() {
+  try {
+    const res = await fetch("controller/reportsUnityAcademyController.php");
+    datos = await res.json();
+    filtrarAnios();
+  } catch (error) {
+    console.error("Error al cargar datos:", error);
+  }
+}
 
 function filtrarAnios() {
   const search = document.getElementById("searchInput").value.toLowerCase();
@@ -97,13 +100,13 @@ function exportarReporteActividadPDF() {
 
   const form = document.createElement('form');
   form.method = 'POST';
-  form.action = 'controller/reportsUnityAcademyController.php';
+  form.action = 'controller/reportPdfUnitAcademy.php';
   form.target = '_blank';
 
   const input = document.createElement('input');
   input.type = 'hidden';
   input.name = 'data';
-  input.value = JSON.stringify(filtrados);
+  input.value = encodeURIComponent(JSON.stringify(filtrados)); // Codificamos para asegurar
   form.appendChild(input);
 
   document.body.appendChild(form);
@@ -112,7 +115,7 @@ function exportarReporteActividadPDF() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  filtrarAnios();
+  cargarDatosUnidadAcademica();
   document.getElementById("yearSelect").addEventListener("change", filtrarAnios);
   document.getElementById("searchInput").addEventListener("input", filtrarAnios);
   document.getElementById("btnExportarActividad").addEventListener("click", exportarReporteActividadPDF);
