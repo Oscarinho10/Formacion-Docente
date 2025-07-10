@@ -249,7 +249,7 @@ $(document).ready(function () {
           observaciones
         };
 
-        fetch('../Administrador/controller/saveEntrega.php', {
+        fetch('../SuperAdmin/controller/saveEntrega.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
