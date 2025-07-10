@@ -1,47 +1,69 @@
-$(document).ready(function() {
-        // Obtener el ID de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
+$(document).ready(function () {
+    $.ajax({
+        url: 'controller/profileUserController.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data && !data.error) {
+                $('#nombre').val(data.nombre);
+                $('#apellido_paterno').val(data.apellido_paterno);
+                $('#apellido_materno').val(data.apellido_materno);
+                $('#correo_electronico').val(data.correo_electronico);
+                $('#numero_control_rfc').val(data.numero_control_rfc); // ✅ Correcto
+            } else {
+                alert(data.error || 'Error al obtener los datos del perfil.');
+            }
+        },
+        error: function () {
+            alert('Error al conectar con el servidor.');
+        }
+    });
 
-        if (!id) {
-            alert('No se proporcionó un ID de usuario.');
-            return;
+    $('#userForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const nuevaContrasena = $('#nueva_contrasena').val();
+
+        const data = {
+            nombre: $('#nombre').val(),
+            apellido_paterno: $('#apellido_paterno').val(),
+            apellido_materno: $('#apellido_materno').val()
+        };
+
+        // Solo incluir contraseña si el campo fue llenado
+        if (nuevaContrasena.trim() !== '') {
+            data.nueva_contrasena = nuevaContrasena;
         }
 
-        // Cargar datos del usuario
         $.ajax({
-            url: 'getUser.php?id=' + encodeURIComponent(id),
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    $('#nombre').val(data.nombre);
-                    $('#apellidoPaterno').val(data.apellido_paterno);
-                    $('#apellidoMaterno').val(data.apellido_materno);
-                    $('#correo').val(data.correo);
-                    $('#numeroControl').val(data.numero_control_rfc);
-                }
+            url: 'controller/profileUserController.php',
+            type: 'POST',
+            data: data,
+            success: function (response) {
+                Swal.fire('Actualización', response, 'success');
+                $('#nueva_contrasena').val(''); // Limpiar campo por seguridad
             },
-            error: function() {
-                alert('Error al cargar el perfil del usuario.');
+            error: function () {
+                Swal.fire('Error', 'Error al actualizar el perfil.', 'error');
             }
         });
-
-        // Manejar el envío del formulario
-        $('#userForm').on('submit', function(e) {
-            e.preventDefault();
-            const userData = {
-                nombre: $('#nombre').val(),
-                apellidoPaterno: $('#apellidoPaterno').val(),
-                apellidoMaterno: $('#apellidoMaterno').val(),
-                correo: $('#correo').val(),
-                numeroControl: $('#numeroControl').val()
-            };
-
-            // Aquí puedes agregar la lógica para guardar los datos del usuario
-            console.log(userData);
-            alert('Datos guardados correctamente.');
-        });
     });
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('nueva_contrasena');
+    const toggle = document.getElementById('togglePassword');
+
+    if (toggle && input) {
+        toggle.addEventListener('click', function () {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+
+            // Cambia icono (de ojo cerrado a abierto y viceversa)
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+        });
+    }
+});
+

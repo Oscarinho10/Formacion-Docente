@@ -47,7 +47,7 @@
 
 
             <div class="nav__list">
-                <a href="../Instructor/profilelUser.php" class="nav__link <?php echo ($currentPage == 'profilelUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
+                <a href="../Instructor/profileUser.php" class="nav__link <?php echo ($currentPage == 'profileUser.php') ? 'active-link' : ''; ?>"><span class="nav__name">Perfil</span></a>
                 <a href="../Instructor/instructorCertificate.php" class="nav__link <?php echo ($currentPage == 'instructorCertificate.php') ? 'active-link' : ''; ?>"><span class="nav__name">Constancia instructor</span></a>
                 <div class="nav_bottom">
                     <a href="../logout.php" class="nav__link">
