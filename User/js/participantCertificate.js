@@ -21,11 +21,11 @@ $(document).ready(function () {
                                     <p class="mb-1"><strong>Fecha de emisión:</strong> ${constancia.fecha_emision}</p>
                                 </div>
                                 <div class="text-center">
-                                    <a href="Controller/downloadConstancyController.php?id_usuario=${usuarioId}" 
-                                       target="_blank" 
-                                       class="btn btn-outline-primary btn-sm">Ver constancia</a><br>
-                                    <a href="Controller/downloadConstancyController.php?id_usuario=${usuarioId}&download=true" 
-                                       class="btn btn-primary btn-sm mt-2">Descargar</a>
+                                    <a href="Controller/downloadConstancyController.php?id_inscripcion=${constancia.id_inscripcion}" 
+                                    target="_blank" 
+                                    class="btn btn-outline-primary btn-sm">Ver constancia</a><br>
+                                    <a href="Controller/downloadConstancyController.php?id_inscripcion=${constancia.id_inscripcion}&download=true" 
+                                    class="btn btn-primary btn-sm mt-2">Descargar</a>
                                 </div>
                             </div>
                         </div>

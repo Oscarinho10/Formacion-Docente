@@ -19,17 +19,19 @@ $constancias = array();
 
 if ($usuarioId > 0) {
     $query = "
-        SELECT 
-            c.id_constancia,
-            c.folio,
-            c.codigo_verificacion,
-            c.fecha_emision,
-            c.qr_url,
-            a.nombre AS nombre_actividad
+    SELECT 
+        c.id_constancia,
+        c.folio,
+        c.codigo_verificacion,
+        c.fecha_emision,
+        c.qr_url,
+        a.nombre AS nombre_actividad,
+        i.id_inscripcion -- ✅ Se obtiene desde JOIN
         FROM constancias c
         JOIN actividades_formativas a ON c.id_actividad = a.id_actividad
+        JOIN inscripciones i ON i.id_usuario = c.id_usuario AND i.id_actividad = c.id_actividad
         WHERE c.id_usuario = $usuarioId
-    ";
+        ";
 
     $result = pg_query($conn, $query);
 
@@ -48,4 +50,3 @@ if ($usuarioId > 0) {
 
 echo json_encode($constancias);
 exit;
-?>
