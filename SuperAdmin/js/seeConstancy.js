@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAll) {
     btnAll.addEventListener('click', function () {
       estudiantes.forEach(est => {
-        generarConstancia(est.correo);
+        generarConstancia(est.id_inscripcion);
       });
     });
   }
@@ -50,8 +50,7 @@ function renderTabla(filtro = '') {
     tableBody.innerHTML = `
     <tr>
       <td colspan="4" class="text-muted">No hay participantes que cumplan con los requisitos para obtener constancia.</td>
-    </tr>
-  `;
+    </tr>`;
     paginationInfo.innerText = 'Mostrando 0 de 0 registros';
     renderPagination(0);
     return;
@@ -60,11 +59,11 @@ function renderTabla(filtro = '') {
   itemsToShow.forEach(est => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td><input type="checkbox" class="chk-estudiante" value="${est.correo}"></td>
+      <td><input type="checkbox" class="chk-estudiante" value="${est.id_inscripcion}"></td>
       <td>${est.nombre}</td>
       <td>${est.correo}</td>
       <td>
-        <button class="btn btn-primary btn-sm" onclick="generarConstancia('${est.correo}')">
+        <button class="btn btn-primary btn-sm" onclick="generarConstancia(${est.id_inscripcion})">
           <i class="fas fa-file-pdf"></i> Generar
         </button>
         ${!est.emitida ? `
@@ -76,7 +75,6 @@ function renderTabla(filtro = '') {
         </button>` : `
         <span class="badge text-bg-warning"><i class="fas fa-check"></i> Emitida</span>
         `}
-
       </td>
     `;
     tableBody.appendChild(row);
@@ -136,58 +134,6 @@ function renderPagination(totalItems) {
   pagination.appendChild(nextLi);
 }
 
-function generarConstancia(correo) {
-  window.open(`./controller/generateConstancy.php?correo=${correo}`, "_blank");
+function generarConstancia(idInscripcion) {
+  window.open(`./controller/generateConstancy.php?id_inscripcion=${idInscripcion}`, "_blank");
 }
-
-// ✅ Emitir constancia con datos dinámicos
-document.addEventListener('click', function (e) {
-  if (e.target.closest('.emitir-btn')) {
-    const btn = e.target.closest('.emitir-btn');
-    const idUsuario = btn.dataset.id;
-    const idActividad = btn.dataset.actividad;
-    const tipoConstancia = btn.dataset.tipo;
-
-    console.log("Emitir constancia:", { idUsuario, idActividad }); // DEBUG
-
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Se asignará la constancia permanentemente al participante.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, emitir',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        const params = 'id_usuario=' + encodeURIComponent(idUsuario) +
-          '&id_actividad=' + encodeURIComponent(idActividad) +
-          '&tipo=' + encodeURIComponent(tipoConstancia);
-
-        fetch('./controller/sendConstancyController.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: params
-        })
-          .then(function (res) { return res.json(); })
-          .then(function (res) {
-            if (res.success) {
-              Swal.fire('¡Emitida!', 'La constancia ha sido registrada correctamente.', 'success');
-              btn.innerHTML = '<i class="fas fa-check"></i> Emitida';
-              btn.disabled = true;
-              btn.classList.remove('btn-success');
-              btn.classList.add('btn-secondary');
-            } else {
-              Swal.fire('Error', res.message, 'error');
-            }
-          })
-          .catch(function (err) {
-            Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
-          });
-
-      }
-    });
-  }
-});

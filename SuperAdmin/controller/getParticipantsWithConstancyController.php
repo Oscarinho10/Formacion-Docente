@@ -13,6 +13,7 @@ if ($idActividad <= 0) {
 $query = "
   SELECT 
     u.id_usuario,
+    i.id_inscripcion,
     u.nombre || ' ' || u.apellido_paterno || ' ' || u.apellido_materno AS nombre_completo,
     u.correo_electronico,
     af.nombre AS nombre_actividad,
@@ -23,8 +24,7 @@ $query = "
     (
       SELECT COUNT(*) 
       FROM entregas_actividad ea
-      INNER JOIN inscripciones ins ON ins.id_inscripcion = ea.id_inscripcion
-      WHERE ins.id_usuario = u.id_usuario AND ins.id_actividad = af.id_actividad
+      WHERE ea.id_inscripcion = i.id_inscripcion
     ) AS entrego,
     (
       SELECT COUNT(*) 
@@ -37,11 +37,12 @@ $query = "
   LEFT JOIN sesiones_actividad s ON s.id_actividad = af.id_actividad
   LEFT JOIN asistencias asi ON asi.id_usuario = u.id_usuario AND asi.id_sesion = s.id_sesion
   WHERE af.id_actividad = $idActividad
-  GROUP BY u.id_usuario, u.nombre, u.apellido_paterno, u.apellido_materno, u.correo_electronico, af.nombre, af.tipo_evaluacion, af.id_actividad
+  GROUP BY u.id_usuario, i.id_inscripcion, u.nombre, u.apellido_paterno, u.apellido_materno, u.correo_electronico, af.nombre, af.tipo_evaluacion, af.id_actividad
 ";
 
 $result = pg_query($conn, $query);
 if (!$result) {
+  http_response_code(500);
   echo json_encode(array('error' => pg_last_error($conn)));
   exit;
 }
@@ -56,8 +57,8 @@ while ($row = pg_fetch_assoc($result)) {
   $tipoConstancia = '';
 
   if ($porcentaje >= 80) {
-    if ($entrego) {
-      $tipoConstancia = 'Acreditado';
+    if ($row['tipo_evaluacion'] == 'actividad') {
+      $tipoConstancia = $entrego ? 'Acreditado' : '';
     } else {
       $tipoConstancia = 'Por asistir al curso';
     }
@@ -66,6 +67,7 @@ while ($row = pg_fetch_assoc($result)) {
   if ($tipoConstancia != '') {
     $data[] = array(
       'id_usuario' => (int)$row['id_usuario'],
+      'id_inscripcion' => (int)$row['id_inscripcion'],
       'nombre' => $row['nombre_completo'],
       'correo' => $row['correo_electronico'],
       'tipo' => $tipoConstancia,
@@ -75,7 +77,5 @@ while ($row = pg_fetch_assoc($result)) {
   }
 }
 
-
 header('Content-Type: application/json');
 echo json_encode($data);
-?>
