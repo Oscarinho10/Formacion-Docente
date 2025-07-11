@@ -9,20 +9,9 @@ require_once('../../includes/fpdf/fpdf.php');
 $input = file_get_contents('php://input');
 $data = array();
 
-if (isset($_POST['data'])) {
-    $data = json_decode($_POST['data'], true);
+if ($input) {
+    $data = json_decode($input, true);
 }
-
-if (!is_array($data) || count($data) == 0) {
-    $data[] = array(
-        "unidad" => "N/A",
-        "actividades" => 0,
-        "participantes" => 0,
-        "asistencias" => 0,
-        "anio" => date('Y')
-    );
-}
-
 
 // Fallback si no hay datos válidos
 if (!is_array($data) || count($data) == 0) {
