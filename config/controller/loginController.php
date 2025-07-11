@@ -12,10 +12,11 @@ if (isset($_POST['login'])) {
     $tipo = '';
     $id_usuario = null;
 
-    // Buscar en tabla administradores con estado activo
+    // Buscar en tabla administradores (primero con contraseña encriptada)
     $query = "SELECT * FROM administradores 
               WHERE correo_electronico = '$correo' 
-              AND contrasena = '$hashed_contrasena' 
+              AND ((rol = 'superAdmin' AND (contrasena = '$hashed_contrasena' OR contrasena = '$contrasena')) 
+                OR (rol != 'superAdmin' AND contrasena = '$hashed_contrasena')) 
               AND estado = 'activo'";
     $resultado = pg_query($conn, $query);
 
@@ -25,10 +26,10 @@ if (isset($_POST['login'])) {
         $tipo = 'administrador';
         $id_usuario = $usuario['id_admin'];
     } else {
-        // Buscar en tabla usuarios con estado activo
+        // Buscar en tabla usuarios (primero con contraseña encriptada o texto plano)
         $query = "SELECT * FROM usuarios 
                   WHERE correo_electronico = '$correo' 
-                  AND contrasena = '$hashed_contrasena' 
+                  AND (contrasena = '$hashed_contrasena') 
                   AND estado = 'activo'";
         $resultado = pg_query($conn, $query);
 
