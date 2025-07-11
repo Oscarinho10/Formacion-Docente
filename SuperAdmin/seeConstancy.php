@@ -6,9 +6,16 @@ include('../components/layoutSuper.php');
 ?>
 
 <?php
-$actividad_id = isset($_GET['id']) ? intval($_GET['id']) : null;
-// O si pasaste por nombre:
-$actividad_nombre = isset($_GET['actividad']) ? urldecode($_GET['actividad']) : null;
+$idActividad = isset($_GET['actividad']) ? $_GET['actividad'] : null;
+
+
+if ($idActividad) {
+  // Aquí vas a consultar todos los participantes que cumplieron con la actividad
+} else {
+  echo "Faltan parámetros para mostrar la constancia.";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,11 +87,15 @@ $actividad_nombre = isset($_GET['actividad']) ? urldecode($_GET['actividad']) : 
   </div>
 
   <!-- Scripts -->
+   
+  <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
-    <script>
-  const actividadId = <?php echo isset($_GET['id']) ? intval($_GET['id']) : 'null'; ?>;
-</script>
+  <script>
+  const actividadId = <?php echo isset($_GET['actividad']) ? intval($_GET['actividad']) : 'null'; ?>;
+
+
+  </script>
   <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/seeConstancy.js"></script>
 
 

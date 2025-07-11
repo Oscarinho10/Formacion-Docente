@@ -56,11 +56,12 @@ while ($row = pg_fetch_assoc($result)) {
     $data[] = array(
       'nombre' => $row['nombre_actividad'],
       'fecha' => $row['fecha_fin'],
-      'tipo' => $tipo
+      'tipo' => $tipo,
+      'id_actividad' => $row['id_actividad'],
+      'id_usuario' => $row['id_usuario']
     );
   }
 }
 
 header('Content-Type: application/json');
 echo json_encode($data);
-?>

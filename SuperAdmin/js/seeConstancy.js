@@ -2,10 +2,8 @@ let estudiantes = [];
 const rowsPerPage = 5;
 let currentPage = 1;
 
-// Cargar los datos reales desde PHP
 document.addEventListener('DOMContentLoaded', () => {
   fetch('./controller/getParticipantsWithConstancyController.php?id=' + actividadId)
-
     .then(res => res.json())
     .then(json => {
       estudiantes = json;
@@ -55,7 +53,17 @@ function renderTabla(filtro = '') {
       <td>${est.nombre}</td>
       <td>${est.correo}</td>
       <td>
-        <button class="btn btn-primary btn-sm" onclick="generarConstancia('${est.correo}')">Generar</button>
+        <button class="btn btn-primary btn-sm" onclick="generarConstancia('${est.correo}')">
+          <i class="fas fa-file-pdf"></i> Generar
+        </button>
+        ${!est.emitida ? `
+          <button class="btn btn-success btn-sm emitir-btn"
+                  data-id="${est.id_usuario}"
+                  data-actividad="${actividadId}">
+            <i class="fas fa-check-circle"></i> Emitir
+          </button>` : `
+          <span class="badge bg-success"><i class="fas fa-check"></i> Emitida</span>
+        `}
       </td>
     `;
     tableBody.appendChild(row);
@@ -64,7 +72,6 @@ function renderTabla(filtro = '') {
   paginationInfo.innerText = `Mostrando ${Math.min(start + 1, filtrados.length)} a ${Math.min(end, filtrados.length)} de ${filtrados.length} registros`;
   renderPagination(filtrados.length);
 
-  // Checkbox seleccionar todos
   const selectAllCheckbox = document.getElementById('selectAll');
   if (selectAllCheckbox) {
     selectAllCheckbox.onclick = function () {
@@ -119,3 +126,52 @@ function renderPagination(totalItems) {
 function generarConstancia(correo) {
   window.open(`./controller/generateConstancy.php?correo=${correo}`, "_blank");
 }
+
+// ✅ Emitir constancia con datos dinámicos
+document.addEventListener('click', function (e) {
+  if (e.target.closest('.emitir-btn')) {
+    const btn = e.target.closest('.emitir-btn');
+    const idUsuario = btn.dataset.id;
+    const idActividad = btn.dataset.actividad;
+
+    console.log("Emitir constancia:", { idUsuario, idActividad }); // DEBUG
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se asignará la constancia permanentemente al participante.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, emitir',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        const params = 'id_usuario=' + encodeURIComponent(idUsuario) + '&id_actividad=' + encodeURIComponent(idActividad);
+
+        fetch('./controller/sendConstancyController.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (res) {
+            if (res.success) {
+              Swal.fire('¡Emitida!', 'La constancia ha sido registrada correctamente.', 'success');
+              btn.innerHTML = '<i class="fas fa-check"></i> Emitida';
+              btn.disabled = true;
+              btn.classList.remove('btn-success');
+              btn.classList.add('btn-secondary');
+            } else {
+              Swal.fire('Error', res.message, 'error');
+            }
+          })
+          .catch(function (err) {
+            Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
+          });
+
+      }
+    });
+  }
+});
