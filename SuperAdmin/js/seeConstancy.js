@@ -48,9 +48,9 @@ function renderTabla(filtro = '') {
 
   if (itemsToShow.length === 0) {
     tableBody.innerHTML = `
-    <tr>
-      <td colspan="4" class="text-muted">No hay participantes que cumplan con los requisitos para obtener constancia.</td>
-    </tr>`;
+      <tr>
+        <td colspan="4" class="text-muted">No hay participantes que cumplan con los requisitos para obtener constancia.</td>
+      </tr>`;
     paginationInfo.innerText = 'Mostrando 0 de 0 registros';
     renderPagination(0);
     return;
@@ -137,3 +137,51 @@ function renderPagination(totalItems) {
 function generarConstancia(idInscripcion) {
   window.open(`./controller/generateConstancy.php?id_inscripcion=${idInscripcion}`, "_blank");
 }
+
+// ✅ Emitir constancia
+document.addEventListener('click', function (e) {
+  if (e.target.closest('.emitir-btn')) {
+    const btn = e.target.closest('.emitir-btn');
+    const idUsuario = btn.dataset.id;
+    const idActividad = btn.dataset.actividad;
+    const tipoConstancia = btn.dataset.tipo;
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se asignará la constancia permanentemente al participante.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, emitir',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const params = 'id_usuario=' + encodeURIComponent(idUsuario) +
+          '&id_actividad=' + encodeURIComponent(idActividad) +
+          '&tipo=' + encodeURIComponent(tipoConstancia);
+
+        fetch('./controller/sendConstancyController.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (res) {
+            if (res.success) {
+              Swal.fire('¡Emitida!', 'La constancia ha sido registrada correctamente.', 'success');
+              btn.innerHTML = '<i class="fas fa-check"></i> Emitida';
+              btn.disabled = true;
+              btn.classList.remove('btn-success');
+              btn.classList.add('btn-secondary');
+            } else {
+              Swal.fire('Error', res.message, 'error');
+            }
+          })
+          .catch(function () {
+            Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
+          });
+      }
+    });
+  }
+});
