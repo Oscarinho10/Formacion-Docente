@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 header('Content-Type: application/json');
 
 $id_usuario = isset($_GET['id_usuario']) ? intval($_GET['id_usuario']) : 0;

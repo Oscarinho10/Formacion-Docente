@@ -1,5 +1,8 @@
 <?php
-include('../../config/conexion.php'); // Ajusta si es necesario
+session_start();
+include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 
 // Encabezado para respuesta JSON
 header('Content-Type: application/json');

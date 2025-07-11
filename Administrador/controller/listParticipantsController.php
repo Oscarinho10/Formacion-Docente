@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 
 // Consulta modificada para incluir los nuevos campos -->
 $query = "SELECT nombre, apellido_paterno, apellido_materno, numero_control_rfc, correo, 

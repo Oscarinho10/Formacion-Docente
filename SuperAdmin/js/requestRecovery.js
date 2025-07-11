@@ -19,18 +19,26 @@ function cargarSolicitudes() {
         return;
       }
 
+      const rolTraducido = {
+        admin: 'Administrador',
+        superAdmin: 'Superadministrador',
+        participante: 'Participante',
+        instructor: 'Instructor'
+      };
+
       data.forEach(usuario => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}</td>
           <td>${usuario.correo_electronico}</td>
+          <td>${rolTraducido[usuario.rol] || usuario.rol}</td>          
           <td>${usuario.fecha_solicitud || 'Desconocida'}</td>
           <td class="text-center">
-            <button class="btn btn-success btn-sm" onclick="restablecer('${usuario.correo_electronico}')">
-              <i class="fas fa-check"></i> Restablecer
+            <button class="btn btn-sm btn-general" onclick="restablecer('${usuario.correo_electronico}')">
+               Restablecer <i class="fas fa-check"></i>
             </button>
-            <button class="btn btn-danger btn-sm" onclick="denegar('${usuario.correo_electronico}')">
-              <i class="fas fa-times"></i> Denegar
+            <button class="btn btn-sm btn-danger btn-denegar" onclick="denegar('${usuario.correo_electronico}')">
+               Denegar <i class="fas fa-times"></i>
             </button>
           </td>
         `;

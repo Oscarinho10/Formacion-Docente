@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 
 $id_actividad = intval($_GET['id_actividad']);
 $fechas = array();

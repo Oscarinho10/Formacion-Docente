@@ -22,23 +22,37 @@ function cargarFechasSolicitud($archivo) {
 
 $fechasSolicitud = cargarFechasSolicitud('../../logs/solicitudes_reestablecimiento.log');
 
-// Consulta usuarios en estado "reestablecimiento"
-$query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, correo_electronico
-          FROM usuarios
-          WHERE estado = 'reestablecimiento'
-          ORDER BY id_usuario DESC";
+$solicitudes = array();
 
-$result = pg_query($conn, $query);
-$usuarios = array();
+// Obtener usuarios con estado "reestablecimiento"
+$queryUsuarios = "SELECT id_usuario AS id, nombre, apellido_paterno, apellido_materno, correo_electronico, rol, 'usuario' AS tipo
+                  FROM usuarios
+                  WHERE estado = 'reestablecimiento'
+                  ORDER BY id_usuario DESC";
 
-if ($result) {
-    while ($row = pg_fetch_assoc($result)) {
+$resultUsuarios = pg_query($conn, $queryUsuarios);
+if ($resultUsuarios) {
+    while ($row = pg_fetch_assoc($resultUsuarios)) {
         $correo = $row['correo_electronico'];
         $row['fecha_solicitud'] = isset($fechasSolicitud[$correo]) ? $fechasSolicitud[$correo] : null;
-        $usuarios[] = $row;
+        $solicitudes[] = $row;
+    }
+}
+
+// Obtener administradores con estado "reestablecimiento"
+$queryAdmins = "SELECT id_admin AS id, nombre, apellido_paterno, apellido_materno, correo_electronico, rol, 'administrador' AS tipo
+                FROM administradores
+                WHERE estado = 'reestablecimiento'
+                ORDER BY id_admin DESC";
+
+$resultAdmins = pg_query($conn, $queryAdmins);
+if ($resultAdmins) {
+    while ($row = pg_fetch_assoc($resultAdmins)) {
+        $correo = $row['correo_electronico'];
+        $row['fecha_solicitud'] = isset($fechasSolicitud[$correo]) ? $fechasSolicitud[$correo] : null;
+        $solicitudes[] = $row;
     }
 }
 
 header('Content-Type: application/json');
-echo json_encode($usuarios);
-?>
+echo json_encode($solicitudes);

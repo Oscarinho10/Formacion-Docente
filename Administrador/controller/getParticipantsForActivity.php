@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 
 $id_actividad = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $participantes = array();

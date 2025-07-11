@@ -43,6 +43,7 @@ include('../components/layoutSuper.php');
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Rol</th>
                         <th>Fecha de solicitud</th>
                         <th>Acciones</th>
                     </tr>

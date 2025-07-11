@@ -65,10 +65,10 @@ function renderTabla() {
             Ver más <i class="fas fa-eye"></i>
           </button>
           <a href="editActivity.php?id=${actividad.id}" class="btn btn-sm btn-general">
-            <i class="fas fa-pen"></i> Editar
+             Editar <i class="fas fa-pen"></i>
           </a>
           <a href="addSessions.php?id=${actividad.id}" class="btn btn-sm btn-general">
-            <i class="fas fa-plus"></i> Agregar sesiones
+             Agregar sesiones <i class="fas fa-plus"></i>
           </a>
         </td>
       </tr>
