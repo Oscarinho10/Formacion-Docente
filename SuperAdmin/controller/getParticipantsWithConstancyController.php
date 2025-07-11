@@ -51,15 +51,14 @@ while ($row = pg_fetch_assoc($result)) {
   $asistencias = (int)$row['asistencias'];
   $porcentaje = $totalSesiones > 0 ? ($asistencias / $totalSesiones) * 100 : 0;
   $entrego = ((int)$row['entrego']) > 0 ? true : false;
-  $tipoEvaluacion = strtolower(trim($row['tipo_evaluacion']));
   $emitida = ((int)$row['emitida']) > 0 ? true : false;
 
   $tipoConstancia = '';
 
   if ($porcentaje >= 80) {
-    if ($tipoEvaluacion == 'actividad' && $entrego) {
+    if ($entrego) {
       $tipoConstancia = 'Acreditado';
-    } else if ($tipoEvaluacion == 'asistencia') {
+    } else {
       $tipoConstancia = 'Por asistir al curso';
     }
   }
@@ -75,6 +74,7 @@ while ($row = pg_fetch_assoc($result)) {
     );
   }
 }
+
 
 header('Content-Type: application/json');
 echo json_encode($data);

@@ -3,13 +3,19 @@ include('../../config/conexion.php');
 
 $idUsuario = isset($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;
 $idActividad = isset($_POST['id_actividad']) ? intval($_POST['id_actividad']) : 0;
+$tipoConstancia = isset($_POST['tipo']) ? pg_escape_string($conn, $_POST['tipo']) : '';
+
+// 🧹 Limpiar si el archivo debug.log es mayor a 500 KB
+if (file_exists('debug.log') && filesize('debug.log') > 500000) {
+  file_put_contents('debug.log', ''); // Limpia contenido
+}
 
 // Debug para PHP 5.2.0
 $fp = fopen("debug.log", "a");
-fwrite($fp, date("Y-m-d H:i:s") . " - id_usuario: $idUsuario | id_actividad: $idActividad\n");
+fwrite($fp, date("Y-m-d H:i:s") . " - id_usuario: $idUsuario | id_actividad: $idActividad | tipo: $tipoConstancia\n");
 fclose($fp);
 
-if ($idUsuario > 0 && $idActividad > 0) {
+if ($idUsuario > 0 && $idActividad > 0 && $tipoConstancia != '') {
     $checkSql = "SELECT 1 FROM constancias WHERE id_usuario = $idUsuario AND id_actividad = $idActividad";
     $checkResult = pg_query($conn, $checkSql);
 
@@ -19,10 +25,9 @@ if ($idUsuario > 0 && $idActividad > 0) {
         $fecha = date('Y-m-d');
         $qrUrl = 'https://docencia.uaem.mx/formacion/PROYECTO/Formacion-Docente/login.php';
 
-        // OJO: Asegúrate de que la columna se llama así
         $insertSql = "
-            INSERT INTO constancias (folio, codigo_verificacion, id_usuario, id_actividad, fecha_emision, qr_url)
-            VALUES ('$folio', '$codigo', $idUsuario, $idActividad, '$fecha', '$qrUrl')
+            INSERT INTO constancias (folio, codigo_verificacion, id_usuario, id_actividad, tipo, fecha_emision, qr_url)
+            VALUES ('$folio', '$codigo', $idUsuario, $idActividad, '$tipoConstancia', '$fecha', '$qrUrl')
         ";
         $insertResult = pg_query($conn, $insertSql);
 
@@ -35,6 +40,6 @@ if ($idUsuario > 0 && $idActividad > 0) {
         echo '{"success":false,"message":"Ya emitida."}';
     }
 } else {
-    echo '{"success":false,"message":"Datos incompletos."}';
+    echo '{"success":false,"message":"Datos incompletos o tipo faltante."}';
 }
 ?>
