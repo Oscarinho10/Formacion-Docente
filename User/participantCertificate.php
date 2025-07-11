@@ -1,4 +1,6 @@
 <?php
+session_start();
+include('../config/conexion.php');
 include_once('../config/verificaRol.php');
 verificarRol('participante'); // Esto asegura el acceso solo a participantes
 
@@ -32,6 +34,9 @@ include('../components/layout.php');
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        var usuarioId = <?php echo isset($_SESSION['id_usuario']) ? intval($_SESSION['id_usuario']) : 0; ?>;
+    </script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/User/js/participantCertificate.js"></script>
 </body>
 
