@@ -32,3 +32,56 @@ function mostrarAlertaLoginError() {
         confirmButtonText: 'Aceptar'
     });
 }
+
+// === Listener para formulario de recuperación de contraseña ===
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formRecuperacion');
+    if (!form) {
+        console.warn('⚠️ No se encontró el formulario de recuperación');
+        return;
+    }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const correo = document.getElementById('correoRecuperacion').value;
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `¿Deseas solicitar recuperación para: ${correo}?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, enviar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33'
+        }).then(result => {
+            if (result.isConfirmed) {
+                const formData = new URLSearchParams();
+                formData.append('correo', correo);
+
+                fetch('./config/controller/recoveryPassword.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData.toString()
+                })
+                    .then(res => res.text())
+                    .then(response => {
+                        if (response.trim() === 'ok') {
+                            Swal.fire('Enviado', 'Tu solicitud ha sido registrada correctamente.', 'success');
+                            form.reset();
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('modalRecuperar'));
+                            if (modal) modal.hide();
+                        } else {
+                            Swal.fire('Error', response, 'error');
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire('Error', 'No se pudo enviar la solicitud.', 'error');
+                    });
+            }
+        });
+    });
+});
+

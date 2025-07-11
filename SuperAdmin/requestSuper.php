@@ -37,7 +37,7 @@ include('../components/layoutSuper.php')
 
             </div>
 
-            <div class="col-md-4 text-end">
+            <div class="col-md-6 text-end">
                 <a class="btn btn-primary" id="addButton" href="requestRecovery.php"><i class="fas fa-plus"></i> Solicitudes de restablecimiento</a>
             </div>
 

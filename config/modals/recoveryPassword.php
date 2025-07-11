@@ -11,7 +11,7 @@
             <label for="correoRecuperacion" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="correoRecuperacion" required>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Solicitar recuperación</button>
+          <button type="submit" class="btn btn-primary w-100" id="enviarCorreo">Solicitar recuperación</button>
         </form>
       </div>
     </div>
