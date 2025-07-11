@@ -1,8 +1,13 @@
 <?php
 session_start();
 
-function verificarRol($rolPermitido) {
-    // Tiempo máximo de inactividad en segundos (10 minutos)
+// Ruta absoluta desde la raíz web (no depende del include)
+$loginUrl = '/formacion/PROYECTO/Formacion-Docente/login.php';
+
+function verificarRol($rolPermitido)
+{
+    global $loginUrl; // Usamos esta variable para evitar problemas de inclusión
+
     $inactividad = 600;
 
     if (isset($_SESSION['ultimo_acceso'])) {
@@ -10,23 +15,20 @@ function verificarRol($rolPermitido) {
         if ($tiempo_inactivo > $inactividad) {
             session_unset();
             session_destroy();
-            header("Location: ../login.php?exp=1");
+            header("Location: $loginUrl?exp=1");
             exit;
         }
     }
 
-    // Actualiza tiempo de último acceso
     $_SESSION['ultimo_acceso'] = time();
 
-    // Verifica que el usuario esté autenticado y tenga el rol adecuado
     if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || $_SESSION['rol'] != $rolPermitido) {
-        header("Location: ../login.php");
+        header("Location: $loginUrl");
         exit;
     }
 
-    // Evitar navegación con botón "Atrás" después de logout
+    // Evitar navegación con botón "Atrás"
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
 }
-?>

@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 header('Content-Type: application/json');
 
 ini_set('display_errors', 0);

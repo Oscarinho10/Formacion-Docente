@@ -1,5 +1,8 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 
 $query = "SELECT a.id_actividad, a.nombre, a.descripcion, a.dirigido_a, a.modalidad, a.lugar, 
                     a.clasificacion, a.cupo, a.total_horas, a.estado, a.descripcion_horarios, a.fecha_inicio,
@@ -36,3 +39,4 @@ while ($row = pg_fetch_assoc($result)) {
 
 header('Content-Type: application/json');
 echo json_encode($actividades);
+?>

@@ -88,7 +88,7 @@ function renderTable() {
                 <td>${item.numero_control_rfc}</td>
                 <td>${item.correo}</td>
                 <td>${item.perfil_academico}</td>
-                <td>
+                <td class="text-center acciones">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
                         data-apellido-paterno="${item.apellido_paterno}"

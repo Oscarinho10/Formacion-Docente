@@ -41,7 +41,7 @@ function renderTable() {
       </td>
       <td>${item.tipo_evaluacion}
       <td>
-        <a href="listActivity.php?id=${item.id}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Ver lista</a>
+        <a href="listActivity.php?id=${item.id}" class="btn btn-primary btn-sm"> Ver lista <i class="fas fa-eye"></i> </a>
         <a href="participantsList.php?id=${item.id}" class="btn btn-sm btn-general">Participantes</a>
       </td>
     </tr>

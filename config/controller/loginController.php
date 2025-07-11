@@ -64,6 +64,9 @@ if (isset($_POST['login'])) {
             case 'instructor':
                 header("Location: Instructor/instructorCertificate.php");
                 break;
+            case 'coordinador':
+                header("Location: Coordinador/reports.php");
+                break;
             default:
                 header("Location: inicio.php");
         }

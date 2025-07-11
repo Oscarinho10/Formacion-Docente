@@ -76,7 +76,7 @@ function renderTable() {
                         Ver más <i class="fas fa-eye"></i>
                     </button>
                     <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php?id=${item.id_usuario}'">
-                        <i class="fas fa-pen"></i> Editar
+                        Editar <i class="fas fa-pen"></i> 
                     </button>
                 </td>
             </tr>

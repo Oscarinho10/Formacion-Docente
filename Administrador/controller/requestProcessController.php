@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('admin');
 include_once('../../config/auditor.php');
 header('Content-Type: application/json');
 
