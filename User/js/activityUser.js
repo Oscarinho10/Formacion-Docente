@@ -62,8 +62,7 @@ function renderTable() {
             data-lugar="${item.lugar}"
             data-clasificacion="${item.clasificacion}"
             data-cupo="${item.cupo}"
-            data-horas="${item.total_horas}"
-            data-estado="${item.estado}"
+            data-horas="${item.total_horas}"    
             data-horarios="${item.descripcion_horarios}"
             data-bs-toggle="modal"
             data-bs-target="#modalActividad">
@@ -92,7 +91,6 @@ function setupVerMasListeners() {
             document.getElementById('modalClasificacion').innerText = this.dataset.clasificacion;
             document.getElementById('modalCupo').innerText = this.dataset.cupo;
             document.getElementById('modalHoras').innerText = this.dataset.horas;
-            document.getElementById('modalEstado').innerText = this.dataset.estado;
             document.getElementById('modalHorarios').innerText = this.dataset.horarios;
         });
     });

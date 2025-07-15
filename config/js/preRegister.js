@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     Swal.fire({
-      title: "¿Deseas registrar este participante?",
+      title: "¿Deseas registrarte?",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Sí, registrar",
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.success) {
               Swal.fire({
                 title: "¡Registro exitoso!",
-                text: data.message || "El participante fue registrado correctamente.",
+                text: data.message || "Registro realizado correctamente.",
                 icon: "success",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#28a745"

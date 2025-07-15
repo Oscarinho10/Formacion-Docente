@@ -17,7 +17,6 @@
         <p><strong>Clasificación:</strong> <span id="modalClasificacion"></span></p>
         <p><strong>Cupo:</strong> <span id="modalCupo"></span></p>
         <p><strong>Total de horas:</strong> <span id="modalHoras"></span></p>
-        <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
         <p><strong>Horario:</strong> <span id="modalHorarios"></span></p>
       </div>
 
