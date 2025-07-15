@@ -23,20 +23,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderTablePage(dataSet, page) {
     tbody.innerHTML = "";
+
+    if (dataSet.length === 0) {
+      tbody.innerHTML = `
+      <tr>
+        <td colspan="4" class="text-center text-muted">
+          <i class="fas fa-exclamation-circle"></i> No hay constancias para mostrar.
+        </td>
+      </tr>
+    `;
+      pagination.innerHTML = '';
+      paginationInfo.innerText = 'Mostrando 0 de 0 registros';
+      return;
+    }
+
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const paginatedItems = dataSet.slice(start, end);
 
     tbody.innerHTML = paginatedItems.map(item => `
-      <tr>
-        <td>${item.nombre}</td>
-        <td>${item.fecha}</td>
-        <td>${item.tipo}</td>
-        <td class="text-center">
-         <a href="seeConstancy.php?id=${item.id_actividad}" class="btn btn-sm btn-general"> Ver constancias <i class="fas fa-eye"></i></a>
-        </td>
-      </tr>
-    `).join('');
+    <tr>
+      <td>${item.nombre}</td>
+      <td>${item.fecha}</td>
+      <td>${item.tipo}</td>
+      <td class="text-center">
+        <a href="seeConstancy.php?id=${item.id_actividad}" class="btn btn-sm btn-general">
+          Ver constancias <i class="fas fa-eye"></i>
+        </a>
+      </td>
+    </tr>
+  `).join('');
 
     paginationInfo.innerText = `Mostrando ${Math.min(start + 1, dataSet.length)} a ${Math.min(end, dataSet.length)} de ${dataSet.length} registros`;
   }

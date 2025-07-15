@@ -31,6 +31,20 @@ function renderTable() {
   const visibleData = filtered.slice(start, end);
 
   const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = ''; // Limpiar contenido anterior
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+    <tr>
+      <td colspan="5" class="text-center text-muted">
+        <i class="fas fa-exclamation-circle"></i> No hay actividades para mostrar.
+      </td>
+    </tr>
+  `;
+    document.getElementById('pagination').innerHTML = '';
+    document.getElementById('paginationInfo').textContent = 'Mostrando 0 de 0 registros';
+    return;
+  }
   tbody.innerHTML = visibleData.map(item => `
     <tr>
       <td>${item.nombre}</td>
@@ -50,7 +64,7 @@ function renderTable() {
   // Paginación
   const totalPages = Math.ceil(filtered.length / rowsPerPage);
   const pagination = document.getElementById('pagination');
-  document.getElementById('paginationInfo').textContent = 
+  document.getElementById('paginationInfo').textContent =
     `Mostrando ${filtered.length === 0 ? 0 : (start + 1)}-${Math.min(end, filtered.length)} de ${filtered.length} registros`;
 
   pagination.innerHTML = '';

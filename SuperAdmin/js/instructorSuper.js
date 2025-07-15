@@ -53,6 +53,18 @@ function renderTable() {
     $('#paginationInfo').text(`Mostrando ${start + 1}-${end} de ${filtered.length} registros`);
     $('#tableBody').html('');
 
+    if (filtered.length === 0) {
+        $('#tableBody').html(`
+        <tr>
+            <td colspan="4" class="text-center text-muted">
+                 <i class="fas fa-exclamation-circle"> </i> No hay instructores para mostrar.
+            </td>
+        </tr>
+    `);
+        $('#pagination').html('');
+        $('#paginationInfo').text('Mostrando 0 de 0 registros');
+        return;
+    }
     visibleData.forEach(item => {
         $('#tableBody').append(`
             <tr>

@@ -11,7 +11,7 @@ function cargarSolicitudes() {
         $('#recoveryTableBody').html(`
           <tr>
             <td colspan="5" class="text-center text-muted py-3">
-              No hay solicitudes para reestablecer contraseña por el momento.
+            <i class="fas fa-exclamation-circle"> </i>   No hay solicitudes para reestablecer contraseña por el momento.
             </td>
           </tr>
         `);

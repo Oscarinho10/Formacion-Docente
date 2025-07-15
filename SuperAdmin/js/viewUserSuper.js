@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tableBody.innerHTML = "";
 
         if (paginated.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">No se encontraron resultados</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center"> <i class="fas fa-exclamation-circle"> </i> No se encontraron resultados</td></tr>`;
         } else {
             paginated.forEach((participante, idx) => {
                 const realIndex = datos.indexOf(participante);

@@ -26,7 +26,7 @@ function renderTabla() {
   if (itemsToShow.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="4" class="text-center text-muted">No hay actividades registradas.</td>
+        <td colspan="4" class="text-center text-muted"> <i class="fas fa-exclamation-circle"> </i> No hay actividades registradas.</td>
       </tr>
     `;
     paginationInfo.innerText = `0 registros encontrados.`;

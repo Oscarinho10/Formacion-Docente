@@ -18,10 +18,17 @@ function renderTabla(lista) {
   const tbody = document.getElementById("tbodyReporte");
   tbody.innerHTML = "";
 
-  if (lista.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9" class="text-center">No se encontraron resultados</td></tr>`;
-    return;
-  }
+ if (lista.length === 0) {
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="9" class="text-center text-muted">
+        <i class="fas fa-exclamation-circle"></i> No se encontraron resultados.
+      </td>
+    </tr>
+  `;
+  return;
+}
+
 
   lista.forEach(row => {
     tbody.innerHTML += `
