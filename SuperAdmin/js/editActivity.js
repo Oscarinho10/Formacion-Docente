@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ✅ Mostrar mensaje si se actualizó correctamente (?edit=ok)
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has("edit")) {
+  if (urlParams.get("edit") === "ok") {
     Swal.fire({
       icon: "success",
-      title: "Actividad actualizada correctamente",
+      title: "¡Actualización exitosa!",
+      text: "La actividad fue actualizada correctamente.",
       confirmButtonText: "Aceptar",
       confirmButtonColor: "#28a745"
     }).then(() => {
@@ -68,9 +69,43 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        setTimeout(() => {
-          form.submit();
-        }, 800);
+        const formData = new FormData(form);
+
+        fetch("controller/editActivityController.php", {
+          method: "POST",
+          body: formData
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              Swal.fire({
+                title: "¡Actualización exitosa!",
+                text: "La actividad fue actualizada correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#28a745"
+              }).then(() => {
+                const id = document.getElementById('id').value;
+                window.location.href = `trainingActivity.php?id=${id}&edit=ok`;
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error al actualizar",
+                text: data.error || "Ocurrió un problema inesperado.",
+                confirmButtonColor: "#dc3545"
+              });
+            }
+          })
+          .catch((err) => {
+            console.error("Error:", err);
+            Swal.fire({
+              icon: "error",
+              title: "Error de red",
+              text: "No se pudo conectar con el servidor.",
+              confirmButtonColor: "#dc3545"
+            });
+          });
       }
     });
   });

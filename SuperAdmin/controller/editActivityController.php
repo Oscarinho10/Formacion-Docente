@@ -1,10 +1,12 @@
 <?php
 include('../../config/conexion.php');
 
+header('Content-Type: application/json'); // ✅ respuesta esperada por fetch()
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = intval($_POST['id']);
     $nombre = pg_escape_string($_POST['nombre']);
-        $tipo_evaluacion = pg_escape_string($_POST['tipo_evaluacion']);
+    $tipo_evaluacion = pg_escape_string($_POST['tipo_evaluacion']);
     $descripcion = pg_escape_string($_POST['descripcion']);
     $dirigido_a = pg_escape_string($_POST['dirigido_a']);
     $modalidad = pg_escape_string($_POST['modalidad']);
@@ -17,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $actualizaciones = array();
     $actualizaciones[] = "nombre = '$nombre'";
-        $actualizaciones[] = "tipo_evaluacion = '$tipo_evaluacion'";
+    $actualizaciones[] = "tipo_evaluacion = '$tipo_evaluacion'";
     $actualizaciones[] = "descripcion = '$descripcion'";
     $actualizaciones[] = "dirigido_a = '$dirigido_a'";
     $actualizaciones[] = "modalidad = '$modalidad'";
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $actualizaciones[] = "fecha_inicio = '$fecha_inicio'";
     $actualizaciones[] = "fecha_fin = '$fecha_fin'";
 
-    // Procesar archivo PDF
+    // PDF
     if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
         $pdfName = basename($_FILES['temario_pdf']['name']);
         $pdfDir = "../../../uploads/temarios/";
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Procesar imagen
+    // Imagen
     if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
         $imgName = basename($_FILES['url_imagen']['name']);
         $imgDir = "../../../uploads/imagenes/";
@@ -60,16 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $setQuery = implode(", ", $actualizaciones);
     $updateQuery = "UPDATE actividades_formativas SET $setQuery WHERE id_actividad = $id";
-
     $result = pg_query($conn, $updateQuery);
 
     if ($result) {
-        header("Location: ../trainingActivity.php?edit=ok");
-        exit;
+        echo '{"success":true}';
     } else {
-        echo "Error al actualizar la actividad.";
+        echo '{"success":false, "error":"Error al actualizar la actividad."}';
     }
+
+    exit;
 } else {
-    echo "Acceso no permitido.";
+    echo '{"success":false, "error":"Acceso no permitido."}';
+    exit;
 }
 ?>

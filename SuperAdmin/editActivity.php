@@ -39,7 +39,8 @@ if (!$actividad) {
                 <h4 class="text-center mb-3">Editar actividad formativa</h4>
 
                 <form action="../SuperAdmin/controller/editActivityController.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?php echo $actividad['id_actividad']; ?>">
+                    <input type="hidden" name="id" id="id" value="<?php echo $actividad['id_actividad']; ?>">
+
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="nombre">Nombre de la actividad:</label>
@@ -109,6 +110,8 @@ if (!$actividad) {
                         <div class="col-md-4 mb-3">
                             <label for="fecha_fin">Fecha de fin:</label>
                             <input type="date" id="fecha_fin" name="fecha_fin" style="width: 100%; padding: 8px;" value="<?php echo $actividad['fecha_fin']; ?>" required>
+                          
+
                         </div>
 
                         <div class="col-md-4 mb-3">
