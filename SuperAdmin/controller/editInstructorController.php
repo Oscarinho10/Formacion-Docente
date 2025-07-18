@@ -4,13 +4,16 @@ include('../../config/conexion.php');
 
 // ✅ EDITAR (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Importante: evitar uso de json_encode (no disponible en PHP 5.2.0)
+    header('Content-Type: application/json');
+
     $id = $_POST['id_usuario'];
     $nombre = $_POST['nombre'];
     $apellido_paterno = $_POST['apellido_paterno'];
     $apellido_materno = $_POST['apellido_materno'];
     $sexo = $_POST['sexo'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $numero_control_rfc = $_POST['numero_control']; // ⚠️ nombre correcto de la columna
+    $numero_control_rfc = $_POST['numero_control'];
     $correo = $_POST['correo'];
     $perfil = $_POST['perfil_academico'];
     $unidad = $_POST['unidad_academica'];
@@ -38,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = pg_query_params($conn, $query, $params);
 
     if ($result) {
-        header("Location: ../instructorSuper.php?editado=ok");
-        exit;
+        echo '{"success":true}';
     } else {
-        header("Location: ../instructorSuper.php?editado=error");
-        exit;
+        echo '{"success":false,"error":"No se pudo actualizar el instructor."}';
     }
+
+    exit;
 }
 
 // ✅ PRECARGAR DATOS (GET)
@@ -56,10 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
     if ($res && pg_num_rows($res) > 0) {
         $row = pg_fetch_assoc($res);
-        echo json_encode($row);
+
+        // Convertir el array manualmente a JSON (porque no hay json_encode)
+        $output = '{';
+        foreach ($row as $key => $value) {
+            $output .= '"' . addslashes($key) . '":"' . addslashes($value) . '",';
+        }
+        $output = rtrim($output, ',') . '}';
+        echo $output;
     } else {
-        echo json_encode(array("error" => "Instructor no encontrado"));
+        echo '{"error":"Instructor no encontrado"}';
     }
+
     exit;
 }
 

@@ -27,7 +27,7 @@ include('../components/layoutSuper.php');
     <div class="card shadow-sm w-100" style="max-width: 800px;">
       <div class="card-body">
         <h4 class="text-center mb-3">
-          Formulario de registro de participantes<br>
+          Formulario de edición de participantes<br>
           <strong><?php echo htmlspecialchars($nombre_curso); ?></strong>
         </h4>
 

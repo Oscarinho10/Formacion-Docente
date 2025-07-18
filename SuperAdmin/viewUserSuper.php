@@ -24,7 +24,7 @@ include('../components/layoutSuper.php')
 <body class="bg-light">
 
     <div class="container mt-4">
-        <h4 class="mb-3">Participantes activos </h4>
+        <h4 class="mb-3">Lista de participantes</h4>
         <!-- Filtros y Botón Agregar -->
         <div class="row mb-3">
             <div class="col-md-6">

@@ -29,7 +29,7 @@ include('../components/layoutSuper.php');
   <div class="container d-flex justify-content-center mt-5">
     <div class="card shadow-sm w-100" style="max-width: 800px;">
       <div class="card-body">
-        <h4 class="text-center mb-4">Registrar Participante</h4>
+        <h4 class="text-center mb-4">Registrar instructor</h4>
 
         <form id="formParticipante" action="controller/addInstructorController.php" method="post">
           <input type="hidden" name="id_usuario" id="id_usuario">

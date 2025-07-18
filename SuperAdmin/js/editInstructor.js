@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector('form');
-
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
@@ -9,10 +8,24 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Función para hacer coincidencia flexible (insensible a mayúsculas, espacios, acentos)
+  // ✅ Mostrar SweetAlert si la edición fue exitosa
+  if (urlParams.get('editado') === 'ok') {
+    Swal.fire({
+      title: '¡Actualización exitosa!',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#28a745'
+    }).then(() => {
+      // Limpiar la URL sin recargar
+      const cleanUrl = window.location.origin + window.location.pathname + '?id=' + id;
+      window.history.replaceState({}, document.title, cleanUrl);
+    });
+  }
+
+  // Función para hacer coincidencia flexible
   function normalizar(texto) {
     return texto
-      .normalize("NFD") // elimina acentos
+      .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .trim()
       .toLowerCase();
@@ -35,14 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch(`controller/editInstructorController.php?id=${id}`)
     .then(res => res.json())
     .then(data => {
-      console.log("Datos cargados:", data);
-
       if (data.error) {
         Swal.fire("Error", data.error, "error");
         return;
       }
 
-      // Carga simple
       document.getElementById('id_usuario').value = data.id_usuario;
       document.getElementById('nombre').value = data.nombre;
       document.getElementById('apellido_paterno').value = data.apellido_paterno;
@@ -52,17 +62,14 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('numero_control').value = data.numero_control_rfc;
       document.getElementById('correo').value = data.correo_electronico;
 
-      // Selección flexible para los select
       seleccionarOptionPorTextoNormalizado(
         document.getElementById('perfil_academico'),
         data.perfil_academico
       );
-
       seleccionarOptionPorTextoNormalizado(
         document.getElementById('unidad_academica'),
         data.unidad_academica
       );
-
       seleccionarOptionPorTextoNormalizado(
         document.getElementById('grado_academico'),
         data.grado_academico
@@ -73,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire("Error", "No se pudieron cargar los datos del instructor.", "error");
     });
 
-  // Confirmación al editar
+  // Confirmación al editar con fetch
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -97,9 +104,31 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        setTimeout(() => {
-          form.submit(); // Enviar formulario al backend
-        }, 1500);
+        const formData = new FormData(form);
+
+        fetch('controller/editInstructorController.php', {
+          method: 'POST',
+          body: formData
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              Swal.fire({
+                title: '¡Actualización exitosa!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#28a745'
+              }).then(() => {
+                window.location.href = `instructorSuper.php?id=${id}&editado=ok`;
+              });
+            } else {
+              Swal.fire("Error", data.error || "No se pudo guardar.", "error");
+            }
+          })
+          .catch(err => {
+            console.error("Error al enviar datos:", err);
+            Swal.fire("Error", "Ocurrió un problema al guardar los datos.", "error");
+          });
       }
     });
   });
