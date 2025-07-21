@@ -46,6 +46,7 @@ include('../components/layoutSuper.php') ?>
                         <th>Nombre</th>
                         <th>Perfil Académico</th>
                         <th>Unidad Académica</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

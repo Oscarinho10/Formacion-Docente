@@ -10,18 +10,13 @@ function cargarInstructores() {
             if (!Array.isArray(json)) {
                 throw new Error(json.error || 'Respuesta inesperada del servidor');
             }
-
             data = json;
             currentPage = 1;
             renderTable();
         })
         .catch(err => {
             console.error("Error al cargar instructores:", err);
-            if (typeof Swal !== 'undefined') {
-                Swal.fire('Error', 'No se pudo obtener la lista de instructores.', 'error');
-            } else {
-                alert('No se pudo obtener la lista de instructores.');
-            }
+            Swal.fire('Error', 'No se pudo obtener la lista de instructores.', 'error');
         });
 }
 
@@ -56,7 +51,7 @@ function renderTable() {
     if (filtered.length === 0) {
         $('#tableBody').html(`
         <tr>
-            <td colspan="4" class="text-center text-muted">
+            <td colspan="5" class="text-center text-muted">
                  <i class="fas fa-exclamation-circle"> </i> No hay instructores para mostrar.
             </td>
         </tr>
@@ -65,12 +60,21 @@ function renderTable() {
         $('#paginationInfo').text('Mostrando 0 de 0 registros');
         return;
     }
+
     visibleData.forEach(item => {
         $('#tableBody').append(`
             <tr>
                 <td>${item.nombre}</td>
                 <td>${item.perfil_academico}</td>
                 <td>${item.unidad_academica}</td>
+                <td class="text-center">
+    <label class="switch">
+        <input type="checkbox" ${item.estado === 'activo' ? 'checked' : ''} 
+               onchange="toggleEstado(${item.id_usuario}, this.checked)">
+        <span class="slider"></span>
+    </label>
+</td>
+
                 <td class="text-center acciones">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
@@ -95,10 +99,8 @@ function renderTable() {
         `);
     });
 
-    // Eventos para "Ver más"
     setTimeout(() => {
-        const botones = document.querySelectorAll('.verMasBtn');
-        botones.forEach(btn => {
+        document.querySelectorAll('.verMasBtn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const nombreCompleto = `${this.dataset.nombre} ${this.dataset.apellido_paterno} ${this.dataset.apellido_materno}`;
                 const fechaNacimiento = this.dataset.fecha;
@@ -117,28 +119,18 @@ function renderTable() {
         });
     }, 0);
 
-    // Paginación
     $('#pagination').html('');
     if (totalPages > 1) {
-        $('#pagination').append(`
-            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" id="prevPage">&laquo;</a>
-            </li>
-        `);
+        $('#pagination').append(`<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" id="prevPage">&laquo;</a></li>`);
 
         for (let i = 1; i <= totalPages; i++) {
-            $('#pagination').append(`
-                <li class="page-item ${i === currentPage ? 'active' : ''}">
-                    <a class="page-link" href="#">${i}</a>
-                </li>
-            `);
+            $('#pagination').append(`<li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#">${i}</a></li>`);
         }
 
-        $('#pagination').append(`
-            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" id="nextPage">&raquo;</a>
-            </li>
-        `);
+        $('#pagination').append(`<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" id="nextPage">&raquo;</a></li>`);
     }
 
     $('#pagination a').not('#prevPage, #nextPage').click(function (e) {
@@ -164,9 +156,48 @@ function renderTable() {
     });
 }
 
+function toggleEstado(id, isActive) {
+    const nuevoEstado = isActive ? 'activo' : 'inactivo';
+    const accion = isActive ? 'activar' : 'desactivar';
+
+    Swal.fire({
+        title: `¿Estás seguro que deseas ${accion} este instructor?`,
+        text: `El instructor será marcado como "${nuevoEstado}".`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, confirmar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('controller/instructorSuperController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id=${id}&estado=${nuevoEstado}`
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        Swal.fire('Actualizado', `El estado fue cambiado a "${nuevoEstado}".`, 'success');
+                        cargarInstructores();
+                    } else {
+                        Swal.fire('Error', json.error || 'No se pudo actualizar el estado.', 'error');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    Swal.fire('Error', 'Ocurrió un error al actualizar el estado.', 'error');
+                });
+        } else {
+            cargarInstructores(); // revierte el checkbox
+        }
+    });
+}
+
 $(document).ready(function () {
     cargarInstructores();
-
     $('#searchInput').on('input', function () {
         currentPage = 1;
         renderTable();
