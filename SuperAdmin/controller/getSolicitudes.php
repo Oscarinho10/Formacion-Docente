@@ -2,23 +2,50 @@
 include('../../config/conexion.php');
 
 // Función para cargar fechas de archivo .log
-function cargarFechasSolicitud($archivo) {
+function cargarFechasSolicitud($archivo)
+{
     $fechas = array();
 
-    if (file_exists($archivo)) {
-        $lineas = file($archivo);
-        foreach ($lineas as $linea) {
-            $partes = explode('|', $linea);
-            if (count($partes) == 2) {
-                $fecha = trim($partes[0]);
-                $correo = trim($partes[1]);
-                $fechas[$correo] = $fecha;
-            }
+    if (!file_exists($archivo)) {
+        return $fechas;
+    }
+
+    $lineas = file($archivo);
+    foreach ($lineas as $linea) {
+        // Separar por |
+        $partes = explode('|', $linea);
+        if (count($partes) < 2) continue;
+
+        // Limpiar correo (quitar paréntesis y espacios)
+        $correo_raw = trim($partes[1]);
+        $correo_limpio = strtolower(preg_replace('/\s*\(.*?\)\s*/', '', $correo_raw));
+
+        // Validación básica del correo (sin filter_var)
+        if (!preg_match('/^[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}$/', $correo_limpio)) {
+            continue;
+        }
+
+        // Limpiar y extraer la fecha
+        $cruda = trim($partes[0]);
+        $cruda = str_replace('a las', '', $cruda);
+        $cruda = preg_replace('/[^0-9:\-\s]/', '', $cruda); // quitar texto no deseado
+
+        // Validar formato YYYY-MM-DD HH:MM:SS
+        if (preg_match('/^\d{4}-\d{2}-\d{2}[\s]+\d{2}:\d{2}:\d{2}$/', $cruda)) {
+            $fecha_valida = $cruda;
+        } else {
+            $fecha_valida = null;
+        }
+
+        // Si la fecha es válida, la guardamos
+        if ($fecha_valida) {
+            $fechas[$correo_limpio] = $fecha_valida;
         }
     }
 
     return $fechas;
 }
+
 
 $fechasSolicitud = cargarFechasSolicitud('../../logs/solicitudes_reestablecimiento.log');
 

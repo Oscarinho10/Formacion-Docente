@@ -34,10 +34,10 @@ function cargarSolicitudes() {
           <td>${rolTraducido[usuario.rol] || usuario.rol}</td>          
           <td>${usuario.fecha_solicitud || 'Desconocida'}</td>
           <td class="text-center">
-            <button class="btn btn-sm btn-general" onclick="restablecer('${usuario.correo_electronico}')">
+            <button class="btn btn-sm btn-general" onclick="confirmarRestablecer('${usuario.correo_electronico}')">
                Restablecer <i class="fas fa-check"></i>
             </button>
-            <button class="btn btn-sm btn-danger btn-denegar" onclick="denegar('${usuario.correo_electronico}')">
+            <button class="btn btn-sm btn-danger btn-denegar" onclick="confirmarDenegar('${usuario.correo_electronico}')">
                Denegar <i class="fas fa-times"></i>
             </button>
           </td>
@@ -50,7 +50,38 @@ function cargarSolicitudes() {
     });
 }
 
+// Confirmaciones con Swal
+function confirmarRestablecer(correo) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "Se restablecerá la contraseña del usuario.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, restablecer',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      restablecer(correo);
+    }
+  });
+}
 
+function confirmarDenegar(correo) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "Se denegará la solicitud de restablecimiento.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, denegar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      denegar(correo);
+    }
+  });
+}
+
+// Funciones originales
 function restablecer(correo) {
   fetch('../SuperAdmin/controller/recoveryPassword.php', {
     method: 'POST',
@@ -65,7 +96,7 @@ function denegar(correo) {
   fetch('../SuperAdmin/controller/dennyPassword.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `correo=${correo}`
+    body: `correo_electronico=${encodeURIComponent(correo)}`
   }).then(res => res.text()).then(msg => {
     Swal.fire('Resultado', msg, 'info').then(() => location.reload());
   });
