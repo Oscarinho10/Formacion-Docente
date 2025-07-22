@@ -63,40 +63,45 @@ function renderTable() {
 
     visibleData.forEach(item => {
         $('#tableBody').append(`
-            <tr>
-                <td>${item.nombre}</td>
-                <td>${item.perfil_academico}</td>
-                <td>${item.unidad_academica}</td>
-                <td class="text-center">
-    <label class="switch">
-        <input type="checkbox" ${item.estado === 'activo' ? 'checked' : ''} 
-               onchange="toggleEstado(${item.id_usuario}, this.checked)">
-        <span class="slider"></span>
-    </label>
-</td>
+    <tr>
+        <td>${item.nombre}</td>
+        <td>${item.perfil_academico}</td>
+        <td>${item.unidad_academica}</td>
+        <td class="text-center">
+            <label class="switch">
+                <input type="checkbox" ${item.estado === 'activo' ? 'checked' : ''} 
+                    onchange="toggleEstado(${item.id_usuario}, this.checked)">
+                <span class="slider"></span>
+            </label>
+        </td>
+        <td class="text-center acciones">
+            <button class="btn btn-secondary btn-sm verMasBtn"
+                data-nombre="${item.nombre}"
+                data-apellido_paterno="${item.apellido_paterno}"
+                data-apellido_materno="${item.apellido_materno}"
+                data-perfil="${item.perfil_academico}"
+                data-unidad="${item.unidad_academica}"
+                data-correo="${item.correo_electronico}"
+                data-sexo="${item.sexo}"
+                data-grado="${item.grado_academico}"
+                data-fecha="${item.fecha_nacimiento}"
+                data-fecha-registro="${item.fecha_registro}"
+                data-bs-toggle="modal"
+                data-bs-target="#modalInstructor">
+                Ver más <i class="fas fa-eye"></i>
+            </button>
 
-                <td class="text-center acciones">
-                    <button class="btn btn-secondary btn-sm verMasBtn"
-                        data-nombre="${item.nombre}"
-                        data-apellido_paterno="${item.apellido_paterno}"
-                        data-apellido_materno="${item.apellido_materno}"
-                        data-perfil="${item.perfil_academico}"
-                        data-unidad="${item.unidad_academica}"
-                        data-correo="${item.correo_electronico}"
-                        data-sexo="${item.sexo}"
-                        data-grado="${item.grado_academico}"
-                        data-fecha="${item.fecha_nacimiento}"
-                        data-fecha-registro="${item.fecha_registro}"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalInstructor">
-                        Ver más <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php?id=${item.id_usuario}'">
-                        Editar <i class="fas fa-pen"></i> 
-                    </button>
-                </td>
-            </tr>
-        `);
+            <button class="btn btn-sm btn-general" onclick="window.location.href='editInstructor.php?id=${item.id_usuario}'">
+                Editar <i class="fas fa-pen"></i> 
+            </button>
+
+            <button class="btn btn-sm btn-outline-primary" onclick="window.location.href='instructorConstancy.php?id=${item.id_usuario}'">
+                Constancias <i class="fas fa-certificate"></i>
+            </button>
+        </td>
+    </tr>
+`);
+
     });
 
     setTimeout(() => {
