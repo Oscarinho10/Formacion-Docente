@@ -65,9 +65,11 @@ function renderTable() {
         $('#tableBody').append(`
     <tr>
         <td>${item.nombre}</td>
+        <td>${item.numero_control_rfc}</td>
         <td>${item.perfil_academico}</td>
         <td>${item.unidad_academica}</td>
-        <td class="text-center">
+        
+        <td>
             <label class="switch">
                 <input type="checkbox" ${item.estado === 'activo' ? 'checked' : ''} 
                     onchange="toggleEstado(${item.id_usuario}, this.checked)">
@@ -95,8 +97,8 @@ function renderTable() {
                 Editar <i class="fas fa-pen"></i> 
             </button>
 
-            <button class="btn btn-sm btn-outline-primary" onclick="window.location.href='instructorConstancy.php?id=${item.id_usuario}'">
-                Constancias <i class="fas fa-certificate"></i>
+            <button  class="btn btn-sm btn-general" onclick="window.location.href='instructorConstancy.php?id=${item.id_usuario}'">
+                Reconocimientos <i class="fas fa-eye"></i>
             </button>
         </td>
     </tr>

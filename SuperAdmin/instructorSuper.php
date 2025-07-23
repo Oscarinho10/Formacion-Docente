@@ -44,6 +44,7 @@ include('../components/layoutSuper.php') ?>
                 <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
+                        <th>Número de Control</th>
                         <th>Perfil Académico</th>
                         <th>Unidad Académica</th>
                         <th>Estado</th>
