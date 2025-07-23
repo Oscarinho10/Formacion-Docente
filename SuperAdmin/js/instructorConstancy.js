@@ -73,18 +73,34 @@ function mostrarMensajeVacio() {
 }
 
 function emitirConstancia(idActividad, idUsuario) {
-    fetch('controller/generateConstancyInstructorController.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id_actividad=${idActividad}&id_usuario=${idUsuario}`
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire('Éxito', 'Constancia emitida correctamente.', 'success')
-                    .then(() => location.reload());
-            } else {
-                Swal.fire('Error', data.message || 'Error al emitir constancia.', 'error');
-            }
-        });
+    Swal.fire({
+        title: '¿Emitir constancia?',
+        text: "Una vez emitida, no se podrá modificar.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, emitir',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('controller/generateConstancyInstructorController.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id_actividad=${idActividad}&id_usuario=${idUsuario}`
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Éxito', 'Constancia emitida correctamente.', 'success')
+                            .then(() => location.reload());
+                    } else {
+                        Swal.fire('Error', data.message || 'Error al emitir constancia.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al emitir constancia:', error);
+                    Swal.fire('Error', 'Ocurrió un error al emitir la constancia.', 'error');
+                });
+        }
+    });
 }
