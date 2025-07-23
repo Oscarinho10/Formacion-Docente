@@ -25,10 +25,11 @@ SELECT
   ) AS asistidos
 FROM actividades_formativas af
 LEFT JOIN sesiones_actividad sa ON af.id_actividad = sa.id_actividad
-LEFT JOIN usuarios u ON sa.id_usuario = u.id_usuario
+LEFT JOIN usuarios u ON sa.id_usuario = u.id_usuario::text
 GROUP BY af.id_actividad, af.nombre, u.nombre, u.apellido_paterno, u.apellido_materno, af.total_horas, af.modalidad, af.fecha_inicio, af.tipo_evaluacion
 ORDER BY af.fecha_inicio DESC;
 ";
+
 
 $result = pg_query($conn, $query);
 $json = '[';
