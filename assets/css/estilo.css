@@ -7,6 +7,8 @@ body {
     font-family: 'Raleway', sans-serif;
     background-color: #d3d3d329;
     margin-bottom: 190px;
+    overflow-x: hidden;
+
 }
 
 .titulo {
@@ -442,6 +444,7 @@ body {
 }
 
 /* Contenedor de tarjetas (2 columnas en desktop, 1 en móvil) */
+.card-container1,
 .card-container2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -449,24 +452,17 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
-    transform: translateX(30px); /* Mueve 40px a la derecha */
+    /* ✅ Eliminamos el transform que causa el desbordamiento */
+    transform: none;
+    box-sizing: border-box;
+    justify-content: center; /* ✅ Centrado en grid (solo necesario si columnas son auto o menos de 100%) */
 }
 
-
-/* Contenedor de tarjetas (3 columnas en desktop, 1 en móvil) */
-.card-container1 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 3 columnas en desktop */
-    gap: 20px;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    transform: translateX(30px); /* Mueve 40px a la derecha */
-}
 
 /* Estilos base de las tarjetas (se mantienen igual) */
 .card2 {
+    width: 100%; /* Asegura que ocupe su celda completa */
+    max-width: 350px; /* Opcional: para que no se estire demasiado */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -478,6 +474,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; /* Centra dentro de su celda si es necesario */
 }
 
 
@@ -513,9 +510,11 @@ body {
     .card-container1,
     .card-container2 {
         grid-template-columns: 1fr;
-        /* 1 columna en móvil */
+        padding: 10px;
+        /* más compacto */
     }
 }
+
 
 .btn-primary {
     background-color: #001660 !important;
@@ -651,6 +650,28 @@ input:checked+.slider:before {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* número de líneas a mostrar */
+    -webkit-line-clamp: 3;
+    /* número de líneas a mostrar */
     -webkit-box-orient: vertical;
 }
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  .btn-responsive-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .btn-responsive-container .btn {
+    min-width: 100px;
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+  }
+}
+

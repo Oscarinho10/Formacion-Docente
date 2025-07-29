@@ -39,6 +39,7 @@ $resultado_sesiones = pg_query($conn, $query);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Registrar sesiones</title>
@@ -52,6 +53,7 @@ $resultado_sesiones = pg_query($conn, $query);
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
 </head>
+
 <body>
     <div class="container my-4">
         <div class="card shadow-sm mx-auto" style="max-width: 800px;">
@@ -84,9 +86,9 @@ $resultado_sesiones = pg_query($conn, $query);
                     <div class="mb-3">
                         <label for="fecha">Fecha de la sesión:</label>
                         <input type="date" id="fecha" name="fecha"
-                               style="width: 100%; padding: 11px;" required
-                               min="<?php echo $fecha_inicio; ?>"
-                               max="<?php echo $fecha_fin; ?>">
+                            style="width: 100%; padding: 11px;" required
+                            min="<?php echo $fecha_inicio; ?>"
+                            max="<?php echo $fecha_fin; ?>">
                     </div>
 
                     <!-- Hora inicio -->
@@ -102,9 +104,9 @@ $resultado_sesiones = pg_query($conn, $query);
                     </div>
 
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end mt-3">
+                    <div class="d-flex justify-content-end mt-3 btn-responsive-container">
                         <a href="../Administrador/listActivitys.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Finalizar</a>
-                        <button type="submit" class="btn btn-sm btn-general col-2 me-2">Guardar</button>
+                        <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Guardar</button>
                     </div>
                 </form>
 
@@ -150,5 +152,11 @@ $resultado_sesiones = pg_query($conn, $query);
             </div>
         </div>
     </div>
+    <!-- Scripts necesarios -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/addSessions.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

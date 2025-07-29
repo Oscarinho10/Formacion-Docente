@@ -72,24 +72,31 @@
     </div>
 
     <!-- HEADER -->
-    <div class="container-fluid pt-3 pb-3 titulo">
-        <div class="row">
-            <div class="col-3 p-0 text-center align-self-center">
-                <img src="<?php echo BASE_URL; ?>/assets/img/SIGEM.png" class="logo2" alt="SIGEM-FD logo">
+    <div class="container-fluid py-2 titulo">
+        <div class="row align-items-center">
 
+            <!-- Logo UAEM - solo en md en adelante -->
+            <div class="col-3 text-center d-none d-md-block">
+                <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" class="img-fluid" alt="UAEM logo" style="max-height: 130px;">
             </div>
-            <div class="col-9 col-md-6 p-0 text-white text-center align-self-center d-none d-md-block">
-                <h4 class="font-weight-bold">Universidad Autónoma del Estado de Morelos</h4>
-                <h4>Departamento de Evaluación y Profesionalización de la Docencia</h4>
+
+            <!-- Texto en md y arriba -->
+            <div class="col-md-6 text-center text-white d-none d-md-block">
+                <h5 class="mb-1 font-weight-bold">Universidad Autónoma del Estado de Morelos</h5>
+                <h6 class="mb-0">Departamento de Evaluación y Profesionalización de la Docencia</h6>
             </div>
-            <div class="col-9 p-0 text-white text-center align-self-center d-md-none">
-                <h5 class="font-weight-bold">Universidad Autónoma del Estado de Morelos</h5>
-                <h6>Secretaría Académica</h6>
-                <h6>Dirección General de Educación Superior</h6>
+
+            <!-- Texto reducido en celulares -->
+            <div class="col-9 text-center text-white d-md-none">
+                <h6 class="mb-0 font-weight-bold">UAEM</h6>
+                <small>DEPD - Secretaría Académica</small>
             </div>
-            <div class="col-3 p-0 text-center align-self-center d-none d-md-block">
-                <img src="<?php echo BASE_URL; ?>/assets/img/logo_blanco2.png" class="img-fluid" alt="UAEM logo">
+
+            <!-- Logo SIGEM, siempre visible -->
+            <div class="col-3 text-center d-none d-md-block">
+                <img src="<?php echo BASE_URL; ?>/assets/img/SIGEM.png" class="img-fluid" alt="SIGEM logo" style="max-height: 130px;">
             </div>
+
         </div>
     </div>
 

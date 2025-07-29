@@ -5,6 +5,32 @@ include_once('../../config/verificaRol.php');
 verificarRol('admin');
 include_once('../../config/auditor.php');
 
+// ✅ PRECARGAR DATOS (GET)
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    header('Content-Type: application/json');
+
+    $id = $_GET['id'];
+    $query = "SELECT * FROM usuarios WHERE id_usuario = $1 AND rol = 'instructor'";
+    $res = pg_query_params($conn, $query, array($id));
+
+    if ($res && pg_num_rows($res) > 0) {
+        $row = pg_fetch_assoc($res);
+
+        // Convertir el array manualmente a JSON
+        $output = '{';
+        foreach ($row as $key => $value) {
+            $output .= '"' . addslashes($key) . '":"' . addslashes($value) . '",';
+        }
+        $output = rtrim($output, ',') . '}';
+        echo $output;
+    } else {
+        echo '{"error":"Instructor no encontrado"}';
+    }
+
+    exit;
+}
+
+// ✅ ACTUALIZACIÓN (POST)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = intval($_POST['id_usuario']);
 
@@ -36,18 +62,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $result = pg_query($conn, $query);
 
+    header('Content-Type: application/json');
+
     if ($result) {
         // Auditoría
         $movimiento = "Editó los datos del instructor \"$nombre $apellido_paterno $apellido_materno\" (ID $id_usuario)";
         $modulo = "Instructores";
         registrarAuditoria($conn, $movimiento, $modulo);
 
-        header("Location: ../listInstructors.php?edit=ok");
-        exit;
+        echo '{"success":true}';
     } else {
-        echo "Error al actualizar los datos del instructor.";
+        echo '{"error":"Error al actualizar los datos del instructor"}';
     }
-} else {
-    echo "Acceso no permitido.";
+
+    exit;
 }
-?>
+
+// ❌ Si no es GET ni POST válido
+header('Content-Type: application/json');
+echo '{"error":"Acceso no permitido"}';
+exit;

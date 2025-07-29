@@ -9,6 +9,7 @@
       <div class="modal-body">
         <p><strong>Nombre completo:</strong> <span id="modalNombre"></span></p>
         <p><strong>Correo electrónico:</strong> <span id="modalCorreo"></span></p>
+        <p><strong>No. Control / RFC:</strong> <span id="modalNumero"></span></p>
         <p><strong>Edad:</strong> <span id="modalEdad"></span></p>
         <p><strong>Sexo:</strong> <span id="modalSexo"></span></p>
         <p><strong>Unidad académica:</strong> <span id="modalUnidad"></span></p>

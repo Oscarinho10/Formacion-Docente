@@ -48,7 +48,7 @@ include('../components/layoutAdmin.php');
                 <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
-                        <th>Número de Control</th>
+                        <th>No. Control / RFC</th>
                         <th>Correo Electrónico</th>
                         <th>Perfil Académico</th>
                         <th>Acciones</th>

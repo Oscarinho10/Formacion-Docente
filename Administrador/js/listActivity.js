@@ -61,7 +61,7 @@ function renderTable() {
     return `
       <tr>
         <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
-        <td><strong>${item.control}</strong></td>
+        <td>${item.control}</strong></td>
         <td>${item.correo}</td>
         <td class="text-center">
           <button class="btn btn-secondary btn-sm verMasBtn"

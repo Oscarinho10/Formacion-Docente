@@ -36,7 +36,7 @@ include('../components/layoutAdmin.php');
                     <div class="row">
                         <!-- Nombre -->
                         <div class="col-md-4 mb-3">
-                            <label for="nombre">Nombre</label>
+                            <label for="nombre">Nombre:</label>
                             <input type="text" name="nombre" id="nombre" style="width: 100%; padding: 8px;" required>
                         </div>
 
@@ -66,7 +66,7 @@ include('../components/layoutAdmin.php');
                                 <option value="">Seleccione</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
-                                <option value="Otro">Prefiero no decirlo</option>
+                                <option value="No Especificado">Prefiero no decirlo</option>
                             </select>
                         </div>
 
@@ -84,7 +84,7 @@ include('../components/layoutAdmin.php');
 
                         <!-- Grado Académico -->
                         <div class="col-md-4 mb-3">
-                            <label for="grado_academico">Grado Académico</label>
+                            <label for="grado_academico">Grado Académico:</label>
                             <select style="width: 100%; padding: 11px;" id="grado_academico" name="grado_academico" required>
                                 <option value="">Seleccione</option>
                                 <option value="Licenciatura">Licenciatura</option>
@@ -96,7 +96,7 @@ include('../components/layoutAdmin.php');
 
                         <!-- Perfil Académico -->
                         <div class="col-md-4 mb-3">
-                            <label for="perfil_academico">Perfil Académico</label>
+                            <label for="perfil_academico">Perfil Académico:</label>
                             <select style="width: 100%; padding: 11px;" id="perfil_academico" name="perfil_academico" required>
                                 <option value="">Seleccione</option>
                                 <option value="N/A">No aplica</option>
@@ -113,7 +113,7 @@ include('../components/layoutAdmin.php');
 
                     <!-- Unidad Académica -->
                     <div class="col-md-12 mb-3">
-                        <label for="unidad_academica" class="form-label">Unidad Académica</label>
+                        <label for="unidad_academica" class="form-label">Unidad Académica:</label>
                         <select style="width: 100%; padding: 11px;" id="unidad_academica" name="unidad_academica" required>
                             <option value="">Seleccione</option>
                             <option value="N/A">No aplica</option>
@@ -162,9 +162,9 @@ include('../components/layoutAdmin.php');
                     </div>
 
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end col-12 mb-10 mt-3">
+                    <div class="d-flex justify-content-end col-12 mb-10 mt-3 btn-responsive-container">
                         <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
-                        <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
+                        <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
                     </div>
 
                 </form>

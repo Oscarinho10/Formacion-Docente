@@ -43,8 +43,8 @@ include('../components/layoutAdmin.php');
                             <label for="tipo_evaluacion">Tipo de evaluación:</label><br />
                             <select id="tipo_evaluacion" name="tipo_evaluacion" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
-                                <option value="asistencias">Con asistencias</option>
-                                <option value="actividad">Con entrega de actividades</option>
+                                <option value="Asistencias">Con asistencias</option>
+                                <option value="Actividad">Con entrega de actividades</option>
                             </select>
                         </div>
 
@@ -53,8 +53,8 @@ include('../components/layoutAdmin.php');
                             <label for="clasificacion">Clasificación:</label><br />
                             <select id="clasificacion" name="clasificacion" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
-                                <option value="didáctico-pedagógico">Didáctico-pedagógico</option>
-                                <option value="disciplinar">Disciplinar</option>
+                                <option value="Didáctico-pedagógico">Didáctico-pedagógico</option>
+                                <option value="Disciplinar">Disciplinar</option>
                             </select>
                         </div>
 
@@ -81,9 +81,9 @@ include('../components/layoutAdmin.php');
                             <label for="modalidad">Modalidad:</label><br />
                             <select id="modalidad" name="modalidad" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
-                                <option value="linea">En línea</option>
-                                <option value="presencial">Presencial</option>
-                                <option value="hibrido">Híbrido</option>
+                                <option value="Linea">En línea</option>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Híbrido">Híbrido</option>
                             </select>
                         </div>
 
@@ -122,9 +122,9 @@ include('../components/layoutAdmin.php');
                     </div>
 
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end mt-3">
+                    <div class="d-flex justify-content-end mt-3 btn-responsive-container">
                         <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listActivitys.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
-                        <button type="submit" class="btn btn-sm btn-general col-2">Registrar</button>
+                        <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
                     </div>
                 </form>
 
@@ -133,6 +133,12 @@ include('../components/layoutAdmin.php');
         </div>
 
     </div>
+
+    <!-- Scripts necesarios -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>/Administrador/js/addActivity.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -21,18 +21,23 @@
 /* Botón hamburguesa flotante */
 #nav-toggle {
     position: fixed;
-    height: 8vh;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
-    font-size: 30px;
+    font-size: 24px;
     z-index: 1100;
-    /* Asegúrate de que este valor sea mayor que el z-index de otros elementos */
     cursor: pointer;
     background: #001660;
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 8px 10px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+
 
 /* Asegúrate de que el icono sea visible */
 #nav-toggle i {
@@ -167,5 +172,22 @@
 
     .titulo .d-none {
         display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #nav-toggle {
+        top: 10px;
+        left: 10px;
+        padding: 6px 8px;
+        font-size: 22px;
+    }
+
+    .titulo {
+        min-height: 80px;
+    }
+
+    .titulo .row {
+        flex-direction: column;
     }
 }

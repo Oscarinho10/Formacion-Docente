@@ -66,7 +66,7 @@ include('../components/layoutAdmin.php');
                                 <option value="">Seleccione</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
-                                <option value="NoEspecificado">Prefiero no decirlo</option>
+                                <option value="No Especificado">Prefiero no decirlo</option>
                             </select>
                         </div>
 
@@ -162,9 +162,9 @@ include('../components/layoutAdmin.php');
                     </div>
 
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="<?php echo BASE_URL; ?>/Administrador/listParticipants.php" class="btn btn-danger me-2">Cancelar</a>
-                        <button type="submit" class="btn btn-general btn-sm">Registrar</button>
+                    <div class="d-flex justify-content-end col-12 mb-10 mt-3 btn-responsive-container">
+                        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listParticipants.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
                     </div>
 
                 </form>

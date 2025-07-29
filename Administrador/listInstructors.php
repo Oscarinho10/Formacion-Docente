@@ -13,8 +13,10 @@ include('../components/layoutAdmin.php');
 <head>
     <meta charset="UTF-8">
     <title>Tabla de Docentes</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
@@ -46,10 +48,11 @@ include('../components/layoutAdmin.php');
             <table class="table table-bordered" id="professorsTable">
                 <thead class="table-light">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Perfil Académico</th>
-                        <th>Unidad Académica</th>
-                        <th>Acciones</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Perfil Académico</th>
+                        <th class="text-center">Unidad Académica</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-center" >Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">

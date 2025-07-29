@@ -44,7 +44,8 @@ function renderTable() {
         item.apellido_paterno.toLowerCase().includes(search) ||
         item.apellido_materno.toLowerCase().includes(search) ||
         item.perfil_academico.toLowerCase().includes(search) ||
-        item.unidad_academica.toLowerCase().includes(search)
+        item.unidad_academica.toLowerCase().includes(search) ||
+        item.estado.toLowerCase().includes(search)
     );
 
     const totalPages = Math.ceil(filtered.length / rowsPerPage);
@@ -74,12 +75,14 @@ function renderTable() {
                 <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
                 <td>${item.perfil_academico}</td>
                 <td>${item.unidad_academica}</td>
+                <td>${item.estado}</td>
                 <td class="text-center acciones">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
                         data-apellido_paterno="${item.apellido_paterno}"
                         data-apellido_materno="${item.apellido_materno}"
                         data-perfil="${item.perfil_academico}"
+                        data-numero="${item.numero_control_rfc}"
                         data-unidad="${item.unidad_academica}"
                         data-correo="${item.correo_electronico}"
                         data-sexo="${item.sexo}"    
@@ -108,6 +111,7 @@ function renderTable() {
                 const edad = calcularEdad(fechaNacimiento);
 
                 $('#modalNombre').text(nombreCompleto);
+                $('#modalNumero').text(this.dataset.numero);
                 $('#modalPerfil').text(this.dataset.perfil);
                 $('#modalUnidad').text(this.dataset.unidad);
                 $('#modalCorreo').text(this.dataset.correo);

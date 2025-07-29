@@ -44,7 +44,7 @@ include('../components/layoutAdmin.php');
         <thead class="table-light">
           <tr>
             <th>Nombre participante</th>
-            <th>No. Control</th>
+            <th>No. Control / RFC</th>
             <th>Correo Electrónico</th>
             <th class="text-center">Acciones</th>
           </tr>

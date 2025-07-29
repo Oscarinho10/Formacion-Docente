@@ -11,7 +11,7 @@ header('Content-Type: application/json');
 error_reporting(0);
 
 // Consulta instructores activos
-$query = "SELECT * FROM usuarios WHERE rol = 'instructor' AND estado = 'activo'";
+$query = "SELECT * FROM usuarios WHERE rol = 'instructor'";
 $result = pg_query($conn, $query);
 
 if (!$result) {
