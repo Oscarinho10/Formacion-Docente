@@ -13,6 +13,7 @@
     -webkit-overflow-scrolling: touch;
     width: 100%;
     max-width: 100%;
+    white-space: nowrap;
 }
 
 .table {
@@ -91,14 +92,64 @@
 
 #tablaReporte th,
 #tablaReporte td {
-  word-break: normal;
-  white-space: normal;
-  min-width: 120px;
-  max-width: 250px;
-  padding: 0.75rem;
-  vertical-align: middle;
+    word-break: normal;
+    white-space: normal;
+    min-width: 120px;
+    max-width: 250px;
+    padding: 0.75rem;
+    vertical-align: middle;
 }
 
 #tablaReporte {
-  min-width: 1000px; /* fuerza scroll horizontal en pantallas pequeñas */
+    min-width: 1000px;
+    /* fuerza scroll horizontal en pantallas pequeñas */
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-responsive table {
+    min-width: 650px; /* Puedes ajustarlo si tu tabla tiene más columnas */
+  }
+
+  .table td,
+  .table th {
+    font-size: 13px;
+    padding: 10px 6px;
+    vertical-align: middle;
+  }
+
+  .acciones {
+    flex-direction: column;
+    gap: 5px;
+    align-items: stretch;
+  }
+
+  .acciones > button {
+    font-size: 13px;
+    padding: 6px 10px;
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.table-pagination-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-pagination-wrapper ul.pagination {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .btn-compact {
+    padding: 6px 14px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
 }

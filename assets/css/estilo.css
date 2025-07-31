@@ -675,3 +675,7 @@ input:checked+.slider:before {
   }
 }
 
+th,
+td {
+  white-space: nowrap;
+}

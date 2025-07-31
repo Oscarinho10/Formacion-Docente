@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('admin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutAdmin.php'); 
+include('../components/layoutAdmin.php');
 ?>
 
 <!DOCTYPE html>
@@ -77,10 +77,14 @@ include('../components/layoutAdmin.php');
       </div>
 
       <!-- Paginación -->
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <div id="paginationInfo"></div>
-        <ul class="pagination" id="pagination"></ul>
-        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+        <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+        <div class="table-pagination-wrapper w-100 w-md-auto">
+          <ul class="pagination mb-0" id="pagination"></ul>
+        </div>
+
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-dark btn-compact">
           <i class="fas fa-arrow-left"></i> Regresar
         </button>
       </div>

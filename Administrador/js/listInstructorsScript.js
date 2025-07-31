@@ -44,8 +44,7 @@ function renderTable() {
         item.apellido_paterno.toLowerCase().includes(search) ||
         item.apellido_materno.toLowerCase().includes(search) ||
         item.perfil_academico.toLowerCase().includes(search) ||
-        item.unidad_academica.toLowerCase().includes(search) ||
-        item.estado.toLowerCase().includes(search)
+        item.unidad_academica.toLowerCase().includes(search)
     );
 
     const totalPages = Math.ceil(filtered.length / rowsPerPage);
@@ -75,7 +74,6 @@ function renderTable() {
                 <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
                 <td>${item.perfil_academico}</td>
                 <td>${item.unidad_academica}</td>
-                <td>${item.estado}</td>
                 <td class="text-center acciones">
                     <button class="btn btn-secondary btn-sm verMasBtn"
                         data-nombre="${item.nombre}"
@@ -89,6 +87,7 @@ function renderTable() {
                         data-grado="${item.grado_academico}"
                         data-fecha="${item.fecha_nacimiento}"
                         data-registro="${item.fecha_registro}"
+                        data-estado="${item.estado}"
                         data-bs-toggle="modal"
                         data-bs-target="#modalInstructor">
                         <i class="fas fa-eye"></i> Ver más
@@ -120,6 +119,7 @@ function renderTable() {
                 $('#modalEdad').text(edad + " años");
                 $('#modalFecha').text(fechaNacimiento);
                 $('#modalRegistro').text(this.dataset.registro);
+                $('#modalEstado').text(this.dataset.estado);
             });
         });
     }, 0);

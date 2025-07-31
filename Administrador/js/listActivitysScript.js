@@ -48,7 +48,7 @@ function renderTabla() {
           </label>
         </td>
         <td class="text-center">${actividad.inscritos}/${actividad.cupo}</td>
-        <td class="text-center">
+        <td class="text-center acciones">
           <button class="btn btn-secondary btn-sm verMasBtn"
             data-nombre="${actividad.nombre}"
             data-tipo_evaluacion="${actividad.tipo_evaluacion}"
@@ -65,12 +65,12 @@ function renderTabla() {
             data-bs-target="#modalActividad">
             <i class="fas fa-eye"></i> Ver más
           </button>
-          <a href="editActivity.php?id=${actividad.id}" class="btn btn-sm btn-general">
+          <button onclick="window.location.href='editActivity.php?id=${actividad.id}'" class="btn btn-sm btn-general me-2">
             <i class="fas fa-pen"></i> Editar
-          </a>
-          <a href="addSessions.php?id=${actividad.id}" class="btn btn-sm btn-general">
+          </button>
+          <button onclick="window.location.href='addSessions.php?id=${actividad.id}'" class="btn btn-sm btn-general">
             <i class="fas fa-plus"></i> Agregar sesiones
-          </a>
+          </button>
         </td>
       </tr>
     `;
