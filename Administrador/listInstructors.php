@@ -52,7 +52,7 @@ include('../components/layoutAdmin.php');
                         <th class="text-center">Perfil Académico</th>
                         <th class="text-center">Unidad Académica</th>
                         <th class="text-center">Estado</th>
-                        <th class="text-center" >Acciones</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
