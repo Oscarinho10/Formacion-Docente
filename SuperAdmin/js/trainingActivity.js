@@ -158,7 +158,8 @@ function addToggleListeners() {
         confirmButtonText: `Sí, cambiar a "${nuevoEstado}"`,
         cancelButtonText: 'Cancelar',
         confirmButtonColor: '#2D882D',
-        cancelButtonColor: '#d33'
+        cancelButtonColor: '#E74B3E',
+        reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
           // Cambiar localmente

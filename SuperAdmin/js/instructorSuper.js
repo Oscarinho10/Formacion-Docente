@@ -174,6 +174,8 @@ function toggleEstado(id, isActive) {
         showCancelButton: true,
         confirmButtonText: 'Sí, confirmar',
         cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#E74B3E',
+        confirmButtonColor: '#36C837',
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {

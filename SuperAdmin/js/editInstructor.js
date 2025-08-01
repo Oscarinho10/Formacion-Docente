@@ -90,8 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
       showCancelButton: true,
       confirmButtonText: 'Sí, guardar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#28a745',
-      cancelButtonColor: '#6c757d'
+        cancelButtonColor: '#E74B3E',
+        confirmButtonColor: '#36C837',
+        reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({

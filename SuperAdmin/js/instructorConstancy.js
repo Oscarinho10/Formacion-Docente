@@ -80,6 +80,8 @@ function emitirConstancia(idActividad, idUsuario) {
         showCancelButton: true,
         confirmButtonText: 'Sí, emitir',
         cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#E74B3E',
+        confirmButtonColor: '#36C837',
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
