@@ -66,7 +66,7 @@ include('../components/layoutSuper.php')
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <a href="./manageAdmin.php" class="btn btn-danger mr-2">Cancelar</a>
+                        <a href="./manageAdmin.php" class="btn btn-danger me-2">Cancelar</a>
                         <button type="submit" class="btn btn-general btn-sm btn-registar">Guardar</button>
                     </div>
                 </form>

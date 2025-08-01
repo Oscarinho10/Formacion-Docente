@@ -114,7 +114,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Sí, cambiar',
-                    cancelButtonText: 'Cancelar'
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: "#28a745",
+                    cancelButtonColor: "#E74B3E",
+                    reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
                         fetch('controller/updateStateAdmin.php', {

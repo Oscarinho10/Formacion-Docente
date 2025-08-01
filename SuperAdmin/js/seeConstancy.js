@@ -152,7 +152,10 @@ document.addEventListener('click', function (e) {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, emitir',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: "#28a745",
+      cancelButtonColor: "#E74B3E",
+      reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
         const params = 'id_usuario=' + encodeURIComponent(idUsuario) +

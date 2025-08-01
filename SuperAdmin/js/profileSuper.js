@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // Obtener datos del perfil al cargar
     $.ajax({
         url: 'controller/profileSuperController.php',
         type: 'GET',
@@ -27,38 +28,61 @@ $(document).ready(function () {
         }
     });
 
+    // Al enviar el formulario
     $('#userForm').on('submit', function (e) {
         e.preventDefault();
 
-        const nuevaContrasena = $('#nueva_contrasena').val();
+        const nombre = $('#nombre').val().trim();
+        const apellido_paterno = $('#apellido_paterno').val().trim();
+        const apellido_materno = $('#apellido_materno').val().trim();
+        const nuevaContrasena = $('#nueva_contrasena').val().trim();
 
-        const data = {
-            nombre: $('#nombre').val(),
-            apellido_paterno: $('#apellido_paterno').val(),
-            apellido_materno: $('#apellido_materno').val()
-        };
-
-        // Solo incluir contraseña si el campo fue llenado
-        if (nuevaContrasena.trim() !== '') {
-            data.nueva_contrasena = nuevaContrasena;
+        // Validación mínima
+        if (nombre === '' || apellido_paterno === '' || apellido_materno === '') {
+            Swal.fire('Campos incompletos', 'Por favor, completa todos los campos obligatorios.', 'warning');
+            return;
         }
 
-        $.ajax({
-            url: 'controller/profileSuperController.php',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                Swal.fire('Actualización', response, 'success');
-                $('#nueva_contrasena').val(''); // Limpiar campo por seguridad
-            },
-            error: function () {
-                Swal.fire('Error', 'Error al actualizar el perfil.', 'error');
+        // Confirmación antes de actualizar
+        Swal.fire({
+            title: '¿Deseas guardar los cambios?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#E74B3E",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = {
+                    nombre: nombre,
+                    apellido_paterno: apellido_paterno,
+                    apellido_materno: apellido_materno
+                };
+
+                if (nuevaContrasena !== '') {
+                    data.nueva_contrasena = nuevaContrasena;
+                }
+
+                $.ajax({
+                    url: 'controller/profileSuperController.php',
+                    type: 'POST',
+                    data: data,
+                    success: function (response) {
+                        Swal.fire('Actualización exitosa', response, 'success');
+                        $('#nueva_contrasena').val('');
+                    },
+                    error: function (xhr) {
+                        Swal.fire('Error', xhr.responseText || 'Error al actualizar el perfil.', 'error');
+                    }
+                });
             }
         });
     });
-
 });
 
+// Mostrar u ocultar contraseña
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('nueva_contrasena');
     const toggle = document.getElementById('togglePassword');
@@ -67,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggle.addEventListener('click', function () {
             const isPassword = input.type === 'password';
             input.type = isPassword ? 'text' : 'password';
-
-            // Cambia icono (de ojo cerrado a abierto y viceversa)
             this.classList.toggle('fa-eye-slash');
             this.classList.toggle('fa-eye');
         });

@@ -193,7 +193,10 @@ $(document).ready(function () {
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Sí, guardar',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#E74B3E",
+            reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
               const asistencias = [];
@@ -260,7 +263,10 @@ $(document).ready(function () {
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí, guardar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: "#28a745",
+      cancelButtonColor: "#E74B3E",
+      reverseButtons: true
     }).then(result => {
       if (result.isConfirmed) {
         const payload = {
