@@ -6,7 +6,29 @@ document.addEventListener("DOMContentLoaded", function () {
     if (id && form) {
         form.action = "controller/editParticipantController.php";
         document.getElementById("id_usuario").value = id;
-        document.querySelector("button[type='submit']").textContent = "Actualizar";
+        const submitButton = document.querySelector("button[type='submit']");
+        submitButton.textContent = "Actualizar";
+
+        // Confirmación al enviar
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Evita envío automático
+
+            Swal.fire({
+                title: '¿Confirmar cambios?',
+                text: '¿Deseas actualizar la información del participante?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sí, actualizar',
+                cancelButtonColor: '#E74B3E',
+                confirmButtonColor: '#36C837',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Solo se envía si confirma
+                }
+            });
+        });
 
         fetch(`controller/editParticipantController.php?id=${id}`)
             .then(res => res.json())
@@ -16,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                // Mapeos si vienen descripciones en lugar de valores exactos
                 const perfilMap = {
                     "PROFESOR TIEMPO PARCIAL": "PTP",
                     "PROFESOR INVESTIGADOR DE TIEMPO PARCIAL": "PITP",
@@ -35,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Otro": "Otro"
                 };
 
-                // Rellenar campos
                 document.getElementById("nombre").value = data.nombre;
                 document.getElementById("apellido_paterno").value = data.apellido_paterno;
                 document.getElementById("apellido_materno").value = data.apellido_materno;
@@ -44,19 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("numero_control").value = data.numero_control_rfc;
                 document.getElementById("correo_electronico").value = data.correo_electronico;
 
-                // Ajuste para selects con posibles diferencias de formato
-                // Invertir el mapa para hacer lookup por descripción
                 const perfilMapReverse = Object.entries(perfilMap).reduce((acc, [key, val]) => {
                     acc[key.toLowerCase()] = val;
                     return acc;
                 }, {});
-
                 const perfilValue = perfilMapReverse[data.perfil_academico.toLowerCase()] || data.perfil_academico;
                 document.getElementById("perfil_academico").value = perfilValue;
 
                 const gradoValue = gradoMap[data.grado_academico] || data.grado_academico;
+                document.getElementById("grado_academico").value = gradoValue;
 
-                document.getElementById("perfil_academico").value = perfilValue;
                 const unidadSelect = document.getElementById("unidad_academica");
                 for (let i = 0; i < unidadSelect.options.length; i++) {
                     if (unidadSelect.options[i].text.trim().toLowerCase() === data.unidad_academica.trim().toLowerCase()) {
@@ -64,9 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         break;
                     }
                 }
-
-                document.getElementById("grado_academico").value = gradoValue;
-
             })
             .catch(error => {
                 console.error("Error al cargar participante:", error);

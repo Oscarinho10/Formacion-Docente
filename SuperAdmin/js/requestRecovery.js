@@ -58,7 +58,10 @@ function confirmarRestablecer(correo) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Sí, restablecer',
-    cancelButtonText: 'Cancelar'
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#28a745',
+    cancelButtonColor: '#dc3545',
+    reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
       restablecer(correo);
@@ -73,7 +76,10 @@ function confirmarDenegar(correo) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Sí, denegar',
-    cancelButtonText: 'Cancelar'
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#6c757d',
+    reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
       denegar(correo);

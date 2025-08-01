@@ -205,7 +205,8 @@ $(document).ready(function () {
             confirmButtonText: 'Aceptar',
             cancelButtonText: 'Cancelar',
             confirmButtonColor: '#28a745',
-            cancelButtonColor: '#6c757d',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
@@ -255,6 +256,7 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar',
             confirmButtonColor: '#dc3545',
             cancelButtonColor: '#6c757d',
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
