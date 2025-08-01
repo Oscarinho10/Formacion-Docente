@@ -4,6 +4,8 @@ include('../../config/conexion.php');
 include_once('../../config/verificaRol.php');
 verificarRol('admin');
 
+header('Content-Type: application/json');
+
 include_once('../../config/auditor.php');
 
 // Recolectar datos del formulario (compatible con PHP 5.2)
@@ -68,9 +70,9 @@ if ($result) {
     $movimiento = "Registró al instructor: $nombre $apellido_paterno $apellido_materno";
     registrarAuditoria($conn, $movimiento, 'Instructores');
 
-    header('Location: ../listInstructors.php');
+    echo json_encode(array("success" => true));
     exit;
 } else {
-    echo "Error al registrar instructor: " . pg_last_error($conn);
+    echo json_encode(array("success" => false, "error" => "Error al registrar instructor: " . pg_last_error($conn)));
+    exit;
 }
-?>
