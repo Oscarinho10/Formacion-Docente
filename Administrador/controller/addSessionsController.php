@@ -105,6 +105,7 @@ $update = "UPDATE actividades_formativas
            WHERE id_actividad = $id_actividad";
 pg_query($conn, $update);
 
+
 // Auditar movimiento
 $nombre_actividad = '';
 $resNombre = pg_query($conn, "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad");
