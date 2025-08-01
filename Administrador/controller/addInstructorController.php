@@ -46,20 +46,21 @@ $query = "INSERT INTO usuarios (
     correo_electronico, numero_control_rfc, unidad_academica, grado_academico,
     perfil_academico, contrasena, estado, rol
 ) VALUES (
-    '" . pg_escape_string($nombre) . "',
-    '" . pg_escape_string($apellido_paterno) . "',
-    '" . pg_escape_string($apellido_materno) . "',
-    '" . pg_escape_string($fecha_nacimiento) . "',
-    '" . pg_escape_string($sexo) . "',
-    '" . pg_escape_string($correo) . "',
-    '" . pg_escape_string($numero_control) . "',
-    '" . pg_escape_string($unidad_academica) . "',
-    '" . pg_escape_string($grado_academico) . "',
-    '" . pg_escape_string($perfil_academico) . "',
-    '" . pg_escape_string($contrasena) . "',
-    '" . pg_escape_string($estado) . "',
-    '" . pg_escape_string($rol) . "'
+    '" . pg_escape_string($conn, $nombre) . "',
+    '" . pg_escape_string($conn, $apellido_paterno) . "',
+    '" . pg_escape_string($conn, $apellido_materno) . "',
+    '" . pg_escape_string($conn, $fecha_nacimiento) . "',
+    '" . pg_escape_string($conn, $sexo) . "',
+    '" . pg_escape_string($conn, $correo) . "',
+    '" . pg_escape_string($conn, $numero_control) . "',
+    '" . pg_escape_string($conn, $unidad_academica) . "',
+    '" . pg_escape_string($conn, $grado_academico) . "',
+    '" . pg_escape_string($conn, $perfil_academico) . "',
+    '" . pg_escape_string($conn, $contrasena) . "',
+    '" . pg_escape_string($conn, $estado) . "',
+    '" . pg_escape_string($conn, $rol) . "'
 )";
+
 $result = pg_query($conn, $query);
 
 if ($result) {
