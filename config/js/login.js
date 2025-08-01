@@ -50,10 +50,11 @@ document.addEventListener('DOMContentLoaded', function () {
             text: `¿Deseas solicitar recuperación para: ${correo}?`,
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Sí, enviar',
             cancelButtonText: 'Cancelar',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33'
+            confirmButtonText: 'Sí, enviar',
+            cancelButtonColor: '#E74B3E',
+            confirmButtonColor: '#36C837',
+            reverseButtons: true
         }).then(result => {
             if (result.isConfirmed) {
                 const formData = new URLSearchParams();
