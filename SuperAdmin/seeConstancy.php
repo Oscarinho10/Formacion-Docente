@@ -50,9 +50,11 @@ if ($idActividad) {
           </div>
         </div>
         <div class="col-md-6 text-md-end">
-          <button class="btn btn-primary w-80 w-md-auto" id="generateAllButton">
+          <button class="btn btn-primary w-80 w-md-auto" id="btnAll"
+            onclick="window.open('controller/generateAllConstancys.php?id_actividad=' + actividadId, '_blank');">
             Generar Constancias de Todos
           </button>
+
         </div>
       </div>
 

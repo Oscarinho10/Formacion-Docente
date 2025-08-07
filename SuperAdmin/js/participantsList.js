@@ -100,3 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cargarAsistencias();
 });
+function prepararImpresion() {
+  // Forzar renderizado de todos los datos
+  const todosLosDatos = getFilteredData();
+  renderTable(todosLosDatos, 1); // Página 1 pero renderiza todos
+
+  setTimeout(() => {
+    window.print();
+  }, 500); // Espera para que la tabla se renderice completamente
+}

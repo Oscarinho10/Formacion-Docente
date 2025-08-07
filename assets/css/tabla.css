@@ -153,3 +153,60 @@
     white-space: nowrap;
   }
 }
+
+
+
+@media print {
+  body {
+    background: white !important;
+  }
+
+  /* Ocultar elementos innecesarios en impresión */
+  .input-group,
+  #pagination,
+  #paginationInfo,
+  .btn,
+  .pagination,
+  .fa-search,
+  .form-control,
+  .mb-2,
+  .mt-3 {
+    display: none !important;
+  }
+
+
+  /* Mostrar toda la tabla sin paginación */
+  .table-responsive {
+    overflow: visible !important;
+  }
+
+  /* Establecer ancho completo y mejor visibilidad */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    border: 1px solid black !important;
+    padding: 6px !important;
+  }
+
+  thead {
+    background-color: #f2f2f2 !important;
+  }
+
+  /* Configurar impresión horizontal (paisaje) */
+  @page {
+    size: landscape;
+    margin: 1cm;
+  }
+
+  
+    /* Ocultar el menú hamburguesa */
+  .nav,
+  .nav__list,
+  .fa-bars {
+    display: none !important;
+  }
+
+}

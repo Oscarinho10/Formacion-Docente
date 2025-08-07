@@ -13,15 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("Error al cargar participantes con constancia:", err);
     });
 
-  const btnAll = document.getElementById('generateAllButton');
-  if (btnAll) {
-    btnAll.addEventListener('click', function () {
-      estudiantes.forEach(est => {
-        generarConstancia(est.id_inscripcion);
-      });
-    });
-  }
-
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
     searchInput.addEventListener('input', function () {

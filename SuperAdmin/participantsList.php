@@ -15,6 +15,7 @@ include('../components/layoutSuper.php');
   <!-- Estilos -->
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css">
+  
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/brands.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/solid.min.css">
@@ -54,7 +55,7 @@ include('../components/layoutSuper.php');
         <div id="paginationInfo" class="mb-2"></div>
         <ul class="pagination mb-2" id="pagination"></ul>
         <div class="d-flex gap-2 mb-2">
-          <button class="btn btn-success" onclick="window.print()"><i class="fas fa-print me-1"></i> Imprimir</button>
+        <button class="btn btn-success" onclick="prepararImpresion()"><i class="fas fa-print me-1"></i> Imprimir</button>
           <a href="checkList.php" class="btn btn-dark"><i class="fas fa-arrow-left me-1"></i> Regresar</a>
         </div>
       </div>
