@@ -53,14 +53,31 @@ function filtrarTabla() {
   const semestre = document.getElementById("semestreSelect").value;
   const anio = document.getElementById("anioSelect").value;
 
-  const filtrados = data.filter(d =>
-    (!search || d.actividad.toLowerCase().includes(search)) &&
-    (!semestre || d.semestre === semestre) &&
-    (!anio || d.anio === anio)
-  );
+  const filtrados = data.filter(d => {
+    const textoCompleto = [
+      d.tipo,
+      d.actividad,
+      d.instructor,
+      d.duracion,
+      d.modalidad,
+      d.fecha,
+      d.horario,
+      d.participantes,
+      d.asistidos
+    ]
+      .map(val => String(val).toLowerCase())
+      .join(" ");
+
+    return (
+      (!search || textoCompleto.includes(search)) &&
+      (!semestre || d.semestre === semestre) &&
+      (!anio || d.anio === anio)
+    );
+  });
 
   renderTabla(filtrados);
 }
+
 
 // Limpia filtros y muestra todos los datos
 function limpiarFiltros() {
