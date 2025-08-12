@@ -2,7 +2,6 @@
 include('../../config/conexion.php');
 include_once('../../config/verificaRol.php');
 verificarRol('admin'); // Solo admins pueden registrar
-
 include_once('../../config/auditor.php');
 
 // Rutas relativas desde este script (NO empiezan con /)
@@ -27,11 +26,14 @@ $fecha_fin = $_POST['fecha_fin'];
 // --------------------
 $temarioRuta = '';
 if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
+    if (!is_dir($carpetaPDF)) { mkdir($carpetaPDF, 0777, true); }
     $nombrePDF = basename($_FILES['temario_pdf']['name']);
     $rutaDestinoPDF = $carpetaPDF . $nombrePDF;
 
     if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
-        $temarioRuta = 'uploads/temarios/' . $nombrePDF;
+        // Puedes dejar solo el nombre o la ruta. Si quieres coherencia total, usa SOLO nombre:
+        $temarioRuta = $nombrePDF; // <— queda solo el nombre
+        // Si prefieres conservar ruta relativa: $temarioRuta = 'uploads/temarios/' . $nombrePDF;
     }
 }
 
@@ -40,11 +42,13 @@ if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
 // --------------------
 $imagenRuta = '';
 if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
+    if (!is_dir($carpetaIMG)) { mkdir($carpetaIMG, 0777, true); }
     $nombreIMG = basename($_FILES['url_imagen']['name']);
     $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
 
     if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
-        $imagenRuta = 'uploads/imagenes/' . $nombreIMG;
+        // ✅ Guardamos SOLO el nombre para evitar duplicar rutas al renderizar
+        $imagenRuta = $nombreIMG;
     }
 }
 
@@ -66,7 +70,7 @@ if ($resultado && pg_num_rows($resultado) > 0) {
     $row = pg_fetch_assoc($resultado);
     $id_actividad = $row['id_actividad'];
 
-    // ✅ Registrar en auditoría con nombre de la actividad
+    // Auditoría (si la usas)
     $movimiento = "Registró la actividad formativa: " . pg_escape_string($conn, $nombre);
     registrarAuditoria($conn, $movimiento, 'Actividades formativas');
 

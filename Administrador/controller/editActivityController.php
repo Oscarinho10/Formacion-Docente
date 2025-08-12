@@ -16,11 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     if ($res && pg_num_rows($res) > 0) {
         $actividad = pg_fetch_assoc($res);
 
-        // ❌ Eliminar campos que no existen en el HTML
         unset($actividad['estado']);
         unset($actividad['descripcion_horarios']);
 
-        // ✅ Convertir manualmente a JSON
+        // ✅ JSON manual (compatibilidad)
         $output = '{';
         foreach ($actividad as $key => $value) {
             $output .= '"' . addslashes($key) . '":"' . addslashes($value) . '",';
@@ -65,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "fecha_fin = '$fecha_fin'"
     );
 
-    // ✅ Procesar PDF (opcional)
+    // ✅ Procesar PDF (opcional) — guarda SOLO el nombre (consistencia)
     if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
         $pdfName = basename($_FILES['temario_pdf']['name']);
         $pdfDir = "../../uploads/temarios/";
@@ -77,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // ✅ Procesar imagen (opcional)
+    // ✅ Procesar imagen (opcional) — guarda SOLO el nombre (consistencia)
     if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
         $imgName = basename($_FILES['url_imagen']['name']);
         $imgDir = "../../uploads/imagenes/";
@@ -94,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = pg_query($conn, $updateQuery);
 
     if ($result) {
-        // Auditoría
+        // Auditoría opcional
         $mov = pg_query($conn, "SELECT nombre FROM actividades_formativas WHERE id_actividad = $id_actividad");
         $nombre_act = ($mov && pg_num_rows($mov) > 0) ? pg_fetch_result($mov, 0, 'nombre') : 'Desconocido';
 
