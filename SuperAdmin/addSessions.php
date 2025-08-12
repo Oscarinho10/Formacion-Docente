@@ -2,7 +2,7 @@
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // acceso solo superAdmin
 include('../config/conexion.php');
-include('../components/layoutAdmin.php');
+include('../components/layoutSuper.php');
 
 // ID actividad
 $id_actividad = isset($_GET['id']) ? intval($_GET['id']) : 0;
