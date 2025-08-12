@@ -29,31 +29,39 @@ $fecha_fin = $_POST['fecha_fin'];
 // --------------------
 $temarioRuta = '';
 if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
+    if (!is_dir($carpetaPDF)) {
+        mkdir($carpetaPDF, 0777, true);
+    }
     $nombrePDF = basename($_FILES['temario_pdf']['name']);
     $rutaDestinoPDF = $carpetaPDF . $nombrePDF;
 
     if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
-        $temarioRuta = 'uploads/temarios/' . $nombrePDF;
+        // Puedes dejar solo el nombre o la ruta. Si quieres coherencia total, usa SOLO nombre:
+        $temarioRuta = $nombrePDF; // <— queda solo el nombre
+        // Si prefieres conservar ruta relativa: $temarioRuta = 'uploads/temarios/' . $nombrePDF;
     }
-}
 
-// --------------------
-// GUARDAR IMAGEN
-// --------------------
-$imagenRuta = '';
-if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
-    $nombreIMG = basename($_FILES['url_imagen']['name']);
-    $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
+    // --------------------
+    // GUARDAR IMAGEN
+    // --------------------
+    $imagenRuta = '';
+    if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
+        if (!is_dir($carpetaIMG)) {
+            mkdir($carpetaIMG, 0777, true);
+        }
+        $nombreIMG = basename($_FILES['url_imagen']['name']);
+        $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
 
-    if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
-        $imagenRuta = 'uploads/imagenes/' . $nombreIMG;
+        if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
+            // ✅ Guardamos SOLO el nombre para evitar duplicar rutas al renderizar
+            $imagenRuta = $nombreIMG;
+        }
     }
-}
 
-// --------------------
-// INSERTAR EN BD
-// --------------------
-$query = "INSERT INTO actividades_formativas (
+    // --------------------
+    // INSERTAR EN BD
+    // --------------------
+    $query = "INSERT INTO actividades_formativas (
     nombre, descripcion, dirigido_a, modalidad, lugar, clasificacion,
     cupo, total_horas, fecha_inicio, fecha_fin, temario_pdf, url_imagen, estado, tipo_evaluacion
 ) VALUES (
@@ -61,15 +69,15 @@ $query = "INSERT INTO actividades_formativas (
     '$cupo', '$total_horas', '$fecha_inicio', '$fecha_fin', '$temarioRuta', '$imagenRuta', 'activo', '$tipo_evaluacion'
 ) RETURNING id_actividad";
 
-$resultado = pg_query($conn, $query);
+    $resultado = pg_query($conn, $query);
 
-// Redirigir si se inserta correctamente
-if ($resultado && pg_num_rows($resultado) > 0) {
-    $row = pg_fetch_assoc($resultado);
-    $id_actividad = $row['id_actividad'];
-    header("Location: ../addSessions.php?id=" . $id_actividad);
-    exit;
-} else {
-    echo "Error al guardar la actividad.";
+    // Redirigir si se inserta correctamente
+    if ($resultado && pg_num_rows($resultado) > 0) {
+        $row = pg_fetch_assoc($resultado);
+        $id_actividad = $row['id_actividad'];
+        header("Location: ../addSessions.php?id=" . $id_actividad);
+        exit;
+    } else {
+        echo "Error al guardar la actividad.";
+    }
 }
-?>
