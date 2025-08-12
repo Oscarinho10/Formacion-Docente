@@ -42,8 +42,8 @@ include('../components/layoutAdmin.php');
                             <label for="tipo_evaluacion">Tipo de evaluación:</label><br />
                             <select id="tipo_evaluacion" name="tipo_evaluacion" style="width: 100%; padding: 11px;" required>
                                 <option value="">Seleccione</option>
-                                <option value="asistencias">Con asistencias</option>
-                                <option value="actividad">Con entrega de actividades</option>
+                                <option value="Asistencias">Con asistencias</option>
+                                <option value="Actividad">Con entrega de actividades</option>
                             </select>
                         </div>
 
