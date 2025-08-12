@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
@@ -11,7 +11,7 @@ include('../components/layoutSuper.php') ?>
     <title>Tabla de Docentes</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/tabla.css" type="text/css">
-     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/estilo.css">
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/fontawesome/all.min.css" type="text/css">
@@ -44,7 +44,7 @@ include('../components/layoutSuper.php') ?>
                 <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
-                        <th>Número de Control</th>
+                        <th>Número de Control o RFC</th>
                         <th>Perfil Académico</th>
                         <th>Unidad Académica</th>
                         <th>Estado</th>
@@ -58,16 +58,20 @@ include('../components/layoutSuper.php') ?>
         </div>
 
         <!-- Paginación -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div id="paginationInfo"></div>
-            <ul class="pagination" id="pagination"></ul>
-            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+            <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+            <div class="table-pagination-wrapper w-100 w-md-auto">
+                <ul class="pagination mb-0" id="pagination"></ul>
+            </div>
+
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark btn-compact">
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
         </div>
 
     </div>
-    <?php include('../SuperAdmin/modalSuper/modalInstructor.php')?>
+    <?php include('../SuperAdmin/modalSuper/modalInstructor.php') ?>
 
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>

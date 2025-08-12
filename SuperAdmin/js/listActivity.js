@@ -69,7 +69,7 @@ function renderTable() {
         <td>${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}</td>
         <td><strong>${item.control}</strong></td>
         <td>${item.correo}</td>
-        <td class="text-center">
+        <td class="text-center acciones">
           <button class="btn btn-secondary btn-sm verMasBtn"
                   data-nombre="${item.nombre}"
                   data-apellido_paterno="${item.apellido_paterno}"

@@ -1,68 +1,100 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
-
-  // ✅ Mostrar mensaje si se actualizó correctamente (?edit=ok)
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get("edit") === "ok") {
+  const id = urlParams.get("id");
+
+  if (!id) {
+    Swal.fire("Error", "ID de la actividad no proporcionado.", "error");
+    return;
+  }
+
+  if (urlParams.get("editado") === "ok") {
     Swal.fire({
-      icon: "success",
       title: "¡Actualización exitosa!",
-      text: "La actividad fue actualizada correctamente.",
+      icon: "success",
       confirmButtonText: "Aceptar",
       confirmButtonColor: "#28a745"
     }).then(() => {
-      const cleanUrl = window.location.origin + window.location.pathname;
+      const cleanUrl = window.location.origin + window.location.pathname + "?id=" + id;
       window.history.replaceState({}, document.title, cleanUrl);
     });
   }
 
-  // ✅ Confirmación al enviar el formulario
+  function normalizar(texto) {
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function seleccionarOptionPorTextoNormalizado(selectElement, valorBD) {
+    const normalizadoBD = normalizar(valorBD);
+    const opciones = selectElement.options;
+    for (let i = 0; i < opciones.length; i++) {
+      const valor = normalizar(opciones[i].value);
+      if (valor === normalizadoBD) {
+        selectElement.selectedIndex = i;
+        return;
+      }
+    }
+    console.warn(`❗ No se encontró coincidencia exacta para: ${valorBD}`);
+  }
+
+  // Cargar datos de la actividad
+  fetch(`controller/editActivityController.php?id=${id}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        Swal.fire("Error", data.error, "error");
+        return;
+      }
+
+      document.getElementById("id_actividad").value = data.id_actividad;
+      document.getElementById("nombre").value = data.nombre;
+      document.getElementById("descripcion").value = data.descripcion;
+      document.getElementById("lugar").value = data.lugar;
+      document.getElementById("dirigido_a").value = data.dirigido_a;
+      document.getElementById("cupo").value = data.cupo;
+      document.getElementById("total_horas").value = data.total_horas;
+      document.getElementById("fecha_inicio").value = data.fecha_inicio;
+      document.getElementById("fecha_fin").value = data.fecha_fin;
+
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById("tipo_evaluacion"),
+        data.tipo_evaluacion
+      );
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById("modalidad"),
+        data.modalidad
+      );
+      seleccionarOptionPorTextoNormalizado(
+        document.getElementById("clasificacion"),
+        data.clasificacion
+      );
+    })
+    .catch(err => {
+      console.error("Error al cargar actividad:", err);
+      Swal.fire("Error", "No se pudieron cargar los datos de la actividad.", "error");
+    });
+
+  // Confirmación al editar con fetch
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Validación básica
-    const campos = [
-      "nombre",
-      "descripcion",
-      "lugar",
-      "dirigido_a",
-      "modalidad",
-      "clasificacion",
-      "tipo_evaluacion",
-      "cupo",
-      "total_horas",
-      "fecha_inicio",
-      "fecha_fin"
-    ];
-
-    let hayVacios = campos.some((id) => {
-      const el = document.getElementById(id);
-      return !el.value.trim();
-    });
-
-    if (hayVacios) {
-      Swal.fire({
-        icon: "warning",
-        title: "Todos los campos obligatorios deben estar completos.",
-        confirmButtonColor: "#dc3545"
-      });
-      return;
-    }
-
     Swal.fire({
-      title: "¿Desea actualizar esta actividad?",
+      title: "¿Desea guardar los cambios de la actividad?",
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Sí, actualizar",
+      confirmButtonText: "Sí, guardar",
       cancelButtonText: "Cancelar",
       confirmButtonColor: "#28a745",
-      cancelButtonColor: "#E74B3E",
-      reverseButtons:true
-    }).then((result) => {
+      cancelButtonColor: "#6c757d"
+    }).then(result => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Actualizando...",
-          html: "Por favor espera un momento",
+          title: "Guardando...",
+          html: "Por favor espera unos segundos",
           allowOutsideClick: false,
           allowEscapeKey: false,
           didOpen: () => {
@@ -81,31 +113,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.success) {
               Swal.fire({
                 title: "¡Actualización exitosa!",
-                text: "La actividad fue actualizada correctamente.",
                 icon: "success",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#28a745"
               }).then(() => {
-                const id = document.getElementById('id').value;
-                window.location.href = `trainingActivity.php?id=${id}&edit=ok`;
+                window.location.href = `trainingActivity.php?id=${id}&editado=ok`;
               });
             } else {
-              Swal.fire({
-                icon: "error",
-                title: "Error al actualizar",
-                text: data.error || "Ocurrió un problema inesperado.",
-                confirmButtonColor: "#dc3545"
-              });
+              Swal.fire("Error", data.error || "No se pudo guardar.", "error");
             }
           })
-          .catch((err) => {
-            console.error("Error:", err);
-            Swal.fire({
-              icon: "error",
-              title: "Error de red",
-              text: "No se pudo conectar con el servidor.",
-              confirmButtonColor: "#dc3545"
-            });
+          .catch(err => {
+            console.error("Error al enviar datos:", err);
+            Swal.fire("Error", "Ocurrió un problema al guardar los datos.", "error");
           });
       }
     });

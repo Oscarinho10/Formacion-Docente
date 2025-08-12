@@ -59,6 +59,7 @@ include('../components/layoutAdmin.php');
         </tbody>
       </table>
     </div>
+    
     <!-- Paginación -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
       <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>

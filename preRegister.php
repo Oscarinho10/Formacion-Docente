@@ -75,7 +75,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
 
             <!-- Número de control -->
             <div class="col-md-4 col-12">
-              <label for="numero_control" class="form-label">Número de control:</label>
+              <label for="numero_control" class="form-label">Número de control o RFC:</label>
               <input type="text" name="numero_control" id="numero_control" class="form-control" required>
             </div>
 

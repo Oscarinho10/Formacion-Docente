@@ -53,7 +53,7 @@ function renderTabla(filtro = '') {
       <td><input type="checkbox" class="chk-estudiante" value="${est.id_inscripcion}"></td>
       <td>${est.nombre}</td>
       <td>${est.correo}</td>
-      <td>
+      <td class="text-center acciones">
         <button class="btn btn-primary btn-sm" onclick="generarConstancia(${est.id_inscripcion})">
           <i class="fas fa-file-pdf"></i> Generar
         </button>

@@ -86,9 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <span class="slider"></span>
                             </label>
                         </td>
-                        <td>
-                            <a href="editAdmin.php?id=${admin.id}" class="btn btn-sm btn-general ml-2">Editar</a>
-
+                        <td class="text-center acciones">
+                            <button onclick="window.location.href='editAdmin.php?id=${admin.id}'" class="btn btn-sm btn-general ml-2"><i class="fas fa-pen"></i> Editar</button>
                         </td>
                     </tr>
                 `;

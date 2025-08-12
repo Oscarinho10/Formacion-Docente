@@ -1,92 +1,107 @@
 <?php
+session_start();
 include('../../config/conexion.php');
+include_once('../../config/verificaRol.php');
+verificarRol('superAdmin');
 
-header('Content-Type: application/json'); // si editas por fetch()
+// ✅ PRECARGAR DATOS (GET)
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    echo '{"success":false,"error":"Acceso no permitido."}';
+    $id = intval($_GET['id']);
+    $query = "SELECT * FROM actividades_formativas WHERE id_actividad = $1";
+    $res = pg_query_params($conn, $query, array($id));
+
+    if ($res && pg_num_rows($res) > 0) {
+        $actividad = pg_fetch_assoc($res);
+
+        // ❌ Eliminar campos que no existen en el HTML
+        unset($actividad['estado']);
+        unset($actividad['descripcion_horarios']);
+
+        // ✅ Convertir manualmente a JSON (compatibilidad PHP 5.2)
+        $output = '{';
+        foreach ($actividad as $key => $value) {
+            $output .= '"' . addslashes($key) . '":"' . addslashes($value) . '",';
+        }
+        $output = rtrim($output, ',') . '}';
+        echo $output;
+    } else {
+        echo '{"error":"Actividad no encontrada"}';
+    }
     exit;
 }
 
-// --- Rutas (iguales a AGREGAR) ---
-$carpetaPDF = '../../uploads/temarios/';
-$carpetaIMG = '../../uploads/imagenes/';
+// ✅ ACTUALIZACIÓN (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
 
-// --- Helper escape (sugerido con conn) ---
-function esc($conn, $s) { return pg_escape_string($conn, $s); }
+    $id_actividad = intval($_POST['id_actividad']);
 
-// --- Datos del formulario ---
-$id              = intval($_POST['id']);
-$nombre          = esc($conn, $_POST['nombre']);
-$tipo_evaluacion = esc($conn, $_POST['tipo_evaluacion']);
-$descripcion     = esc($conn, $_POST['descripcion']);
-$dirigido_a      = esc($conn, $_POST['dirigido_a']);
-$modalidad       = esc($conn, $_POST['modalidad']);
-$lugar           = esc($conn, $_POST['lugar']);
-$clasificacion   = esc($conn, $_POST['clasificacion']);
-$cupo            = intval($_POST['cupo']);
-$total_horas     = intval($_POST['total_horas']);
-$fecha_inicio    = esc($conn, $_POST['fecha_inicio']);
-$fecha_fin       = esc($conn, $_POST['fecha_fin']);
+    $nombre = pg_escape_string($conn, $_POST['nombre']);
+    $tipo_evaluacion = pg_escape_string($conn, $_POST['tipo_evaluacion']);
+    $descripcion = pg_escape_string($conn, $_POST['descripcion']);
+    $dirigido_a = pg_escape_string($conn, $_POST['dirigido_a']);
+    $modalidad = pg_escape_string($conn, $_POST['modalidad']);
+    $lugar = pg_escape_string($conn, $_POST['lugar']);
+    $clasificacion = pg_escape_string($conn, $_POST['clasificacion']);
+    $cupo = intval($_POST['cupo']);
+    $total_horas = intval($_POST['total_horas']);
+    $fecha_inicio = pg_escape_string($conn, $_POST['fecha_inicio']);
+    $fecha_fin = pg_escape_string($conn, $_POST['fecha_fin']);
 
-// --- Construye SET base ---
-$sets = array();
-$sets[] = "nombre = '$nombre'";
-$sets[] = "tipo_evaluacion = '$tipo_evaluacion'";
-$sets[] = "descripcion = '$descripcion'";
-$sets[] = "dirigido_a = '$dirigido_a'";
-$sets[] = "modalidad = '$modalidad'";
-$sets[] = "lugar = '$lugar'";
-$sets[] = "clasificacion = '$clasificacion'";
-$sets[] = "cupo = $cupo";
-$sets[] = "total_horas = $total_horas";
-$sets[] = "fecha_inicio = '$fecha_inicio'";
-$sets[] = "fecha_fin = '$fecha_fin'";
+    $updates = array(
+        "nombre = '$nombre'",
+        "tipo_evaluacion = '$tipo_evaluacion'",
+        "descripcion = '$descripcion'",
+        "dirigido_a = '$dirigido_a'",
+        "modalidad = '$modalidad'",
+        "lugar = '$lugar'",
+        "clasificacion = '$clasificacion'",
+        "cupo = $cupo",
+        "total_horas = $total_horas",
+        "fecha_inicio = '$fecha_inicio'",
+        "fecha_fin = '$fecha_fin'"
+    );
 
-// --------------------
-// GUARDAR TEMARIO PDF (opcional)
-// --------------------
-if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
-    $nombrePDF = basename($_FILES['temario_pdf']['name']);
-    // (Opcional: valida extensión .pdf)
-    $rutaDestinoPDF = $carpetaPDF . $nombrePDF;
+    // ✅ Procesar PDF (opcional)
+    if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
+        $pdfName = basename($_FILES['temario_pdf']['name']);
+        $pdfDir = "../../uploads/temarios/";
+        $pdfPath = $pdfDir . $pdfName;
 
-    // Crea carpeta si no existe
-    if (!file_exists($carpetaPDF)) @mkdir($carpetaPDF, 0777, true);
-
-    if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
-        // guarda en BD la ruta web relativa, igual que en AGREGAR
-        $temarioRuta = 'uploads/temarios/' . $nombrePDF;
-        $sets[] = "temario_pdf = '" . esc($conn, $temarioRuta) . "'";
+        if (!is_dir($pdfDir)) mkdir($pdfDir, 0777, true);
+        if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $pdfPath)) {
+            $updates[] = "temario_pdf = '$pdfName'";
+        }
     }
-}
 
-// --------------------
-// GUARDAR IMAGEN (opcional)
-// --------------------
-if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
-    $nombreIMG = basename($_FILES['url_imagen']['name']);
-    // (Opcional: valida extensión)
-    $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
+    // ✅ Procesar imagen (opcional)
+    if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
+        $imgName = basename($_FILES['url_imagen']['name']);
+        $imgDir = "../../uploads/imagenes/";
+        $imgPath = $imgDir . $imgName;
 
-    // Crea carpeta si no existe
-    if (!file_exists($carpetaIMG)) @mkdir($carpetaIMG, 0777, true);
-
-    if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
-        // guarda en BD la ruta web relativa, igual que en AGREGAR
-        $imagenRuta = 'uploads/imagenes/' . $nombreIMG;
-        $sets[] = "url_imagen = '" . esc($conn, $imagenRuta) . "'";
+        if (!is_dir($imgDir)) mkdir($imgDir, 0777, true);
+        if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $imgPath)) {
+            $updates[] = "url_imagen = '$imgName'";
+        }
     }
+
+    // ✅ Ejecutar UPDATE
+    $updateQuery = "UPDATE actividades_formativas SET " . implode(", ", $updates) . " WHERE id_actividad = $id_actividad";
+    $result = pg_query($conn, $updateQuery);
+
+    if ($result) {
+        echo '{"success":true}';
+    } else {
+        echo '{"error":"Error al actualizar la actividad"}';
+    }
+
+    exit;
 }
 
-// --- Ejecuta UPDATE ---
-$setQuery = implode(', ', $sets);
-$sql = "UPDATE actividades_formativas SET $setQuery WHERE id_actividad = $id";
-$ok = pg_query($conn, $sql);
-
-if ($ok) {
-    echo '{"success":true}';
-} else {
-    echo '{"success":false,"error":"Error al actualizar la actividad."}';
-}
+// ❌ Método no válido
+header('Content-Type: application/json');
+echo '{"error":"Acceso no permitido"}';
 exit;

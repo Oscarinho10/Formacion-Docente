@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <span class="slider"></span>
                             </label>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center acciones">
                             <button class="btn btn-secondary btn-sm verMasBtn"
                                 data-id="${participante.id_usuario}"
                                 data-nombre="${participante.nombre}"

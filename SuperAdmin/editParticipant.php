@@ -38,20 +38,20 @@ include('../components/layoutSuper.php');
 
           <div class="row">
             <div class="col-12 col-md-4 mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
+              <label for="nombre" class="form-label">Nombre: </label>
               <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <div class="col-12 col-md-4 mb-3">
-              <label for="apellido_paterno" class="form-label">Apellido Paterno</label>
+              <label for="apellido_paterno" class="form-label">Apellido Paterno: </label>
               <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno" required>
             </div>
             <div class="col-12 col-md-4 mb-3">
-              <label for="apellido_materno" class="form-label">Apellido Materno</label>
+              <label for="apellido_materno" class="form-label">Apellido Materno: </label>
               <input type="text" class="form-control" id="apellido_materno" name="apellido_materno" required>
             </div>
 
             <div class="col-12 col-md-4 mb-3">
-              <label for="sexo" class="form-label">Sexo</label>
+              <label for="sexo" class="form-label">Sexo: </label>
               <select class="form-select" id="sexo" name="sexo" required>
                <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
@@ -60,22 +60,22 @@ include('../components/layoutSuper.php');
             </div>
 
             <div class="col-12 col-md-4 mb-3">
-              <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+              <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento: </label>
               <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
 
             <div class="col-12 col-md-4 mb-3">
-              <label for="numero_control" class="form-label">Número de control o RFC</label>
+              <label for="numero_control" class="form-label">Número de control o RFC: </label>
               <input type="text" class="form-control" id="numero_control" name="numero_control" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="correo_electronico" class="form-label">Correo electrónico</label>
+              <label for="correo_electronico" class="form-label">Correo electrónico: </label>
               <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="perfil_academico" class="form-label">Perfil Académico</label>
+              <label for="perfil_academico" class="form-label">Perfil Académico: </label>
               <select class="form-select" id="perfil_academico" name="perfil_academico" required>
                 <option value="">Seleccione</option>
                 <option value="PTP">PROFESOR TIEMPO PARCIAL</option>
@@ -89,7 +89,7 @@ include('../components/layoutSuper.php');
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="unidad_academica" class="form-label">Unidad Académica</label>
+              <label for="unidad_academica" class="form-label">Unidad Académica: </label>
               <select class="form-select" id="unidad_academica" name="unidad_academica" required>
                 <option value="">Seleccione</option>
                 <option value="Centro de Investigación Interdisciplinar para el Desarrollo Universitario">Centro de Investigación Interdisciplinar para el Desarrollo Universitario</option>
@@ -137,7 +137,7 @@ include('../components/layoutSuper.php');
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="grado_academico" class="form-label">Grado Académico</label>
+              <label for="grado_academico" class="form-label">Grado Académico: </label>
               <select class="form-select" id="grado_academico" name="grado_academico" required>
                 <option value="">Seleccione</option>
                 <option value="Licenciatura">Licenciatura</option>

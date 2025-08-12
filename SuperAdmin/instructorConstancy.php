@@ -41,8 +41,15 @@ if ($idInstructor <= 0) {
             </table>
         </div>
 
-        <div class="mt-3">
-            <button onclick="window.history.back()" class="btn btn-dark">
+        <!-- Paginación -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+            <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+            <div class="table-pagination-wrapper w-100 w-md-auto">
+                <ul class="pagination mb-0" id="pagination"></ul>
+            </div>
+
+            <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/instructorSuper.php'" class="btn btn-dark btn-compact">
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
         </div>
@@ -51,7 +58,7 @@ if ($idInstructor <= 0) {
     <script>
         const instructorId = <?php echo $idInstructor; ?>;
     </script>
-     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/instructorConstancy.js"></script>
 </body>
 

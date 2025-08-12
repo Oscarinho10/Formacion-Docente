@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td>${item.nombre}</td>
       <td>${item.fecha}</td>
       <td>${item.tipo}</td>
-      <td class="text-center">
+      <td class="text-center acciones">
         <a href="seeConstancy.php?id=${item.id_actividad}" class="btn btn-sm btn-general">
           Ver constancias <i class="fas fa-eye"></i>
         </a>

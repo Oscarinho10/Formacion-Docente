@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutSuper.php'); 
+include('../components/layoutSuper.php');
 ?>
 
 
@@ -65,25 +65,30 @@ include('../components/layoutSuper.php');
       </table>
     </div>
     <!-- Paginación -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <div id="paginationInfo"></div>
-      <ul class="pagination" id="pagination"></ul>
-      <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark">
+    <!-- Paginación -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+      <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+      <div class="table-pagination-wrapper w-100 w-md-auto">
+        <ul class="pagination mb-0" id="pagination"></ul>
+      </div>
+
+      <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark btn-compact">
         <i class="fas fa-arrow-left"></i> Regresar
       </button>
     </div>
   </div>
 
-<!-- Exprtación del modal -->
-<?php include('../SuperAdmin/modalSuper/detailsActivityModal.php'); ?> 
-  
+  <!-- Exprtación del modal -->
+  <?php include('../SuperAdmin/modalSuper/detailsActivityModal.php'); ?>
+
   <!-- UNA sola línea, carga Bootstrap + Popper -->
   <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/trainingActivity.js"></script>
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
 
 
-  
+
 </body>
 
 

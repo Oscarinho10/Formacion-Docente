@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutSuper.php'); 
+include('../components/layoutSuper.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,7 +53,7 @@ include('../components/layoutSuper.php');
             <tr>
               <th>Nombre</th>
               <th>Correo electrónico</th>
-              <th>Número de control</th>
+              <th>Número de Control o RFC</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -65,11 +65,15 @@ include('../components/layoutSuper.php');
       </div>
 
       <!-- Paginación -->
-      <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-        <div id="paginationInfo" class="text-muted"></div>
-        <ul class="pagination mb-0" id="pagination"></ul>
-        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/audit.php'" class="btn btn-dark">
-          <i class="fas fa-arrow-left me-1"></i> Regresar
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+        <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+        <div class="table-pagination-wrapper w-100 w-md-auto">
+          <ul class="pagination mb-0" id="pagination"></ul>
+        </div>
+
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/audit.php'" class="btn btn-dark btn-compact">
+          <i class="fas fa-arrow-left"></i> Regresar
         </button>
       </div>
     </div>

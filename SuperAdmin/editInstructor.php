@@ -32,19 +32,19 @@ include('../components/layoutSuper.php');
         <form action="controller/editInstructorController.php" method="post">
           <div class="row">
             <div class="col-12 col-md-6 mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
+              <label for="nombre" class="form-label">Nombre: </label>
               <input type="text" name="nombre" id="nombre" class="form-control" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <label for="apellido_paterno" class="form-label">Apellido Paterno</label>
+              <label for="apellido_paterno" class="form-label">Apellido Paterno: </label>
               <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <label for="apellido_materno" class="form-label">Apellido Materno</label>
+              <label for="apellido_materno" class="form-label">Apellido Materno: </label>
               <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <label for="sexo" class="form-label">Sexo</label>
+              <label for="sexo" class="form-label">Sexo: </label>
               <select name="sexo" id="sexo" class="form-select" required>
                 <option value="">Seleccione</option>
                 <option value="H">Hombre</option>
@@ -52,16 +52,16 @@ include('../components/layoutSuper.php');
               </select>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+              <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento: </label>
               <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
-              <label for="numero_control" class="form-label">Número de Control</label>
+              <label for="numero_control" class="form-label">Número de Control o RFC: </label>
               <input type="text" name="numero_control" id="numero_control" class="form-control" required>
             </div>
             <div class="col-12 mb-3">
-              <label for="correo" class="form-label">Correo Electrónico</label>
+              <label for="correo" class="form-label">Correo Electrónico: </label>
               <input type="email" name="correo" id="correo" class="form-control" required>
 
             </div>
@@ -69,7 +69,7 @@ include('../components/layoutSuper.php');
 
 
             <div class="col-12 mb-3">
-              <label for="perfil_academico" class="form-label">Perfil Académico</label>
+              <label for="perfil_academico" class="form-label">Perfil Académico: </label>
               <select class="form-select" id="perfil_academico" name="perfil_academico" required>
                 <option value="">Seleccione</option>
                 <option value="PTP">PROFESOR TIEMPO PARCIAL</option>
@@ -83,7 +83,7 @@ include('../components/layoutSuper.php');
             </div>
 
             <div class="col-12 mb-3">
-              <label for="unidad_academica" class="form-label">Unidad Académica</label>
+              <label for="unidad_academica" class="form-label">Unidad Académica: </label>
               <select class="form-select" id="unidad_academica" name="unidad_academica" required>
                 <option value="">Seleccione unidad académica</option>
                 <option value="Centro de Investigación Interdisciplinar para el Desarrollo Universitario">Centro de Investigación Interdisciplinar para el Desarrollo Universitario</option>
@@ -131,7 +131,7 @@ include('../components/layoutSuper.php');
             </div>
 
             <div class="col-12 mb-4">
-              <label for="grado_academico" class="form-label">Grado Académico</label>
+              <label for="grado_academico" class="form-label">Grado Académico: </label>
               <select name="grado_academico" id="grado_academico" class="form-select" required>
                 <option value="">Seleccione grado</option>
                 <option value="Licenciatura">Licenciatura</option>

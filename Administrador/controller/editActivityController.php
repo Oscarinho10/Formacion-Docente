@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ✅ Procesar PDF (opcional)
     if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
         $pdfName = basename($_FILES['temario_pdf']['name']);
-        $pdfDir = "../../../uploads/temarios/";
+        $pdfDir = "../../uploads/temarios/";
         $pdfPath = $pdfDir . $pdfName;
 
         if (!is_dir($pdfDir)) mkdir($pdfDir, 0777, true);
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ✅ Procesar imagen (opcional)
     if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
         $imgName = basename($_FILES['url_imagen']['name']);
-        $imgDir = "../../../uploads/imagenes/";
+        $imgDir = "../../uploads/imagenes/";
         $imgPath = $imgDir . $imgName;
 
         if (!is_dir($imgDir)) mkdir($imgDir, 0777, true);

@@ -1,10 +1,10 @@
 <?php
- include('config/conexion.php');
- include('config/controller/catalogoController.php');
+include('config/conexion.php');
+include('config/controller/catalogoController.php');
 ?>
 
-<?php include('HeadAndFoot/header.php'); 
-?>	
+<?php include('HeadAndFoot/header.php');
+?>
 
 <div class="container py-4">
     <div class="row">
@@ -13,7 +13,22 @@
             <?php while ($fila = pg_fetch_assoc($resultado)): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="<?php echo htmlspecialchars($fila['url_imagen']); ?>" class="card-img-top" alt="Imagen actividad">
+                        <?php
+                        $img = isset($fila['url_imagen']) ? trim($fila['url_imagen']) : '';
+                        if ($img === '' || $img === null) {
+                            $src = BASE_URL . '/assets/img/placeholder.png';
+                        } elseif (strpos($img, 'http://') === 0 || strpos($img, 'https://') === 0 || strpos($img, '/') === 0) {
+                            // Ya es URL absoluta o ruta con /
+                            $src = $img[0] === '/' ? BASE_URL . $img : $img;
+                        } else {
+                            // Nombre suelto: apunta a la carpeta real de las imágenes subidas
+                            $src = BASE_URL . '/uploads/imagenes/' . $img;
+                        }
+                        ?>
+                        <img src="<?php echo htmlspecialchars($src); ?>"
+                            class="card-img-top"
+                            alt="Imagen actividad"
+                            onerror="this.onerror=null;this.src='<?php echo BASE_URL; ?>/assets/img/placeholder.png';">
                         <div class="card-body">
                             <h6 class="card-title"><?php echo htmlspecialchars($fila['nombre']); ?></h6>
                             <p class="card-text"><?php echo htmlspecialchars($fila['descripcion']); ?></p>

@@ -75,13 +75,16 @@ if ($idActividad) {
         </table>
       </div>
 
-      <!-- Paginación y botón de regreso -->
-      <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-        <div id="paginationInfo" class="text-muted"></div>
-        <ul class="pagination mb-0" id="pagination"></ul>
-        <a href="<?php echo BASE_URL; ?>/SuperAdmin/constancy.php" class="btn btn-dark">
-          <i class="fas fa-arrow-left me-1"></i> Regresar
-        </a>
+      <!-- Paginación -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+        <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+        <div class="table-pagination-wrapper w-100 w-md-auto">
+          <ul class="pagination mb-0" id="pagination"></ul>
+        </div>
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/constancy.php'" class="btn btn-dark btn-compact">
+          <i class="fas fa-arrow-left"></i> Regresar
+        </button>
       </div>
     </div>
 

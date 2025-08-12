@@ -1,8 +1,8 @@
-<?php 
+<?php
 include_once('../config/verificaRol.php');
 verificarRol('superAdmin'); // Esto asegura el acceso solo a superAdmins
 
-include('../components/layoutSuper.php'); 
+include('../components/layoutSuper.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,55 +26,58 @@ include('../components/layoutSuper.php');
 <body class="bg-light">
 
   <div class="container my-4">
-    
-      <div class="card-body">
-        <h4 class="mb-4">Lista de constancias por grupos</h4>
 
-        <!-- Filtros -->
-        <div class="row g-2 mb-3">
-          <div class="col-12 col-md-4">
-            <div class="input-group">
-              <span class="input-group-text"><i class="fas fa-search"></i></span>
-              <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
-            </div>
-          </div>
+    <div class="card-body">
+      <h4 class="mb-4">Lista de constancias por grupos</h4>
 
-          <div class="col-12 col-md-4">
-            <input type="date" id="filterFecha" class="form-control">
-          </div>
-
-          <div class="col-12 col-md-4 text-md-end">
-            <button id="clearFiltersBtn" class="btn btn-outline-secondary w-100 w-md-auto">Limpiar filtros</button>
+      <!-- Filtros -->
+      <div class="row g-2 mb-3">
+        <div class="col-12 col-md-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
           </div>
         </div>
 
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table class="table table-bordered text-center" id="studentsTable">
-            <thead class="table-light">
-              <tr>
-                <th>Nombre</th>
-                <th>Fecha actividad</th>
-                <th>Tipo</th>
-                <th class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <!-- Rellenado por JS -->
-            </tbody>
-          </table>
+        <div class="col-12 col-md-4">
+          <input type="date" id="filterFecha" class="form-control">
         </div>
 
-        <!-- Paginación y botón regresar -->
-        <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-          <div id="paginationInfo" class="text-muted"></div>
-          <ul class="pagination mb-0" id="pagination"></ul>
-          <a href="<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php" class="btn btn-dark">
-            <i class="fas fa-arrow-left me-1"></i> Regresar
-          </a>
+        <div class="col-12 col-md-4 text-md-end">
+          <button id="clearFiltersBtn" class="btn btn-outline-secondary w-100 w-md-auto">Limpiar filtros</button>
         </div>
       </div>
- 
+
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table class="table table-bordered text-center" id="studentsTable">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Fecha actividad</th>
+              <th>Tipo</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Rellenado por JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
+        <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>
+
+        <div class="table-pagination-wrapper w-100 w-md-auto">
+          <ul class="pagination mb-0" id="pagination"></ul>
+        </div>
+        <button onclick="window.location.href='<?php echo BASE_URL; ?>/SuperAdmin/initSuper.php'" class="btn btn-dark btn-compact">
+          <i class="fas fa-arrow-left"></i> Regresar
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <!-- Scripts -->
@@ -83,4 +86,5 @@ include('../components/layoutSuper.php');
   <script src="<?php echo BASE_URL; ?>/SuperAdmin/js/constancy.js"></script>
 
 </body>
+
 </html>

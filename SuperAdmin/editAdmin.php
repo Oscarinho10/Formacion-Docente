@@ -28,23 +28,23 @@ if (!isset($_GET['id'])) {
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="nombre">Nombre</label>
+                            <label for="nombre">Nombre: </label>
                             <input type="text" name="nombre" id="nombre" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="apellido_paterno">Apellido Paterno</label>
+                            <label for="apellido_paterno">Apellido Paterno: </label>
                             <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="apellido_materno">Apellido Materno</label>
+                            <label for="apellido_materno">Apellido Materno: </label>
                             <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="numero_control">Número de Control</label>
+                            <label for="numero_control">Número de Control o RFC: </label>
                             <input type="text" name="numero_control" id="numero_control" class="form-control" required>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="correo">Correo Electrónico</label>
+                            <label for="correo">Correo Electrónico: </label>
                             <input type="email" name="correo" id="correo" class="form-control" required>
                         </div>
                     </div>

@@ -58,7 +58,7 @@ include('../components/layoutAdmin.php');
         </div>
 
         <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto justify-content-md-end">
-          <button class="btn btn-success" onclick="window.print()">
+          <button class="btn btn-success" onclick="prepararImpresion()">
             <i class="fas fa-print me-1"></i> Imprimir
           </button>
           <a href="checkList.php" class="btn btn-dark btn-compact">

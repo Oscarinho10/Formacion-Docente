@@ -33,7 +33,7 @@ function cargarSolicitudes() {
           <td>${usuario.correo_electronico}</td>
           <td>${rolTraducido[usuario.rol] || usuario.rol}</td>          
           <td>${usuario.fecha_solicitud || 'Desconocida'}</td>
-          <td class="text-center">
+          <td class="text-center acciones">
             <button class="btn btn-sm btn-general" onclick="confirmarRestablecer('${usuario.correo_electronico}')">
                Restablecer <i class="fas fa-check"></i>
             </button>

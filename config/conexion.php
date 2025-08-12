@@ -1,5 +1,5 @@
 <?php
-$host = " 192.168.100.4"; // 172.21.37.83 "Gio uaem" ;  // 172.21.37.84 "Ángel uaem" //Casa de Gio 192.168.100.28
+$host = "172.21.37.83"; // 172.21.37.83 "Gio uaem" ;  // 172.21.37.84 "Ángel uaem" //Casa de Gio 192.168.100.28
 $port = "5432";
 $dbname = "formacion_docente2";
 $user = "jerss";
