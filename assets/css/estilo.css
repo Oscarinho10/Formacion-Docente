@@ -679,3 +679,19 @@ th,
 td {
   white-space: nowrap;
 }
+
+/* Reorganizar el orden en pantallas pequeñas */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column-reverse;
+    }
+    .login-info {
+        margin-top: 20px;
+    }
+    .login-form {
+        order: 1;
+    }
+    .login-info {
+        order: 2;
+    }
+}
