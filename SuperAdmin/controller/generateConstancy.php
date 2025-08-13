@@ -143,3 +143,4 @@ unlink($tempQR);
 $tipoArchivo = strtolower($tipoConstancia == 'ACREDITACIÓN' ? 'participacion' : 'asistencia');
 $nombrepdf = 'constancia_' . strtolower(str_replace(' ', '_', $nombreCompleto)) . '_act' . $idActividad . '_ins' . $idInscripcion . '_' . $tipoArchivo . '.pdf';
 $pdf->Output($nombrepdf, 'I');
+?>
