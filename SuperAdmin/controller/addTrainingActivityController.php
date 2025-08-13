@@ -4,8 +4,8 @@ include_once('../../config/verificaRol.php');
 verificarRol('superAdmin'); // Solo admins pueden registrar
 
 // Usar rutas absolutas basadas en DOCUMENT_ROOT
-$carpetaPDF = $_SERVER['DOCUMENT_ROOT'] . '/uploads/temarios/';
-$carpetaIMG = $_SERVER['DOCUMENT_ROOT'] . '/uploads/imagenes/';
+$carpetaPDF = $_SERVER['DOCUMENT_ROOT'] . '/formacion/PROYECTO/Formacion-Docente/uploads/temarios/';
+$carpetaIMG = $_SERVER['DOCUMENT_ROOT'] . '/formacion/PROYECTO/Formacion-Docente/uploads/imagenes/';
 
 // Crear carpetas si no existen (por si acaso)
 if (!file_exists($carpetaPDF)) mkdir($carpetaPDF, 0777, true);
@@ -34,7 +34,7 @@ if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
 
     if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
         // Guardar SOLO el nombre del archivo
-        $temarioRuta = $nombrePDF; // Si prefieres usar la ruta relativa, usa 'uploads/temarios/' . $nombrePDF
+        $temarioRuta = $nombrePDF;
     } else {
         echo "Error al guardar el archivo PDF.";
         exit;
