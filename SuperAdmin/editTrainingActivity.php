@@ -128,10 +128,16 @@ include('../components/layoutSuper.php');
             </div>
           </div>
 
+          
+          <div class="d-flex justify-content-end mt-3 btn-responsive-container">
+            <a href="./manageAdmin.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Guardar</button>
+          </div>
+
           <!-- Botones -->
-          <div class="d-flex justify-content-end mt-3">
-            <a href="./trainingActivity.php" class="btn btn-danger mr-2">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm">Registrar</button>
+          <div class="d-flex justify-content-end mt-3 btn-responsive-container">
+            <a href="./trainingActivity.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
           </div>
         </form>
       </div>

@@ -24,8 +24,9 @@ include('../components/layoutSuper.php') ?>
 
     <div class="container mt-4">
         <h4 class="mb-3">Instructores</h4>
+
         <!-- Filtros y boton de agregar -->
-        <div class="row mb-3">
+        <div class="row g-2 align-items-end mb-4">
             <div class="col-md-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -34,7 +35,7 @@ include('../components/layoutSuper.php') ?>
             </div>
 
             <div class="col-md-6 text-end">
-                <a href="addInstructor.php" class="btn btn-primary" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
+                <a href="addInstructor.php" class="btn btn-primary w-80 w-md-auto" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
             </div>
         </div>
 
@@ -75,7 +76,7 @@ include('../components/layoutSuper.php') ?>
 
     <!-- Scripts -->
     <script src="<?php echo BASE_URL; ?>/assets/js/jquery-3.6.0.slim.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>>
+    <script src="<?php echo BASE_URL; ?>/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>/SuperAdmin/js/instructorSuper.js"></script>
 

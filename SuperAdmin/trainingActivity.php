@@ -30,7 +30,7 @@ include('../components/layoutSuper.php');
     <h4 class="mb-3">Lista de actividades</h4>
 
     <!--Filtros y boton de agregar-->
-    <div class="row mb-3">
+    <div class="row g-2 align-items-end mb-4">
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -38,7 +38,7 @@ include('../components/layoutSuper.php');
         </div>
       </div>
       <div class="col-md-6 text-end">
-        <a href="addTrainingActivity.php" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar</a>
+        <a href="addTrainingActivity.php" class="btn btn-primary w-80 w-md-auto"><i class="fas fa-plus"></i> Agregar</a>
       </div>
     </div>
 

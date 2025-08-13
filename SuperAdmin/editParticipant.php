@@ -31,7 +31,7 @@ include('../components/layoutSuper.php');
           <strong><?php echo htmlspecialchars($nombre_curso); ?></strong>
         </h4>
 
-        <form  id="formParticipante" action="controller/editParticipantController.php" method="post">
+        <form id="formParticipante" action="controller/editParticipantController.php" method="post">
           <input type="hidden" name="id_actividad" value="<?php echo $id_actividad; ?>">
           <input type="hidden" name="id_usuario" id="id_usuario">
 
@@ -53,7 +53,7 @@ include('../components/layoutSuper.php');
             <div class="col-12 col-md-4 mb-3">
               <label for="sexo" class="form-label">Sexo: </label>
               <select class="form-select" id="sexo" name="sexo" required>
-               <option value="Masculino">Masculino</option>
+                <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
                 <option value="Otro">Otro</option>
               </select>
@@ -148,9 +148,10 @@ include('../components/layoutSuper.php');
             </div>
           </div>
 
-          <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./viewUserSuper.php" class="btn btn-danger me-2 mb-2 btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2 btn-aceptar">Registrar</button>
+          <!-- Botones -->
+          <div class="d-flex justify-content-end mt-3 btn-responsive-container">
+            <a href="./viewUserSuper.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
           </div>
         </form>
       </div>

@@ -147,10 +147,12 @@ include('../components/layoutSuper.php');
             </div>
           </div>
 
-          <div class="d-flex justify-content-end mt-3 flex-wrap">
-            <a href="./viewUserSuper.php" class="btn btn-danger me-2 mb-2 btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn btn-general btn-sm mb-2 btn-aceptar">Registrar</button>
+          <!-- Botones -->
+          <div class="d-flex justify-content-end mt-3 btn-responsive-container">
+            <a href="./viewUserSuper.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
           </div>
+          
         </form>
       </div>
     </div>

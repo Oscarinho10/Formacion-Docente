@@ -28,9 +28,8 @@ include('../components/layoutAdmin.php');
 
   <div class="container mt-4">
     <h4 class="mb-3">Lista de actividades</h4>
-
     <!--Filtros y boton de agregar-->
-    <div class="row mb-3">
+    <div class="row g-2 align-items-end mb-4">
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -38,7 +37,7 @@ include('../components/layoutAdmin.php');
         </div>
       </div>
       <div class="col-md-6 text-end">
-        <a href="addActivity.php" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar</a>
+        <a href="addActivity.php" class="btn btn-primary w-80 w-md-auto"><i class="fas fa-plus"></i> Agregar</a>
       </div>
     </div>
 
@@ -59,7 +58,7 @@ include('../components/layoutAdmin.php');
         </tbody>
       </table>
     </div>
-    
+
     <!-- Paginación -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-3 gap-2">
       <div id="paginationInfo" class="text-start w-100 w-md-auto"></div>

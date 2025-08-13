@@ -30,7 +30,7 @@ include('../components/layoutAdmin.php');
     <div class="container mt-4">
         <h4 class="mb-3">Instructores</h4>
         <!-- Filtros y boton de agregar -->
-        <div class="row mb-3">
+        <div class="row g-2 align-items-end mb-4">
             <div class="col-md-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -39,7 +39,7 @@ include('../components/layoutAdmin.php');
             </div>
 
             <div class="col-md-6 text-end">
-                <a href="addInstructor.php" class="btn btn-primary" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
+                <a href="addInstructor.php" class="btn btn-primary w-80 w-md-auto" id="addButton"><i class="fas fa-plus"></i> Agregar </a>
             </div>
         </div>
 

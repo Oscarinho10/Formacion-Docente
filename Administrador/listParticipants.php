@@ -28,7 +28,7 @@ include('../components/layoutAdmin.php');
     <div class="container mt-4">
         <h4 class="mb-3">Solicitudes de participantes </h4>
         <!-- Filtros y Botón Agregar -->
-        <div class="row mb-3">
+        <div class="row g-2 align-items-end mb-4">
             <div class="col-md-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -37,7 +37,7 @@ include('../components/layoutAdmin.php');
             </div>
 
             <div class="col-md-6 text-end">
-                <a class="btn btn-primary" id="addButton" href="addParticipant.php"><i class="fas fa-plus"></i> Agregar</a>
+                <a class="btn btn-primary w-80 w-md-auto" id="addButton" href="addParticipant.php"><i class="fas fa-plus"></i> Agregar</a>
             </div>
         </div>
 

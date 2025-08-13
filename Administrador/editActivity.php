@@ -6,6 +6,7 @@ include('../components/layoutAdmin.php');
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,6 +106,7 @@ include('../components/layoutAdmin.php');
             </div> -->
           </div>
 
+          <!-- Botones -->
           <div class="d-flex justify-content-end mt-3 btn-responsive-container">
             <a href="listActivitys.php" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</a>
             <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Actualizar</button>
@@ -117,4 +119,5 @@ include('../components/layoutAdmin.php');
   <script src="<?php echo BASE_URL; ?>/assets/js/sweetAlert2.js"></script>
   <script src="<?php echo BASE_URL; ?>/Administrador/js/editActivity.js"></script>
 </body>
+
 </html>

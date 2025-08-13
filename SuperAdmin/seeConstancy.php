@@ -54,7 +54,6 @@ if ($idActividad) {
             onclick="window.open('controller/generateAllConstancys.php?id_actividad=' + actividadId, '_blank');">
             Generar Constancias de Todos
           </button>
-
         </div>
       </div>
 

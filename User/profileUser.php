@@ -64,9 +64,9 @@ include('../components/layout.php');
                         <input type="text" style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;" id="numero_control_rfc" readonly>
                     </div>
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end mt-3">
+                    <div class="d-flex justify-content-end mt-3 btn-responsive-container">
                         <button onclick="window.location.href='<?php echo BASE_URL; ?>/User/initUser.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Regresar</button>
-                        <button type="submit" class="btn btn-sm btn-general col-2">Guardar</button>
+                        <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Guardar</button>
                     </div>
                 </form>
             </div>

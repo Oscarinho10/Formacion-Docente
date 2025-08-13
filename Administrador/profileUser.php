@@ -58,11 +58,12 @@ include('../components/layoutAdmin.php');
                             id="togglePassword"
                             style="position: absolute; top: 70%; right: 10px; transform: translateY(-50%); cursor: pointer; color: #6c757d;"></i>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="numero_control_rfc">Número de Control: *</label>
                         <input type="text" style="width: 100%; padding: 8px; box-sizing: border-box; background:#D8D8D8;" id="numero_control_rfc" readonly>
                     </div>
+
                     <!-- Botones -->
                     <div class="d-flex justify-content-end mt-3 btn-responsive-container">
                         <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/initAdmin.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Regresar</button>

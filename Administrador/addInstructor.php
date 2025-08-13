@@ -160,9 +160,9 @@ include('../components/layoutAdmin.php');
                             <option value="Instituto de Investigación en Humanidades y Ciencias Sociales">Instituto de Investigación en Humanidades y Ciencias Sociales</option>
                         </select>
                     </div>
-
+                    
                     <!-- Botones -->
-                    <div class="d-flex justify-content-end col-12 mb-10 mt-3 btn-responsive-container">
+                    <div class="d-flex justify-content-end mt-3 btn-responsive-container">
                         <button onclick="window.location.href='<?php echo BASE_URL; ?>/Administrador/listInstructors.php'" class="btn btn-sm btn-danger me-2 col-2 py-2">Cancelar</button>
                         <button type="submit" class="btn btn-sm btn-general me-2 col-2 py-2">Registrar</button>
                     </div>
