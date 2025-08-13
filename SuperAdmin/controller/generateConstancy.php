@@ -5,13 +5,13 @@ require_once(dirname(__FILE__) . '/../../config/conexion.php');
 $idInscripcion = isset($_GET['id_inscripcion']) ? (int)$_GET['id_inscripcion'] : 0;
 
 if ($idInscripcion <= 0) {
-    echo "ID de inscripción no proporcionado.";
-    exit;
+  echo "ID de inscripción no proporcionado.";
+  exit;
 }
 
 if (!$conn) {
-    echo "Error de conexión a la base de datos.";
-    exit;
+  echo "Error de conexión a la base de datos.";
+  exit;
 }
 
 // Consulta con base en id_inscripcion
@@ -59,8 +59,8 @@ LIMIT 1;
 
 $res = pg_query($conn, $sql);
 if (!$res || pg_num_rows($res) == 0) {
-    echo "No se encontró la información del participante.";
-    exit;
+  echo "No se encontró la información del participante.";
+  exit;
 }
 
 $row = pg_fetch_assoc($res);
@@ -68,20 +68,20 @@ $row = pg_fetch_assoc($res);
 // Validación para determinar tipo de constancia
 $porcentaje = 0;
 if ($row['total_sesiones'] > 0) {
-    $porcentaje = ($row['asistencias_validas'] / $row['total_sesiones']) * 100;
+  $porcentaje = ($row['asistencias_validas'] / $row['total_sesiones']) * 100;
 }
 $tieneEntrega = $row['entrego_actividad'] > 0;
 $tipoConstancia = "";
 
 if ($row['tipo_evaluacion'] == 'actividad') {
-    $tipoConstancia = ($porcentaje >= 80 && $tieneEntrega) ? 'ACREDITACIÓN' : 'NO_APLICA';
+  $tipoConstancia = ($porcentaje >= 80 && $tieneEntrega) ? 'ACREDITACIÓN' : 'NO_APLICA';
 } else {
-    $tipoConstancia = ($porcentaje >= 80) ? 'ASISTENCIA' : 'NO_APLICA';
+  $tipoConstancia = ($porcentaje >= 80) ? 'ASISTENCIA' : 'NO_APLICA';
 }
 
 if ($tipoConstancia == 'NO_APLICA') {
-    echo "El participante no cumple con los requisitos para una constancia.";
-    exit;
+  echo "El participante no cumple con los requisitos para una constancia.";
+  exit;
 }
 
 // Datos finales
@@ -96,7 +96,7 @@ $idActividad = $row['id_actividad'];
 $idInscripcion = $row['id_inscripcion'];
 
 // Generar PDF
-$nombreImagenFondo = $_SERVER['DOCUMENT_ROOT'] . '/formacion/PROYECTO/Formacion-Docente/assets/img/plantilla_constancia.jpg';
+$nombreImagenFondo = dirname(__FILE__) . '/../../assets/img/plantilla_constancia.jpg';
 $pdf = new FPDF('L', 'mm', 'Letter');
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(false);
@@ -133,7 +133,7 @@ $pdf->Cell(0, 6, 'Clave: ' . $clave, 0, 1, 'L');
 // Código QR
 $qrUrl = 'https://docencia.uaem.mx/formacion/PROYECTO/Formacion-Docente/login.php';
 $qrApi = 'http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($qrUrl);
-$tempQR = $_SERVER['DOCUMENT_ROOT'] . '/formacion/PROYECTO/Formacion-Docente/assets/temp/temp_qr.png';
+$tempQR = dirname(__FILE__) . '/../../assets/temp/temp_qr.png';
 if (!file_exists(dirname($tempQR))) mkdir(dirname($tempQR), 0777, true);
 file_put_contents($tempQR, file_get_contents($qrApi));
 $pdf->Image($tempQR, 235, 155, 30, 30);
@@ -143,4 +143,3 @@ unlink($tempQR);
 $tipoArchivo = strtolower($tipoConstancia == 'ACREDITACIÓN' ? 'participacion' : 'asistencia');
 $nombrepdf = 'constancia_' . strtolower(str_replace(' ', '_', $nombreCompleto)) . '_act' . $idActividad . '_ins' . $idInscripcion . '_' . $tipoArchivo . '.pdf';
 $pdf->Output($nombrepdf, 'I');
-?>
