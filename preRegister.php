@@ -63,7 +63,7 @@ define('BASE_URL', '/formacion/PROYECTO/Formacion-Docente');
                 <option value="">Seleccione</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
-                <option value="NoEspecificado">Prefiero no decirlo</option>
+                <option value="Otro">Prefiero no decirlo</option>
               </select>
             </div>
 

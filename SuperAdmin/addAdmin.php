@@ -57,9 +57,9 @@ include('../components/layoutSuper.php')
                             <label for="sexo">Sexo: </label>
                             <select name="sexo" class="form-select" required>
                                 <option value="">Seleccione</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Femenino</option>
-                                <option value="O">Otro</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
 

@@ -66,7 +66,7 @@ include('../components/layoutAdmin.php');
                                 <option value="">Seleccione</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
-                                <option value="No Especificado">Prefiero no decirlo</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
 
