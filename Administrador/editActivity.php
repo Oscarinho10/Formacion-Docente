@@ -94,7 +94,7 @@ include('../components/layoutAdmin.php');
               <input type="date" id="fecha_fin" name="fecha_fin" style="width: 100%; padding: 8px;" required>
             </div>
 
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
               <label for="temario_pdf">Temario PDF (opcional):</label>
               <input type="file" id="temario_pdf" name="temario_pdf" style="width: 100%; padding: 8px;" accept=".pdf">
             </div>
@@ -102,7 +102,7 @@ include('../components/layoutAdmin.php');
             <div class="col-md-4 mb-3">
               <label for="url_imagen">Imagen (opcional):</label>
               <input type="file" id="url_imagen" name="url_imagen" style="width: 100%; padding: 8px;" accept="image/*">
-            </div>
+            </div> -->
           </div>
 
           <div class="d-flex justify-content-end mt-3 btn-responsive-container">

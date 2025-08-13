@@ -110,7 +110,7 @@ include('../components/layoutAdmin.php');
                         </div>
 
                         <!-- Archivos -->
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <label for="temario_pdf">Agregar temario en PDF:</label><br />
                             <input type="file" id="temario_pdf" name="temario_pdf" accept=".pdf" style="width: 100%; padding: 8px;">
                         </div>
@@ -118,7 +118,7 @@ include('../components/layoutAdmin.php');
                         <div class="col-md-4 mb-3">
                             <label for="url_imagen">Agregar imagen:</label><br />
                             <input type="file" id="url_imagen" name="url_imagen" accept="image/*" style="width: 100%; padding: 8px;">
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Botones -->
