@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Cargar datos del perfil al iniciar
     $.ajax({
-        url: 'controller/profileUserController.php',
+        url: 'Controller/profileUserController.php',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -64,7 +64,7 @@ $(document).ready(function () {
                 }
 
                 $.ajax({
-                    url: 'controller/profileUserController.php',
+                    url: 'Controller/profileUserController.php',
                     type: 'POST',
                     data: data,
                     success: function (response) {

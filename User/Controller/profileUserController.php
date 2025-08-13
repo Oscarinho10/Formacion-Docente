@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $row = pg_fetch_assoc($result);
         echo json_encode($row);
     } else {
-        echo '{"error":"Administrador no encontrado."}';
+        echo '{"error":"Usuario no encontrado."}';
     }
     exit;
 }
