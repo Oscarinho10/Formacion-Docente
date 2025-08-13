@@ -3,13 +3,13 @@ include('../../config/conexion.php');
 include_once('../../config/verificaRol.php');
 verificarRol('superAdmin'); // Solo admins pueden registrar
 
-// Rutas relativas desde este script (NO empiezan con /)
-$carpetaPDF = '../../uploads/temarios/';
-$carpetaIMG = '../../uploads/imagenes/';
+// Usar rutas absolutas basadas en DOCUMENT_ROOT
+$carpetaPDF = $_SERVER['DOCUMENT_ROOT'] . '/uploads/temarios/';
+$carpetaIMG = $_SERVER['DOCUMENT_ROOT'] . '/uploads/imagenes/';
 
 // Crear carpetas si no existen (por si acaso)
-// if (!file_exists($carpetaPDF)) mkdir($carpetaPDF, 0777, true);
-// if (!file_exists($carpetaIMG)) mkdir($carpetaIMG, 0777, true);
+if (!file_exists($carpetaPDF)) mkdir($carpetaPDF, 0777, true);
+if (!file_exists($carpetaIMG)) mkdir($carpetaIMG, 0777, true);
 
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
@@ -29,14 +29,15 @@ $fecha_fin = $_POST['fecha_fin'];
 // --------------------
 $temarioRuta = '';
 if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
-    if (!is_dir($carpetaPDF)) { mkdir($carpetaPDF, 0777, true); }
     $nombrePDF = basename($_FILES['temario_pdf']['name']);
     $rutaDestinoPDF = $carpetaPDF . $nombrePDF;
 
     if (move_uploaded_file($_FILES['temario_pdf']['tmp_name'], $rutaDestinoPDF)) {
-        // Puedes dejar solo el nombre o la ruta. Si quieres coherencia total, usa SOLO nombre:
-        $temarioRuta = $nombrePDF; // <— queda solo el nombre
-        // Si prefieres conservar ruta relativa: $temarioRuta = 'uploads/temarios/' . $nombrePDF;
+        // Guardar SOLO el nombre del archivo
+        $temarioRuta = $nombrePDF; // Si prefieres usar la ruta relativa, usa 'uploads/temarios/' . $nombrePDF
+    } else {
+        echo "Error al guardar el archivo PDF.";
+        exit;
     }
 }
 
@@ -45,13 +46,15 @@ if (isset($_FILES['temario_pdf']) && $_FILES['temario_pdf']['error'] == 0) {
 // --------------------
 $imagenRuta = '';
 if (isset($_FILES['url_imagen']) && $_FILES['url_imagen']['error'] == 0) {
-    if (!is_dir($carpetaIMG)) { mkdir($carpetaIMG, 0777, true); }
     $nombreIMG = basename($_FILES['url_imagen']['name']);
     $rutaDestinoIMG = $carpetaIMG . $nombreIMG;
 
     if (move_uploaded_file($_FILES['url_imagen']['tmp_name'], $rutaDestinoIMG)) {
-        // ✅ Guardamos SOLO el nombre para evitar duplicar rutas al renderizar
+        // Guardar SOLO el nombre del archivo
         $imagenRuta = $nombreIMG;
+    } else {
+        echo "Error al guardar la imagen.";
+        exit;
     }
 }
 
